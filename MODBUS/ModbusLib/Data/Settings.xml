@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<LogPath>C:/MBData/Log</LogPath>
+	<DataPath>C:/MBData</DataPath>
+	<HoursDiff>2</HoursDiff>	
+	<InitFiles>
+		<string>Data\MBDataFullDB.xml</string>
+	</InitFiles>
+	<DBDateFormat>yyyy-MM-dd HH:mm:ss</DBDateFormat>
+</Settings>	

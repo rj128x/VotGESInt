@@ -1,0 +1,104 @@
+﻿<navigation:Page xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"  x:Class="MainSL.Views.PrognozNBPage" 
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           mc:Ignorable="d"
+           xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
+			  xmlns:usr="clr-namespace:MainSL.Views" 
+           d:DesignWidth="640" d:DesignHeight="480"
+           Title="Прогноз НБ">
+	<Grid x:Name="LayoutRoot">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="Auto"/>
+		</Grid.ColumnDefinitions>
+		<usr:ChartControl x:Name="chartControl" VerticalAlignment="Stretch"/>
+		<StackPanel Name="rightPanel" Grid.Column="1">
+			<StackPanel Name="pnlSettings">
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+					<TextBlock Text="Прогноз на " Style="{StaticResource Label}"/>
+					<TextBox Name="txtCountDays" Width="30" TextAlignment="Right" Text="{Binding CountDays, Mode=TwoWay}" 								
+							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+					<TextBlock Text=" дней вперед" Style="{StaticResource Label}"/>
+				</StackPanel>
+				<Button Name="btnGetPrognoz" Click="btnGetPrognoz_Click" Content="Задать ПБР"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				<Button Name="btnClearPBR" Click="btnClearPBR_Click" Content="ПБР с сервера"
+					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+			</StackPanel>
+			<StackPanel Name="pnlAnswer" Margin="0,10,0,0">
+				<Border>
+					<StackPanel>
+						<TextBlock Text="С начала суток" Style="{StaticResource Label}" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"/>
+						<TextBlock Text="Выработка (МВт):" Style="{StaticResource Label}"/>
+						<TextBlock Text="{Binding VyrabFakt, StringFormat='#,#0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>
+						<TextBlock Text="Расход (куб.м/с):" Style="{StaticResource Label}"/>
+						<TextBlock Text="{Binding QFakt, StringFormat='#,#0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>
+						<TextBlock Text="Нижний бьеф (среднее)" Style="{StaticResource Label}"/>
+						<TextBlock Text="{Binding NBAvg, StringFormat='00.00'}" Style="{StaticResource Value}"/>
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+							<TextBlock Text="НБмин=" Style="{StaticResource Label}" Margin="10,0,0,0"/>
+							<TextBlock Text="{Binding NBMin, StringFormat='00.00'}" Style="{StaticResource Value}"/>
+							<TextBlock Text="НБмакс=" Style="{StaticResource Label}" Margin="10,0,0,0"/>
+							<TextBlock Text="{Binding NBMax, StringFormat='00.00'}" Style="{StaticResource Value}"/>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+
+				<Border>
+					<StackPanel>
+						<TextBlock Text="Прогноз"  Style="{StaticResource Label}" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"/>
+						<sdk:DataGrid Name="LegendGrid" AutoGenerateColumns="False" 
+							   ItemsSource="{Binding PrognozValues}">
+							<sdk:DataGrid.Columns>
+								<sdk:DataGridTemplateColumn Header="Дата" ClipboardContentBinding="{Binding Date, StringFormat='dd.MM.yy'}">
+									<sdk:DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding Date, StringFormat='dd.MM.yy'}"/>
+										</DataTemplate>
+									</sdk:DataGridTemplateColumn.CellTemplate>
+								</sdk:DataGridTemplateColumn>
+								<sdk:DataGridTemplateColumn Header="P" ClipboardContentBinding="{Binding Vyrab}">
+									<sdk:DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding Vyrab, StringFormat='#,#0'}"/>
+										</DataTemplate>
+									</sdk:DataGridTemplateColumn.CellTemplate>
+								</sdk:DataGridTemplateColumn>
+								<sdk:DataGridTemplateColumn Header="Q" ClipboardContentBinding="{Binding QAvg}">
+									<sdk:DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding QAvg, StringFormat='#,#0'}"/>
+										</DataTemplate>
+									</sdk:DataGridTemplateColumn.CellTemplate>
+								</sdk:DataGridTemplateColumn>
+								<sdk:DataGridTemplateColumn Header="НБ ср" Width="40" ClipboardContentBinding="{Binding NBAvg}">
+									<sdk:DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding NBAvg, StringFormat='#,#0.00'}"/>
+										</DataTemplate>
+									</sdk:DataGridTemplateColumn.CellTemplate>
+								</sdk:DataGridTemplateColumn>
+								<sdk:DataGridTemplateColumn Header="НБ мин" Width="40" ClipboardContentBinding="{Binding NBMin}">
+									<sdk:DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding NBMin, StringFormat='#,#0.00'}"/>
+										</DataTemplate>
+									</sdk:DataGridTemplateColumn.CellTemplate>
+								</sdk:DataGridTemplateColumn>
+								<sdk:DataGridTemplateColumn Header="НБ макс" Width="40" ClipboardContentBinding="{Binding NBMax}">
+									<sdk:DataGridTemplateColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding NBMax, StringFormat='#,#0.00'}"/>
+										</DataTemplate>
+									</sdk:DataGridTemplateColumn.CellTemplate>
+								</sdk:DataGridTemplateColumn>
+							</sdk:DataGrid.Columns>
+						</sdk:DataGrid>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+		</StackPanel>
+	</Grid>
+</navigation:Page>
