@@ -43,7 +43,7 @@ namespace VotGES.Piramida.Report
 			ReportMainRecords.AddCalcRecords(this, false, false, result);
 
 			ReportMBRecords.AddRecordsMB(this, parNumber, 1, 1, false, false, DBOperEnum.eq, ResultTypeEnum.avg);
-			ReportMBRecords.AddCalcRecords(this, false, false, result);
+			ReportMBRecords.AddCalcRecords(this, false, false, ResultTypeEnum.avg);
 		}
 
 		public void InitNeedData(List<String> selected) {
