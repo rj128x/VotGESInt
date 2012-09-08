@@ -35,7 +35,7 @@ namespace MainSL
 			this.ApplicationLifetimeObjects.Add(webcontext);
 
 			WebContext.Current.Authentication.LoadUser(OnLoadUser_Completed, null);
-			InitializeComponent();
+			InitializeComponent();			
 		}
 
 		private void OnLoadUser_Completed(LoadUserOperation operation) {

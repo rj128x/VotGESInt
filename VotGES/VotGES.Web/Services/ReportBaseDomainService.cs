@@ -62,6 +62,19 @@ namespace VotGES.Web.Services
 			}
 		}
 
+		public string GetSutVedReport(DateTime date) {
+			try {
+				Logger.Info("Получение суточной ведомости " + date);
+				SutVedReport report=new SutVedReport(date.Date, date.Date.AddDays(1), IntervalReportEnum.hour);
+				report.ReadData();
+				Logger.Info("Суточная ведомость сформирована ");
+				return "OK";
+			} catch (Exception e) {
+				Logger.Error("Ошибка при получении суточной ведомости " + e.ToString());
+				return null;
+			}
+		}
+
 	}
 }
 

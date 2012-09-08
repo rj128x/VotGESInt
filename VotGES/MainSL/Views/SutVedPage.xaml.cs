@@ -37,23 +37,12 @@ namespace MainSL.Views
 		}
 
 		private void btnGetReport_Click(object sender, RoutedEventArgs e) {
-			InvokeOperation currentOper=context.GetRezhimSKReport(settings.Date,
-				oper => {
-					if (oper.IsCanceled) {
-						return;
-					}
-					GlobalStatus.Current.StartProcess();
-					try {
-						
-
-					} catch (Exception ex) {
-						Logging.Logger.info(ex.ToString());
-						GlobalStatus.Current.ErrorLoad("Ошибка");
-					} finally {
-						GlobalStatus.Current.StopLoad();
-					}
-				}, null);
-			GlobalStatus.Current.StartLoad(currentOper);
+			string host=Application.Current.Host.Source.Host;
+			int port=Application.Current.Host.Source.Port;
+			Uri uri=new Uri(String.Format("http://{0}:{1}/Reports/SutVed?year={2}&month={3}&day={4}",host,port,
+				settings.Date.Year,settings.Date.Month,settings.Date.Day));
+			System.Windows.Browser.HtmlPopupWindowOptions options=new System.Windows.Browser.HtmlPopupWindowOptions();
+			System.Windows.Browser.HtmlPage.PopupWindow(uri, "", options);
 		}
 
 

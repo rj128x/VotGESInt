@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VotGES.Piramida.Report
 {
-	class ReportMBRecords
+	public class ReportMBRecords
 	{
 		public static RecordTypeCalc MB_GA1_Istator=new RecordTypeCalc("MB_GA1_Istator", "ГА-1 ток статора", null);
 		public static RecordTypeCalc MB_GA2_Istator=new RecordTypeCalc("MB_GA2_Istator", "ГА-2 ток статора", null);
@@ -19,6 +19,7 @@ namespace VotGES.Piramida.Report
 		public static RecordTypeCalc MB_GA10_Istator=new RecordTypeCalc("MB_GA10_Istator", "ГА-10 ток статора", null);
 		public static RecordTypeCalc MB_U_220=new RecordTypeCalc("MB_U_220", "U 220", null);
 		public static RecordTypeCalc MB_U_110=new RecordTypeCalc("MB_U_110", "U 110", null);
+		public static RecordTypeCalc MB_U_500=new RecordTypeCalc("MB_U_500", "U 500", null);
 		public static RecordTypeCalc MB_F_220=new RecordTypeCalc("MB_F_220", "F 220", null);
 		public static RecordTypeCalc MB_F_110=new RecordTypeCalc("MB_F_110", "F 110", null);
 
@@ -113,6 +114,11 @@ namespace VotGES.Piramida.Report
 				new RecordCalcDelegate((report, date) => {
 					return (report[date, PiramidaRecords.MB_F_1SH_220.Key] + report[date, PiramidaRecords.MB_F_2SH_220.Key]) / 2;
 				});
+
+			MB_U_500.CalcFunction =
+				new RecordCalcDelegate((report, date) => {
+					return (report[date, PiramidaRecords.MB_U_1SH_220.Key] + report[date, PiramidaRecords.MB_U_2SH_220.Key]) / 2;
+				});
 		}
 
 		static ReportMBRecords() {
@@ -134,6 +140,7 @@ namespace VotGES.Piramida.Report
 			report.AddRecordType(new RecordTypeCalc(MB_U_220, toChart, visible, oper));
 			report.AddRecordType(new RecordTypeCalc(MB_F_110, toChart, visible, oper));
 			report.AddRecordType(new RecordTypeCalc(MB_F_220, toChart, visible, oper));
+			report.AddRecordType(new RecordTypeCalc(MB_U_500, toChart, visible, oper));
 		}
 
 		public static void AddRecordsMB(Report report, int parNumber, double scaleMult, double scaleDiv, bool visible, bool toChart, DBOperEnum oper, ResultTypeEnum result) {

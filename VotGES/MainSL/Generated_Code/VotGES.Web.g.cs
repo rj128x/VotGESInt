@@ -4414,6 +4414,34 @@ namespace VotGES.Web.Services
         }
         
         /// <summary>
+        /// Асинхронно вызывает метод "GetSutVedReport" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<string> GetSutVedReport(DateTime date, Action<InvokeOperation<string>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            this.ValidateMethod("GetSutVedReport", parameters);
+            return ((InvokeOperation<string>)(this.InvokeOperation("GetSutVedReport", typeof(string), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "GetSutVedReport" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<string> GetSutVedReport(DateTime date)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            this.ValidateMethod("GetSutVedReport", parameters);
+            return ((InvokeOperation<string>)(this.InvokeOperation("GetSutVedReport", typeof(string), parameters, true, null, null)));
+        }
+        
+        /// <summary>
         /// Создает новый объект EntityContainer для наборов сущностей EntitySets данного контекста DomainContext.
         /// </summary>
         /// <returns>Новый экземпляр контейнера.</returns>
@@ -4484,6 +4512,24 @@ namespace VotGES.Web.Services
             /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginGetRezhimSKReport".</param>
             /// <returns>Объект "ReportAnswer", возвращенный из операции "GetRezhimSKReport".</returns>
             ReportAnswer EndGetRezhimSKReport(IAsyncResult result);
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "GetSutVedReport".
+            /// </summary>
+            /// <param name="date">Значение параметра "date" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/ReportBaseDomainService/GetSutVedReportDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ReportBaseDomainService/GetSutVedReport", ReplyAction="http://tempuri.org/ReportBaseDomainService/GetSutVedReportResponse")]
+            IAsyncResult BeginGetSutVedReport(DateTime date, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BeginGetSutVedReport".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginGetSutVedReport".</param>
+            /// <returns>Объект "String", возвращенный из операции "GetSutVedReport".</returns>
+            string EndGetSutVedReport(IAsyncResult result);
         }
         
         internal sealed class ReportBaseDomainContextEntityContainer : EntityContainer
