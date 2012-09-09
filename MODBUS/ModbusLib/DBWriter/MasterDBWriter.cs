@@ -130,7 +130,7 @@ namespace ModbusLib
 				if (DepthMin >= 0) {
 					Process(DateTime.Now, RWModeEnum.min, depthMin);
 				}				
-				if (DateTime.Now.Minute % 30 < 15 && LastHHDate.AddMinutes(20)<DateTime.Now) {					
+				if (DateTime.Now.Minute % 30 < 5 && LastHHDate.AddMinutes(20)<DateTime.Now) {					
 					Process(DateTime.Now, RWModeEnum.hh, DepthHH);
 					LastHHDate = DateTime.Now;
 				}

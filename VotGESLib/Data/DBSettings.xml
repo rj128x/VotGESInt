@@ -4,7 +4,7 @@
 	<Databases>
 		<DBInfo>
 			<ID>PSV</ID>
-			<Address>.\SQLExpress</Address>
+			<Address>192.168.140.240</Address>
 			<DBName>PiramidaSV</DBName>
 			<User>sa</User>
 			<Password>pswd</Password>

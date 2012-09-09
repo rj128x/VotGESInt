@@ -100,7 +100,7 @@ namespace ModbusLib
 		public void writeData( SortedList<int, double> ResultData) {
 			getWriter(DateTime.Now);
 			double val;
-			string nm;
+			//string nm;
 			List<double> values=new List<double>();
 			foreach (KeyValuePair<int,double> de in ResultData) {				
 				if (Headers.Contains(de.Key)) {

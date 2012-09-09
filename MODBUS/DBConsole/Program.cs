@@ -10,7 +10,7 @@ namespace DBConsole
 {
 	class Program
 	{
-		static void Main1(string[] args) {
+		static void Main(string[] args) {
 
 			try {
 				Settings.init();
@@ -28,7 +28,7 @@ namespace DBConsole
 			}
 		}
 
-		static void Main(string[] args) {
+		static void Main1(string[] args) {
 
 			try {
 				Settings.init();
