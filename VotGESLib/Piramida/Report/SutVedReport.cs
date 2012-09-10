@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using VotGES.PBR;
 
 namespace VotGES.Piramida.Report
 {	
 	public class SutVedReport : Report
 	{
+
+		public PBRDataHH PBR { get; set; }
 		public SutVedReport(DateTime dateStart, DateTime dateEnd, IntervalReportEnum interval) :
 			base(dateStart, dateEnd, interval) {
 			int pn=12;
@@ -35,11 +38,15 @@ namespace VotGES.Piramida.Report
 			RecordTypeDB pFakt=new RecordTypeDB(PiramidaRecords.P_GES, parNumber: 12, visible: true, toChart: false, divParam: 1000, multParam: 1, resultType: ResultTypeEnum.avg, dbOper: DBOperEnum.avg);
 			pFakt.ID = "P_FAKT_AVG";
 			this.AddRecordType(pFakt);
+
+			
 		}
 
 
 		public override void ReadData() {
 			base.ReadData();
+			PBR = new PBRDataHH(DateStart, DateEnd, 0);
+			PBR.InitData();
 		}
 
 	}

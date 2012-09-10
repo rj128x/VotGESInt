@@ -110,10 +110,11 @@
 			<th>P<sub>факт</sub></th>
 			
 		</tr>
-		<%foreach (DateTime date in Model.Dates) {
+		<%		 
+			DateTime dt=Model.Dates.First();
+		 foreach (DateTime date in Model.Dates) {
 		 if (date.Minute == 0) {
 		 %>
-
 			<tr>				
 				<th><%=date.ToString("HH:mm")%></th>
 				<td><%=Model[date, PiramidaRecords.MB_P_GES.Key].ToString("0.00")%></td>
@@ -131,16 +132,16 @@
 				<td><%=Model[date, PiramidaRecords.MB_NB_Sgl.Key].ToString("0.00")%></td>
 				<td><%=Model[date, PiramidaRecords.MB_T.Key].ToString("0.00")%></td>
 				<td><%=Model[date, PiramidaRecords.MB_Rashod.Key].ToString("0.00")%></td>
-
-				<th><%=date.AddMinutes(-30).ToString("HH:mm")%></th>
-				<td><%=Model[date.AddMinutes(-30), "P_PLAN_AVG"].ToString("0.00")%></td>
-				<td><%=Model[date.AddMinutes(-30), PiramidaRecords.MB_P_GES.Key].ToString("0.00")%></td>
-
-				<th><%=date.ToString("HH:mm")%></th>
-				<td><%=Model[date, "P_PLAN_AVG"].ToString("0.00")%></td>
-				<td><%=Model[date, PiramidaRecords.MB_P_GES.Key].ToString("0.00")%></td>
+								
+				<th><%=dt.ToString("HH:mm")%></th>
+				<td><%=Model.PBR.HalfHoursPBR[dt].ToString("0.00")%></td>
+				<td><%=Model.PBR.HalfHoursP[dt].ToString("0.00")%></td>
+				
+				<th><%=dt.AddHours(12).ToString("HH:mm")%></th>			
+				<td><%=Model.PBR.HalfHoursPBR[dt.AddHours(12)].ToString("0.00")%></td>
+				<td><%=Model.PBR.HalfHoursP[dt.AddHours(12)].ToString("0.00")%></td>
 			</tr>
-		<%}
+		<%dt = dt.AddMinutes(30);}			 
 	 } %>
 		<tr>
 				<th>Среднее</th>
@@ -159,6 +160,12 @@
 				<td><%=Model.ResultData["NB_AVG"].ToString("0.00") %></td>
 				<td><%=Model.ResultData["T_AVG"].ToString("0.00") %></td>
 				<td><%=Model.ResultData["RASHOD_AVG"].ToString("0.00") %></td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<th>Итог</th>
+				<td><%=(Model.PBR.PBRSum).ToString("0.00")%></td>
+				<td><%=(Model.PBR.PSum).ToString("0.00")%></td>
 			</tr>
 	</table>
 	<hr />	

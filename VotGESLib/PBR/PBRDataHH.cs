@@ -6,7 +6,7 @@ using VotGES.Piramida;
 
 namespace VotGES.PBR
 {
-	class PBRDataHH
+	public class PBRDataHH
 	{
 		public DateTime DateStart{get;protected set;}
 		public DateTime DateEnd{get;protected set;}
@@ -19,6 +19,8 @@ namespace VotGES.PBR
 
 		public SortedList<DateTime, double> HoursPBR { get; protected set; }
 		public SortedList<DateTime, double> HalfHoursPBR { get; protected set; }
+		public double PBRSum { get; protected set; }
+		public double PSum { get; protected set; }
 
 
 
@@ -74,13 +76,12 @@ namespace VotGES.PBR
 			DateTime date=DateStart.AddMinutes(30);
 			while (date <= DateEnd) {
 				if (!HalfHoursP.Keys.Contains(date)) {
-					if (HalfHoursP.Keys.Contains(date.AddMinutes(-30))) {
+					/*if (HalfHoursP.Keys.Contains(date.AddMinutes(-30))) {
 						HalfHoursP.Add(date, HalfHoursP[date.AddMinutes(-30)]);
 					} else {
 						HalfHoursP.Add(date, -1);
-						//Logger.Info("Не записана мощность " + date.ToString());
-						//RealP.Add(date, GTPIndex * 100 + 100 + r.Next(-10, 10));
-					}
+					}*/
+					HalfHoursP.Add(date, 0);
 				}
 				date = date.AddMinutes(30);
 			}
@@ -148,6 +149,16 @@ namespace VotGES.PBR
 		public void InitData() {
 			readData();
 			checkData();
+			PBRSum = 0;
+			PSum = 0;
+
+			foreach (double val in HoursPBR.Values){
+				PBRSum+=val;
+			}
+
+			foreach (double val in HoursP.Values) {
+				PSum += val;
+			}
 		}
 				
 	}
