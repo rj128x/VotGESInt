@@ -29,17 +29,7 @@ namespace VotGES.Piramida.Report
 			this.AddRecordType(vbAvg);
 			this.AddRecordType(nbAvg);
 			this.AddRecordType(rashodAvg);
-			this.AddRecordType(tAvg);
-
-			RecordTypeDB pPlan=new RecordTypeDB(PiramidaRecords.P_GES, parNumber: 212, visible: true, toChart: false, divParam: 1000, multParam: 1, resultType: ResultTypeEnum.avg, dbOper: DBOperEnum.avg);
-			pPlan.ID = "P_PLAN_AVG";
-			this.AddRecordType(pPlan);
-
-			RecordTypeDB pFakt=new RecordTypeDB(PiramidaRecords.P_GES, parNumber: 12, visible: true, toChart: false, divParam: 1000, multParam: 1, resultType: ResultTypeEnum.avg, dbOper: DBOperEnum.avg);
-			pFakt.ID = "P_FAKT_AVG";
-			this.AddRecordType(pFakt);
-
-			
+			this.AddRecordType(tAvg);			
 		}
 
 
