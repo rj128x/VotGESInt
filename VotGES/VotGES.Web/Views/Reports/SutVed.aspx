@@ -62,7 +62,7 @@
 		
 		table.cifr
 		{
-			margin-top:10px;
+			margin-top:5px;
 		}
 
 		table td.right,table th.right{
@@ -71,7 +71,8 @@
 	 </style>
 </head>
 
-<% int[] hours={0,1,5,10,16,19,22}; %>
+<% int[] hours={0,1,5,10,16,19,22}; 
+	//int[] hours= { 6,7,8,9,10};%>
 <body>
 	<h1>Суточная ведомость за <%=Model.DateStart.ToString("dd.MM.yyy")%></h1>
 	<hr />		

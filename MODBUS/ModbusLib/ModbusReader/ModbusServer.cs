@@ -104,7 +104,12 @@ namespace ModbusLib
 
 			int[] word=new int[data.Length / 2];
 			for (int i=0; i < data.Length; i = i + 2) {
-				word[i / 2] = data[i] * 256 + data[i + 1];
+				//word[i / 2] = data[i] * 256 + data[i + 1];
+				byte w1=data[i];
+				byte w2=data[i + 1];
+				byte[] vals=new byte[]{w2,w1};
+				int w=BitConverter.ToInt16(vals, 0);
+				word[i / 2] = w;
 			}
 
 			ushort startAddr=id;
