@@ -84,6 +84,7 @@
 			<th colspan='3'>P 500 кВ</th>
 			<th colspan='3'>Q 500 кВ</th>
 			<th colspan='4'>Общестанционные</th>
+			<th colspan='6'>Режим</th>
 		</tr>
 		<tr>
 			<th>P</th>
@@ -101,6 +102,13 @@
 			<th>НБ</th>
 			<th>Т</th>
 			<th>Расх</th>
+			<th>Час</th>
+			<th>P<sub>план</sub></th>
+			<th>P<sub>факт</sub></th>
+			<th>Час</th>
+			<th>P<sub>план</sub></th>
+			<th>P<sub>факт</sub></th>
+			
 		</tr>
 		<%foreach (DateTime date in Model.Dates) {
 		 if (date.Minute == 0) {
@@ -124,6 +132,13 @@
 				<td><%=Model[date, PiramidaRecords.MB_T.Key].ToString("0.00")%></td>
 				<td><%=Model[date, PiramidaRecords.MB_Rashod.Key].ToString("0.00")%></td>
 
+				<th><%=date.AddMinutes(-30).ToString("HH:mm")%></th>
+				<td><%=Model[date.AddMinutes(-30), "P_PLAN_AVG"].ToString("0.00")%></td>
+				<td><%=Model[date.AddMinutes(-30), PiramidaRecords.MB_P_GES.Key].ToString("0.00")%></td>
+
+				<th><%=date.ToString("HH:mm")%></th>
+				<td><%=Model[date, "P_PLAN_AVG"].ToString("0.00")%></td>
+				<td><%=Model[date, PiramidaRecords.MB_P_GES.Key].ToString("0.00")%></td>
 			</tr>
 		<%}
 	 } %>

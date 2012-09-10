@@ -105,7 +105,7 @@
 		<ModbusInitData ID='88' Addr='88' Name='Кау-2 220' Scale='0.1'  WriteToDBHH='1'/>
 		<ModbusInitData ID='89' Addr='89' Name='Кау-2 220_FLAG' Scale='1' />
 		<ModbusInitData ID='90' Addr='90' Name='Последнее задание неплановой P' Scale='1' />
-		<ModbusInitData ID='91' Addr='91' Name='Суммарное ручное задание Р ГЭС' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData ID='91' Addr='91' Name='Суммарное ручное задание Р ГЭС' Scale='0.1' WriteToDBHH='1'/>
 		<ModbusInitData ID='92' Addr='92' Name='Задание плановой P ГЭС' Scale='1' />
 		<ModbusInitData ID='93' Addr='93' Name='Текущее задание внеплановой Р' Scale='1' />
 		<ModbusInitData ID='94' Addr='94' Name='Заданный резерв P ГЭС' Scale='1' />
