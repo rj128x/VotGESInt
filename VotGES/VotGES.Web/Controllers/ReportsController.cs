@@ -19,7 +19,7 @@ namespace VotGES.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Get)]
 		public ActionResult SutVed(int year, int month, int day) {
 			DateTime date=new DateTime(year, month, day);
-			SutVedReport report=new SutVedReport(date.Date, date.Date.AddDays(1), IntervalReportEnum.hour);
+			SutVedReport report=new SutVedReport(date.Date, date.Date.AddDays(1), IntervalReportEnum.halfHour);
 			report.ReadData();
 
 			return View("SutVed", report);

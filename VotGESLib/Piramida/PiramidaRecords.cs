@@ -338,6 +338,8 @@ namespace VotGES.Piramida
 		public static PiramidaRecord MB_I_Kauchuk2_220=new PiramidaRecord(2, 3, 84, "I Кау-2 220");
 		public static PiramidaRecord MB_P_Kauchuk2_220=new PiramidaRecord(2, 3, 86, "P Кау-2 220");
 		public static PiramidaRecord MB_Q_Kauchuk2_220=new PiramidaRecord(2, 3, 88, "Q Кау-2 220");
+		public static PiramidaRecord MB_P_GES_Zad=new PiramidaRecord(2, 3, 90, "Задание P");
+
 		public static PiramidaRecord MB_I_Svetlaya_220=new PiramidaRecord(2, 3, 102, "I Светлая 220");
 		public static PiramidaRecord MB_P_Svetlaya_220=new PiramidaRecord(2, 3, 104, "P Светлая 220");
 		public static PiramidaRecord MB_Q_Svetlaya_220=new PiramidaRecord(2, 3, 106, "Q Светлая 220");

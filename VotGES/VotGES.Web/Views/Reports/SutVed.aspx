@@ -102,26 +102,31 @@
 			<th>Т</th>
 			<th>Расх</th>
 		</tr>
-		<%foreach (DateTime date in Model.Dates){ %>
-			<tr>
-				<th><%=date.ToString("HH:mm") %></th>
-				<td><%=Model[date,PiramidaRecords.MB_P_GES.Key].ToString("0.00") %></td>
-				<td><%=Model[date,PiramidaRecords.MB_Q_GES.Key].ToString("0.00") %></td>
-				<td><%=Model[date,ReportMBRecords.MB_U_110.ID].ToString("0.00") %></td>
-				<td><%=Model[date,ReportMBRecords.MB_U_220.ID].ToString("0.00") %></td>
-				<td><%=Model[date,ReportMBRecords.MB_U_500.ID].ToString("0.00") %></td>
-				<td><%=Model[date,PiramidaRecords.MB_P_Emelino_500.Key].ToString("0.00") %></td>
-				<td><%=Model[date,PiramidaRecords.MB_P_Karmanovo_500.Key].ToString("0.00") %></td>
-				<td><%=Model[date,PiramidaRecords.MB_P_Vyatka_500.Key].ToString("0.00") %></td>
-				<td><%=Model[date,PiramidaRecords.MB_Q_Emelino_500.Key].ToString("0.00") %></td>
-				<td><%=Model[date,PiramidaRecords.MB_Q_Karmanovo_500.Key].ToString("0.00") %></td>
-				<td><%=Model[date,PiramidaRecords.MB_Q_Vyatka_500.Key].ToString("0.00") %></td>
-				<td><%=Model[date,PiramidaRecords.MB_VB_Sgl.Key].ToString("0.00") %></td>
-				<td><%=Model[date,PiramidaRecords.MB_NB_Sgl.Key].ToString("0.00") %></td>
-				<td><%=Model[date,PiramidaRecords.MB_T.Key].ToString("0.00") %></td>
-				<td><%=Model[date,PiramidaRecords.MB_Rashod.Key].ToString("0.00") %></td>
+		<%foreach (DateTime date in Model.Dates) {
+		 if (date.Minute == 0) {
+		 %>
+
+			<tr>				
+				<th><%=date.ToString("HH:mm")%></th>
+				<td><%=Model[date, PiramidaRecords.MB_P_GES.Key].ToString("0.00")%></td>
+				<td><%=Model[date, PiramidaRecords.MB_Q_GES.Key].ToString("0.00")%></td>
+				<td><%=Model[date, ReportMBRecords.MB_U_110.ID].ToString("0.00")%></td>
+				<td><%=Model[date, ReportMBRecords.MB_U_220.ID].ToString("0.00")%></td>
+				<td><%=Model[date, ReportMBRecords.MB_U_500.ID].ToString("0.00")%></td>
+				<td><%=Model[date, PiramidaRecords.MB_P_Emelino_500.Key].ToString("0.00")%></td>
+				<td><%=Model[date, PiramidaRecords.MB_P_Karmanovo_500.Key].ToString("0.00")%></td>
+				<td><%=Model[date, PiramidaRecords.MB_P_Vyatka_500.Key].ToString("0.00")%></td>
+				<td><%=Model[date, PiramidaRecords.MB_Q_Emelino_500.Key].ToString("0.00")%></td>
+				<td><%=Model[date, PiramidaRecords.MB_Q_Karmanovo_500.Key].ToString("0.00")%></td>
+				<td><%=Model[date, PiramidaRecords.MB_Q_Vyatka_500.Key].ToString("0.00")%></td>
+				<td><%=Model[date, PiramidaRecords.MB_VB_Sgl.Key].ToString("0.00")%></td>
+				<td><%=Model[date, PiramidaRecords.MB_NB_Sgl.Key].ToString("0.00")%></td>
+				<td><%=Model[date, PiramidaRecords.MB_T.Key].ToString("0.00")%></td>
+				<td><%=Model[date, PiramidaRecords.MB_Rashod.Key].ToString("0.00")%></td>
+
 			</tr>
-		<%} %>
+		<%}
+	 } %>
 		<tr>
 				<th>Среднее</th>
 				<td>&nbsp;</td>
@@ -170,7 +175,7 @@
 			<th>I<sub>рот</sub></th>
 		</tr>
 		<%foreach (DateTime date in Model.Dates) {
-			if (hours.Contains(date.Hour)) {
+			if (hours.Contains(date.Hour) && date.Minute==0) {
 			%>				
 				<tr>
 					<th><%=date.ToString("HH:mm")%></th>
@@ -189,6 +194,8 @@
 					<td><%=Model[date, PiramidaRecords.MB_GA5_P.Key].ToString("0.00")%></td>
 					<td><%=Model[date, ReportMBRecords.MB_GA5_Istator.ID].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA5_Irotor.Key].ToString("0.00")%></td>					
+									
+
 				</tr>
 			<%}
 		}%>
@@ -221,7 +228,7 @@
 			<th>I<sub>рот</sub></th>
 		</tr>
 		<%foreach (DateTime date in Model.Dates) {
-			if (hours.Contains(date.Hour)) {
+		 if (hours.Contains(date.Hour) && date.Minute == 0) {
 			%>				
 				<tr>
 					<th><%=date.ToString("HH:mm")%></th>
@@ -283,7 +290,7 @@
 			<th>F</th>				
 		</tr>
 		<%foreach (DateTime date in Model.Dates) {
-			if (hours.Contains(date.Hour)) {
+		 if (hours.Contains(date.Hour) && date.Minute == 0) {
 			%>				
 				<tr>
 					<th><%=date.ToString("HH:mm")%></th>
@@ -351,7 +358,7 @@
 			<th>I</th>			
 		</tr>
 		<%foreach (DateTime date in Model.Dates) {
-			if (hours.Contains(date.Hour)) {
+		 if (hours.Contains(date.Hour) && date.Minute == 0) {
 			%>				
 				<tr>
 					<th><%=date.ToString("HH:mm")%></th>
@@ -421,7 +428,7 @@
 			<th>F</th>				
 		</tr>
 		<%foreach (DateTime date in Model.Dates) {
-			if (hours.Contains(date.Hour)) {
+		 if (hours.Contains(date.Hour) && date.Minute == 0) {
 			%>				
 				<tr>
 					<th><%=date.ToString("HH:mm")%></th>
@@ -478,7 +485,7 @@
 			<th>I</th>			
 		</tr>
 		<%foreach (DateTime date in Model.Dates) {
-			if (hours.Contains(date.Hour)) {
+		 if (hours.Contains(date.Hour) && date.Minute == 0) {
 			%>				
 				<tr>
 					<th><%=date.ToString("HH:mm")%></th>
@@ -535,7 +542,7 @@
 			<th>I</th>				
 		</tr>
 		<%foreach (DateTime date in Model.Dates) {
-			if (hours.Contains(date.Hour)) {
+		 if (hours.Contains(date.Hour) && date.Minute == 0) {
 			%>				
 				<tr>
 					<th><%=date.ToString("HH:mm")%></th>

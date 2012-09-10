@@ -166,6 +166,7 @@ namespace VotGES.Piramida.Report
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.MB_I_Kauchuk2_220, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.MB_P_Kauchuk2_220, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.MB_Q_Kauchuk2_220, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
+			report.AddRecordType(new RecordTypeDB(PiramidaRecords.MB_P_GES_Zad, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.MB_I_Svetlaya_220, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.MB_P_Svetlaya_220, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.MB_Q_Svetlaya_220, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));

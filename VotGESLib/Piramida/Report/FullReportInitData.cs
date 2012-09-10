@@ -374,6 +374,7 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_I_Kauchuk2_220));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_P_Kauchuk2_220));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_Q_Kauchuk2_220));
+			record.addChild(GetFullReportRecord(PiramidaRecords.MB_P_GES_Zad));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_I_Svetlaya_220));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_P_Svetlaya_220));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_Q_Svetlaya_220));
