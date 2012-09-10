@@ -11,6 +11,7 @@ namespace VotGES
 		static GlobalVotGES() {			
 			NFIPoint = new CultureInfo("ru-RU").NumberFormat;
 			NFIPoint.NumberDecimalSeparator = ".";
+			NFIPoint.NumberDecimalDigits = 2;			
 		}
 		public static NumberFormatInfo NFIPoint;
 		public static void setCulture() {
