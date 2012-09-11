@@ -6,7 +6,7 @@ using VotGES.Piramida;
 
 namespace VotGES.PBR
 {
-	public enum GTPEnum { gtp1=2, gtp2=3, ges=1, rge2=1046, rge3=1703, rge4=1704 }
+	public enum GTPEnum { gtp1 = 2, gtp2 = 3, ges = 1, rge2 = 1046, rge3 = 1703, rge4 = 1704 }
 	public class PBRData
 	{
 		public DateTime DateStart { get; protected set; }
@@ -40,10 +40,10 @@ namespace VotGES.PBR
 			IntegratedPBR = new SortedList<DateTime, double>();
 		}
 
-		public void readData() {
+		public void readData(bool readFakt) {
 			int item=(int)GTPIndex;
 
-			List<int> items=(new int[] {item}).ToList<int>();
+			List<int> items=(new int[] { item }).ToList<int>();
 			List<PiramidaEnrty> dataPBR=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 212, items, true, true, "P2000");
 			foreach (PiramidaEnrty data in dataPBR) {
 				try {
@@ -51,15 +51,17 @@ namespace VotGES.PBR
 					double val=data.Value0 / 1000;
 					if (date.Minute == 0) {
 						RealPBR.Add(date, val);
-					}						
+					}
 				} catch (Exception e) {
 					Logger.Info("Ошибка при чтении ПБР " + e.ToString());
 				}
 			}
 
 
-
-			List<PiramidaEnrty> dataFakt=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 4, items, true, true,"P2000");
+			if (!readFakt) {
+				return;
+			}
+			List<PiramidaEnrty> dataFakt=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 4, items, true, true, "P2000");
 			foreach (PiramidaEnrty data in dataFakt) {
 				try {
 					DateTime date=data.Date;
@@ -77,43 +79,48 @@ namespace VotGES.PBR
 
 		public void checkData() {
 			DateTime date=DateStart.AddMinutes(1);
-			Random r=new Random();
-			while (date <= Date) {
-				if (!RealP.Keys.Contains(date)) {
-					if (RealP.Keys.Contains(date.AddMinutes(-1))) {
-						RealP.Add(date, RealP[date.AddMinutes(-1)]);
-					} else {
-						RealP.Add(date, -1);
-						//Logger.Info("Не записана мощность " + date.ToString());
-						//RealP.Add(date, GTPIndex * 100 + 100 + r.Next(-10, 10));
+			try {
+				while (date <= Date) {
+					if (!RealP.Keys.Contains(date)) {
+						if (RealP.Keys.Contains(date.AddMinutes(-1))) {
+							RealP.Add(date, RealP[date.AddMinutes(-1)]);
+						} else {
+							RealP.Add(date, -1);
+						}
 					}
+					date = date.AddMinutes(1);
 				}
-				date = date.AddMinutes(1);
-			}
-			date = DateStart.AddMinutes(0);
-			while (date <= DateEnd) {
-				if (!RealPBR.Keys.Contains(date)) {
-					if (RealPBR.Keys.Contains(date.AddMinutes(-60))) {
-						RealP.Add(date, RealPBR[date.AddMinutes(-60)]);
+			} catch { }
+
+			try {
+				date = DateStart.AddMinutes(0);
+				while (date <= DateEnd) {
+					if (!RealPBR.Keys.Contains(date)) {
+						if (RealPBR.Keys.Contains(date.AddMinutes(-60))) {
+							RealP.Add(date, RealPBR[date.AddMinutes(-60)]);
+						} else {
+							RealPBR.Add(date, -1);
+							Logger.Info("Не записан ПБР " + GTPIndex.ToString() + " " + date.ToString());
+						}
+					}
+					date = date.AddMinutes(60);
+				}
+			} catch { }
+
+			try {
+				date = DateStart.AddMinutes(30);
+				while (date <= DateEnd) {
+					DateTime prevDate=date.AddMinutes(-30);
+					DateTime nextDate=date.AddMinutes(30);
+					if (RealPBR.Keys.Contains(prevDate) && (RealPBR.Keys.Contains(nextDate))) {
+						RealPBR.Add(date, (RealPBR[prevDate] + RealPBR[nextDate]) / 2);
 					} else {
 						RealPBR.Add(date, -1);
-						Logger.Info("Не записан ПБР "+GTPIndex.ToString() + " "+ date.ToString());
+						Logger.Info("Ошибка при формировании получасовок");
 					}
+					date = date.AddMinutes(60);
 				}
-				date = date.AddMinutes(60);
-			}
-			date = DateStart.AddMinutes(30);
-			while (date <= DateEnd) {
-				DateTime prevDate=date.AddMinutes(-30);
-				DateTime nextDate=date.AddMinutes(30);
-				if (RealPBR.Keys.Contains(prevDate) && (RealPBR.Keys.Contains(nextDate))) {
-					RealPBR.Add(date, (RealPBR[prevDate] + RealPBR[nextDate]) / 2);
-				} else {
-					RealPBR.Add(date, -1);
-					Logger.Info("Ошибка при формировании получасовок");
-				}
-				date = date.AddMinutes(60);
-			}
+			} catch { }
 
 		}
 
@@ -225,8 +232,8 @@ namespace VotGES.PBR
 
 		}
 
-		public void InitData() {
-			readData();
+		public void InitData(bool readFakt=true) {
+			readData(readFakt);
 			checkData();
 			createSteppedPBR();
 			createMinutesPBR();

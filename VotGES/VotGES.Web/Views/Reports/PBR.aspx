@@ -65,10 +65,15 @@
 		table td.right,table th.right{
 			text-align: right;
 		}	
+		
+		table td.fill{
+			background-color:Gray;
+		}	
 	 </style>
 </head>
 <body>
-	<table>
+	<h1>ПБР на <%=Model.Date.ToString("dd.MM.yyyy") %></h1>
+	<table class='cifr'>
 		<tr>
 			<th>Время</th>
 			<th>ГТП-1</th>			
@@ -81,13 +86,13 @@
 		</tr>
 		<%foreach (DateTime dt in Model.GES.SteppedPBR.Keys) { %>
 			<tr>
-				<th><%=dt.ToString("dd.MM.yyyy HH:mm") %></th>
-				<td><%=Model.GTP1.SteppedPBR[dt].ToString("0.00") %></td>
-				<td><%=Model.RGE2.SteppedPBR[dt].ToString("0.00") %></td>
-				<td><%=Model.RGE3.SteppedPBR[dt].ToString("0.00") %></td>
-				<td><%=Model.RGE4.SteppedPBR[dt].ToString("0.00") %></td>
-				<td><%=Model.GTP2.SteppedPBR[dt].ToString("0.00") %></td>
-				<td><%=Model.GES.SteppedPBR[dt].ToString("0.00") %></td>
+				<th><%=dt.AddHours(2).ToString("HH:mm") %></th>
+				<td <%=Model.GTP1.ChangePBR[dt]?"class='fill'":""%>><%=Model.GTP1.SteppedPBR[dt].ToString("0.00") %></td>
+				<td <%=Model.RGE2.ChangePBR[dt]?"class='fill'":""%>><%=Model.RGE2.SteppedPBR[dt].ToString("0.00") %></td>
+				<td <%=Model.RGE3.ChangePBR[dt]?"class='fill'":""%>><%=Model.RGE3.SteppedPBR[dt].ToString("0.00") %></td>
+				<td <%=Model.RGE4.ChangePBR[dt]?"class='fill'":""%>><%=Model.RGE4.SteppedPBR[dt].ToString("0.00") %></td>
+				<td <%=Model.GTP2.ChangePBR[dt]?"class='fill'":""%>><%=Model.GTP2.SteppedPBR[dt].ToString("0.00") %></td>
+				<td <%=Model.GES.ChangePBR[dt]?"class='fill'":""%>><%=Model.GES.SteppedPBR[dt].ToString("0.00") %></td>
 				<td><%=Model.ChangePBR[dt]?"Смена нагрузки":"" %></td>
 			</tr>
 		<%} %>

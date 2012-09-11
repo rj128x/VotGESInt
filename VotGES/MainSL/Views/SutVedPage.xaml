@@ -10,29 +10,21 @@
            d:DesignWidth="640" d:DesignHeight="480"
            Title="Суточная ведомость">
     <Grid x:Name="LayoutRoot">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*"/>
-			<ColumnDefinition Width="Auto"/>
-		</Grid.ColumnDefinitions>
-		 
-		<sdk:TabControl >
-			<sdk:TabItem Header="Данные">
-				<Grid>
-					<sdk:DataGrid x:Name="gridPage1"/>
-				</Grid>
-			</sdk:TabItem>
-			
-		</sdk:TabControl>
-		 
-		<Grid Name="pnlSettings" Grid.Column="1">
+		<StackPanel>		 
+	 
+		<Grid Name="pnlSettings" Width="300" HorizontalAlignment="Left">
 			<StackPanel>
 				<sdk:Calendar  
 						IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"
 						SelectedDate="{Binding Date, Mode=TwoWay}"/>
-				<Button Content="Получить отчет" Name="btnGetReport"
+				<Button Content="Получить суточную ведомость" Name="btnGetReport"
 							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"
 							  Click="btnGetReport_Click"/>
-			</StackPanel>
+					<Button Content="Получить ПБР" Name="btnGetPBR"
+							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"
+							  Click="btnGetPBR_Click"/>
+				</StackPanel>
 		</Grid>
+		</StackPanel>
 	</Grid>
 </navigation:Page>
