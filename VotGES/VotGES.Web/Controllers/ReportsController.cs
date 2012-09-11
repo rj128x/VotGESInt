@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using VotGES.Piramida.Report;
+using VotGES.PBR;
 
 namespace VotGES.Web.Controllers
 {
@@ -23,6 +24,13 @@ namespace VotGES.Web.Controllers
 			report.ReadData();
 
 			return View("SutVed", report);
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult PBR(int year, int month, int day) {
+			DateTime date=new DateTime(year, month, day);
+			PBRFull pbr=new PBRFull(date);
+			return View("PBR", pbr);
 		}
 
 	}

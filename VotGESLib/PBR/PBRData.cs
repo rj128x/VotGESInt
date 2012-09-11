@@ -6,16 +6,18 @@ using VotGES.Piramida;
 
 namespace VotGES.PBR
 {
-	class PBRData
+	public enum GTPEnum { gtp1=2, gtp2=3, ges=1, rge2=1046, rge3=1703, rge4=1704 }
+	public class PBRData
 	{
 		public DateTime DateStart { get; protected set; }
 		public DateTime DateEnd { get; protected set; }
 		public DateTime Date { get; protected set; }
 
-		public int GTPIndex { get; protected set; }
+		public GTPEnum GTPIndex { get; protected set; }
 
 		public SortedList<DateTime, double> RealPBR { get; protected set; }
 		public SortedList<DateTime, double> SteppedPBR { get; protected set; }
+		public SortedList<DateTime, bool> ChangePBR { get; protected set; }
 		public SortedList<DateTime, double> MinutesPBR { get; protected set; }
 		public SortedList<DateTime, double> RealP { get; protected set; }
 
@@ -24,24 +26,25 @@ namespace VotGES.PBR
 
 
 
-		public PBRData(DateTime dateStart, DateTime dateEnd, DateTime date, int gtpIndex) {
+		public PBRData(DateTime dateStart, DateTime dateEnd, DateTime date, GTPEnum gtp) {
 			DateStart = dateStart.Date.AddHours(dateStart.Hour);
 			DateEnd = dateEnd.Date.AddHours(dateEnd.Hour);
 			Date = date;
-			GTPIndex = gtpIndex;
+			GTPIndex = gtp;
 			RealPBR = new SortedList<DateTime, double>();
 			SteppedPBR = new SortedList<DateTime, double>();
 			MinutesPBR = new SortedList<DateTime, double>();
+			ChangePBR = new SortedList<DateTime, bool>();
 			RealP = new SortedList<DateTime, double>();
 			IntegratedP = new SortedList<DateTime, double>();
 			IntegratedPBR = new SortedList<DateTime, double>();
 		}
 
 		public void readData() {
-			int item=GTPIndex + 1;
+			int item=(int)GTPIndex;
 
 			List<int> items=(new int[] {item}).ToList<int>();
-			List<PiramidaEnrty> dataPBR=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 212, items, true, true);
+			List<PiramidaEnrty> dataPBR=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 212, items, true, true, "P2000");
 			foreach (PiramidaEnrty data in dataPBR) {
 				try {
 					DateTime date=data.Date;
@@ -66,7 +69,7 @@ namespace VotGES.PBR
 						Date = date;
 					}
 				} catch (Exception e) {
-					Logger.Info("Ошибка при чтении ПБР " + e.ToString());
+					Logger.Info("Ошибка при чтении Факт " + e.ToString());
 				}
 			}
 		}
@@ -94,7 +97,7 @@ namespace VotGES.PBR
 						RealP.Add(date, RealPBR[date.AddMinutes(-60)]);
 					} else {
 						RealPBR.Add(date, -1);
-						Logger.Info("Не записан ПБР " + date.ToString());
+						Logger.Info("Не записан ПБР "+GTPIndex.ToString() + " "+ date.ToString());
 					}
 				}
 				date = date.AddMinutes(60);
@@ -228,6 +231,12 @@ namespace VotGES.PBR
 			createSteppedPBR();
 			createMinutesPBR();
 			createIntegratedValues();
+			DateTime dt=SteppedPBR.Keys.First();
+			foreach (DateTime date in SteppedPBR.Keys) {
+				bool change=SteppedPBR[date] != SteppedPBR[dt];
+				ChangePBR.Add(date, change);
+				dt = date;
+			}
 		}
 
 	}

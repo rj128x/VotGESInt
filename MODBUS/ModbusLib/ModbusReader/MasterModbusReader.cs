@@ -45,6 +45,7 @@ namespace ModbusLib
 			get { return finishReading; }
 			set { finishReading = value; }
 		}
+		public SortedList<string, double> FullResultData { get; set; }
 		
 		public MasterModbusReader(int sleepTime) {
 			SleepTime = sleepTime;
@@ -53,6 +54,7 @@ namespace ModbusLib
 			WritersHH = new SortedList<string, ModbusDataWriter>();
 			WritersMin = new SortedList<string, ModbusDataWriter>();
 			FinishReading = new SortedList<string, bool>();
+			FullResultData = new SortedList<string, double>();
 			foreach (string fileName in Settings.single.InitFiles) {
 				try {
 					Logger.Info(String.Format("Чтение настроек modbus из файла '{0}'", fileName));
@@ -82,6 +84,10 @@ namespace ModbusLib
 						String.Format("===Объект создан");
 					}
 
+					foreach (KeyValuePair<int,ModbusInitData> de in arr.FullData) {
+						FullResultData.Add(arr.ID + "_" + de.Value.Addr,0);
+					}
+
 					FinishReading.Add(arr.ID, false);
 
 				} catch (Exception e) {
@@ -95,11 +101,16 @@ namespace ModbusLib
 			foreach (string key in InitArrays.Keys) {
 				FinishReading[key] = false;
 			}
+			foreach (string key in FullResultData.Keys) {
+				FullResultData[key] = 0;
+			}
+			
 			foreach (KeyValuePair<string,ModbusDataReader> de in Readers) {
 				de.Value.readData();
 			}			
 		}
-		
+				
+
 		public void reader_OnFinish(string InitArrayID, SortedList<int, double> ResultData) {
 			Console.Write(DateTime.Now+" "+ InitArrayID + "  read");
 			ModbusInitDataArray init=initArrays[InitArrayID];
@@ -108,6 +119,9 @@ namespace ModbusLib
 			}
 			if (init.WriteHH) {
 				WritersHH[InitArrayID].writeData(ResultData);
+			}
+			foreach(KeyValuePair<int,double> de in ResultData){
+				FullResultData[InitArrayID + "_" + de.Key] = de.Value;
 			}
 			FinishReading[InitArrayID] = true;
 			Console.WriteLine("-ok");

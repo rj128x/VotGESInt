@@ -9,13 +9,6 @@ namespace ModbusLib
 	
 	public class ModbusInitData
 	{
-		private int id;
-		[System.Xml.Serialization.XmlAttribute]
-		public int ID {
-			get { return id; }
-			set { id = value; }
-		}
-
 		private string name;
 		[System.Xml.Serialization.XmlAttribute]
 		public string Name {
@@ -199,7 +192,6 @@ namespace ModbusLib
 				init.ParNumberMin = init.ParNumberMin == -1 ? ParNumberMin : init.ParNumberMin;
 				init.Obj = init.Obj == -1 ? Obj : init.Obj;
 				init.ObjType = init.ObjType == -1 ? ObjType : init.ObjType;
-				init.Item = init.Item == -1 ? init.ID : init.Item;
 				init.DBNameHH = init.DBNameHH == null ? DBNameHH : init.DBNameHH;
 				init.DBNameMin = init.DBNameMin == null ? DBNameMin : init.DBNameMin;
 				

@@ -122,6 +122,7 @@
     <Content Include="Silverlight.js" />
     <Content Include="Views\Home\MainSL.aspx" />
     <Content Include="Views\Home\Test.aspx" />
+    <Content Include="Views\Reports\PBR.aspx" />
     <Content Include="Views\Reports\SutVed.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ModbusInitDataArray xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<ID>Calc</ID>
+	<WriteMin>0</WriteMin>
+	<WriteHH>1</WriteHH>
+	<Obj>30</Obj>
+	<ObjType>2</ObjType>
+	<DBNameHH>PSV</DBNameHH>
+	<DBNameMin>PSV</DBNameMin>
+	<ParNumberHH>12</ParNumberHH>
+	<ParNumberMin>4</ParNumberMin>	
+	<Data>
+		<ModbusInitData Item="1" Addr="1" Name="Расход ГТП 1" FuncName="RashodGTP1"/>
+	</Data>
+
+</ModbusInitDataArray>

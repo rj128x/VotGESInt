@@ -88,9 +88,9 @@ namespace VotGES.PBR
 			GraphVyrabAnswer answer=new GraphVyrabAnswer();
 
 
-			PBRData ges=new PBRData(dateStart, dateEnd, date, 0);
-			PBRData gtp1=new PBRData(dateStart, dateEnd, date, 1);
-			PBRData gtp2=new PBRData(dateStart, dateEnd, date, 2);
+			PBRData ges=new PBRData(dateStart, dateEnd, date, GTPEnum.ges);
+			PBRData gtp1=new PBRData(dateStart, dateEnd, date, GTPEnum.gtp1);
+			PBRData gtp2=new PBRData(dateStart, dateEnd, date, GTPEnum.gtp2);
 
 			
 
