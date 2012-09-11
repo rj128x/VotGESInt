@@ -43,6 +43,12 @@ namespace ModbusLib
 			set { dbDateFormat = value; }
 		}
 
+		private string initCalcFile;
+		public string InitCalcFile {
+			get { return initCalcFile; }
+			set { initCalcFile = value; }
+		}
+
 		static Settings() {			
 			NFIPoint = new CultureInfo("ru-RU").NumberFormat;
 			NFIPoint.NumberDecimalSeparator = ".";

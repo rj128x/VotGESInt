@@ -43,6 +43,7 @@
     <Compile Include="DBWriter\DataDBWriter.cs" />
     <Compile Include="DBWriter\MasterDBWriter.cs" />
     <Compile Include="ModbusReader\MasterModbusReader.cs" />
+    <Compile Include="ModbusReader\ModbusCalc.cs" />
     <Compile Include="ModbusReader\ModbusDataWriter.cs" />
     <Compile Include="ModbusInitData.cs" />
     <Compile Include="ModbusReader\ModbusServer.cs" />

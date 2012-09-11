@@ -66,6 +66,21 @@ namespace ModbusLib
 					Logger.Error(e.ToString());
 				}
 			}
+
+			try {
+				Logger.Info(String.Format("Чтение настроек modbus из файла '{0}'", Settings.single.InitCalcFile));
+				ModbusInitDataArray arr = XMLSer<ModbusInitDataArray>.fromXML(Settings.single.InitCalcFile);
+				arr.processData();
+				InitArrays.Add(arr.ID, arr);
+				String.Format("===Считано {0} записей", arr.FullData.Count);
+
+				DataDBWriter writer=new DataDBWriter(arr);
+				Writers.Add(arr.ID, writer);
+
+			} catch (Exception e) {
+				String.Format("===Ошибка при чтении настроек");
+				Logger.Error(e.ToString());
+			}
 		}
 
 		public void Process(DateTime needDate, RWModeEnum mode, int depth) {

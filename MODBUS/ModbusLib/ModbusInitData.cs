@@ -93,6 +93,14 @@ namespace ModbusLib
 			get { return item; }
 			set { item = value; }
 		}
+
+		private string funcName;
+		[System.Xml.Serialization.XmlAttribute]
+		public string FuncName {
+			get { return funcName; }
+			set { funcName = value; }
+		}
+		
 		
 	}
 
@@ -183,6 +191,7 @@ namespace ModbusLib
 			get { return dbNameHH; }
 			set { dbNameHH = value; }
 		}
+
 		
 		public void processData() {
 			FullData = new SortedList<int, ModbusInitData>();

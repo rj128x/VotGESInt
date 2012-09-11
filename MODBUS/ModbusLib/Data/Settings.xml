@@ -7,5 +7,6 @@
 	<InitFiles>
 		<string>Data\MBDataFullDB.xml</string>
 	</InitFiles>
+	<InitCalcFile>Data\MBDataCalc.xml</InitCalcFile>
 	<DBDateFormat>yyyy-MM-dd HH:mm:ss</DBDateFormat>
 </Settings>	
