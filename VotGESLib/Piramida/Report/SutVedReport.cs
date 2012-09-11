@@ -26,10 +26,14 @@ namespace VotGES.Piramida.Report
 			rashodAvg.ID = "RASHOD_AVG";
 			RecordTypeDB tAvg=new RecordTypeDB(PiramidaRecords.MB_T, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.avg, dbOper: DBOperEnum.avg);
 			tAvg.ID = "T_AVG";
+			RecordTypeDB naporAvg=new RecordTypeDB(PiramidaRecords.MB_Napor_Sgl, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.avg, dbOper: DBOperEnum.avg);
+			naporAvg.ID = "NAPOR_AVG";			
 			this.AddRecordType(vbAvg);
 			this.AddRecordType(nbAvg);
 			this.AddRecordType(rashodAvg);
-			this.AddRecordType(tAvg);			
+			this.AddRecordType(tAvg);
+			this.AddRecordType(naporAvg);
+	
 		}
 
 
@@ -41,3 +45,4 @@ namespace VotGES.Piramida.Report
 
 	}
 }
+

@@ -28,6 +28,23 @@ namespace DBConsole
 			}
 		}
 
+		static void Main2(string[] args) {
+
+			try {
+				Settings.init();
+				DBSettings.init();
+				Logger.init(Logger.createFileLogger(Settings.single.LogPath, "logW", new Logger()));
+
+				MasterDBWriter writer=new MasterDBWriter();
+				writer.Process(new DateTime(2012, 09, 10, 0, 0, 0), new DateTime(2012, 09, 12, 0, 0, 0), RWModeEnum.hh);
+
+				Console.ReadLine();
+			} catch (Exception e) {
+				//Logger.Error(e.ToString());
+				Console.WriteLine(e.ToString());
+			}
+		}
+
 		static void Main1(string[] args) {
 
 			try {

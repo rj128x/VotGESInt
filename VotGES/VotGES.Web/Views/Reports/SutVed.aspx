@@ -9,28 +9,28 @@
 <head runat="server">
     <title>SutVed</title>
 	 <style>
-
 	 	table,tr,td,p {
 			font-family: 'Arial';
-			font-size: 9pt;
+			font-size: 8pt;
 		}
 		
-		h1,h2,h3,h4,h5,h6
+		h1,h2,h3,h4,h5,h6,hr
 		{
 			padding:0;
 			margin:0;
 		}
 		
+		
 		h1
 		{
 			font-family: 'Arial';
-			font-size: 14pt;
+			font-size: 10pt;
 		}
 		
 		h2
 		{
 			font-family: 'Arial';
-			font-size: 12pt;
+			font-size: 8pt;
 		}
 		
 	 	table {
@@ -67,107 +67,131 @@
 
 		table td.right,table th.right{
 			text-align: right;
-		}
+		}	
 	 </style>
 </head>
 
 <% int[] hours={0,1,5,10,16,19,22}; 
 	//int[] hours= { 6,7,8,9,10};%>
-<body>
-	<h1>Суточная ведомость за <%=Model.DateStart.ToString("dd.MM.yyy")%></h1>
-	<hr />		
-	<table class='cifr'>
-		<tr>
-			<th rowspan='2'>Час</th>
-			<th colspan='2'>ГЭС</th>
-			<th colspan='3'>U на шинах</th>
-			<th colspan='3'>P 500 кВ</th>
-			<th colspan='3'>Q 500 кВ</th>
-			<th colspan='4'>Общестанционные</th>
-			<th colspan='6'>Режим</th>
-		</tr>
-		<tr>
-			<th>P</th>
-			<th>Q</th>
-			<th>110</th>
-			<th>220</th>
-			<th>500</th>
-			<th>Емл</th>
-			<th>Кар</th>
-			<th>Вят</th>
-			<th>Емл</th>
-			<th>Кар</th>
-			<th>Вят</th>
-			<th>ВБ</th>
-			<th>НБ</th>
-			<th>Т</th>
-			<th>Расх</th>
-			<th>Час</th>
-			<th>P<sub>план</sub></th>
-			<th>P<sub>факт</sub></th>
-			<th>Час</th>
-			<th>P<sub>план</sub></th>
-			<th>P<sub>факт</sub></th>
+<body>			
+	<table>
+	<tr>
+		<td valign='top'>			
+			<table class='cifr'>			
+			<tr>
+				<th colspan='17'>Суточная ведомость за <%=Model.DateStart.ToString("dd.MM.yyy")%></th>
+			</tr>
+			<tr>
+				<th rowspan='2'>Час</th>
+				<th colspan='2'>ГЭС</th>
+				<th colspan='3'>U на шинах</th>
+				<th colspan='3'>P 500 кВ</th>
+				<th colspan='3'>Q 500 кВ</th>
+				<th colspan='4'>Общестанционные</th>
+			</tr>
+			<tr>
+				<th>P</th>
+				<th>Q</th>
+				<th>110</th>
+				<th>220</th>
+				<th>500</th>
+				<th>Емл</th>
+				<th>Кар</th>
+				<th>Вят</th>
+				<th>Емл</th>
+				<th>Кар</th>
+				<th>Вят</th>
+				<th>ВБ</th>
+				<th>НБ</th>
+				<th>Т</th>
+				<th>Расх</th>	
+			</tr>
+			<%		 
+			 foreach (DateTime date in Model.Dates) {
+			 if (date.Minute == 0) {
+			 %>
+				<tr>				
+					<th><%=date.ToString("HH:mm")%></th>
+					<td><%=Model[date, PiramidaRecords.MB_P_GES.Key].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_Q_GES.Key].ToString("0.00")%></td>
+					<td><%=Model[date, ReportMBRecords.MB_U_110.ID].ToString("0.00")%></td>
+					<td><%=Model[date, ReportMBRecords.MB_U_220.ID].ToString("0.00")%></td>
+					<td><%=Model[date, ReportMBRecords.MB_U_500.ID].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_P_Emelino_500.Key].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_P_Karmanovo_500.Key].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_P_Vyatka_500.Key].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_Q_Emelino_500.Key].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_Q_Karmanovo_500.Key].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_Q_Vyatka_500.Key].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_VB_Sgl.Key].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_NB_Sgl.Key].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_T.Key].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_Rashod.Key].ToString("0.00")%></td>
+				</tr>
+			<%}			 
+		 } %>
+			<tr>
+					<th>Среднее</th>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<th><%=Model.ResultData["VB_AVG"].ToString("0.00") %></th>
+					<th><%=Model.ResultData["NB_AVG"].ToString("0.00") %></th>
+					<th><%=Model.ResultData["T_AVG"].ToString("0.00") %></th>
+					<th><%=Model.ResultData["RASHOD_AVG"].ToString("0.00") %></th>
+				</tr>
+			</table>
+		</td>
+		<td valign='top'>
+			<table class='cifr'>
+				<tr>
+					<th>Час</th>
+					<th>P<sub>план</sub></th>
+					<th>P<sub>факт</sub></th>
+					<th>Час</th>
+					<th>P<sub>план</sub></th>
+					<th>P<sub>факт</sub></th>
 			
-		</tr>
-		<%		 
-			DateTime dt=Model.Dates.First();
-		 foreach (DateTime date in Model.Dates) {
-		 if (date.Minute == 0) {
-		 %>
-			<tr>				
-				<th><%=date.ToString("HH:mm")%></th>
-				<td><%=Model[date, PiramidaRecords.MB_P_GES.Key].ToString("0.00")%></td>
-				<td><%=Model[date, PiramidaRecords.MB_Q_GES.Key].ToString("0.00")%></td>
-				<td><%=Model[date, ReportMBRecords.MB_U_110.ID].ToString("0.00")%></td>
-				<td><%=Model[date, ReportMBRecords.MB_U_220.ID].ToString("0.00")%></td>
-				<td><%=Model[date, ReportMBRecords.MB_U_500.ID].ToString("0.00")%></td>
-				<td><%=Model[date, PiramidaRecords.MB_P_Emelino_500.Key].ToString("0.00")%></td>
-				<td><%=Model[date, PiramidaRecords.MB_P_Karmanovo_500.Key].ToString("0.00")%></td>
-				<td><%=Model[date, PiramidaRecords.MB_P_Vyatka_500.Key].ToString("0.00")%></td>
-				<td><%=Model[date, PiramidaRecords.MB_Q_Emelino_500.Key].ToString("0.00")%></td>
-				<td><%=Model[date, PiramidaRecords.MB_Q_Karmanovo_500.Key].ToString("0.00")%></td>
-				<td><%=Model[date, PiramidaRecords.MB_Q_Vyatka_500.Key].ToString("0.00")%></td>
-				<td><%=Model[date, PiramidaRecords.MB_VB_Sgl.Key].ToString("0.00")%></td>
-				<td><%=Model[date, PiramidaRecords.MB_NB_Sgl.Key].ToString("0.00")%></td>
-				<td><%=Model[date, PiramidaRecords.MB_T.Key].ToString("0.00")%></td>
-				<td><%=Model[date, PiramidaRecords.MB_Rashod.Key].ToString("0.00")%></td>
-								
-				<th><%=dt.ToString("HH:mm")%></th>
-				<td><%=Model.PBR.HalfHoursPBR[dt].ToString("0.00")%></td>
-				<td><%=Model.PBR.HalfHoursP[dt].ToString("0.00")%></td>
+				</tr>
+				<%		 
+					int index=0;
+				 foreach (DateTime date in Model.PBR.HalfHoursPBR.Keys) {
+				 if (index<24) {
+				 %>
+					<tr>								
+						<th><%=date.ToString("HH:mm")%></th>
+						<td><%=Model.PBR.HalfHoursPBR[date].ToString("0.00")%></td>
+						<td><%=Model.PBR.HalfHoursP[date].ToString("0.00")%></td>
 				
-				<th><%=dt.AddHours(12).ToString("HH:mm")%></th>			
-				<td><%=Model.PBR.HalfHoursPBR[dt.AddHours(12)].ToString("0.00")%></td>
-				<td><%=Model.PBR.HalfHoursP[dt.AddHours(12)].ToString("0.00")%></td>
-			</tr>
-		<%dt = dt.AddMinutes(30);}			 
-	 } %>
-		<tr>
-				<th>Среднее</th>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td><%=Model.ResultData["VB_AVG"].ToString("0.00") %></td>
-				<td><%=Model.ResultData["NB_AVG"].ToString("0.00") %></td>
-				<td><%=Model.ResultData["T_AVG"].ToString("0.00") %></td>
-				<td><%=Model.ResultData["RASHOD_AVG"].ToString("0.00") %></td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<th>Итог</th>
-				<td><%=(Model.PBR.PBRSum).ToString("0.00")%></td>
-				<td><%=(Model.PBR.PSum).ToString("0.00")%></td>
-			</tr>
+						<th><%=date.AddHours(12).ToString("HH:mm")%></th>			
+						<td><%=Model.PBR.HalfHoursPBR[date.AddHours(12)].ToString("0.00")%></td>
+						<td><%=Model.PBR.HalfHoursP[date.AddHours(12)].ToString("0.00")%></td>
+					</tr>
+				<%index++; }			 
+			 } %>
+				<tr>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<th>Итог</th>
+						<th><%=(Model.PBR.PBRSum).ToString("0.00")%></th>
+						<th><%=(Model.PBR.PSum).ToString("0.00")%></th>
+					</tr>
+				</table>
+		</td>
+	</tr>
+	
+	
 	</table>
+	
 	<hr />	
 	<h2>Генераторы</h2>
 	<table class='cifr'>
@@ -273,7 +297,8 @@
 			<%}
 		}%>
 	</table>
-	<hr />	
+
+	<hr style="page-break-before: always"/>	
 	<h2>ВЛ 110кВ</h2>
 	<table class='cifr'>
 		<tr>

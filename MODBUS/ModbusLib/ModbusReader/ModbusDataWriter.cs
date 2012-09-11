@@ -63,7 +63,8 @@ namespace ModbusLib
 			if (RWMode == RWModeEnum.hh) {
 				min = min < 30 ? 0 : 30;
 			}
-			DateTime dt=new DateTime(date.Year, date.Month, date.Day, date.Hour - (correctTime?Settings.single.HoursDiff:0), min, 0);
+			DateTime dt=new DateTime(date.Year, date.Month, date.Day, date.Hour, min, 0);
+			dt = dt.AddHours(correctTime ? Settings.single.HoursDiff : 0);
 			return dt;
 		}
 				
