@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VotGES.Piramida.Report
 {
-	class ReportMainRecords
+	public class ReportMainRecords
 	{
 		public static RecordTypeCalc P_Nebalans=new RecordTypeCalc("P_Nebalans", "Небаланс P", null);
 		public static RecordTypeCalc P_SP=new RecordTypeCalc("P_SP", "Собственное потребление", null);

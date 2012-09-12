@@ -234,6 +234,26 @@ namespace VotGES.Piramida.Report
 			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_VL500_Vyatka_Otd));
 			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_VL500_Vyatka_Priem));
 
+			record = RootLines.addChild(GetFullReportRecord(ReportLinesRecords.P_KL6_Saldo));
+			childRecord = record.addChild(GetFullReportRecord(ReportLinesRecords.P_KL6_Otd));
+			childRecord = record.addChild(GetFullReportRecord(ReportLinesRecords.P_KL6_Priem));
+
+			childRecord = record.addChild(GetFullReportRecord(ReportLinesRecords.P_KL_Shluz1));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_KL6_Shluz1_Otd));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_KL6_Shluz1_Priem));
+
+			childRecord = record.addChild(GetFullReportRecord(ReportLinesRecords.P_KL_Shluz2));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_KL6_Shluz2_Otd));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_KL6_Shluz2_Priem));
+
+			childRecord = record.addChild(GetFullReportRecord(ReportLinesRecords.P_KL_Filtr1));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_KL6_Filtr1_Otd));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_KL6_Filtr1_Priem));
+
+			childRecord = record.addChild(GetFullReportRecord(ReportLinesRecords.P_KL_Filtr2));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_KL6_Filtr2_Otd));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_KL6_Filtr2_Priem));
+
 			record = RootLines.addChild(GetFullReportRecord("Главные трансформаторы", "mainTrans"));
 			childRecord = record.addChild(GetFullReportRecord("1Т", "1T"));
 			child2 = childRecord.addChild(GetFullReportRecord(ReportGlTransformRecords.P_1T_110));

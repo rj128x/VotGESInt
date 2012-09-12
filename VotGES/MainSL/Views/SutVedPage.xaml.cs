@@ -54,6 +54,15 @@ namespace MainSL.Views
 			System.Windows.Browser.HtmlPage.PopupWindow(uri, "", options);
 		}
 
+		private void btnPrikaz20_Click(object sender, RoutedEventArgs e) {
+			string host=Application.Current.Host.Source.Host;
+			int port=Application.Current.Host.Source.Port;
+			Uri uri=new Uri(String.Format("http://{0}:{1}/Reports/Prikaz20?year={2}&month={3}&day={4}", host, port,
+				settings.Date.Year, settings.Date.Month, settings.Date.Day));
+			System.Windows.Browser.HtmlPopupWindowOptions options=new System.Windows.Browser.HtmlPopupWindowOptions();
+			System.Windows.Browser.HtmlPage.PopupWindow(uri, "", options);
+		}
+
 
 
 	}

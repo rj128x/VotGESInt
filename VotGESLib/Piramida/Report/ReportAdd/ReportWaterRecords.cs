@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VotGES.Piramida.Report
 {
-	class ReportWaterRecords
+	public class ReportWaterRecords
 	{
 		
 

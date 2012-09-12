@@ -76,6 +76,7 @@
     <Compile Include="Piramida\PiramidaRecords.cs" />
     <Compile Include="Piramida\Report\FullReport.cs" />
     <Compile Include="Piramida\Report\FullReportInitData.cs" />
+    <Compile Include="Piramida\Report\Prikaz20Report.cs" />
     <Compile Include="Piramida\Report\Report.cs" />
     <Compile Include="Piramida\Report\ReportAdd\ReportLinesRecords.cs" />
     <Compile Include="Piramida\Report\ReportAdd\ReportSNRecords.cs" />
