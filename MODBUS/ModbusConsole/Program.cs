@@ -22,8 +22,12 @@ namespace ModbusConsole
 			XMLSer<Settings>.toXML(Settings.single,"c:\\out1.xml");*/
 			Logger.init(Logger.createFileLogger(Settings.single.LogPath, "logR", new Logger()));
 
-			MasterModbusReader reader=new MasterModbusReader(5000);
-			reader.Read();
+			try {
+				MasterModbusReader reader=new MasterModbusReader(5000);
+				reader.Read();
+			}catch(Exception e){
+				Logger.Error(e.ToString());
+			}
 
 
 			Console.ReadLine();

@@ -24,7 +24,7 @@ namespace DBConsole
 				Console.ReadLine();
 			} catch (Exception e) {
 				//Logger.Error(e.ToString());
-				Console.WriteLine(e.ToString());
+				Logger.Error(e.ToString());
 			}
 		}
 
