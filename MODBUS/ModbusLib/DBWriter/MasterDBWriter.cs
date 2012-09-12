@@ -42,6 +42,7 @@ namespace ModbusLib
 				Logger.Info(String.Format("Чтение настроек modbus из файла '{0}'", Settings.single.InitCalcFile));
 				ModbusInitDataArray arr = XMLSer<ModbusInitDataArray>.fromXML(Settings.single.InitCalcFile);
 				arr.processData();
+				InitArrays.Add(arr.ID, arr);
 				String.Format("===Считано {0} записей", arr.FullData.Count);
 
 				DataDBWriter writer=new DataDBWriter(arr);
@@ -81,17 +82,17 @@ namespace ModbusLib
 		}
 
 		protected void processDate(string idInitArray, DateTime DateStart, DateTime DateEnd,RWModeEnum mode) {		
-			Console.WriteLine(String.Format("{0}: {1}   {2} -- {3}",DateTime.Now,mode,DateStart,DateEnd));
+			Logger.Info(String.Format("{0}: {1} - {2}   {3} -- {4}",DateTime.Now,idInitArray,mode,DateStart,DateEnd));
 			DateTime date=DateStart.AddHours(0);
 			while (date <= DateEnd) {
 				try {					
 					DataDBWriter writer=Writers[idInitArray];
 					bool ready=writer.init(ModbusDataWriter.GetFileName(InitArrays[idInitArray], mode, date, false));
 					if (ready) {
-						Console.Write(String.Format("=={0}",date));
+						Logger.Info(String.Format("=={0}", date));
 						writer.ReadAll();
-						writer.writeData(mode);			
-						Console.WriteLine("-ok");
+						writer.writeData(mode);
+						Logger.Info("====ok");
 					}
 				} catch (Exception e) {
 					Logger.Error("Ошибка при записи в базу");
@@ -116,7 +117,7 @@ namespace ModbusLib
 					Process(DateTime.Now, RWModeEnum.min, DepthMin);
 				}				
 				if (DateTime.Now.Minute % 30 < 5 && LastHHDate.AddMinutes(20)<DateTime.Now) {
-					Console.WriteLine("HH");
+					Logger.Info("HH");
 					Process(DateTime.Now, RWModeEnum.hh, DepthHH);
 					LastHHDate = DateTime.Now;
 				}

@@ -35,7 +35,7 @@ namespace ModbusLib
 				min = min < 30 ? 0 : 30;
 			}
 			DateTime dt=new DateTime(date.Year, date.Month, date.Day, date.Hour, min, 0);
-			dt = dt.AddHours(correctTime ? Settings.single.HoursDiff : 0);
+			dt = dt.AddHours(correctTime ? -Settings.single.HoursDiff : 0);
 			return dt;
 		}
 				
@@ -83,7 +83,7 @@ namespace ModbusLib
 					values.Add(val);
 				}
 			}
-			string valueStr=String.Format("{0};{1}",DateTime.Now.AddHours(-2).ToString("dd.MM.yyyy HH:mm:ss"), String.Join(";", values));
+			string valueStr=String.Format("{0};{1}", DateTime.Now.AddHours(-Settings.single.HoursDiff).ToString("dd.MM.yyyy HH:mm:ss"), String.Join(";", values));
 			CurrentWriter.WriteLine(valueStr);
 			CurrentWriter.Flush();
 		}

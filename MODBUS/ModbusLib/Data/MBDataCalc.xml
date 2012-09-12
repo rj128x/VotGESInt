@@ -11,9 +11,9 @@
 	<ParNumberHH>12</ParNumberHH>
 	<ParNumberMin>4</ParNumberMin>	
 	<Data>
-		<ModbusInitData Addr="2" Name="P ГТП 1" FuncName="P_GTP1"/>
-		<ModbusInitData Addr="3" Name="P ГТП 2" FuncName="P_GTP2"/>
-		<ModbusInitData Addr="1" Name="P ГТП 1" FuncName="P_GES"/>
+		<ModbusInitData Addr="2" Name="P ГТП 1" FuncName="P_GTP1" WriteToDBHH="1"/>
+		<ModbusInitData Addr="3" Name="P ГТП 2" FuncName="P_GTP2" WriteToDBHH="1"/>
+		<ModbusInitData Addr="1" Name="P ГТП 1" FuncName="P_GES" WriteToDBHH="1"/>
 	</Data>
 
 </ModbusInitDataArray>

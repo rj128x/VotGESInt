@@ -121,7 +121,7 @@ namespace ModbusLib
 				
 
 		public void reader_OnFinish(string InitArrayID, SortedList<int, double> ResultData) {
-			Console.Write(DateTime.Now+" "+ InitArrayID + "  read");
+			Logger.Info(DateTime.Now + " " + InitArrayID + "  read");
 			ModbusInitDataArray init=InitArrays[InitArrayID];
 			if (init.WriteMin) {
 				WritersMin[InitArrayID].writeData(ResultData);
@@ -135,7 +135,7 @@ namespace ModbusLib
 			FinishReading[InitArrayID] = true;
 			
 			if (!FinishReading.Values.Contains(false)) {
-				Console.Write("-calc  ");
+				Logger.Info("===calc  ");
 				Calc.Init(FullResultData);
 				foreach (ModbusInitData initData in InitCalc.FullData.Values) {
 					Calc.call(initData.FuncName, initData);
@@ -146,7 +146,7 @@ namespace ModbusLib
 				if (InitCalc.WriteMin) {
 					WritersMin[InitCalc.ID].writeData(Calc.ResultData);
 				}
-				Console.WriteLine("-ok  ");
+				Logger.Info("====ok  ");
 				Thread.Sleep(SleepTime);
 				Read();
 			}

@@ -296,8 +296,29 @@ namespace VotGES.Piramida.Report
 
 
 			record = RootSN.addChild(GetFullReportRecord(ReportMainRecords.P_SP));
-			record.addChild(GetFullReportRecord(ReportGARecords.P_Vozb));
-			record.addChild(GetFullReportRecord(ReportGARecords.P_SN_GA));
+			childRecord = record.addChild(GetFullReportRecord(ReportGARecords.P_Vozb));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_Vozb_GA1_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_Vozb_GA2_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_Vozb_GA3_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_Vozb_GA4_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_Vozb_GA5_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_Vozb_GA6_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_Vozb_GA7_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_Vozb_GA8_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_Vozb_GA9_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_Vozb_GA10_Priem));
+
+			childRecord=record.addChild(GetFullReportRecord(ReportGARecords.P_SN_GA));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_SN_11T_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_SN_12T_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_SN_13T_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_SN_14T_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_SN_15T_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_SN_16T_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_SN_17T_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_SN_18T_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_SN_19T_Priem));
+			childRecord.addChild(GetFullReportRecord(PiramidaRecords.P_SN_20T_Priem));
 			record.addChild(GetFullReportRecord(ReportGARecords.P_SK));
 			childRecord = record.addChild(GetFullReportRecord(ReportMainRecords.P_Nebalans));
 

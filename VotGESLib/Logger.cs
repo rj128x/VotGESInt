@@ -12,7 +12,7 @@ namespace VotGES
 {
 	public class Logger
 	{
-		public enum LoggerSource { server, client, ordersContext, objectsContext, usersContext, service }
+		public enum LoggerSource { server, client, service, none }
 		public log4net.ILog logger;
 
 		protected static Logger context;
@@ -39,32 +39,39 @@ namespace VotGES
 			Logger.context = context;
 		}
 
-		protected virtual  string createMessage(string message, LoggerSource source=LoggerSource.server) {
-			return String.Format("{0,-20} {1}",  source.ToString(), message);
+		protected virtual string createMessage(string message, LoggerSource source = LoggerSource.none) {
+			if (source != LoggerSource.none) {
+				return String.Format("{0,-10} {1}", source.ToString(), message);
+			} else {
+				return String.Format("{0}", message);
+			}
 		}
 
-		protected virtual void info(string str, LoggerSource source = LoggerSource.server) {
+		protected virtual void info(string str, LoggerSource source = LoggerSource.none) {
 			logger.Info(createMessage(str, source));
+			Console.WriteLine(createMessage(str, source));
 		}
 
-		protected virtual void error(string str, LoggerSource source = LoggerSource.server) {
+		protected virtual void error(string str, LoggerSource source = LoggerSource.none) {
 			logger.Error(createMessage(str, source));
+			Console.WriteLine(createMessage(str, source));
 		}
 
-		protected virtual void debug(string str, LoggerSource source = LoggerSource.server) {
+		protected virtual void debug(string str, LoggerSource source = LoggerSource.none) {
 			logger.Debug(createMessage(str, source));
+			Console.WriteLine(createMessage(str, source));
 		}
 
 
-		public static void Info(string str, LoggerSource source = LoggerSource.server) {
+		public static void Info(string str, LoggerSource source = LoggerSource.none) {
+			context.info(str, source);			
+		}
+
+		public static void Error(string str, LoggerSource source = LoggerSource.none) {
 			context.info(str, source);
 		}
 
-		public static void Error(string str, LoggerSource source = LoggerSource.server) {
-			context.info(str, source);
-		}
-
-		public static void Debug(string str, LoggerSource source = LoggerSource.server) {
+		public static void Debug(string str, LoggerSource source = LoggerSource.none) {
 			context.info(str, source);
 		}
 
