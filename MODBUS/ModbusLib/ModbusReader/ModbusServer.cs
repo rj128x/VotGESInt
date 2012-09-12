@@ -8,23 +8,14 @@ namespace ModbusLib
 
 	public class ModbusServer
 	{
-		private string ip;
-		public string IP {
-			get { return ip; }
-			protected set { ip = value; }
-		}
-
-		private ushort port;
-		public ushort Port {
-			get { return port; }
-			protected set { port = value; }
-		}
+		public string IP { get; protected set; }
+		public ushort Port { get; protected set; }
 
 		private Master modbusMaster;
 		public Master ModbusMaster {
 			get { 
 				if (!modbusMaster.connected){
-					modbusMaster.connect(ip, port);
+					modbusMaster.connect(IP, Port);
 				}
 				return modbusMaster;
 			}
@@ -32,8 +23,8 @@ namespace ModbusLib
 		}
 
 		public ModbusServer(string ip, ushort port) {
-			this.ip = ip;
-			this.port = port;
+			this.IP = ip;
+			this.Port = port;
 			this.modbusMaster = new Master(ip, port);
 		}		
 		
@@ -44,43 +35,19 @@ namespace ModbusLib
 	public class ModbusDataReader
 	{
 		public event FinishEvent OnFinish;
+		public SortedList<int, int> Data { get; protected set; }
 
-		private SortedList<int,int> data;
-		public SortedList<int, int> Data {
-			get { return data; }
-			protected set { data = value; }
-		}
-
-		private int countData;
-		public int CountData {
-			get { return countData; }
-			protected set { countData = value; }
-		}
-
-
-		private ushort stepData=50;
-		public ushort StepData {
-			get { return stepData; }
-			protected set { stepData = value; }
-		}
-
-		private ModbusServer server;
-		public ModbusServer Server {
-			get { return server; }
-			set { server = value; }
-		}
-
-		private ModbusInitDataArray initArr;
-		public ModbusInitDataArray InitArr {
-			get { return initArr; }
-			set { initArr = value; }
-		}
+		public int CountData { get; protected set; }
+		public ushort StepData { get; protected set; }
+		public ModbusServer Server { get; protected set; }
+		public ModbusInitDataArray InitArr { get; protected set; }
 
 		public ModbusDataReader(ModbusServer server, ModbusInitDataArray initArr) {
-			this.server = server;
-			this.countData = initArr.MaxAddr;
+			this.Server = server;
+			this.CountData = initArr.MaxAddr;
 			this.InitArr = initArr;
-			data = new SortedList<int, int>(countData);
+			Data = new SortedList<int, int>(CountData);
+			StepData = 50;
 			server.ModbusMaster.OnResponseData += new Master.ResponseData(ModbusMaster_OnResponseData);
 		}
 
@@ -95,9 +62,9 @@ namespace ModbusLib
 		}
 
 		protected void continueRead() {
-			server.ModbusMaster.ReadInputRegister(startAddr, startAddr, (ushort)(stepData * 2));
-			startAddr += (ushort)(stepData * 2);
-			finished = (startAddr > countData * 2);
+			Server.ModbusMaster.ReadInputRegister(startAddr, startAddr, (ushort)(StepData * 2));
+			startAddr += (ushort)(StepData * 2);
+			finished = (startAddr > CountData * 2);
 		}
 
 		void ModbusMaster_OnResponseData(ushort id, byte function, byte[] data) {

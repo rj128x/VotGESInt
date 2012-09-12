@@ -11,42 +11,12 @@ namespace ModbusLib
 {
 	public class DataDBRecord
 	{
-		private int header;
-		public int Header {
-			get { return header; }
-			set { header = value; }
-		}
-
-		private double min;
-		public double Min {
-			get { return min; }
-			set { min = value; }
-		}
-
-		private double max;
-		public double Max {
-			get { return max; }
-			set { max = value; }
-		}
-
-		private double avg;
-		public double Avg {
-			get { return avg; }
-			set { avg = value; }
-		}
-
-		private double eq;
-		public double Eq {
-			get { return eq; }
-			set { eq = value; }
-		}
-
-
-		private double count;
-		public double Count {
-			get { return count; }
-			set { count = value; }
-		}
+		public int Header{get; set;}
+		public double Min{get; set;} 
+		public double Max{get; set;} 
+		public double Avg {get; set;}
+		public double Eq {get; set;}
+		public double Count { get;  set; }
 
 		public DataDBRecord(int header) {
 			this.Header = header;
@@ -58,50 +28,15 @@ namespace ModbusLib
 	}
 
 	public class DataDBWriter
-	{
-		private string fileName;
-		public string FileName {
-			get { return fileName; }
-			set { fileName = value; }
-		}
-
-		private TextReader reader;
-		public TextReader Reader {
-			get { return reader; }
-			set { reader = value; }
-		}
-
-		private List<int> headers;
-		public List<int> Headers {
-			get { return headers; }
-			set { headers = value; }
-		}
-
-		private SortedList<int,DataDBRecord> data;
-		public SortedList<int, DataDBRecord> Data {
-			get { return data; }
-			set { data = value; }
-		}
-
-		private List<DateTime> dates;
-		public List<DateTime> Dates {
-			get { return dates; }
-			set { dates = value; }
-		}
-
-		private DateTime date;
-		public DateTime Date {
-			get { return date; }
-			set { date = value; }
-		}
-
-		private ModbusInitDataArray initArray;
-		public ModbusInitDataArray InitArray {
-			get { return initArray; }
-			set { initArray = value; }
-		}
-
-
+	{		
+		public string FileName {get;protected set;}
+		public TextReader Reader {get;protected set;}
+		public List<int> Headers {get;protected set;}
+		public SortedList<int, DataDBRecord> Data {get; set;}
+		public List<DateTime> Dates {get;protected set;}
+		public DateTime Date {get; set;}
+		public ModbusInitDataArray InitArray {get;protected set;}
+		
 		public DataDBWriter(ModbusInitDataArray initArray) {
 			InitArray = initArray;
 			Headers = new List<int>();
@@ -120,7 +55,7 @@ namespace ModbusLib
 
 		public void ReadAll() {
 			try {
-				reader = new StreamReader(fileName);
+				Reader = new StreamReader(FileName);
 				readHeader();
 				readData();
 				foreach (DataDBRecord rec in Data.Values) {
@@ -162,20 +97,24 @@ namespace ModbusLib
 						double val=0;
 						try {
 							val = Convert.ToDouble(valStr);
-						} catch (Exception e) {
+						} catch (Exception) {
 							val = Convert.ToDouble(valStr.Replace(",", "."), Settings.NFIPoint);
 						}
-						if (!Double.IsNaN(val)) {
-							int header=Headers[index];
-							Data[header].Avg += val;
-							if (Data[header].Min > val) {
-								Data[header].Min = val;
+						try {
+							if (!Double.IsNaN(val)) {
+								int header=Headers[index];
+								Data[header].Avg += val;
+								if (Data[header].Min > val) {
+									Data[header].Min = val;
+								}
+								if (Data[header].Max < val) {
+									Data[header].Max = val;
+								}
+								Data[header].Eq = val;
+								Data[header].Count++;
 							}
-							if (Data[header].Max < val) {
-								Data[header].Max = val;
-							}
-							Data[header].Eq = val;
-							Data[header].Count++;
+						}catch {
+							Logger.Error("Ошибка при чтении строки файла "+FileName);
 						}
 						index++;
 					} else {

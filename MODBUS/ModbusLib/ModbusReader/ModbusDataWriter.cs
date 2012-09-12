@@ -8,41 +8,12 @@ namespace ModbusLib
 {
 	public class ModbusDataWriter
 	{
-		private DateTime currentDate;
-		public DateTime CurrentDate {
-			get { return currentDate; }
-			set { currentDate = value; }
-		}
-
-		private TextWriter currentWriter;
-		public TextWriter CurrentWriter {
-			get { return currentWriter; }
-			set { currentWriter = value; }
-		}
-
-		private ModbusInitDataArray initArray;
-		public ModbusInitDataArray InitArray {
-			get { return initArray; }
-			set { initArray = value; }
-		}
-
-		private List<int> headers;
-		public List<int> Headers {
-			get { return headers; }
-			set { headers = value; }
-		}
-
-		private string headerStr;
-		public string HeaderStr {
-			get { return headerStr; }
-			set { headerStr = value; }
-		}
-
-		private RWModeEnum rwMode;
-		public RWModeEnum RWMode {
-			get { return rwMode; }
-			set { rwMode = value; }
-		}
+		public DateTime CurrentDate { get; protected set; }
+		public TextWriter CurrentWriter { get; protected set; }
+		public ModbusInitDataArray InitArray { get; protected set; }
+		public List<int> Headers { get; protected set; }
+		public string HeaderStr { get; protected set; }
+		public RWModeEnum RWMode { get; protected set; }
 
 		public static string GetDir(ModbusInitDataArray InitArray, RWModeEnum RWMode, DateTime date) {
 			string dirName=String.Format("{0}\\{1}\\{2}\\{3}",Settings.single.DataPath,InitArray.ID,RWMode.ToString(),date.ToString("yyyy_MM_dd"));
@@ -70,19 +41,19 @@ namespace ModbusLib
 				
 		protected void getWriter(DateTime date) {
 			DateTime dt=GetFileDate(DateTime.Now, RWMode);
-			if (dt != currentDate) {
+			if (dt != CurrentDate) {
 				try {					
-					currentWriter.Close();
-				} catch (Exception e) { }
-				currentDate = dt;
+					CurrentWriter.Close();
+				} catch (Exception) { }
+				CurrentDate = dt;
 
-				string fileName=GetFileName(InitArray, RWMode, currentDate, true);
+				string fileName=GetFileName(InitArray, RWMode, CurrentDate, true);
 				
 				HeaderStr = String.Format("{0};{1}", CurrentDate.ToString("dd.MM.yyyy HH:mm:ss"), String.Join(";", Headers));
 				bool newFile=!File.Exists(fileName);				
-				currentWriter=new StreamWriter(fileName,true);
+				CurrentWriter=new StreamWriter(fileName,true);
 				if (newFile) {
-					currentWriter.WriteLine(HeaderStr);
+					CurrentWriter.WriteLine(HeaderStr);
 				}
 			}
 		}
@@ -95,7 +66,7 @@ namespace ModbusLib
 					Headers.Add(data.Addr);
 				}
 			}
-			rwMode = mode;
+			RWMode = mode;
 		}
 
 		public void writeData( SortedList<int, double> ResultData) {

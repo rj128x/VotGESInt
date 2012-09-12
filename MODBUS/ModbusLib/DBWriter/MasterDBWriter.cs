@@ -10,41 +10,12 @@ namespace ModbusLib
 {
 	public class MasterDBWriter
 	{
-		private int sleepTimeMin;
-		public int SleepTimeMin {
-			get { return sleepTimeMin; }
-			set { sleepTimeMin = value; }
-		}
-
-		private int depthHH;
-		public int DepthHH {
-			get { return depthHH; }
-			set { depthHH = value; }
-		}
-
-		private int depthMin;
-		public int DepthMin {
-			get { return depthMin; }
-			set { depthMin = value; }
-		}
-
-		private SortedList<string,ModbusInitDataArray> initArrays;
-		public SortedList<string, ModbusInitDataArray> InitArrays {
-			get { return initArrays; }
-			set { initArrays = value; }
-		}
-
-		private SortedList<string,DataDBWriter> writers;
-		public SortedList<string, DataDBWriter> Writers {
-			get { return writers; }
-			set { writers = value; }
-		}
-
-		private DateTime lastHHDate;
-		public DateTime LastHHDate {
-			get { return lastHHDate; }
-			set { lastHHDate = value; }
-		}
+		public int SleepTimeMin {get;protected set;}
+		public int DepthHH {get;protected set;}
+		public int DepthMin {get;protected set;}
+		public SortedList<string, ModbusInitDataArray> InitArrays { get; protected set; }
+		public SortedList<string, DataDBWriter> Writers { get; protected set; }
+		public DateTime LastHHDate { get; protected set; }
 		
 		public MasterDBWriter() {			
 			InitArrays = new SortedList<string, ModbusInitDataArray>();
@@ -71,7 +42,6 @@ namespace ModbusLib
 				Logger.Info(String.Format("Чтение настроек modbus из файла '{0}'", Settings.single.InitCalcFile));
 				ModbusInitDataArray arr = XMLSer<ModbusInitDataArray>.fromXML(Settings.single.InitCalcFile);
 				arr.processData();
-				InitArrays.Add(arr.ID, arr);
 				String.Format("===Считано {0} записей", arr.FullData.Count);
 
 				DataDBWriter writer=new DataDBWriter(arr);
@@ -139,13 +109,14 @@ namespace ModbusLib
 			this.DepthMin = depthMin;
 		}
 
-		public void Run() {			
+		public void Run() {
 			Process(DateTime.Now, RWModeEnum.hh, DepthHH);
 			while (true) {					
 				if (DepthMin >= 0) {
-					Process(DateTime.Now, RWModeEnum.min, depthMin);
+					Process(DateTime.Now, RWModeEnum.min, DepthMin);
 				}				
-				if (DateTime.Now.Minute % 30 < 5 && LastHHDate.AddMinutes(20)<DateTime.Now) {					
+				if (DateTime.Now.Minute % 30 < 5 && LastHHDate.AddMinutes(20)<DateTime.Now) {
+					Console.WriteLine("HH");
 					Process(DateTime.Now, RWModeEnum.hh, DepthHH);
 					LastHHDate = DateTime.Now;
 				}

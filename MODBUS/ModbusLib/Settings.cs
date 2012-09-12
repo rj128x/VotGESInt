@@ -11,43 +11,18 @@ namespace ModbusLib
 	public class Settings
 	{
 		protected static Settings settings;
-		private string logPath;
-		public string LogPath {
-			get { return logPath; }
-			set { logPath = value; }
-		}
-
-		private string dataPath;
-		public string DataPath {
-			get { return dataPath; }
-			set { dataPath = value; }
-		}
+		public string LogPath { get; set; }
+		public string DataPath { get; set; }
 		
 		public static Settings single {
 			get {
 				return settings;
 			}
 		}
-
-		private int hoursDiff;
-		public int HoursDiff {
-			get { return hoursDiff; }
-			set { hoursDiff = value; }
-		}
-
-		public List<String> InitFiles;
-
-		private string dbDateFormat;
-		public string DBDateFormat {
-			get { return dbDateFormat; }
-			set { dbDateFormat = value; }
-		}
-
-		private string initCalcFile;
-		public string InitCalcFile {
-			get { return initCalcFile; }
-			set { initCalcFile = value; }
-		}
+		public int HoursDiff { get; set; }
+		public List<String> InitFiles{ get; set; }
+		public string DBDateFormat { get; set; }
+		public string InitCalcFile { get; set; }
 
 		static Settings() {			
 			NFIPoint = new CultureInfo("ru-RU").NumberFormat;

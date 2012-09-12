@@ -10,50 +10,15 @@ namespace ModbusLib
 {
 	public class MasterModbusReader
 	{
-		private int sleepTime;
-		public int SleepTime {
-			get { return sleepTime; }
-			set { sleepTime = value; }
-		}
-
-		private SortedList<string,ModbusInitDataArray> initArrays;
-		public SortedList<string, ModbusInitDataArray> InitArrays {
-			get { return initArrays; }
-			set { initArrays = value; }
-		}
-
-		private ModbusInitDataArray initCalc;
-		public ModbusInitDataArray InitCalc {
-			get { return initCalc; }
-			set { initCalc = value; }
-		}
-
-		private SortedList<string,ModbusDataReader> readers;
-		public SortedList<string, ModbusDataReader> Readers {
-			get { return readers; }
-			set { readers = value; }
-		}
-
-		private SortedList<string,ModbusDataWriter>writersHH;
-		public SortedList<string, ModbusDataWriter> WritersHH {
-			get { return writersHH; }
-			set { writersHH = value; }
-		}
-
-		private SortedList<string,ModbusDataWriter>writersMin;
-		public SortedList<string, ModbusDataWriter> WritersMin {
-			get { return writersMin; }
-			set { writersMin = value; }
-		}
-
-		private SortedList<string,bool>finishReading;
-		public SortedList<string, bool> FinishReading {
-			get { return finishReading; }
-			set { finishReading = value; }
-		}
-		public SortedList<string, double> FullResultData { get; set; }
-		public List<string> ResultKeys { get; set; }
-
+		public int SleepTime { get; protected set; }
+		public SortedList<string, ModbusInitDataArray> InitArrays { get; protected set; }
+		public ModbusInitDataArray InitCalc { get; protected set; }
+		public SortedList<string, ModbusDataReader> Readers { get; protected set; }
+		public SortedList<string, ModbusDataWriter> WritersHH { get; protected set; }
+		public SortedList<string, ModbusDataWriter> WritersMin { get; protected set; }
+		public SortedList<string, bool> FinishReading { get; protected set; }
+		public SortedList<string, double> FullResultData { get; protected set; }
+		public List<string> ResultKeys { get;protected set; }
 		public ModbusCalc Calc { get; protected set; }
 		
 		public MasterModbusReader(int sleepTime) {
@@ -77,20 +42,20 @@ namespace ModbusLib
 					ModbusServer sv=new ModbusServer(arr.IP, (ushort)arr.Port);
 					ModbusDataReader reader=new ModbusDataReader(sv, arr);
 					reader.OnFinish += new FinishEvent(reader_OnFinish);
-					readers.Add(arr.ID, reader);
+					Readers.Add(arr.ID, reader);
 					String.Format("===Объект создан");
 
 					if (arr.WriteMin) {
 						Logger.Info(String.Format("Создание объекта записи данных в файл (минуты)"));
 						ModbusDataWriter writer=new ModbusDataWriter(arr, RWModeEnum.min);
-						writersMin.Add(arr.ID, writer);
+						WritersMin.Add(arr.ID, writer);
 						String.Format("===Объект создан");
 					}
 
 					if (arr.WriteHH) {
 						Logger.Info(String.Format("Создание объекта записи данных в файл (получасовки)"));
 						ModbusDataWriter writer=new ModbusDataWriter(arr, RWModeEnum.hh);
-						writersHH.Add(arr.ID, writer);
+						WritersHH.Add(arr.ID, writer);
 						String.Format("===Объект создан");
 					}
 
@@ -116,14 +81,14 @@ namespace ModbusLib
 				if (InitCalc.WriteMin) {
 					Logger.Info(String.Format("Создание объекта записи данных в файл (минуты)"));
 					ModbusDataWriter writer=new ModbusDataWriter(InitCalc, RWModeEnum.min);
-					writersMin.Add(InitCalc.ID, writer);
+					WritersMin.Add(InitCalc.ID, writer);
 					String.Format("===Объект создан");
 				}
 
 				if (InitCalc.WriteHH) {
 					Logger.Info(String.Format("Создание объекта записи данных в файл (получасовки)"));
 					ModbusDataWriter writer=new ModbusDataWriter(InitCalc, RWModeEnum.hh);
-					writersHH.Add(InitCalc.ID, writer);
+					WritersHH.Add(InitCalc.ID, writer);
 					String.Format("===Объект создан");
 				}
 
@@ -157,7 +122,7 @@ namespace ModbusLib
 
 		public void reader_OnFinish(string InitArrayID, SortedList<int, double> ResultData) {
 			Console.Write(DateTime.Now+" "+ InitArrayID + "  read");
-			ModbusInitDataArray init=initArrays[InitArrayID];
+			ModbusInitDataArray init=InitArrays[InitArrayID];
 			if (init.WriteMin) {
 				WritersMin[InitArrayID].writeData(ResultData);
 			}
