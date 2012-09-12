@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<VotGES.Piramida.Report.Prikaz20Report>" %>
+﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<VotGES.Piramida.Report.Prikaz20Report>"%>
 <%@ Import Namespace="VotGES.Piramida.Report" %>
 <%@ Import Namespace="VotGES.Piramida" %>
 <%@ Import Namespace="VotGES" %>
@@ -91,7 +91,8 @@
 			<td colspan='3'>&nbsp;</td>
 		<tr>			
 		<tr>
-			<td>тыс. кВт*час</td>
+			<td class='left'>тыс. кВт*час</td>
+			<td colspan='3'>&nbsp;</td>
 		</tr>
 		<tr>
 			<th>Наименование</th>

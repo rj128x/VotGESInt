@@ -1,9 +1,9 @@
-﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<VotGES.Piramida.Report.SutVedReport>" %>
+﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<VotGES.Piramida.Report.SutVedReport>" ContentType="application/vnd.ms-excel;"%>
 <%@ Import Namespace="VotGES.Piramida.Report" %>
 <%@ Import Namespace="VotGES.Piramida" %>
 <%@ Import Namespace="VotGES" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
