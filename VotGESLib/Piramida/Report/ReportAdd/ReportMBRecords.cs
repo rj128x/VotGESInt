@@ -117,7 +117,8 @@ namespace VotGES.Piramida.Report
 
 			MB_U_500.CalcFunction =
 				new RecordCalcDelegate((report, date) => {
-					return (report[date, PiramidaRecords.MB_U_1SH_220.Key] + report[date, PiramidaRecords.MB_U_2SH_220.Key]) / 2;
+					return (report[date, PiramidaRecords.MB_U_Emelino_500.Key] + report[date, PiramidaRecords.MB_U_Karmanovo_500.Key]+
+						report[date, PiramidaRecords.MB_U_Vyatka_500.Key]) / 3;
 				});
 		}
 
