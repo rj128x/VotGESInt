@@ -63,8 +63,9 @@ namespace ModbusLib
 						rec.Avg = rec.Avg / rec.Count;
 					}
 				}
-			} catch {
+			} catch (Exception e) {
 				Logger.Error("Ошибка при чтении данных");
+				Logger.Error(e.ToString());
 			} finally {
 				Reader.Close();
 			}
