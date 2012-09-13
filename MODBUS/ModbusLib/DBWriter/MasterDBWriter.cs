@@ -115,8 +115,8 @@ namespace ModbusLib
 			while (true) {					
 				if (DepthMin >= 0) {
 					Process(DateTime.Now, RWModeEnum.min, DepthMin);
-				}				
-				if (DateTime.Now.Minute % 30 < 5 && LastHHDate.AddMinutes(20)<DateTime.Now) {
+				}
+				if (DateTime.Now.Minute % 30 < 5 && DateTime.Now.Minute % 30 >= 1 && LastHHDate.AddMinutes(20) < DateTime.Now) {
 					Logger.Info("HH");
 					Process(DateTime.Now, RWModeEnum.hh, DepthHH);
 					LastHHDate = DateTime.Now;

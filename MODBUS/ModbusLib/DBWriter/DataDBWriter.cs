@@ -55,7 +55,7 @@ namespace ModbusLib
 
 		public void ReadAll() {
 			try {
-				Reader = new StreamReader(FileName);
+				Reader = new StreamReader(System.IO.File.OpenRead(FileName));
 				readHeader();
 				readData();
 				foreach (DataDBRecord rec in Data.Values) {
