@@ -31,7 +31,7 @@ namespace VotGES.Web
 			VotGES.GlobalVotGES.setCulture();
 
 			Logger logger=new WebLogger();
-			Logger.init(Logger.createFileLogger(Server.MapPath("/logs/"), "orders", logger));
+			Logger.InitFileLogger(Server.MapPath("/logs/"), "orders", new Web.Logging.WebLogger());
 			Logger.Info("Старт приложения "+DateTime.Now);			
 			AreaRegistration.RegisterAllAreas();
 

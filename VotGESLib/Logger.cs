@@ -19,10 +19,17 @@ namespace VotGES
 
 		public Logger() {
 			
-		}		
+		}
 
-
-		public static  Logger  createFileLogger(string path, string name, Logger newLogger) {
+		public bool IsFileLogger{get;protected set;}
+		public string Path{get;protected set;}
+		public string Name{get;protected set;}
+		public DateTime Date { get; protected set; }
+		
+		public static  void  InitFileLogger(string path, string name, Logger newLogger=null) {
+			if (newLogger == null) {
+				newLogger = new Logger();
+			}
 			string fileName=String.Format("{0}/{1}_{2}.txt", path, name, DateTime.Now.ToString("dd_MM_yyyy"));
 			PatternLayout layout = new PatternLayout(@"[%d] %-10p %m%n");
 			FileAppender appender=new FileAppender();
@@ -32,11 +39,21 @@ namespace VotGES
 			BasicConfigurator.Configure(appender);
 			appender.ActivateOptions();
 			newLogger.logger = LogManager.GetLogger(name);
-			return newLogger;
+			newLogger.Path=path;
+			newLogger.Name=name;
+			newLogger.IsFileLogger=true;
+			newLogger.Date = DateTime.Now.Date;
+			Logger.context = newLogger;
 		}
 
 		public static void init(Logger context) {
 			Logger.context = context;
+		}
+
+		public static void checkFileLogger() {
+			if (context.IsFileLogger && (DateTime.Now.Date>context.Date)) {
+				InitFileLogger(context.Path, context.Name);
+			}
 		}
 
 		protected virtual string createMessage(string message, LoggerSource source = LoggerSource.none) {
@@ -64,14 +81,17 @@ namespace VotGES
 
 
 		public static void Info(string str, LoggerSource source = LoggerSource.none) {
+			Logger.checkFileLogger();
 			context.info(str, source);			
 		}
 
 		public static void Error(string str, LoggerSource source = LoggerSource.none) {
+			Logger.checkFileLogger();
 			context.info(str, source);
 		}
 
 		public static void Debug(string str, LoggerSource source = LoggerSource.none) {
+			Logger.checkFileLogger();
 			context.info(str, source);
 		}
 

@@ -15,7 +15,7 @@ namespace DBConsole
 			try {
 				Settings.init();
 				DBSettings.init();
-				Logger.init(Logger.createFileLogger(Settings.single.LogPath, "logW", new Logger()));
+				Logger.InitFileLogger(Settings.single.LogPath, "logW");
 
 				MasterDBWriter writer=new MasterDBWriter();
 				writer.InitRun(30000, 3, -1);
@@ -33,7 +33,7 @@ namespace DBConsole
 			try {
 				Settings.init();
 				DBSettings.init();
-				Logger.init(Logger.createFileLogger(Settings.single.LogPath, "logW", new Logger()));
+				Logger.InitFileLogger(Settings.single.LogPath, "logW");
 
 				MasterDBWriter writer=new MasterDBWriter();
 				writer.Process(new DateTime(2012, 09, 10, 0, 0, 0), new DateTime(2012, 09, 12, 0, 0, 0), RWModeEnum.hh);
@@ -50,7 +50,7 @@ namespace DBConsole
 			try {
 				Settings.init();
 				DBSettings.init();
-				Logger.init(Logger.createFileLogger(Settings.single.LogPath, "logDB", new Logger()));
+				Logger.InitFileLogger(Settings.single.LogPath, "logDB");
 
 				DateTime DateStart=new DateTime(2012, 09, 01);
 				DateTime DateEnd=new DateTime(2012, 09, 07);
