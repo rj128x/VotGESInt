@@ -82,7 +82,7 @@
 			<th>РГЕ-4</th>
 			<th>ГТП-2</th>
 			<th>ГЭС</th>
-			<th>&nbsp;</th>
+			<th width='100'>&nbsp;</th>
 		</tr>
 		<%foreach (DateTime dt in Model.GES.SteppedPBR.Keys) { %>
 			<tr>
@@ -96,6 +96,16 @@
 				<td><%=Model.ChangePBR[dt]?"Смена нагрузки":"" %></td>
 			</tr>
 		<%} %>
+		<tr>
+			<th>Итог</th>
+			<th><%=Model.GTP1.IntegratedPBR.Last().Value.ToString("0.00") %></th>
+			<th><%=Model.RGE2.IntegratedPBR.Last().Value.ToString("0.00")%></th>
+			<th><%=Model.RGE3.IntegratedPBR.Last().Value.ToString("0.00")%></th>
+			<th><%=Model.RGE4.IntegratedPBR.Last().Value.ToString("0.00")%></th>
+			<th><%=Model.GTP2.IntegratedPBR.Last().Value.ToString("0.00")%></th>
+			<th><%=Model.GES.IntegratedPBR.Last().Value.ToString("0.00")%></th>
+			<th>&nbsp;</th>
+		</tr>
 	</table>
 </body>
 </html>
