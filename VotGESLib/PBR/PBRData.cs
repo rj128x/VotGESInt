@@ -97,7 +97,7 @@ namespace VotGES.PBR
 				while (date <= DateEnd) {
 					if (!RealPBR.Keys.Contains(date)) {
 						if (RealPBR.Keys.Contains(date.AddMinutes(-60))) {
-							RealP.Add(date, RealPBR[date.AddMinutes(-60)]);
+							RealPBR.Add(date, RealPBR[date.AddMinutes(-60)]);
 						} else {
 							RealPBR.Add(date, -1);
 							Logger.Info("Не записан ПБР " + GTPIndex.ToString() + " " + date.ToString());

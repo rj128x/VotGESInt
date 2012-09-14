@@ -15,8 +15,8 @@
     <file relUrl="bin/fr/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:52" />
     <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="bin/ru/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
-    <file relUrl="ClientBin/MainSL.xap" publishTime="09/13/2012 15:44:30" />
-    <file relUrl="bin/VotGES.Web.pdb" publishTime="09/14/2012 08:02:31" />
+    <file relUrl="ClientBin/MainSL.xap" publishTime="09/14/2012 14:03:17" />
+    <file relUrl="bin/VotGES.Web.pdb" publishTime="09/14/2012 14:02:41" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Hosting.xml" publishTime="01/14/2011 14:08:54" />
     <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Server.xml" publishTime="01/14/2011 14:08:52" />
@@ -29,7 +29,7 @@
     <file relUrl="Scripts/jquery-1.4.1.js" publishTime="09/10/2012 08:07:29" />
     <file relUrl="Views/Reports/Prikaz20.aspx" publishTime="09/12/2012 11:39:28" />
     <file relUrl="bin/rashods.resx" publishTime="09/10/2012 08:07:41" />
-    <file relUrl="bin/VotGES.pdb" publishTime="09/13/2012 15:43:45" />
+    <file relUrl="bin/VotGES.pdb" publishTime="09/14/2012 14:02:29" />
     <file relUrl="bin/ru/System.Web.Mvc.resources.dll" publishTime="03/29/2010 17:36:52" />
     <file relUrl="Views/Reports/PBR.aspx" publishTime="09/14/2012 08:04:10" />
     <file relUrl="Views/Home/About.aspx" publishTime="09/10/2012 08:07:31" />
@@ -39,7 +39,7 @@
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="09/10/2012 08:07:29" />
     <file relUrl="Views/Home/Index.aspx" publishTime="09/10/2012 08:07:31" />
     <file relUrl="bin/es/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:48" />
-    <file relUrl="bin/VotGES.Web.dll" publishTime="09/14/2012 08:02:31" />
+    <file relUrl="bin/VotGES.Web.dll" publishTime="09/14/2012 14:02:41" />
     <file relUrl="bin/log4net.dll" publishTime="09/10/2012 08:07:41" />
     <file relUrl="Views/Shared/Site.Master" publishTime="09/10/2012 08:07:31" />
     <file relUrl="Views/Home/Test.aspx" publishTime="09/10/2012 08:07:31" />
@@ -69,7 +69,7 @@
     <file relUrl="Global.asax" publishTime="09/10/2012 08:07:28" />
     <file relUrl="bin/es/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="bin/log4net.xml" publishTime="09/10/2012 08:07:41" />
-    <file relUrl="bin/VotGES.dll" publishTime="09/13/2012 15:43:46" />
+    <file relUrl="bin/VotGES.dll" publishTime="09/14/2012 14:02:30" />
     <file relUrl="Web.config" publishTime="09/11/2012 14:59:15" />
   </publishProfile>
   <publishProfile publishUrl="D:\VotGES" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Профиль2" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="False">
