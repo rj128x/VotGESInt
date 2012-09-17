@@ -38,17 +38,6 @@ namespace VotGES.PrognozNB
 			set { userPBR = value; }
 		}
 
-		protected SortedList<DateTime,double> m53500;
-		public SortedList<DateTime, double> M53500 {
-			get {
-				if (m53500 == null) {
-					m53500 = new SortedList<DateTime, double>();
-					readM53500();
-				}
-				return m53500;
-			}
-			set { m53500 = value; }
-		}
 
 		protected SortedList<DateTime,double> pbrPrevSutki;
 		public SortedList<DateTime, double> PBRPrevSutki {
@@ -92,18 +81,6 @@ namespace VotGES.PrognozNB
 
 		}
 
-		public void readM53500() {
-
-			List<PiramidaEnrty> dataArr=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 53500, 2, 212, (new int[] { 3 }).ToList<int>(), true, true);
-
-			foreach (PiramidaEnrty data in dataArr) {
-				if (!m53500.Keys.Contains(data.Date)) {
-					m53500.Add(data.Date, data.Value0);
-				}
-			}
-		}
-
-
 		public void readPBRPrevSutki() {
 			DateTime ds=DatePrognozStart;
 			DateTime de=DatePrognozStart.AddDays(-1);
@@ -123,8 +100,6 @@ namespace VotGES.PrognozNB
 					pbrFull.Add(date, userPBR[date]);
 				} else if (pbr.Keys.Contains(date)) {
 					pbrFull.Add(date, pbr[date]);
-				} else if (M53500.Keys.Contains(date)) {
-					pbrFull.Add(date, M53500[date]);
 				} else if (pbrFull.Keys.Contains(date.AddHours(-24))) {
 					pbrFull.Add(date, pbrFull[date.AddHours(-24)]);
 				} else if (PBRPrevSutki.Keys.Contains(date.AddHours(-24))) {

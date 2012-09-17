@@ -393,7 +393,7 @@ namespace VotGES.Piramida.Report
 			string obj=paramsArr[3];
 
 			connection = Interval != IntervalReportEnum.minute ? PiramidaAccess.getConnection("P3000") : PiramidaAccess.getConnection("P2000");
-			if (objType == "2" && obj == "3") {
+			if (objType == "2" && (obj == "3" || obj == "30")) {
 				connection = PiramidaAccess.getConnection("PSV");
 			}
 
@@ -418,7 +418,7 @@ namespace VotGES.Piramida.Report
 				string commandText="";
 				string valueOper=String.Format("{0}(Value0)", dbOper);
 
-				if (objType == "2" && obj == "3") {
+				if (objType == "2" && (obj == "3" || obj == "30")) {
 					switch (dbOper) {
 						case ("avg"):
 							valueOper = String.Format("{0}(Value0)", dbOper);

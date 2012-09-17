@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<VotGES.Piramida.Report.SutVedReport>" ContentType="application/vnd.ms-excel;"%>
+﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<VotGES.Piramida.Report.SutVedReport>" %>
 <%@ Import Namespace="VotGES.Piramida.Report" %>
 <%@ Import Namespace="VotGES.Piramida" %>
 <%@ Import Namespace="VotGES" %>
