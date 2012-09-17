@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using VotGES.Piramida.Report;
 using VotGES.PBR;
 using VotGES.Piramida;
-using VotGES.Piramida.Report;
 
 namespace VotGES.Web.Controllers
 {
