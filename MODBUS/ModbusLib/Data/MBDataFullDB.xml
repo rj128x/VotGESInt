@@ -222,7 +222,7 @@
 		<ModbusInitData Item='205' Addr='205' Name='U500 Минимально допустимое' Scale='1' />
 		<ModbusInitData Item='206' Addr='206' Name='' Scale='1' />
 		<ModbusInitData Item='207' Addr='207' Name='' Scale='1' />
-		<ModbusInitData Item='208' Addr='208' Name='Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='208' Addr='208' Name='Расход' Scale='1'/>
 		<ModbusInitData Item='209' Addr='209' Name='Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='210' Addr='210' Name='Ток ротора' Scale='1'  WriteToDBHH='1'/>
 		<ModbusInitData Item='211' Addr='211' Name='Ток ротора_FLAG' Scale='1' />
@@ -244,7 +244,7 @@
 		<ModbusInitData Item='227' Addr='227' Name='Открытие НА_FLAG' Scale='1' />
 		<ModbusInitData Item='228' Addr='228' Name='Разворот лопастей' Scale='0.1' />
 		<ModbusInitData Item='229' Addr='229' Name='Разворот лопастей_FLAG' Scale='1' />
-		<ModbusInitData Item='230' Addr='230' Name='Контроль напора (см)' Scale='1'/>
+		<ModbusInitData Item='230' Addr='230' Name='Контроль напора (см)' Scale='0.01' WriteToDBHH='1'/>
 		<ModbusInitData Item='231' Addr='231' Name='Контроль напора (см)_FLAG' Scale='1' />
 		<ModbusInitData Item='232' Addr='232' Name='Текущий расход (м3/сек)' Scale='1'/>
 		<ModbusInitData Item='233' Addr='233' Name='Текущий расход (м3/сек)_FLAG' Scale='1' />
@@ -252,8 +252,8 @@
 		<ModbusInitData Item='235' Addr='235' Name='Частота (0,01 Гц)_FLAG' Scale='1' />
 		<ModbusInitData Item='236' Addr='236' Name='' Scale='1' />
 		<ModbusInitData Item='237' Addr='237' Name='_FLAG' Scale='1' />
-		<ModbusInitData Item='238' Addr='238' Name='' Scale='1' />
-		<ModbusInitData Item='239' Addr='239' Name='_FLAG' Scale='1' />
+		<ModbusInitData Item='238' Addr='238' Name='Г1 Расход' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='239' Addr='239' Name='Г1 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='240' Addr='240' Name='' Scale='1' />
 		<ModbusInitData Item='241' Addr='241' Name='_FLAG' Scale='1' />
 		<ModbusInitData Item='242' Addr='242' Name='' Scale='1' />
@@ -272,7 +272,7 @@
 		<ModbusInitData Item='255' Addr='255' Name='Маска управления от М6000' Scale='1' />
 		<ModbusInitData Item='256' Addr='256' Name='Минимальный уровень НБ' Scale='1' />
 		<ModbusInitData Item='257' Addr='257' Name='' Scale='1' />
-		<ModbusInitData Item='258' Addr='258' Name='Г2 Расход' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='258' Addr='258' Name='Г2 Расход' Scale='1'  />
 		<ModbusInitData Item='259' Addr='259' Name='Г2 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='260' Addr='260' Name='Г2 Ток ротора' Scale='1'  WriteToDBHH='1'/>
 		<ModbusInitData Item='261' Addr='261' Name='Г2 Ток ротора_FLAG' Scale='1' />
@@ -294,7 +294,7 @@
 		<ModbusInitData Item='277' Addr='277' Name='Г2 Открытие НА_FLAG' Scale='1' />
 		<ModbusInitData Item='278' Addr='278' Name='Г2 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData Item='279' Addr='279' Name='Г2 Разворот лопастей_FLAG' Scale='1' />
-		<ModbusInitData Item='280' Addr='280' Name='Г2 Контроль задания напора' Scale='0.01'/>
+		<ModbusInitData Item='280' Addr='280' Name='Г2 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
 		<ModbusInitData Item='281' Addr='281' Name='Г2 Контроль задания напора_FLAG' Scale='1' />
 		<ModbusInitData Item='282' Addr='282' Name='Г2 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData Item='283' Addr='283' Name='Г2 Генераторный подшипник радиально_FLAG' Scale='1' />
@@ -302,8 +302,8 @@
 		<ModbusInitData Item='285' Addr='285' Name='Г2 Турбинный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData Item='286' Addr='286' Name='Г2 Крышка турбины' Scale='1' />
 		<ModbusInitData Item='287' Addr='287' Name='Г2 Крышка турбины_FLAG' Scale='1' />
-		<ModbusInitData Item='288' Addr='288' Name='Г2 Подпятник вертикально' Scale='1' />
-		<ModbusInitData Item='289' Addr='289' Name='Г2 Подпятник вертикально_FLAG' Scale='1' />
+		<ModbusInitData Item='288' Addr='288' Name='Г2 Расход' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='289' Addr='289' Name='Г2 Расход_FLAG' Scale='1'/>
 		<ModbusInitData Item='290' Addr='290' Name='Г2 Частота' Scale='1' />
 		<ModbusInitData Item='291' Addr='291' Name='Г2 Частота_FLAG' Scale='1' />
 		<ModbusInitData Item='292' Addr='292' Name='Г2 Спинка статора вертикально' Scale='1' />
@@ -312,7 +312,7 @@
 		<ModbusInitData Item='295' Addr='295' Name='Г2 Спинка статора радиально_FLAG' Scale='1' />
 		<ModbusInitData Item='296' Addr='296' Name='' Scale='1' />
 		<ModbusInitData Item='297' Addr='297' Name='' Scale='1' />
-		<ModbusInitData Item='298' Addr='298' Name='Режимное ограничение по P генератора №1 ' Scale='1' />
+		<ModbusInitData Item='298' Addr='298' Name='Режимное ограничение по P генератора №1' Scale='1' />
 		<ModbusInitData Item='299' Addr='299' Name='Режимное ограничение по P генератора №2' Scale='1' />
 		<ModbusInitData Item='300' Addr='300' Name='Режимное ограничение по P генератора №3' Scale='1' />
 		<ModbusInitData Item='301' Addr='301' Name='Режимное ограничение по P генератора №4' Scale='1' />
@@ -322,7 +322,7 @@
 		<ModbusInitData Item='305' Addr='305' Name='Режимное ограничение по P генератора №8' Scale='1' />
 		<ModbusInitData Item='306' Addr='306' Name='Режимное ограничение по P генератора №9' Scale='1' />
 		<ModbusInitData Item='307' Addr='307' Name='Режимное ограничение по P генератора №10' Scale='1' />
-		<ModbusInitData Item='308' Addr='308' Name='Г3 Расход' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='308' Addr='308' Name='Г3 Расход' Scale='1'  />
 		<ModbusInitData Item='309' Addr='309' Name='Г3 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='310' Addr='310' Name='Г3 Ток ротора' Scale='1'  WriteToDBHH='1'/>
 		<ModbusInitData Item='311' Addr='311' Name='Г3 Ток ротора_FLAG' Scale='1' />
@@ -344,7 +344,7 @@
 		<ModbusInitData Item='327' Addr='327' Name='Г3 Открытие НА_FLAG' Scale='1' />
 		<ModbusInitData Item='328' Addr='328' Name='Г3 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData Item='329' Addr='329' Name='Г3 Разворот лопастей_FLAG' Scale='1' WriteToDBHH='1'/>
-		<ModbusInitData Item='330' Addr='330' Name='Г3 Контроль задания напора'/>
+		<ModbusInitData Item='330' Addr='330' Name='Г3 Контроль задания напора' WriteToDBHH='1'/>
 		<ModbusInitData Item='331' Addr='331' Name='Г3 Контроль задания напора_FLAG' Scale='1' />
 		<ModbusInitData Item='332' Addr='332' Name='Г3 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData Item='333' Addr='333' Name='Г3 Генераторный подшипник радиально_FLAG' Scale='1' />
@@ -352,8 +352,8 @@
 		<ModbusInitData Item='335' Addr='335' Name='Г3 Турбинный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData Item='336' Addr='336' Name='Г3 Крышка турбины' Scale='1' />
 		<ModbusInitData Item='337' Addr='337' Name='Г3 Крышка турбины_FLAG' Scale='1' />
-		<ModbusInitData Item='338' Addr='338' Name='Г3 Подпятник вертикально' Scale='1' />
-		<ModbusInitData Item='339' Addr='339' Name='Г3 Подпятник вертикально_FLAG' Scale='1' />
+		<ModbusInitData Item='338' Addr='338' Name='Г3 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='339' Addr='339' Name='Г3 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='340' Addr='340' Name='Г3 Частота' Scale='1' />
 		<ModbusInitData Item='341' Addr='341' Name='Г3 Частота_FLAG' Scale='1' />
 		<ModbusInitData Item='342' Addr='342' Name='Г3 Спинка статора вертикально' Scale='1' />
@@ -372,7 +372,7 @@
 		<ModbusInitData Item='355' Addr='355' Name='Технологическое ограничение P ген. №8' Scale='1' />
 		<ModbusInitData Item='356' Addr='356' Name='Технологическое ограничение P ген. №9' Scale='1' />
 		<ModbusInitData Item='357' Addr='357' Name='Технологическое ограничение P ген. №10' Scale='1' />
-		<ModbusInitData Item='358' Addr='358' Name='Г4 Расход' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='358' Addr='358' Name='Г4 Расход' Scale='1' />
 		<ModbusInitData Item='359' Addr='359' Name='Г4 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='360' Addr='360' Name='Г4 Ток ротора' Scale='1'  WriteToDBHH='1'/>
 		<ModbusInitData Item='361' Addr='361' Name='Г4 Ток ротора_FLAG' Scale='1' />
@@ -394,7 +394,7 @@
 		<ModbusInitData Item='377' Addr='377' Name='Г4 Открытие НА_FLAG' Scale='1' />
 		<ModbusInitData Item='378' Addr='378' Name='Г4 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData Item='379' Addr='379' Name='Г4 Разворот лопастей_FLAG' Scale='1' />
-		<ModbusInitData Item='380' Addr='380' Name='Г4 Контроль задания напора' Scale='0.01'/>
+		<ModbusInitData Item='380' Addr='380' Name='Г4 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
 		<ModbusInitData Item='381' Addr='381' Name='Г4 Контроль задания напора_FLAG' Scale='1' />
 		<ModbusInitData Item='382' Addr='382' Name='Г4 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData Item='383' Addr='383' Name='Г4 Генераторный подшипник радиально_FLAG' Scale='1' />
@@ -402,8 +402,8 @@
 		<ModbusInitData Item='385' Addr='385' Name='Г4 Турбинный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData Item='386' Addr='386' Name='Г4 Крышка турбины' Scale='1' />
 		<ModbusInitData Item='387' Addr='387' Name='Г4 Крышка турбины_FLAG' Scale='1' />
-		<ModbusInitData Item='388' Addr='388' Name='Г4 Подпятник вертикально' Scale='1' />
-		<ModbusInitData Item='389' Addr='389' Name='Г4 Подпятник вертикально_FLAG' Scale='1' />
+		<ModbusInitData Item='388' Addr='388' Name='Г4 Расход' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='389' Addr='389' Name='Г4 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='390' Addr='390' Name='Г4 Частота' Scale='1' />
 		<ModbusInitData Item='391' Addr='391' Name='Г4 Частота_FLAG' Scale='1' />
 		<ModbusInitData Item='392' Addr='392' Name='Г4 Спинка статора вертикально' Scale='1' />
@@ -422,7 +422,7 @@
 		<ModbusInitData Item='405' Addr='405' Name='Акк. Б #4_FLAG' Scale='1' />
 		<ModbusInitData Item='406' Addr='406' Name='' Scale='1' />
 		<ModbusInitData Item='407' Addr='407' Name='' Scale='1' />
-		<ModbusInitData Item='408' Addr='408' Name='Г5 Расход' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='408' Addr='408' Name='Г5 Расход' Scale='1'  />
 		<ModbusInitData Item='409' Addr='409' Name='Г5 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='410' Addr='410' Name='Г5 Ток ротора' Scale='1'  WriteToDBHH='1'/>
 		<ModbusInitData Item='411' Addr='411' Name='Г5 Ток ротора_FLAG' Scale='1' />
@@ -444,7 +444,7 @@
 		<ModbusInitData Item='427' Addr='427' Name='Г5 Открытие НА_FLAG' Scale='1' />
 		<ModbusInitData Item='428' Addr='428' Name='Г5 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData Item='429' Addr='429' Name='Г5 Разворот лопастей_FLAG' Scale='1' />
-		<ModbusInitData Item='430' Addr='430' Name='Г5 Контроль задания напора' Scale='0.01'/>
+		<ModbusInitData Item='430' Addr='430' Name='Г5 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
 		<ModbusInitData Item='431' Addr='431' Name='Г5 Контроль задания напора_FLAG' Scale='1' />
 		<ModbusInitData Item='432' Addr='432' Name='Г5 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData Item='433' Addr='433' Name='Г5 Генераторный подшипник радиально_FLAG' Scale='1' />
@@ -452,8 +452,8 @@
 		<ModbusInitData Item='435' Addr='435' Name='Г5 Турбинный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData Item='436' Addr='436' Name='Г5 Крышка турбины' Scale='1' />
 		<ModbusInitData Item='437' Addr='437' Name='Г5 Крышка турбины_FLAG' Scale='1' />
-		<ModbusInitData Item='438' Addr='438' Name='Г5 Подпятник вертикально' Scale='1' />
-		<ModbusInitData Item='439' Addr='439' Name='Г5 Подпятник вертикально_FLAG' Scale='1' />
+		<ModbusInitData Item='438' Addr='438' Name='Г5 Расход' Scale='1' WriteToDBHH='1' />
+		<ModbusInitData Item='439' Addr='439' Name='Г5 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='440' Addr='440' Name='Г5 Частота' Scale='1' />
 		<ModbusInitData Item='441' Addr='441' Name='Г5 Частота_FLAG' Scale='1' />
 		<ModbusInitData Item='442' Addr='442' Name='Г5 Спинка статора вертикально' Scale='1' />
@@ -472,7 +472,7 @@
 		<ModbusInitData Item='455' Addr='455' Name='Коэффициент запаса УЭР на +, ген. №8' Scale='1' />
 		<ModbusInitData Item='456' Addr='456' Name='Коэффициент запаса УЭР на +, ген. №9' Scale='1' />
 		<ModbusInitData Item='457' Addr='457' Name='Коэффициент запаса УЭР на +, ген. №10' Scale='1' />
-		<ModbusInitData Item='458' Addr='458' Name='Г6 Расход' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='458' Addr='458' Name='Г6 Расход' Scale='1'  />
 		<ModbusInitData Item='459' Addr='459' Name='Г6 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='460' Addr='460' Name='Г6 Ток ротора' Scale='1'  WriteToDBHH='1'/>
 		<ModbusInitData Item='461' Addr='461' Name='Г6 Ток ротора_FLAG' Scale='1' />
@@ -494,7 +494,7 @@
 		<ModbusInitData Item='477' Addr='477' Name='Г6 Открытие НА_FLAG' Scale='1' />
 		<ModbusInitData Item='478' Addr='478' Name='Г6 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData Item='479' Addr='479' Name='Г6 Разворот лопастей_FLAG' Scale='1' />
-		<ModbusInitData Item='480' Addr='480' Name='Г6 Контроль задания напора' Scale='0.01'/>
+		<ModbusInitData Item='480' Addr='480' Name='Г6 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
 		<ModbusInitData Item='481' Addr='481' Name='Г6 Контроль задания напора_FLAG' Scale='1' />
 		<ModbusInitData Item='482' Addr='482' Name='Г6 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData Item='483' Addr='483' Name='Г6 Генераторный подшипник радиально_FLAG' Scale='1' />
@@ -502,8 +502,8 @@
 		<ModbusInitData Item='485' Addr='485' Name='Г6 Турбинный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData Item='486' Addr='486' Name='Г6 Крышка турбины' Scale='1' />
 		<ModbusInitData Item='487' Addr='487' Name='Г6 Крышка турбины_FLAG' Scale='1' />
-		<ModbusInitData Item='488' Addr='488' Name='Г6 Подпятник вертикально' Scale='1' />
-		<ModbusInitData Item='489' Addr='489' Name='Г6 Подпятник вертикально_FLAG' Scale='1' />
+		<ModbusInitData Item='488' Addr='488' Name='Г6 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='489' Addr='489' Name='Г6 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='490' Addr='490' Name='Г6 Частота' Scale='1' />
 		<ModbusInitData Item='491' Addr='491' Name='Г6 Частота_FLAG' Scale='1' />
 		<ModbusInitData Item='492' Addr='492' Name='Г6 Спинка статора вертикально' Scale='1' />
@@ -522,7 +522,7 @@
 		<ModbusInitData Item='505' Addr='505' Name='Коэффициент запаса УЭР на -, ген. №8' Scale='1' />
 		<ModbusInitData Item='506' Addr='506' Name='Коэффициент запаса УЭР на -, ген. №9' Scale='1' />
 		<ModbusInitData Item='507' Addr='507' Name='Коэффициент запаса УЭР на -, ген. №10' Scale='1' />
-		<ModbusInitData Item='508' Addr='508' Name='Г7 Расход' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='508' Addr='508' Name='Г7 Расход' Scale='1'  />
 		<ModbusInitData Item='509' Addr='509' Name='Г7 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='510' Addr='510' Name='Г7 Ток ротора' Scale='1'  WriteToDBHH='1'/>
 		<ModbusInitData Item='511' Addr='511' Name='Г7 Ток ротора_FLAG' Scale='1' />
@@ -544,7 +544,7 @@
 		<ModbusInitData Item='527' Addr='527' Name='Г7 Открытие НА_FLAG' Scale='1' />
 		<ModbusInitData Item='528' Addr='528' Name='Г7 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData Item='529' Addr='529' Name='Г7 Разворот лопастей_FLAG' Scale='1' />
-		<ModbusInitData Item='530' Addr='530' Name='Г7 Контроль задания напора' Scale='0.01'/>
+		<ModbusInitData Item='530' Addr='530' Name='Г7 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
 		<ModbusInitData Item='531' Addr='531' Name='Г7 Контроль задания напора_FLAG' Scale='1' />
 		<ModbusInitData Item='532' Addr='532' Name='Г7 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData Item='533' Addr='533' Name='Г7 Генераторный подшипник радиально_FLAG' Scale='1' />
@@ -552,8 +552,8 @@
 		<ModbusInitData Item='535' Addr='535' Name='Г7 Турбинный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData Item='536' Addr='536' Name='Г7 Крышка турбины' Scale='1' />
 		<ModbusInitData Item='537' Addr='537' Name='Г7 Крышка турбины_FLAG' Scale='1' />
-		<ModbusInitData Item='538' Addr='538' Name='Г7 Подпятник вертикально' Scale='1' />
-		<ModbusInitData Item='539' Addr='539' Name='Г7 Подпятник вертикально_FLAG' Scale='1' />
+		<ModbusInitData Item='538' Addr='538' Name='Г7 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='539' Addr='539' Name='Г7 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='540' Addr='540' Name='Г7 Частота' Scale='1' />
 		<ModbusInitData Item='541' Addr='541' Name='Г7 Частота_FLAG' Scale='1' />
 		<ModbusInitData Item='542' Addr='542' Name='Г7 Спинка статора вертикально' Scale='1' />
@@ -572,7 +572,7 @@
 		<ModbusInitData Item='555' Addr='555' Name='' Scale='1' />
 		<ModbusInitData Item='556' Addr='556' Name='' Scale='1' />
 		<ModbusInitData Item='557' Addr='557' Name='' Scale='1' />
-		<ModbusInitData Item='558' Addr='558' Name='Г8 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='558' Addr='558' Name='Г8 Расход' Scale='1' />
 		<ModbusInitData Item='559' Addr='559' Name='Г8 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='560' Addr='560' Name='Г8 Ток ротора' Scale='1'  WriteToDBHH='1'/>
 		<ModbusInitData Item='561' Addr='561' Name='Г8 Ток ротора_FLAG' Scale='1' />
@@ -594,7 +594,7 @@
 		<ModbusInitData Item='577' Addr='577' Name='Г8 Открытие НА_FLAG' Scale='1' />
 		<ModbusInitData Item='578' Addr='578' Name='Г8 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData Item='579' Addr='579' Name='Г8 Разворот лопастей_FLAG' Scale='1' />
-		<ModbusInitData Item='580' Addr='580' Name='Г8 Контроль задания напора' Scale='0.01'/>
+		<ModbusInitData Item='580' Addr='580' Name='Г8 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
 		<ModbusInitData Item='581' Addr='581' Name='Г8 Контроль задания напора_FLAG' Scale='1' />
 		<ModbusInitData Item='582' Addr='582' Name='Г8 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData Item='583' Addr='583' Name='Г8 Генераторный подшипник радиально_FLAG' Scale='1' />
@@ -602,8 +602,8 @@
 		<ModbusInitData Item='585' Addr='585' Name='Г8 Турбинный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData Item='586' Addr='586' Name='Г8 Крышка турбины' Scale='1' />
 		<ModbusInitData Item='587' Addr='587' Name='Г8 Крышка турбины_FLAG' Scale='1' />
-		<ModbusInitData Item='588' Addr='588' Name='Г8 Подпятник вертикально' Scale='1' />
-		<ModbusInitData Item='589' Addr='589' Name='Г8 Подпятник вертикально_FLAG' Scale='1' />
+		<ModbusInitData Item='588' Addr='588' Name='Г8 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='589' Addr='589' Name='Г8 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='590' Addr='590' Name='Г8 Частота' Scale='1' />
 		<ModbusInitData Item='591' Addr='591' Name='Г8 Частота_FLAG' Scale='1' />
 		<ModbusInitData Item='592' Addr='592' Name='Г8 Спинка статора вертикально' Scale='1' />
@@ -622,7 +622,7 @@
 		<ModbusInitData Item='605' Addr='605' Name='' Scale='1' />
 		<ModbusInitData Item='606' Addr='606' Name='' Scale='1' />
 		<ModbusInitData Item='607' Addr='607' Name='' Scale='1' />
-		<ModbusInitData Item='608' Addr='608' Name='Г9 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='608' Addr='608' Name='Г9 Расход' Scale='1' />
 		<ModbusInitData Item='609' Addr='609' Name='Г9 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='610' Addr='610' Name='Г9 Ток ротора' Scale='1'  WriteToDBHH='1'/>
 		<ModbusInitData Item='611' Addr='611' Name='Г9 Ток ротора_FLAG' Scale='1' />
@@ -644,7 +644,7 @@
 		<ModbusInitData Item='627' Addr='627' Name='Г9 Открытие НА_FLAG' Scale='1' />
 		<ModbusInitData Item='628' Addr='628' Name='Г9 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData Item='629' Addr='629' Name='Г9 Разворот лопастей_FLAG' Scale='1' />
-		<ModbusInitData Item='630' Addr='630' Name='Г9 Контроль задания напора' Scale='0.01'/>
+		<ModbusInitData Item='630' Addr='630' Name='Г9 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
 		<ModbusInitData Item='631' Addr='631' Name='Г9 Контроль задания напора_FLAG' Scale='1' />
 		<ModbusInitData Item='632' Addr='632' Name='Г9 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData Item='633' Addr='633' Name='Г9 Генераторный подшипник радиально_FLAG' Scale='1' />
@@ -652,8 +652,8 @@
 		<ModbusInitData Item='635' Addr='635' Name='Г9 Турбинный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData Item='636' Addr='636' Name='Г9 Крышка турбины' Scale='1' />
 		<ModbusInitData Item='637' Addr='637' Name='Г9 Крышка турбины_FLAG' Scale='1' />
-		<ModbusInitData Item='638' Addr='638' Name='Г9 Подпятник вертикально' Scale='1' />
-		<ModbusInitData Item='639' Addr='639' Name='Г9 Подпятник вертикально_FLAG' Scale='1' />
+		<ModbusInitData Item='638' Addr='638' Name='Г9 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='639' Addr='639' Name='Г9 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='640' Addr='640' Name='Г9 Частота' Scale='1' />
 		<ModbusInitData Item='641' Addr='641' Name='Г9 Частота_FLAG' Scale='1' />
 		<ModbusInitData Item='642' Addr='642' Name='Г9 Спинка статора вертикально' Scale='1' />
@@ -672,7 +672,7 @@
 		<ModbusInitData Item='655' Addr='655' Name='' Scale='1' />
 		<ModbusInitData Item='656' Addr='656' Name='' Scale='1' />
 		<ModbusInitData Item='657' Addr='657' Name='' Scale='1' />
-		<ModbusInitData Item='658' Addr='658' Name='Г10 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='658' Addr='658' Name='Г10 Расход' Scale='1' />
 		<ModbusInitData Item='659' Addr='659' Name='Г10 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='660' Addr='660' Name='Г10 Ток ротора' Scale='1'  WriteToDBHH='1'/>
 		<ModbusInitData Item='661' Addr='661' Name='Г10 Ток ротора_FLAG' Scale='1' />
@@ -694,7 +694,7 @@
 		<ModbusInitData Item='677' Addr='677' Name='Г10 Открытие НА_FLAG' Scale='1' />
 		<ModbusInitData Item='678' Addr='678' Name='Г10 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData Item='679' Addr='679' Name='Г10 Разворот лопастей_FLAG' Scale='1' />
-		<ModbusInitData Item='680' Addr='680' Name='Г10 Контроль задания напора' Scale='0.01'/>
+		<ModbusInitData Item='680' Addr='680' Name='Г10 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
 		<ModbusInitData Item='681' Addr='681' Name='Г10 Контроль задания напора_FLAG' Scale='1' />
 		<ModbusInitData Item='682' Addr='682' Name='Г10 Генераторный подшипник радиально' Scale='0.01' />
 		<ModbusInitData Item='683' Addr='683' Name='Г10 Генераторный подшипник радиально_FLAG' Scale='1' />
@@ -702,8 +702,8 @@
 		<ModbusInitData Item='685' Addr='685' Name='Г10 Турбинный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData Item='686' Addr='686' Name='Г10 Крышка турбины' Scale='1' />
 		<ModbusInitData Item='687' Addr='687' Name='Г10 Крышка турбины_FLAG' Scale='1' />
-		<ModbusInitData Item='688' Addr='688' Name='Г10 Подпятник вертикально' Scale='1' />
-		<ModbusInitData Item='689' Addr='689' Name='Г10 Подпятник вертикально_FLAG' Scale='1' />
+		<ModbusInitData Item='688' Addr='688' Name='Г10 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='689' Addr='689' Name='Г10 Расход_FLAG' Scale='1' />
 		<ModbusInitData Item='690' Addr='690' Name='Г10 Частота' Scale='0.01' />
 		<ModbusInitData Item='691' Addr='691' Name='Г10 Частота_FLAG' Scale='1' />
 		<ModbusInitData Item='692' Addr='692' Name='Г10 Спинка статора вертикально' Scale='1' />

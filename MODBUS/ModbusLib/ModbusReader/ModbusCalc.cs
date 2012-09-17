@@ -50,6 +50,10 @@ namespace ModbusLib
 		public double P_GES() {
 			return Data["MB_216"] + Data["MB_266"]+Data["MB_316"] + Data["MB_366"] + Data["MB_416"] + Data["MB_466"] + Data["MB_516"] + Data["MB_566"] + Data["MB_616"] + Data["MB_666"];
 		}
+
+		public double Rashod_GES() {
+			return Data["MB_238"] + Data["MB_288"] + Data["MB_338"] + Data["MB_388"] + Data["MB_438"] + Data["MB_488"] + Data["MB_538"] + Data["MB_588"] + Data["MB_638"] + Data["MB_688"];
+		}
 		
 	}
 }

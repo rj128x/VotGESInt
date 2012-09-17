@@ -72,14 +72,14 @@ namespace ModbusLib
 		public void writeData( SortedList<int, double> ResultData) {
 			getWriter(DateTime.Now);
 			double val;
-			//string nm;
+			string nm;
 			List<double> values=new List<double>();
 			foreach (KeyValuePair<int,double> de in ResultData) {				
 				if (Headers.Contains(de.Key)) {
 					val=de.Value;
-					/*nm = InitArray.FullData.ContainsKey(de.Key + 1) ? InitArray.FullData[de.Key + 1].Name : "";
+					nm = InitArray.FullData.ContainsKey(de.Key + 1) ? InitArray.FullData[de.Key + 1].Name : "";
 					if (nm.Contains("_FLAG") && ResultData[de.Key + 1] != 0)
-						val = Double.NaN;*/
+						val = Double.NaN;
 					values.Add(val);
 				}
 			}
