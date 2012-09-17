@@ -256,6 +256,12 @@ namespace VotGES.PrognozNB
 						break;
 				}
 			}
+
+			foreach (DateTime date in firstData.Keys) {
+				if (firstData[date].Q == 0 && firstData[date].P > 0) {
+					firstData[date].Q = RashodTable.getStationRashod(firstData[date].P, firstData[date].VB-firstData[date].NB, RashodCalcMode.avg);
+				}
+			}
 			return firstData;
 		}
 
