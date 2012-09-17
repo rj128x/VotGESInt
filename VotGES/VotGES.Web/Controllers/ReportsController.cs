@@ -21,6 +21,7 @@ namespace VotGES.Web.Controllers
 
 		[AcceptVerbs(HttpVerbs.Get)]
 		public ActionResult SutVed(int year, int month, int day) {
+			Logger.Info(String.Format("Суточная ведомость за {0}.{1}.{2}",day,month,year));
 			DateTime date=new DateTime(year, month, day);
 			SutVedReport report=new SutVedReport(date.Date, date.Date.AddDays(1), IntervalReportEnum.halfHour);
 			report.ReadData();
@@ -30,6 +31,7 @@ namespace VotGES.Web.Controllers
 
 		[AcceptVerbs(HttpVerbs.Get)]
 		public ActionResult PBR(int year, int month, int day) {
+			Logger.Info(String.Format("ПБР за {0}.{1}.{2}", day, month, year));
 			DateTime date=new DateTime(year, month, day);
 			PBRFull pbr=new PBRFull(date);
 			return View("PBR", pbr);
@@ -37,6 +39,7 @@ namespace VotGES.Web.Controllers
 
 		[AcceptVerbs(HttpVerbs.Get)]
 		public ActionResult Prikaz20(int year, int month, int day) {
+			Logger.Info(String.Format("Приказ 20 за {0}.{1}.{2}", day, month, year));
 			DateTime date=new DateTime(year, month, day);
 			Prikaz20Report report=new Prikaz20Report(date);						
 			

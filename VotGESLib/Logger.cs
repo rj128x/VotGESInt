@@ -22,22 +22,32 @@ namespace VotGES
 		}
 
 		public bool IsFileLogger{get;protected set;}
+		public FileAppender appender { get; protected set; }
 		public string Path{get;protected set;}
 		public string Name{get;protected set;}
 		public DateTime Date { get; protected set; }
 		
 		public static  void  InitFileLogger(string path, string name, Logger newLogger=null) {
+			try {
+				if (newLogger != null && newLogger.IsFileLogger && newLogger.appender != null) {
+					newLogger.appender.Close();
+				}
+			} catch { }
+
 			if (newLogger == null) {
 				newLogger = new Logger();
 			}
+		
+			
 			string fileName=String.Format("{0}/{1}_{2}.txt", path, name, DateTime.Now.ToString("dd_MM_yyyy"));
 			PatternLayout layout = new PatternLayout(@"[%d] %-10p %m%n");
-			FileAppender appender=new FileAppender();
-			appender.Layout = layout;
-			appender.File = fileName;
-			appender.AppendToFile = true;
-			BasicConfigurator.Configure(appender);
-			appender.ActivateOptions();
+			newLogger.appender = new FileAppender();
+			newLogger.appender.Layout = layout;
+			newLogger.appender.File = fileName;
+			newLogger.appender.AppendToFile = true;
+			BasicConfigurator.Configure(newLogger.appender);
+			newLogger.appender.ActivateOptions();
+			
 			newLogger.logger = LogManager.GetLogger(name);
 			newLogger.Path=path;
 			newLogger.Name=name;
