@@ -26,10 +26,16 @@ namespace ModbusLib
 		public bool WriteToDBHH { get; set; }
 
 		[System.Xml.Serialization.XmlAttribute]
+		public bool WriteToDBDiff { get; set; }
+
+		[System.Xml.Serialization.XmlAttribute]
 		public int ParNumberMin { get; set; }
 
 		[System.Xml.Serialization.XmlAttribute]
 		public int ParNumberHH { get; set; }
+
+		[System.Xml.Serialization.XmlAttribute]
+		public int ParNumberDiff { get; set; }
 
 		[System.Xml.Serialization.XmlAttribute]
 		public int Obj { get; set; }
@@ -44,21 +50,30 @@ namespace ModbusLib
 		public string DBNameHH { get; set; }
 
 		[System.Xml.Serialization.XmlAttribute]
+		public string DBNameDiff { get; set; }
+
+		[System.Xml.Serialization.XmlAttribute]
 		public int Item { get; set; }
 
 		[System.Xml.Serialization.XmlAttribute]
 		public string FuncName { get; set; }
 
+		[System.Xml.Serialization.XmlAttribute]
+		public double Diff { get; set; }
+
 
 		public ModbusInitData() {
 			WriteToDBMin = false;
 			WriteToDBHH = false;
+			WriteToDBDiff = false;
 			ParNumberMin = -1;
 			ParNumberHH = -1;
+			ParNumberDiff = -1;
 			Obj = -1;
 			ObjType = -1;
 			DBNameMin=null;
 			DBNameHH = null;
+			DBNameDiff = null;
 			Item = -1;
 			FuncName = null;
 		}
@@ -80,13 +95,14 @@ namespace ModbusLib
 		public int MaxAddr { get; set; }
 
 		public int ParNumberMin { get; set; }
-
 		public int ParNumberHH { get; set; }
+		public int ParNumberDiff { get; set; }
 
 		public int Obj { get; set; }
 		public int ObjType { get; set; }
 		public string DBNameMin { get; set; }
 		public string DBNameHH { get; set; }
+		public string DBNameDiff { get; set; }
 
 		
 		public void processData() {
@@ -96,11 +112,13 @@ namespace ModbusLib
 				try {
 					init.ParNumberHH = init.ParNumberHH == -1 ? ParNumberHH : init.ParNumberHH;
 					init.ParNumberMin = init.ParNumberMin == -1 ? ParNumberMin : init.ParNumberMin;
+					init.ParNumberDiff = init.ParNumberDiff == -1 ? ParNumberDiff : init.ParNumberDiff;
 					init.Obj = init.Obj == -1 ? Obj : init.Obj;
 					init.ObjType = init.ObjType == -1 ? ObjType : init.ObjType;
 					init.Item = init.Item == -1 ? init.Addr : init.Item;
 					init.DBNameHH = init.DBNameHH == null ? DBNameHH : init.DBNameHH;
 					init.DBNameMin = init.DBNameMin == null ? DBNameMin : init.DBNameMin;
+					init.DBNameDiff = init.DBNameDiff == null ? DBNameDiff : init.DBNameDiff;
 
 					FullData.Add(init.Addr, init);
 					if (MaxAddr < init.Addr) {

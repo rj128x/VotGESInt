@@ -17,6 +17,7 @@ namespace ModbusLib
 		public double Avg {get; set;}
 		public double Eq {get; set;}
 		public double Count { get;  set; }
+		public SortedList<DateTime, double> DiffVals { get; set; }
 
 		public DataDBRecord(int header) {
 			this.Header = header;
@@ -24,6 +25,7 @@ namespace ModbusLib
 			Max = -10e10;
 			Avg = 0;
 			Count = 0;
+			DiffVals = new SortedList<DateTime, double>();
 		}
 	}
 
@@ -113,6 +115,12 @@ namespace ModbusLib
 								}
 								Data[header].Eq = val;
 								Data[header].Count++;
+								if (InitArray.FullData[header].WriteToDBDiff) {
+									if (Data[header].DiffVals.Count == 0 || 
+										Math.Abs(Data[header].DiffVals.Last().Value- val)>InitArray.FullData[header].Diff) {
+										Data[header].DiffVals.Add(Dates.Last(), val);
+									}
+								}
 							}
 						}catch {
 							Logger.Error("Ошибка при чтении строки файла "+FileName);
@@ -127,6 +135,7 @@ namespace ModbusLib
 		}
 
 		public void writeData(RWModeEnum mode) {
+			SqlConnection con=null;
 			SortedList<string,List<string>> inserts=new SortedList<string, List<string>>();
 			SortedList<string,List<string>> deletes=new SortedList<string, List<string>>();
 			string insertIntoHeader="INSERT INTO Data (parnumber,object,item,value0,valueMin,valueMax,valueEq,objtype,data_date,rcvstamp,season)";
@@ -160,9 +169,41 @@ namespace ModbusLib
 						inserts[init.DBNameHH].Add(insert);
 						deletes[init.DBNameHH].Add(delete);
 					}
+
+					if (init.WriteToDBDiff && mode == RWModeEnum.hh) {
+						double lastVal=Double.NaN;
+						try {
+							string select=String.Format(
+								"SELECT TOP 1 VALUE0 FROM DATA WHERE ParNumber={0} and Object={1} and ObjType={2} and Item={3} and Data_date<{4} order by DATA_DATE desc", 
+								init.ParNumberDiff, init.Obj, init.ObjType, init.Item,rec.DiffVals.First().Key);
+							con = PiramidaAccess.getConnection(init.DBNameDiff);
+							SqlCommand command=null;
+							command = con.CreateCommand();
+							command.CommandText = select;
+							lastVal=(double)command.ExecuteScalar();
+						}catch{} finally {
+							try { con.Close(); } catch { }
+						}
+						if (!Double.IsNaN(lastVal)) {
+							if (Math.Abs(lastVal - rec.DiffVals.First().Value) < init.Diff) {
+								rec.DiffVals.RemoveAt(0);
+							}
+						}
+						foreach (KeyValuePair<DateTime,double>diff in rec.DiffVals) {
+							string insert=String.Format(frmt, init.ParNumberDiff, init.Obj, init.Item, diff.Value, diff.Value, diff.Value, diff.Value, init.ObjType,
+								diff.Key.ToString(df), DateTime.Now.ToString(df), 0);
+							string delete=String.Format(frmDel, init.ParNumberDiff, init.Obj, init.ObjType, init.Item, diff.Key.ToString(df));
+							if (!inserts.ContainsKey(init.DBNameDiff)) {
+								inserts.Add(init.DBNameDiff, new List<string>());
+								deletes.Add(init.DBNameDiff, new List<string>());
+							}
+							inserts[init.DBNameDiff].Add(insert);
+							deletes[init.DBNameDiff].Add(delete);
+						}
+					}
 				}
 			}
-			SqlConnection con;
+			
 
 			foreach (KeyValuePair<string,List<string>> de in deletes) {
 				con = PiramidaAccess.getConnection(de.Key);

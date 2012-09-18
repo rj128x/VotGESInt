@@ -9,7 +9,7 @@ namespace VotGES.Piramida.Report
 {	
 	public class SutVedReport : Report
 	{
-
+		public SortedList<DateTime, double> PZad { get; set; }
 		public PBRDataHH PBR { get; set; }
 		public SutVedReport(DateTime dateStart, DateTime dateEnd, IntervalReportEnum interval) :
 			base(dateStart, dateEnd, interval) {
@@ -41,6 +41,15 @@ namespace VotGES.Piramida.Report
 			base.ReadData();
 			PBR = new PBRDataHH(DateStart, DateEnd, 0);
 			PBR.InitData();
+
+			PZad = new SortedList<DateTime, double>();
+			List<int> items=new List<int>();
+			items.Add(91);
+			List<PiramidaEnrty> records=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 3, 2, 13, items, true, false, "PSV");
+			foreach (PiramidaEnrty rec in records) {
+				PZad.Add(rec.Date, rec.Value0);
+			}
+
 		}
 
 	}

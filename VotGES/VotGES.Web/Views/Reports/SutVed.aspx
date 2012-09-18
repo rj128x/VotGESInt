@@ -187,6 +187,18 @@
 					</tr>
 				</table>
 		</td>
+		<td valign='top'>
+			<tr>
+				<th>Час</th>
+				<th>P<sub>зад</sub></th>
+			</tr>
+			<%foreach (KeyValuePair<DateTime,double>de in Model.PZad){ %>
+			<tr>
+				<th><%=de.Key.ToString("HH:mm")%></th>
+				<td><%=de.Value.ToString("0.00") %></td>
+			</tr>
+			<%} %>
+		</td>
 	</tr>
 	
 	
