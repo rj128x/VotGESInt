@@ -29,8 +29,8 @@ namespace VotGES
 		
 		public static  void  InitFileLogger(string path, string name, Logger newLogger=null) {
 			try {
-				if (newLogger != null && newLogger.IsFileLogger && newLogger.appender != null) {
-					newLogger.appender.Close();
+				if (context != null && context.IsFileLogger && context.appender != null) {
+					context.appender.Close();
 				}
 			} catch { }
 
