@@ -362,6 +362,7 @@ namespace VotGES.Piramida
 		public static PiramidaRecord MB_GA1_Napor=new PiramidaRecord(2, 3, 230, "Г1 Напор");
 		public static PiramidaRecord MB_GA1_Irotor=new PiramidaRecord(2, 3, 210, "Г1 Ток ротора");
 		public static PiramidaRecord MB_GA1_P=new PiramidaRecord(2, 3, 216, "Г1 Активная мощность");
+		public static PiramidaRecord MB_GA1_Q=new PiramidaRecord(2, 3, 218, "Г1 Реактивная мощность");
 		public static PiramidaRecord MB_GA1_IstatorA=new PiramidaRecord(2, 3, 220, "Г1 Ток статора, фаза А");
 		public static PiramidaRecord MB_GA1_IstatorB=new PiramidaRecord(2, 3, 222, "Г1 Ток статора, фаза В");
 		public static PiramidaRecord MB_GA1_IstatorC=new PiramidaRecord(2, 3, 224, "Г1 Ток статора, фаза С");
@@ -369,6 +370,7 @@ namespace VotGES.Piramida
 		public static PiramidaRecord MB_GA2_Napor=new PiramidaRecord(2, 3, 280, "Г2 Напор");
 		public static PiramidaRecord MB_GA2_Irotor=new PiramidaRecord(2, 3, 260, "Г2 Ток ротора");
 		public static PiramidaRecord MB_GA2_P=new PiramidaRecord(2, 3, 266, "Г2 Активная мощность");
+		public static PiramidaRecord MB_GA2_Q=new PiramidaRecord(2, 3, 268, "Г2 Реактивная мощность");
 		public static PiramidaRecord MB_GA2_IstatorA=new PiramidaRecord(2, 3, 270, "Г2 Ток статора, фаза А");
 		public static PiramidaRecord MB_GA2_IstatorB=new PiramidaRecord(2, 3, 272, "Г2 Ток статора, фаза В");
 		public static PiramidaRecord MB_GA2_IstatorC=new PiramidaRecord(2, 3, 274, "Г2 Ток статора, фаза С");
@@ -376,6 +378,7 @@ namespace VotGES.Piramida
 		public static PiramidaRecord MB_GA3_Napor=new PiramidaRecord(2, 3, 330, "Г3 Напор");
 		public static PiramidaRecord MB_GA3_Irotor=new PiramidaRecord(2, 3, 310, "Г3 Ток ротора");
 		public static PiramidaRecord MB_GA3_P=new PiramidaRecord(2, 3, 316, "Г3 Активная мощность");
+		public static PiramidaRecord MB_GA3_Q=new PiramidaRecord(2, 3, 318, "Г3 Реактивная мощность");
 		public static PiramidaRecord MB_GA3_IstatorA=new PiramidaRecord(2, 3, 320, "Г3 Ток статора, фаза А");
 		public static PiramidaRecord MB_GA3_IstatorB=new PiramidaRecord(2, 3, 322, "Г3 Ток статора, фаза В");
 		public static PiramidaRecord MB_GA3_IstatorC=new PiramidaRecord(2, 3, 324, "Г3 Ток статора, фаза С");
@@ -383,6 +386,7 @@ namespace VotGES.Piramida
 		public static PiramidaRecord MB_GA4_Napor=new PiramidaRecord(2, 3, 380, "Г4 Напор");
 		public static PiramidaRecord MB_GA4_Irotor=new PiramidaRecord(2, 3, 360, "Г4 Ток ротора");
 		public static PiramidaRecord MB_GA4_P=new PiramidaRecord(2, 3, 366, "Г4 Активная мощность");
+		public static PiramidaRecord MB_GA4_Q=new PiramidaRecord(2, 3, 368, "Г4 Реактивная мощность");
 		public static PiramidaRecord MB_GA4_IstatorA=new PiramidaRecord(2, 3, 370, "Г4 Ток статора, фаза А");
 		public static PiramidaRecord MB_GA4_IstatorB=new PiramidaRecord(2, 3, 372, "Г4 Ток статора, фаза В");
 		public static PiramidaRecord MB_GA4_IstatorC=new PiramidaRecord(2, 3, 374, "Г4 Ток статора, фаза С");
@@ -390,6 +394,7 @@ namespace VotGES.Piramida
 		public static PiramidaRecord MB_GA5_Napor=new PiramidaRecord(2, 3, 430, "Г5 Напор");
 		public static PiramidaRecord MB_GA5_Irotor=new PiramidaRecord(2, 3, 410, "Г5 Ток ротора");
 		public static PiramidaRecord MB_GA5_P=new PiramidaRecord(2, 3, 416, "Г5 Активная мощность");
+		public static PiramidaRecord MB_GA5_Q=new PiramidaRecord(2, 3, 418, "Г5 Реактивная мощность");
 		public static PiramidaRecord MB_GA5_IstatorA=new PiramidaRecord(2, 3, 420, "Г5 Ток статора, фаза А");
 		public static PiramidaRecord MB_GA5_IstatorB=new PiramidaRecord(2, 3, 422, "Г5 Ток статора, фаза В");
 		public static PiramidaRecord MB_GA5_IstatorC=new PiramidaRecord(2, 3, 424, "Г5 Ток статора, фаза С");
@@ -397,6 +402,7 @@ namespace VotGES.Piramida
 		public static PiramidaRecord MB_GA6_Napor=new PiramidaRecord(2, 3, 480, "Г6 Напор");
 		public static PiramidaRecord MB_GA6_Irotor=new PiramidaRecord(2, 3, 460, "Г6 Ток ротора");
 		public static PiramidaRecord MB_GA6_P=new PiramidaRecord(2, 3, 466, "Г6 Активная мощность");
+		public static PiramidaRecord MB_GA6_Q=new PiramidaRecord(2, 3, 468, "Г1 Реактивная мощность");
 		public static PiramidaRecord MB_GA6_IstatorA=new PiramidaRecord(2, 3, 470, "Г6 Ток статора, фаза А");
 		public static PiramidaRecord MB_GA6_IstatorB=new PiramidaRecord(2, 3, 472, "Г6 Ток статора, фаза В");
 		public static PiramidaRecord MB_GA6_IstatorC=new PiramidaRecord(2, 3, 474, "Г6 Ток статора, фаза С");
@@ -404,6 +410,7 @@ namespace VotGES.Piramida
 		public static PiramidaRecord MB_GA7_Napor=new PiramidaRecord(2, 3, 530, "Г7 Напор");
 		public static PiramidaRecord MB_GA7_Irotor=new PiramidaRecord(2, 3, 510, "Г7 Ток ротора");
 		public static PiramidaRecord MB_GA7_P=new PiramidaRecord(2, 3, 516, "Г7 Активная мощность");
+		public static PiramidaRecord MB_GA7_Q=new PiramidaRecord(2, 3, 518, "Г7 Реактивная мощность");
 		public static PiramidaRecord MB_GA7_IstatorA=new PiramidaRecord(2, 3, 520, "Г7 Ток статора, фаза А");
 		public static PiramidaRecord MB_GA7_IstatorB=new PiramidaRecord(2, 3, 522, "Г7 Ток статора, фаза В");
 		public static PiramidaRecord MB_GA7_IstatorC=new PiramidaRecord(2, 3, 524, "Г7 Ток статора, фаза С");
@@ -416,6 +423,7 @@ namespace VotGES.Piramida
 		public static PiramidaRecord MB_GA8_Napor=new PiramidaRecord(2, 3, 580, "Г8 Напор");
 		public static PiramidaRecord MB_GA8_Irotor=new PiramidaRecord(2, 3, 560, "Г8 Ток ротора");
 		public static PiramidaRecord MB_GA8_P=new PiramidaRecord(2, 3, 566, "Г8 Активная мощность");
+		public static PiramidaRecord MB_GA8_Q=new PiramidaRecord(2, 3, 568, "Г8 Реактивная мощность");
 		public static PiramidaRecord MB_GA8_IstatorA=new PiramidaRecord(2, 3, 570, "Г8 Ток статора, фаза А");
 		public static PiramidaRecord MB_GA8_IstatorB=new PiramidaRecord(2, 3, 572, "Г8 Ток статора, фаза В");
 		public static PiramidaRecord MB_GA8_IstatorC=new PiramidaRecord(2, 3, 574, "Г8 Ток статора, фаза С");
@@ -424,6 +432,7 @@ namespace VotGES.Piramida
 		public static PiramidaRecord MB_GA9_Napor=new PiramidaRecord(2, 3, 630, "Г9 Напор");
 		public static PiramidaRecord MB_GA9_Irotor=new PiramidaRecord(2, 3, 610, "Г9 Ток ротора");
 		public static PiramidaRecord MB_GA9_P=new PiramidaRecord(2, 3, 616, "Г9 Активная мощность");
+		public static PiramidaRecord MB_GA9_Q=new PiramidaRecord(2, 3, 618, "Г9 Реактивная мощность");
 		public static PiramidaRecord MB_GA9_IstatorA=new PiramidaRecord(2, 3, 620, "Г9 Ток статора, фаза А");
 		public static PiramidaRecord MB_GA9_IstatorB=new PiramidaRecord(2, 3, 622, "Г9 Ток статора, фаза В");
 		public static PiramidaRecord MB_GA9_IstatorC=new PiramidaRecord(2, 3, 624, "Г9 Ток статора, фаза С");
@@ -432,6 +441,7 @@ namespace VotGES.Piramida
 		public static PiramidaRecord MB_GA10_Napor=new PiramidaRecord(2, 3, 680, "Г10 Напор");
 		public static PiramidaRecord MB_GA10_Irotor=new PiramidaRecord(2, 3, 660, "Г10 Ток ротора");
 		public static PiramidaRecord MB_GA10_P=new PiramidaRecord(2, 3, 666, "Г10 Активная мощность");
+		public static PiramidaRecord MB_GA10_Q=new PiramidaRecord(2, 3, 668, "Г10 Реактивная мощность");
 		public static PiramidaRecord MB_GA10_IstatorA=new PiramidaRecord(2, 3, 670, "Г10 Ток статора, фаза А");
 		public static PiramidaRecord MB_GA10_IstatorB=new PiramidaRecord(2, 3, 672, "Г10 Ток статора, фаза В");
 		public static PiramidaRecord MB_GA10_IstatorC=new PiramidaRecord(2, 3, 674, "Г10 Ток статора, фаза С");

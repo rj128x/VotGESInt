@@ -205,19 +205,19 @@
 		</tr>
 		<tr>
 			<th>P</th>
-			<th>I<sub>ст</sub></th>
+			<th>Q</th>
 			<th>I<sub>рот</sub></th>
 			<th>P</th>
-			<th>I<sub>ст</sub></th>
+			<th>Q</th>
 			<th>I<sub>рот</sub></th>
 			<th>P</th>
-			<th>I<sub>ст</sub></th>
+			<th>Q</th>
 			<th>I<sub>рот</sub></th>
 			<th>P</th>
-			<th>I<sub>ст</sub></th>
+			<th>Q</th>
 			<th>I<sub>рот</sub></th>
 			<th>P</th>
-			<th>I<sub>ст</sub></th>
+			<th>Q</th>
 			<th>I<sub>рот</sub></th>
 		</tr>
 		<%foreach (DateTime date in Model.Dates) {
@@ -226,19 +226,19 @@
 				<tr>
 					<th><%=date.ToString("HH:mm")%></th>
 					<td><%=Model[date, PiramidaRecords.MB_GA1_P.Key].ToString("0.00")%></td>
-					<td><%=Model[date, ReportMBRecords.MB_GA1_Istator.ID].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_GA1_Q.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA1_Irotor.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA2_P.Key].ToString("0.00")%></td>
-					<td><%=Model[date, ReportMBRecords.MB_GA2_Istator.ID].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_GA2_Q.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA2_Irotor.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA3_P.Key].ToString("0.00")%></td>
-					<td><%=Model[date, ReportMBRecords.MB_GA3_Istator.ID].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_GA3_Q.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA3_Irotor.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA4_P.Key].ToString("0.00")%></td>
-					<td><%=Model[date, ReportMBRecords.MB_GA4_Istator.ID].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_GA4_Q.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA4_Irotor.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA5_P.Key].ToString("0.00")%></td>
-					<td><%=Model[date, ReportMBRecords.MB_GA5_Istator.ID].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_GA5_Q.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA5_Irotor.Key].ToString("0.00")%></td>					
 									
 
@@ -258,19 +258,19 @@
 		</tr>
 		<tr>
 			<th>P</th>
-			<th>I<sub>ст</sub></th>
+			<th>Q</th>
 			<th>I<sub>рот</sub></th>
 			<th>P</th>
-			<th>I<sub>ст</sub></th>
+			<th>Q</th>
 			<th>I<sub>рот</sub></th>
 			<th>P</th>
-			<th>I<sub>ст</sub></th>
+			<th>Q</th>
 			<th>I<sub>рот</sub></th>
 			<th>P</th>
-			<th>I<sub>ст</sub></th>
+			<th>Q</th>
 			<th>I<sub>рот</sub></th>
 			<th>P</th>
-			<th>I<sub>ст</sub></th>
+			<th>Q</th>
 			<th>I<sub>рот</sub></th>
 		</tr>
 		<%foreach (DateTime date in Model.Dates) {
@@ -279,19 +279,19 @@
 				<tr>
 					<th><%=date.ToString("HH:mm")%></th>
 					<td><%=Model[date, PiramidaRecords.MB_GA6_P.Key].ToString("0.00")%></td>
-					<td><%=Model[date, ReportMBRecords.MB_GA6_Istator.ID].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_GA6_Q.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA6_Irotor.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA7_P.Key].ToString("0.00")%></td>
-					<td><%=Model[date, ReportMBRecords.MB_GA7_Istator.ID].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_GA7_Q.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA7_Irotor.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA8_P.Key].ToString("0.00")%></td>
-					<td><%=Model[date, ReportMBRecords.MB_GA8_Istator.ID].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_GA8_Q.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA8_Irotor.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA9_P.Key].ToString("0.00")%></td>
-					<td><%=Model[date, ReportMBRecords.MB_GA9_Istator.ID].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_GA9_Q.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA9_Irotor.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA10_P.Key].ToString("0.00")%></td>
-					<td><%=Model[date, ReportMBRecords.MB_GA10_Istator.ID].ToString("0.00")%></td>
+					<td><%=Model[date, PiramidaRecords.MB_GA10_Q.Key].ToString("0.00")%></td>
 					<td><%=Model[date, PiramidaRecords.MB_GA10_Irotor.Key].ToString("0.00")%></td>					
 				</tr>
 			<%}

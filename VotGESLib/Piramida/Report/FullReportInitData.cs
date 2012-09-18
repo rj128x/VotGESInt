@@ -436,6 +436,7 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_Q_56AT_220));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA1_Irotor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA1_P));
+			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA1_Q));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA1_IstatorA));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA1_IstatorB));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA1_IstatorC));
@@ -443,6 +444,7 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA1_Napor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA2_Irotor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA2_P));
+			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA2_Q));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA2_IstatorA));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA2_IstatorB));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA2_IstatorC));
@@ -450,6 +452,7 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA2_Napor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA3_Irotor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA3_P));
+			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA3_Q));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA3_IstatorA));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA3_IstatorB));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA3_IstatorC));
@@ -457,6 +460,7 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA3_Napor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA4_Irotor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA4_P));
+			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA4_Q));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA4_IstatorA));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA4_IstatorB));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA4_IstatorC));
@@ -464,6 +468,7 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA4_Napor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA5_Irotor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA5_P));
+			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA5_Q));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA5_IstatorA));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA5_IstatorB));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA5_IstatorC));
@@ -471,6 +476,7 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA5_Napor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA6_Irotor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA6_P));
+			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA6_Q));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA6_IstatorA));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA6_IstatorB));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA6_IstatorC));
@@ -478,6 +484,7 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA6_Napor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA7_Irotor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA7_P));
+			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA7_Q));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA7_IstatorA));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA7_IstatorB));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA7_IstatorC));
@@ -488,6 +495,7 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_Napor_Sgl));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA8_Irotor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA8_P));
+			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA8_Q));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA8_IstatorA));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA8_IstatorB));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA8_IstatorC));
@@ -495,6 +503,7 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA8_Napor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA9_Irotor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA9_P));
+			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA9_Q));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA9_IstatorA));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA9_IstatorB));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA9_IstatorC));
@@ -502,6 +511,7 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA9_Napor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA10_Irotor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA10_P));
+			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA10_Q));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA10_IstatorA));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA10_IstatorB));
 			record.addChild(GetFullReportRecord(PiramidaRecords.MB_GA10_IstatorC));

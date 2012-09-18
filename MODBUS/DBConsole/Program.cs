@@ -36,7 +36,8 @@ namespace DBConsole
 				Logger.InitFileLogger(Settings.single.LogPath, "logW");
 
 				MasterDBWriter writer=new MasterDBWriter();
-				writer.Process(new DateTime(2012, 09, 10, 0, 0, 0), new DateTime(2012, 09, 12, 0, 0, 0), RWModeEnum.hh);
+				writer.InitRun(30000, 60, -1);
+				writer.Run();
 
 				Console.ReadLine();
 			} catch (Exception e) {
