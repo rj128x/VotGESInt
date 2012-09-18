@@ -124,7 +124,6 @@ namespace ModbusLib
 					isFirst = false;
 				}
 			}
-
 		}
 
 		public void writeData(RWModeEnum mode) {
