@@ -39,6 +39,12 @@
     <Reference Include="itextsharp">
       <HintPath>..\..\libs\itextsharp\itextsharp.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp.pdfa">
+      <HintPath>..\..\libs\itextsharp\itextsharp.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xtra">
+      <HintPath>..\..\libs\itextsharp\itextsharp.xtra.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -128,6 +134,7 @@
     <Content Include="Views\Reports\PBR.aspx" />
     <Content Include="Views\Reports\Prikaz20.aspx" />
     <Content Include="Views\Reports\SutVed.aspx" />
+    <Content Include="Views\Reports\SutVedPart.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

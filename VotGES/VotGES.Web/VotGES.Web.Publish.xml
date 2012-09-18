@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
   <publishProfile publishUrl="Z:\Projects\VotGES" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Профиль1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="Views/Reports/SutVedPart.aspx" publishTime="09/18/2012 11:26:10" />
     <file relUrl="Scripts/MicrosoftAjax.js" publishTime="09/18/2012 09:16:20" />
     <file relUrl="bin/ko/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
+    <file relUrl="bin/itextsharp.dll" publishTime="09/18/2012 09:16:25" />
     <file relUrl="Views/Account/LogOn.aspx" publishTime="09/18/2012 09:16:21" />
     <file relUrl="bin/ja/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:52" />
     <file relUrl="bin/zh-Hant/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:46" />
@@ -15,8 +17,8 @@
     <file relUrl="bin/fr/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:52" />
     <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="bin/ru/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
-    <file relUrl="ClientBin/MainSL.xap" publishTime="09/18/2012 10:13:49" />
-    <file relUrl="bin/VotGES.Web.pdb" publishTime="09/18/2012 10:13:05" />
+    <file relUrl="ClientBin/MainSL.xap" publishTime="09/18/2012 11:29:07" />
+    <file relUrl="bin/VotGES.Web.pdb" publishTime="09/18/2012 11:28:55" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Hosting.xml" publishTime="01/14/2011 14:08:54" />
     <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Server.xml" publishTime="01/14/2011 14:08:52" />
@@ -36,15 +38,17 @@
     <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="09/18/2012 09:16:20" />
     <file relUrl="Scripts/jquery.validate.min.js" publishTime="09/18/2012 09:16:20" />
     <file relUrl="bin/ko/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:52" />
+    <file relUrl="bin/itextsharp.pdfa.dll" publishTime="09/18/2012 09:16:25" />
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="09/18/2012 09:16:20" />
     <file relUrl="Views/Home/Index.aspx" publishTime="09/18/2012 09:16:21" />
     <file relUrl="bin/es/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:48" />
-    <file relUrl="bin/VotGES.Web.dll" publishTime="09/18/2012 10:13:06" />
+    <file relUrl="bin/VotGES.Web.dll" publishTime="09/18/2012 11:28:55" />
     <file relUrl="bin/log4net.dll" publishTime="09/18/2012 09:16:25" />
     <file relUrl="Views/Shared/Site.Master" publishTime="09/18/2012 09:16:21" />
     <file relUrl="Views/Home/Test.aspx" publishTime="09/18/2012 09:16:21" />
     <file relUrl="MainSLTestPage.html" publishTime="09/18/2012 09:16:19" />
     <file relUrl="bin/System.Web.dll" publishTime="03/18/2010 19:31:26" />
+    <file relUrl="bin/itextsharp.xtra.dll" publishTime="09/18/2012 09:16:25" />
     <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="09/18/2012 09:16:20" />
     <file relUrl="bin/fr/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="bin/rashods.Designer.cs" publishTime="09/18/2012 09:16:25" />
