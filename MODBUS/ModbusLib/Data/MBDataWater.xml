@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ModbusInitDataArray xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+							xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<IP>192.168.140.230</IP>
+	<Port>502</Port>
+	<ID>MBWater</ID>
+	<WriteMin>0</WriteMin>
+	<WriteHH>1</WriteHH>
+	<Obj>1</Obj>
+	<ObjType>2</ObjType>
+	<DBNameHH>P3000</DBNameHH>
+	<DBNameMin>PSV</DBNameMin>
+	<DBNameDiff>PSV</DBNameDiff>
+	<ParNumberHH>12</ParNumberHH>
+	<ParNumberMin>4</ParNumberMin>
+	<ParNumberDiff>13</ParNumberDiff>
+	
+	<Data>		
+		<ModbusInitData Item='104' Addr='238' Name='Г1 Расход' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='239' Addr='239' Name='Г1 Расход_FLAG' Scale='1' />
+		
+		<ModbusInitData Item='129' Addr='288' Name='Г2 Расход' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='289' Addr='289' Name='Г2 Расход_FLAG' Scale='1'/>
+		
+		<ModbusInitData Item='154' Addr='338' Name='Г3 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='339' Addr='339' Name='Г3 Расход_FLAG' Scale='1' />
+		
+		<ModbusInitData Item='179' Addr='388' Name='Г4 Расход' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='389' Addr='389' Name='Г4 Расход_FLAG' Scale='1' />
+		
+		<ModbusInitData Item='204' Addr='438' Name='Г5 Расход' Scale='1' WriteToDBHH='1' />
+		<ModbusInitData Item='439' Addr='439' Name='Г5 Расход_FLAG' Scale='1' />
+		
+		<ModbusInitData Item='229' Addr='488' Name='Г6 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='489' Addr='489' Name='Г6 Расход_FLAG' Scale='1' />
+		
+		<ModbusInitData Item='254' Addr='538' Name='Г7 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='539' Addr='539' Name='Г7 Расход_FLAG' Scale='1' />
+		
+		<ModbusInitData Item='274' Addr='548' Name='Верхний бьеф сгл.' Scale='0.01'  WriteToDBHH='1'/>
+		<ModbusInitData Item='549' Addr='549' Name='Верхний бьеф сгл._FLAG' Scale='1' />
+		<ModbusInitData Item='275' Addr='550' Name='Нижний бьеф сгл.' Scale='0.01'  WriteToDBHH='1'/>
+		<ModbusInitData Item='551' Addr='551' Name='Нижний бьеф сгл._FLAG' Scale='1' />
+		<ModbusInitData Item='276' Addr='552' Name='Напор сглаженный' Scale='0.01' WriteToDBHH='1'/>
+		<ModbusInitData Item='553' Addr='553' Name='Напор сглаженный_FLAG' Scale='1' />
+		
+		<ModbusInitData Item='279' Addr='588' Name='Г8 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='589' Addr='589' Name='Г8 Расход_FLAG' Scale='1' />
+		
+		<ModbusInitData Item='304' Addr='638' Name='Г9 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='639' Addr='639' Name='Г9 Расход_FLAG' Scale='1' />
+		
+		<ModbusInitData Item='329' Addr='688' Name='Г10 Расход' Scale='1' WriteToDBHH='1'/>
+		<ModbusInitData Item='689' Addr='689' Name='Г10 Расход_FLAG' Scale='1' />
+		
+		<ModbusInitData Item='708' Addr='708' Name='Расход воды (Q) ГЭС' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='709' Addr='709' Name='Расход воды (Q) ГЭС_FLAG' Scale='1' />
+		
+		<ModbusInitData Item='373' Addr='746' Name='Температура наружного воздуха' Scale='1'  WriteToDBHH='1'/>
+		<ModbusInitData Item='747' Addr='747' Name='Температура наружного воздуха_FLAG' Scale='1' />
+		
+	</Data>
+
+</ModbusInitDataArray>
