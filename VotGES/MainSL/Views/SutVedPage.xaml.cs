@@ -36,31 +36,35 @@ namespace MainSL.Views
 			GlobalStatus.Current.StopLoad();
 		}
 
-		private void btnGetReport_Click(object sender, RoutedEventArgs e) {
+		protected void OpenWindow(string url) {
 			string host=Application.Current.Host.Source.Host;
 			int port=Application.Current.Host.Source.Port;
-			Uri uri=new Uri(String.Format("http://{0}:{1}/Reports/SutVed?year={2}&month={3}&day={4}",host,port,
-				settings.Date.Year,settings.Date.Month,settings.Date.Day));
-			System.Windows.Browser.HtmlPopupWindowOptions options=new System.Windows.Browser.HtmlPopupWindowOptions();
+			Uri uri=new Uri(String.Format("http://{0}:{1}/{2}", host, port,url));
+			System.Windows.Browser.HtmlPopupWindowOptions options=new System.Windows.Browser.HtmlPopupWindowOptions();			
+			options.Resizeable=true;
+			options.Width=1100;
+			options.Height=600;
+			options.Menubar=true;
+			options.Directories=true;
+			options.Toolbar=true;
+			options.Status=true;			
 			System.Windows.Browser.HtmlPage.PopupWindow(uri, "", options);
+			
+		}
+
+		private void btnGetReport_Click(object sender, RoutedEventArgs e) {			
+			string uri=String.Format("Reports/SutVed?year={0}&month={1}&day={2}",settings.Date.Year,settings.Date.Month,settings.Date.Day);
+			OpenWindow(uri);
 		}
 
 		private void btnGetPBR_Click(object sender, RoutedEventArgs e) {
-			string host=Application.Current.Host.Source.Host;
-			int port=Application.Current.Host.Source.Port;
-			Uri uri=new Uri(String.Format("http://{0}:{1}/Reports/PBR?year={2}&month={3}&day={4}", host, port,
-				settings.Date.Year, settings.Date.Month, settings.Date.Day));
-			System.Windows.Browser.HtmlPopupWindowOptions options=new System.Windows.Browser.HtmlPopupWindowOptions();
-			System.Windows.Browser.HtmlPage.PopupWindow(uri, "", options);
+			string uri=String.Format("Reports/PBR?year={0}&month={1}&day={2}", settings.Date.Year, settings.Date.Month, settings.Date.Day);
+			OpenWindow(uri);
 		}
 
 		private void btnPrikaz20_Click(object sender, RoutedEventArgs e) {
-			string host=Application.Current.Host.Source.Host;
-			int port=Application.Current.Host.Source.Port;
-			Uri uri=new Uri(String.Format("http://{0}:{1}/Reports/Prikaz20?year={2}&month={3}&day={4}", host, port,
-				settings.Date.Year, settings.Date.Month, settings.Date.Day));
-			System.Windows.Browser.HtmlPopupWindowOptions options=new System.Windows.Browser.HtmlPopupWindowOptions();
-			System.Windows.Browser.HtmlPage.PopupWindow(uri, "", options);
+			string uri=String.Format("Reports/Prikaz20?year={0}&month={1}&day={2}", settings.Date.Year, settings.Date.Month, settings.Date.Day);
+			OpenWindow(uri);
 		}
 
 

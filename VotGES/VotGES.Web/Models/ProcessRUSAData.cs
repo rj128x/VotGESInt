@@ -8,7 +8,7 @@ namespace VotGES.Web.Models
 {
 	public class ProcessRUSAData
 	{
-		public static void processEqualData(RUSAData data) {
+		public static void processEqualData(RUSAData data) {			
 			SortedList<double,List<int>> sostavs=RUSA.getOptimRashodsFull(data.Power, data.Napor, data.getAvailGenerators());
 			int index=0;
 			data.EqResult = new List<RUSAResult>();
