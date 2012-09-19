@@ -13,6 +13,7 @@ namespace VotGES.Piramida.Report
 		public SortedList<DateTime, double> PZad { get; set; }
 		public double LastP { get; set; }
 		public PBRDataHH PBR { get; set; }
+		public int AddHours { get; set; }
 		public SutVedReport(DateTime dateStart, DateTime dateEnd, IntervalReportEnum interval) :
 			base(dateStart, dateEnd, interval) {
 			int pn=12;
