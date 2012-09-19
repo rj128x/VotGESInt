@@ -79,6 +79,7 @@ namespace ModbusLib
 			DBNameDiff = null;
 			Item = -1;
 			FuncName = null;
+			Name = "";
 		}
 	}
 

@@ -278,7 +278,7 @@
 		<ModbusInitData ID='228' Addr='228' Name='Разворот лопастей' Scale='0.1' />
 		<ModbusInitData ID='229' Addr='229' Name='Разворот лопастей_FLAG' Scale='1' />
 		<ModbusInitData ID='230' Addr='230' Name='Контроль напора (см)' Scale='0.01' WriteToDBHH='1'/>
-		<ModbusInitData ID='231' Addr='231' Name='Контроль напора (см)_FLAG' Scale='1' />
+		<ModbusInitData ID='231' Addr='231' Name='Контроль напора (см)_FLA1' Scale='1' />
 		<ModbusInitData ID='232' Addr='232' Name='Текущий расход (м3/сек)' Scale='1'/>
 		<ModbusInitData ID='233' Addr='233' Name='Текущий расход (м3/сек)_FLAG' Scale='1' />
 		<ModbusInitData ID='234' Addr='234' Name='Частота (0,01 Гц)' Scale='1' />
@@ -328,7 +328,7 @@
 		<ModbusInitData ID='278' Addr='278' Name='Г2 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData ID='279' Addr='279' Name='Г2 Разворот лопастей_FLAG' Scale='1' />
 		<ModbusInitData ID='280' Addr='280' Name='Г2 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
-		<ModbusInitData ID='281' Addr='281' Name='Г2 Контроль задания напора_FLAG' Scale='1' />
+		<ModbusInitData ID='281' Addr='281' Name='Г2 Контроль задания напора_FLA1' Scale='1' />
 		<ModbusInitData ID='282' Addr='282' Name='Г2 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData ID='283' Addr='283' Name='Г2 Генераторный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData ID='284' Addr='284' Name='Г2 Турбинный подшипник радиально' Scale='1' />
@@ -377,8 +377,8 @@
 		<ModbusInitData ID='327' Addr='327' Name='Г3 Открытие НА_FLAG' Scale='1' />
 		<ModbusInitData ID='328' Addr='328' Name='Г3 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData ID='329' Addr='329' Name='Г3 Разворот лопастей_FLAG' Scale='1'/>
-		<ModbusInitData ID='330' Addr='330' Name='Г3 Контроль задания напора' WriteToDBHH='1'/>
-		<ModbusInitData ID='331' Addr='331' Name='Г3 Контроль задания напора_FLAG' Scale='1' />
+		<ModbusInitData ID='330' Addr='330' Name='Г3 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
+		<ModbusInitData ID='331' Addr='331' Name='Г3 Контроль задания напора_FLA1' Scale='1' />
 		<ModbusInitData ID='332' Addr='332' Name='Г3 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData ID='333' Addr='333' Name='Г3 Генераторный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData ID='334' Addr='334' Name='Г3 Турбинный подшипник радиально' Scale='1' />
@@ -428,7 +428,7 @@
 		<ModbusInitData ID='378' Addr='378' Name='Г4 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData ID='379' Addr='379' Name='Г4 Разворот лопастей_FLAG' Scale='1' />
 		<ModbusInitData ID='380' Addr='380' Name='Г4 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
-		<ModbusInitData ID='381' Addr='381' Name='Г4 Контроль задания напора_FLAG' Scale='1' />
+		<ModbusInitData ID='381' Addr='381' Name='Г4 Контроль задания напора_FLA1' Scale='1' />
 		<ModbusInitData ID='382' Addr='382' Name='Г4 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData ID='383' Addr='383' Name='Г4 Генераторный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData ID='384' Addr='384' Name='Г4 Турбинный подшипник радиально' Scale='1' />
@@ -478,7 +478,7 @@
 		<ModbusInitData ID='428' Addr='428' Name='Г5 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData ID='429' Addr='429' Name='Г5 Разворот лопастей_FLAG' Scale='1' />
 		<ModbusInitData ID='430' Addr='430' Name='Г5 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
-		<ModbusInitData ID='431' Addr='431' Name='Г5 Контроль задания напора_FLAG' Scale='1' />
+		<ModbusInitData ID='431' Addr='431' Name='Г5 Контроль задания напора_FLA1' Scale='1' />
 		<ModbusInitData ID='432' Addr='432' Name='Г5 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData ID='433' Addr='433' Name='Г5 Генераторный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData ID='434' Addr='434' Name='Г5 Турбинный подшипник радиально' Scale='1' />
@@ -528,7 +528,7 @@
 		<ModbusInitData ID='478' Addr='478' Name='Г6 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData ID='479' Addr='479' Name='Г6 Разворот лопастей_FLAG' Scale='1' />
 		<ModbusInitData ID='480' Addr='480' Name='Г6 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
-		<ModbusInitData ID='481' Addr='481' Name='Г6 Контроль задания напора_FLAG' Scale='1' />
+		<ModbusInitData ID='481' Addr='481' Name='Г6 Контроль задания напора_FLA1' Scale='1' />
 		<ModbusInitData ID='482' Addr='482' Name='Г6 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData ID='483' Addr='483' Name='Г6 Генераторный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData ID='484' Addr='484' Name='Г6 Турбинный подшипник радиально' Scale='1' />
@@ -578,7 +578,7 @@
 		<ModbusInitData ID='528' Addr='528' Name='Г7 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData ID='529' Addr='529' Name='Г7 Разворот лопастей_FLAG' Scale='1' />
 		<ModbusInitData ID='530' Addr='530' Name='Г7 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
-		<ModbusInitData ID='531' Addr='531' Name='Г7 Контроль задания напора_FLAG' Scale='1' />
+		<ModbusInitData ID='531' Addr='531' Name='Г7 Контроль задания напора_FLA1' Scale='1' />
 		<ModbusInitData ID='532' Addr='532' Name='Г7 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData ID='533' Addr='533' Name='Г7 Генераторный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData ID='534' Addr='534' Name='Г7 Турбинный подшипник радиально' Scale='1' />
@@ -628,7 +628,7 @@
 		<ModbusInitData ID='578' Addr='578' Name='Г8 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData ID='579' Addr='579' Name='Г8 Разворот лопастей_FLAG' Scale='1' />
 		<ModbusInitData ID='580' Addr='580' Name='Г8 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
-		<ModbusInitData ID='581' Addr='581' Name='Г8 Контроль задания напора_FLAG' Scale='1' />
+		<ModbusInitData ID='581' Addr='581' Name='Г8 Контроль задания напора_FLA1' Scale='1' />
 		<ModbusInitData ID='582' Addr='582' Name='Г8 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData ID='583' Addr='583' Name='Г8 Генераторный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData ID='584' Addr='584' Name='Г8 Турбинный подшипник радиально' Scale='1' />
@@ -678,7 +678,7 @@
 		<ModbusInitData ID='628' Addr='628' Name='Г9 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData ID='629' Addr='629' Name='Г9 Разворот лопастей_FLAG' Scale='1' />
 		<ModbusInitData ID='630' Addr='630' Name='Г9 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
-		<ModbusInitData ID='631' Addr='631' Name='Г9 Контроль задания напора_FLAG' Scale='1' />
+		<ModbusInitData ID='631' Addr='631' Name='Г9 Контроль задания напора_FLA1' Scale='1' />
 		<ModbusInitData ID='632' Addr='632' Name='Г9 Генераторный подшипник радиально' Scale='1' />
 		<ModbusInitData ID='633' Addr='633' Name='Г9 Генераторный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData ID='634' Addr='634' Name='Г9 Турбинный подшипник радиально' Scale='1' />
@@ -728,7 +728,7 @@
 		<ModbusInitData ID='678' Addr='678' Name='Г10 Разворот лопастей' Scale='0.1' />
 		<ModbusInitData ID='679' Addr='679' Name='Г10 Разворот лопастей_FLAG' Scale='1' />
 		<ModbusInitData ID='680' Addr='680' Name='Г10 Контроль задания напора' Scale='0.01' WriteToDBHH='1'/>
-		<ModbusInitData ID='681' Addr='681' Name='Г10 Контроль задания напора_FLAG' Scale='1' />
+		<ModbusInitData ID='681' Addr='681' Name='Г10 Контроль задания напора_FLA1' Scale='1' />
 		<ModbusInitData ID='682' Addr='682' Name='Г10 Генераторный подшипник радиально' Scale='0.01' />
 		<ModbusInitData ID='683' Addr='683' Name='Г10 Генераторный подшипник радиально_FLAG' Scale='1' />
 		<ModbusInitData ID='684' Addr='684' Name='Г10 Турбинный подшипник радиально' Scale='1' />
