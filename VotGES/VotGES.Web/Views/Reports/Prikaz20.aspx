@@ -71,6 +71,7 @@
 		
 		table td.left,table th.left{
 			text-align: left;
+			width:350px;
 		}	
 		
 		table td.center,table th.center{
@@ -81,13 +82,10 @@
 <body>
     <table class='cifr'>
 		<tr>
-			<td colspan='4' >
-				Приложение №51<br />
-				к приказу Минэнерго России<br />
-				от 07.08.2008 №20 
-			</td>
+			<td colspan='4' class='right' style='width:100%'>Приложение №51<br /> к приказу Минэнерго России<br /> от 07.08.2008 №20</td>
 		</tr>
-			<td><%=Model.Date.ToString("dd.MM.yyyy") %></td>
+		<tr>
+			<td class='right' ><%=Model.Date.ToString("dd.MM.yyyy")%></td>
 			<td colspan='3'>&nbsp;</td>
 		<tr>			
 		<tr>
@@ -211,7 +209,6 @@
 			<td class='center'>16</td>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>			
-		</tr>
 		</tr>
 	 </table>
 </body>
