@@ -153,6 +153,9 @@
 		<td valign='top'>
 			<table class='cifr'>
 				<tr>
+					<th colspan='6'>Режим станции</th>
+				</tr>
+				<tr>
 					<th>Час</th>
 					<th>P<sub>план</sub></th>
 					<th>P<sub>факт</sub></th>
@@ -188,17 +191,26 @@
 				</table>
 		</td>
 		<td valign='top'>
-			<tr>
-				<th>Час</th>
-				<th>P<sub>зад</sub></th>
-			</tr>
-			<%foreach (KeyValuePair<DateTime,double>de in Model.PZad){ %>
-			<tr>
-				<th><%=de.Key.ToString("HH:mm")%></th>
-				<td><%=de.Value.ToString("0.00") %></td>
-			</tr>
-			<%} %>
-		</td>
+			<table class='cifr'>
+				<tr>
+					<th colspan='2'>P<sub>зад</sub></th>
+				</tr>
+				<tr>
+					<th>Час</th>
+					<th>P<sub>зад</sub></th>
+				</tr>
+				<tr>
+					<th>Пред</th>
+					<td><%=Model.LastP.ToString("0.00") %></td>
+				</tr>
+				<%foreach (KeyValuePair<DateTime,double>de in Model.PZad){ %>
+				<tr>
+					<th><%=de.Key.ToString("HH:mm")%></th>
+					<td><%=de.Value.ToString("0.00") %></td>
+				</tr>
+				<%} %>
+			</td>
+		</table>
 	</tr>
 	
 	

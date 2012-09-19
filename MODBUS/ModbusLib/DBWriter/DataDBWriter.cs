@@ -90,10 +90,12 @@ namespace ModbusLib
 		}
 
 		protected void readData() {
-			string valsStr;			
+			string valsStr;
+			DateTime lastDate;
 			while ((valsStr = Reader.ReadLine()) != null) {
 				string[]valsArr=valsStr.Split(';');
 				bool isFirst=true;
+				lastDate=DateTime.Now;
 				int index=0;
 				foreach (string valStr in valsArr) {
 					if (!isFirst) {
@@ -118,7 +120,7 @@ namespace ModbusLib
 								if (InitArray.FullData[header].WriteToDBDiff) {
 									if (Data[header].DiffVals.Count == 0 || 
 										Math.Abs(Data[header].DiffVals.Last().Value- val)>InitArray.FullData[header].Diff) {
-										Data[header].DiffVals.Add(Dates.Last(), val);
+											Data[header].DiffVals.Add(lastDate, val);
 									}
 								}
 							}
@@ -127,7 +129,8 @@ namespace ModbusLib
 						}
 						index++;
 					} else {
-						Dates.Add(DateTime.Parse(valStr));
+						lastDate = DateTime.Parse(valStr);
+						Dates.Add(lastDate);
 					}
 					isFirst = false;
 				}
@@ -174,17 +177,19 @@ namespace ModbusLib
 						double lastVal=Double.NaN;
 						try {
 							string select=String.Format(
-								"SELECT TOP 1 VALUE0 FROM DATA WHERE ParNumber={0} and Object={1} and ObjType={2} and Item={3} and Data_date<{4} order by DATA_DATE desc", 
-								init.ParNumberDiff, init.Obj, init.ObjType, init.Item,rec.DiffVals.First().Key);
+								"SELECT TOP 1 VALUE0 FROM DATA WHERE ParNumber={0} and Object={1} and ObjType={2} and Item={3} and Data_date<'{4}' order by DATA_DATE desc", 
+								init.ParNumberDiff, init.Obj, init.ObjType, init.Item,rec.DiffVals.First().Key.ToString(df));
 							con = PiramidaAccess.getConnection(init.DBNameDiff);
+							con.Open();
 							SqlCommand command=null;
 							command = con.CreateCommand();
 							command.CommandText = select;
 							lastVal=(double)command.ExecuteScalar();
-						}catch{} finally {
+						}catch{
+						} finally {
 							try { con.Close(); } catch { }
-						}
-						if (!Double.IsNaN(lastVal)) {
+						}						
+						if (!Double.IsNaN(lastVal)) {							
 							if (Math.Abs(lastVal - rec.DiffVals.First().Value) < init.Diff) {
 								rec.DiffVals.RemoveAt(0);
 							}

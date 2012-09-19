@@ -28,7 +28,7 @@ namespace DBConsole
 			}
 		}
 
-		static void Main2(string[] args) {
+		static void Main1(string[] args) {
 
 			try {
 				Settings.init();
@@ -36,8 +36,7 @@ namespace DBConsole
 				Logger.InitFileLogger(Settings.single.LogPath, "logW");
 
 				MasterDBWriter writer=new MasterDBWriter();
-				writer.InitRun(30000, 60, -1);
-				writer.Run();
+				writer.Process(DateTime.Now, RWModeEnum.hh, 300);
 
 				Console.ReadLine();
 			} catch (Exception e) {
@@ -46,7 +45,7 @@ namespace DBConsole
 			}
 		}
 
-		static void Main1(string[] args) {
+		static void Test(string[] args) {
 
 			try {
 				Settings.init();

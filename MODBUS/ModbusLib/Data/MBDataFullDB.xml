@@ -10,6 +10,7 @@
 	<ObjType>2</ObjType>
 	<DBNameHH>PSV</DBNameHH>
 	<DBNameMin>PSV</DBNameMin>
+	<DBNameDiff>PSV</DBNameDiff>
 	<ParNumberHH>12</ParNumberHH>
 	<ParNumberMin>4</ParNumberMin>
 	<ParNumberDiff>13</ParNumberDiff>
@@ -106,7 +107,7 @@
 		<ModbusInitData Item='88' Addr='88' Name='Кау-2 220' Scale='0.1'  WriteToDBHH='1'/>
 		<ModbusInitData Item='89' Addr='89' Name='Кау-2 220_FLAG' Scale='1' />
 		<ModbusInitData Item='90' Addr='90' Name='Последнее задание неплановой P' Scale='1' />
-		<ModbusInitData Item='91' Addr='91' Name='Суммарное ручное задание Р ГЭС' Scale='0.1' WriteToDBHH='1'  WriteToDBDiff='1' Diff='1'/>
+		<ModbusInitData Item='91' Addr='91' Name='Суммарное ручное задание Р ГЭС' Scale='0.1' WriteToDBHH='1'  WriteToDBDiff='1' Diff='0.1'/>
 		<ModbusInitData Item='92' Addr='92' Name='Задание плановой P ГЭС' Scale='1' />
 		<ModbusInitData Item='93' Addr='93' Name='Текущее задание внеплановой Р' Scale='1' />
 		<ModbusInitData Item='94' Addr='94' Name='Заданный резерв P ГЭС' Scale='1' />

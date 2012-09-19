@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using VotGES.PBR;
+using System.Data.SqlClient;
 
 namespace VotGES.Piramida.Report
 {	
 	public class SutVedReport : Report
 	{
 		public SortedList<DateTime, double> PZad { get; set; }
+		public double LastP { get; set; }
 		public PBRDataHH PBR { get; set; }
 		public SutVedReport(DateTime dateStart, DateTime dateEnd, IntervalReportEnum interval) :
 			base(dateStart, dateEnd, interval) {
@@ -50,6 +52,22 @@ namespace VotGES.Piramida.Report
 				PZad.Add(rec.Date, rec.Value0);
 			}
 
+			SqlConnection con=null;;
+			double lastP=Double.NaN;
+			try {
+				string sel=String.Format("SELECT TOP 1 VALUE0 FROM DATA WHERE Parnumber=13 and object=3 and objtype=2 and item=91 and data_date<@date order by data_date desc");
+				con = PiramidaAccess.getConnection("PSV");
+				con.Open();
+				SqlCommand command=con.CreateCommand();
+				command.CommandText = sel;
+				command.Parameters.AddWithValue("@date", DateStart);
+				lastP = (double)command.ExecuteScalar();
+			} catch {
+				Logger.Error("Ошибка при получении последнего задания мощности");
+			} 
+			finally { try { con.Close(); } catch { } }
+
+			LastP = lastP;
 		}
 
 	}
