@@ -15,6 +15,8 @@
 		<ModbusInitData Addr="3" Name="P ГТП 2" FuncName="P_GTP2" WriteToDBHH="1"/>
 		<ModbusInitData Addr="1" Name="P ГЭС" FuncName="P_GES" WriteToDBHH="1"/>
 		<ModbusInitData Addr="4" Name="Расход ГЭС" FuncName="Rashod_GES" WriteToDBHH="1"/>
+		<ModbusInitData Addr="5" Name="Расход ГТП1" FuncName="Rashod_GTP1" WriteToDBHH="1"/>
+		<ModbusInitData Addr="6" Name="Расход ГТП2" FuncName="Rashod_GTP2" WriteToDBHH="1"/>
 	</Data>
 
 </ModbusInitDataArray>

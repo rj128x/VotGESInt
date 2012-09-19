@@ -54,6 +54,14 @@ namespace ModbusLib
 		public double Rashod_GES() {
 			return Data["MB_238"] + Data["MB_288"] + Data["MB_338"] + Data["MB_388"] + Data["MB_438"] + Data["MB_488"] + Data["MB_538"] + Data["MB_588"] + Data["MB_638"] + Data["MB_688"];
 		}
+
+		public double Rashod_GTP1() {
+			return Data["MB_238"] + Data["MB_288"];
+		}
+
+		public double Rashod_GTP2() {
+			return Data["MB_338"] + Data["MB_388"] + Data["MB_438"] + Data["MB_488"] + Data["MB_538"] + Data["MB_588"] + Data["MB_638"] + Data["MB_688"];
+		}
 		
 	}
 }

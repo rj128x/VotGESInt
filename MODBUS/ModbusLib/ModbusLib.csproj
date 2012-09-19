@@ -63,6 +63,7 @@
   <ItemGroup>
     <Content Include="Data\Settings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Data\MBDataFullDB.xml">
       <SubType>Designer</SubType>
