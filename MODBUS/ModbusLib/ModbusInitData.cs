@@ -11,6 +11,9 @@ namespace ModbusLib
 	public class ModbusInitData
 	{
 		[System.Xml.Serialization.XmlAttribute]
+		public string ID { get; set; }
+
+		[System.Xml.Serialization.XmlAttribute]
 		public string Name { get; set; }
 
 		[System.Xml.Serialization.XmlAttribute]
@@ -89,7 +92,7 @@ namespace ModbusLib
 		public bool WriteHH { get; set; }
 
 		[System.Xml.Serialization.XmlIgnore]
-		public SortedList<int, ModbusInitData> FullData { get; set; }
+		public SortedList<string, ModbusInitData> FullData { get; set; }
 
 		[System.Xml.Serialization.XmlIgnore]
 		public int MaxAddr { get; set; }
@@ -106,7 +109,7 @@ namespace ModbusLib
 
 		
 		public void processData() {
-			FullData = new SortedList<int, ModbusInitData>();
+			FullData = new SortedList<string, ModbusInitData>();
 			MaxAddr = 0;
 			foreach (ModbusInitData init in Data) {
 				try {
@@ -120,7 +123,11 @@ namespace ModbusLib
 					init.DBNameMin = init.DBNameMin == null ? DBNameMin : init.DBNameMin;
 					init.DBNameDiff = init.DBNameDiff == null ? DBNameDiff : init.DBNameDiff;
 
-					FullData.Add(init.Addr, init);
+					if (init.Name.Contains("_FLAG")) {
+						init.ID = init.ID + "_FLAG";
+					}
+
+					FullData.Add(init.ID, init);
 					if (MaxAddr < init.Addr) {
 						MaxAddr = init.Addr;
 					}
@@ -129,6 +136,18 @@ namespace ModbusLib
 				}
 			}
 			
+		}
+
+		public void WriteVal(int addr, double val, SortedList<string,double>DataArray) {			
+			foreach (ModbusInitData data in Data) {
+				if (data.Addr == addr) {
+					if (DataArray.ContainsKey(data.ID)) {
+						DataArray[data.ID] = val*data.Scale;
+					} else {
+						DataArray.Add(data.ID, val * data.Scale);
+					}
+				}
+			}
 		}
 
 	}

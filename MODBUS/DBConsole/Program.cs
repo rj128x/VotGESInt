@@ -59,18 +59,18 @@ namespace DBConsole
 				MasterDBWriter master=new MasterDBWriter();
 				Random rand=new Random();
 				foreach (ModbusInitDataArray init in master.InitArrays.Values) {
-					List<int> headers=new List<int>();
+					List<string> headers=new List<string>();
 					foreach (ModbusInitData dat in init.FullData.Values) {
 						if (dat.WriteToDBHH) {
-							headers.Add(dat.Addr);
+							headers.Add(dat.ID);
 						}
 					}
 					DateTime date=DateStart.AddMinutes(30);
 					while (date < DateEnd) {
 						Console.WriteLine(date);
 						DataDBWriter writer=new DataDBWriter(init);
-						writer.Data = new SortedList<int, DataDBRecord>();
-						foreach (int header in headers) {
+						writer.Data = new SortedList<string, DataDBRecord>();
+						foreach (string header in headers) {
 							DataDBRecord data=new DataDBRecord(header);
 							data.Avg = rand.Next(1, 100);
 							data.Min = rand.Next(1, 20);

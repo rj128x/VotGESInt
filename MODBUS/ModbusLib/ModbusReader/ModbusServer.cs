@@ -30,12 +30,12 @@ namespace ModbusLib
 		
 	}
 
-	public delegate void FinishEvent(string InitArrayID,SortedList<int, double> ResultData);
+	public delegate void FinishEvent(string InitArrayID,SortedList<string, double> ResultData);
 
 	public class ModbusDataReader
 	{
 		public event FinishEvent OnFinish;
-		public SortedList<int, int> Data { get; protected set; }
+		public SortedList<string, double> Data { get; protected set; }
 
 		public int CountData { get; protected set; }
 		public ushort StepData { get; protected set; }
@@ -46,7 +46,7 @@ namespace ModbusLib
 			this.Server = server;
 			this.CountData = initArr.MaxAddr;
 			this.InitArr = initArr;
-			Data = new SortedList<int, int>(CountData);
+			Data = new SortedList<string, double>(CountData);
 			StepData = 50;
 			server.ModbusMaster.OnResponseData += new Master.ResponseData(ModbusMaster_OnResponseData);
 		}
@@ -81,30 +81,24 @@ namespace ModbusLib
 
 			ushort startAddr=id;
 			foreach (int w in word) {
-				if (Data.ContainsKey(startAddr)) {
-					Data[startAddr] = w;
-				} else {
-					Data.Add(startAddr, w);
-				}
+				InitArr.WriteVal(startAddr, w, Data);
 				startAddr++;
 			}
 
 			if (!finished) {
 				continueRead();
 			} else {
-				SortedList<int, double> ResultData=getResultData();
+				SortedList<string, double> ResultData=getResultData();
 				if (OnFinish != null) {
 					OnFinish(InitArr.ID, ResultData);
 				}
 			}
 		}
 
-		public SortedList<int, double> getResultData() {
-			SortedList<int, double> ResultData=new SortedList<int,double>(CountData);
+		public SortedList<string, double> getResultData() {
+			SortedList<string, double> ResultData=new SortedList<string,double>(CountData);
 			foreach (ModbusInitData initData in InitArr.Data) {
-				if (Data.ContainsKey(initData.Addr)) {
-					ResultData.Add(initData.Addr, Data[initData.Addr] * initData.Scale);
-				}
+				ResultData.Add(initData.ID,Data[initData.ID]);				
 			}
 			return ResultData;
 		}

@@ -59,9 +59,9 @@ namespace ModbusLib
 						String.Format("===Объект создан");
 					}
 
-					foreach (KeyValuePair<int,ModbusInitData> de in arr.FullData) {
-						FullResultData.Add(arr.ID + "_" + de.Value.Addr,0);
-						ResultKeys.Add(arr.ID + "_" + de.Value.Addr);
+					foreach (KeyValuePair<string,ModbusInitData> de in arr.FullData) {
+						FullResultData.Add(arr.ID + "_" + de.Value.ID,0);
+						ResultKeys.Add(arr.ID + "_" + de.Value.ID);
 					}
 
 					FinishReading.Add(arr.ID, false);
@@ -92,9 +92,9 @@ namespace ModbusLib
 					String.Format("===Объект создан");
 				}
 
-				foreach (KeyValuePair<int,ModbusInitData> de in InitCalc.FullData) {
-					FullResultData.Add(InitCalc.ID + "_" + de.Value.Addr, 0);
-					ResultKeys.Add(InitCalc.ID + "_" + de.Value.Addr);
+				foreach (KeyValuePair<string,ModbusInitData> de in InitCalc.FullData) {
+					FullResultData.Add(InitCalc.ID + "_" + de.Value.ID, 0);
+					ResultKeys.Add(InitCalc.ID + "_" + de.Value.ID);
 				}
 
 			} catch (Exception e) {
@@ -120,7 +120,7 @@ namespace ModbusLib
 		}
 				
 
-		public void reader_OnFinish(string InitArrayID, SortedList<int, double> ResultData) {
+		public void reader_OnFinish(string InitArrayID, SortedList<string, double> ResultData) {
 			Logger.Info(DateTime.Now + " " + InitArrayID + "  read");
 			ModbusInitDataArray init=InitArrays[InitArrayID];
 			if (init.WriteMin) {
@@ -129,7 +129,7 @@ namespace ModbusLib
 			if (init.WriteHH) {
 				WritersHH[InitArrayID].writeData(ResultData);
 			}
-			foreach(KeyValuePair<int,double> de in ResultData){
+			foreach(KeyValuePair<string,double> de in ResultData){
 				FullResultData[InitArrayID + "_" + de.Key] = de.Value;
 			}
 			FinishReading[InitArrayID] = true;
@@ -137,7 +137,7 @@ namespace ModbusLib
 			if (!FinishReading.Values.Contains(false)) {
 				Logger.Info("===calc  ");
 				Calc.Init(FullResultData);
-				foreach (ModbusInitData initData in InitCalc.FullData.Values) {
+				foreach (ModbusInitData initData in InitCalc.Data) {
 					Calc.call(initData.FuncName, initData);
 				}
 				if (InitCalc.WriteHH) {

@@ -11,7 +11,7 @@ namespace ModbusLib
 		public DateTime CurrentDate { get; protected set; }
 		public TextWriter CurrentWriter { get; protected set; }
 		public ModbusInitDataArray InitArray { get; protected set; }
-		public List<int> Headers { get; protected set; }
+		public List<string> Headers { get; protected set; }
 		public string HeaderStr { get; protected set; }
 		public RWModeEnum RWMode { get; protected set; }
 
@@ -60,25 +60,26 @@ namespace ModbusLib
 
 		public ModbusDataWriter(ModbusInitDataArray arr, RWModeEnum mode = RWModeEnum.hh) {
 			InitArray = arr;
-			Headers = new List<int>();
+			Headers = new List<string>();
 			foreach (ModbusInitData data in arr.Data) {
 				if (!data.Name.Contains("_FLAG") && !String.IsNullOrEmpty(data.Name)) {
-					Headers.Add(data.Addr);
+					Headers.Add(data.ID);
 				}
 			}
 			RWMode = mode;
 		}
 
-		public void writeData( SortedList<int, double> ResultData) {
+		public void writeData( SortedList<string, double> ResultData) {
 			getWriter(DateTime.Now);
 			double val;
 			string nm;
 			List<double> values=new List<double>();
-			foreach (KeyValuePair<int,double> de in ResultData) {				
+			foreach (KeyValuePair<string,double> de in ResultData) {				
 				if (Headers.Contains(de.Key)) {
 					val=de.Value;
-					nm = InitArray.FullData.ContainsKey(de.Key + 1) ? InitArray.FullData[de.Key + 1].Name : "";
-					if (nm.Contains("_FLAG") && ResultData[de.Key + 1] != 0)
+					//nm = InitArray.FullData.ContainsKey(de.Key + 1) ? InitArray.FullData[de.Key + 1].Name : "";
+					nm = de.Key + "_FLAG";
+					if (InitArray.FullData.ContainsKey(nm) && ResultData[nm] != 0)
 						val = Double.NaN;
 					values.Add(val);
 				}

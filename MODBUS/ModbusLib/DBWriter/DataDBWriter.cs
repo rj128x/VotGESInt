@@ -11,7 +11,7 @@ namespace ModbusLib
 {
 	public class DataDBRecord
 	{
-		public int Header{get; set;}
+		public string Header{get; set;}
 		public double Min{get; set;} 
 		public double Max{get; set;} 
 		public double Avg {get; set;}
@@ -19,7 +19,7 @@ namespace ModbusLib
 		public double Count { get;  set; }
 		public SortedList<DateTime, double> DiffVals { get; set; }
 
-		public DataDBRecord(int header) {
+		public DataDBRecord(string header) {
 			this.Header = header;
 			Min = 10e10;
 			Max = -10e10;
@@ -33,17 +33,17 @@ namespace ModbusLib
 	{		
 		public string FileName {get;protected set;}
 		public TextReader Reader {get;protected set;}
-		public List<int> Headers {get;protected set;}
-		public SortedList<int, DataDBRecord> Data {get; set;}
+		public List<string> Headers {get;protected set;}
+		public SortedList<string, DataDBRecord> Data {get; set;}
 		public List<DateTime> Dates {get;protected set;}
 		public DateTime Date {get; set;}
 		public ModbusInitDataArray InitArray {get;protected set;}
 		
 		public DataDBWriter(ModbusInitDataArray initArray) {
 			InitArray = initArray;
-			Headers = new List<int>();
+			Headers = new List<string>();
 			Dates = new List<DateTime>();
-			Data = new SortedList<int, DataDBRecord>();
+			Data = new SortedList<string, DataDBRecord>();
 		}
 
 		public bool init(string fileName) {
@@ -79,9 +79,8 @@ namespace ModbusLib
 			bool isFirst=true;
 			foreach (string header in headersArr) {
 				if (!isFirst) {
-					int val=Convert.ToInt32(header);
-					Headers.Add(val);
-					Data.Add(val, new DataDBRecord(val));
+					Headers.Add(header);
+					Data.Add(header, new DataDBRecord(header));
 				} else {
 					Date = DateTime.Parse(header);
 				}
@@ -107,7 +106,7 @@ namespace ModbusLib
 						}
 						try {
 							if (!Double.IsNaN(val)) {
-								int header=Headers[index];
+								string header=Headers[index];
 								Data[header].Avg += val;
 								if (Data[header].Min > val) {
 									Data[header].Min = val;
