@@ -14,6 +14,14 @@
 			font-size: 8pt;
 		}
 		
+		@media print
+		{
+			table,tr,td,p {
+				font-family: 'Arial';
+				font-size: 7pt;
+			}
+		}
+		
 		h1,h2,h3,h4,h5,h6,hr
 		{
 			padding:0;
@@ -62,7 +70,7 @@
 		
 		table.cifr
 		{
-			margin-top:5px;
+			margin-top:2px;
 		}
 
 		table td.right,table th.right{
@@ -215,9 +223,8 @@
 	
 	
 	</table>
-	
+
 	<hr />	
-	<h2>Генераторы</h2>
 	<table class='cifr'>
 		<tr>
 			<th rowspan='2'>Час</th>
@@ -323,10 +330,9 @@
 	</table>
 
 	<hr style="page-break-before: always"/>	
-	<h2>ВЛ 110кВ</h2>
 	<table class='cifr'>
 		<tr>
-			<th rowspan='2'>Час</th>
+			<th>110кВ</th>
 			<th colspan='3'>КШТ-1</th>
 			<th colspan='3'>КШТ-2</th>
 			<th colspan='3'>Водозабор-1</th>
@@ -337,6 +343,7 @@
 			<th colspan='2'>2СШ</th>
 		</tr>
 		<tr>
+			<th>Час</th>
 			<th>P</th>
 			<th>Q</th>
 			<th>I</th>
@@ -393,8 +400,8 @@
 	</table>    
 		
 	<table class='cifr'>
-		<tr>
-			<th rowspan='2'>Час</th>
+		<tr>			
+			<th>110кВ</th>
 			<th colspan='3'>ВВ 1Т</th>
 			<th colspan='3'>5,6 АТ</th>
 			<th colspan='3'>Дубовая</th>
@@ -405,6 +412,7 @@
 			<th colspan='1'>ШСВ</th>
 		</tr>
 		<tr>
+			<th>Час</th>
 			<th>P</th>
 			<th>Q</th>
 			<th>I</th>
@@ -461,10 +469,9 @@
 	</table>    
 
 	<hr />	
-	<h2>ВЛ 220кВ</h2>
 	<table class='cifr'>
 		<tr>
-			<th rowspan='2'>Час</th>
+			<th>220кВ</th>
 			<th colspan='3'>Иж-1</th>
 			<th colspan='3'>Иж-2</th>
 			<th colspan='3'>Каучук-1</th>
@@ -475,6 +482,7 @@
 			<th colspan='2'>2СШ</th>
 		</tr>
 		<tr>
+			<th>Час</th>
 			<th>P</th>
 			<th>Q</th>
 			<th>I</th>
@@ -533,7 +541,7 @@
 		
 	<table class='cifr'>
 		<tr>
-			<th rowspan='2'>Час</th>
+			<th>220кВ</th>
 			<th colspan='3'>2АТ</th>
 			<th colspan='3'>3АТ</th>
 			<th colspan='3'>4Т</th>
@@ -541,6 +549,7 @@
 			<th colspan='1'>ШСВ</th>
 		</tr>
 		<tr>
+			<th>Час</th>
 			<th>P</th>
 			<th>Q</th>
 			<th>I</th>
@@ -579,10 +588,9 @@
 	</table>    
 
 	<hr />	
-	<h2>ВЛ 500кВ</h2>
 	<table class='cifr'>
 		<tr>
-			<th rowspan='2'>Час</th>
+			<th>500кВ</th>
 			<th colspan='5'>Емелино</th>
 			<th colspan='5'>Карманово</th>
 			<th colspan='5'>Вятка</th>
@@ -590,6 +598,7 @@
 			<th colspan='3'>3АТ</th>
 		</tr>
 		<tr>
+			<th>Час</th>
 			<th>P</th>
 			<th>Q</th>
 			<th>I</th>
