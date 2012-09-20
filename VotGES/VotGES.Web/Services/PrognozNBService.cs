@@ -33,7 +33,7 @@ namespace VotGES.Web.Services
 				
 				CheckPrognozNB prognoz=new CheckPrognozNB(date.Date,countDays,isQFakt,hourStart,minStart);
 				//PrognozNBByPBR prognoz=new PrognozNBByPBR(date.Date, 1, date.Date.AddHours(8).AddMinutes(15),null);
-				prognoz.startPrognoz();
+				prognoz.startPrognoz();				
 				return prognoz.getChart();
 			} catch (Exception e) {
 				WebLogger.Error(e.ToString());

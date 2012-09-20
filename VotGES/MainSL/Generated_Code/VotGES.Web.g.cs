@@ -192,6 +192,10 @@ namespace VotGES.Chart
         
         private double _min;
         
+        private double _minHeight;
+        
+        private bool _processAuto;
+        
         #region Определение методов расширяемости
 
         /// <summary>
@@ -209,6 +213,10 @@ namespace VotGES.Chart
         partial void OnMaxChanged();
         partial void OnMinChanging(double value);
         partial void OnMinChanged();
+        partial void OnMinHeightChanging(double value);
+        partial void OnMinHeightChanged();
+        partial void OnProcessAutoChanging(bool value);
+        partial void OnProcessAutoChanged();
 
         #endregion
         
@@ -337,6 +345,54 @@ namespace VotGES.Chart
                     this._min = value;
                     this.RaiseDataMemberChanged("Min");
                     this.OnMinChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "MinHeight".
+        /// </summary>
+        [DataMember()]
+        public double MinHeight
+        {
+            get
+            {
+                return this._minHeight;
+            }
+            set
+            {
+                if ((this._minHeight != value))
+                {
+                    this.OnMinHeightChanging(value);
+                    this.RaiseDataMemberChanging("MinHeight");
+                    this.ValidateProperty("MinHeight", value);
+                    this._minHeight = value;
+                    this.RaiseDataMemberChanged("MinHeight");
+                    this.OnMinHeightChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ProcessAuto".
+        /// </summary>
+        [DataMember()]
+        public bool ProcessAuto
+        {
+            get
+            {
+                return this._processAuto;
+            }
+            set
+            {
+                if ((this._processAuto != value))
+                {
+                    this.OnProcessAutoChanging(value);
+                    this.RaiseDataMemberChanging("ProcessAuto");
+                    this.ValidateProperty("ProcessAuto", value);
+                    this._processAuto = value;
+                    this.RaiseDataMemberChanged("ProcessAuto");
+                    this.OnProcessAutoChanged();
                 }
             }
         }

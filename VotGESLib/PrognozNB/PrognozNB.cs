@@ -239,7 +239,9 @@ namespace VotGES.PrognozNB
 			ChartAxisProperties nbAx=new ChartAxisProperties();
 			nbAx.Auto = true;
 			nbAx.Interval = 0.1;
-			nbAx.Index = 0;	
+			nbAx.Index = 0;
+			nbAx.MinHeight = 0.2;
+			nbAx.ProcessAuto = true;
 
 			ChartAxisProperties qAx=new ChartAxisProperties();
 			qAx.Auto = false;

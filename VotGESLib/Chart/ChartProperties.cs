@@ -42,6 +42,8 @@ namespace VotGES.Chart
 		public double Min { get; set; }
 		public double Max { get; set; }
 		public double Interval { get; set; }
+		public double MinHeight { get; set; }
+		public bool ProcessAuto { get; set; }
 	}
 
 	

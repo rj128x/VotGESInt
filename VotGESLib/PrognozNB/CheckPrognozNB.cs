@@ -67,6 +67,8 @@ namespace VotGES.PrognozNB
 			chart.Properties.Series[chart.Properties.SeriesNames["PFakt"]].Enabled = false;
 			chart.Properties.Series[chart.Properties.SeriesNames["QFakt"]].Enabled = false;
 
+			chart.processAxes();
+
 			return chart;
 		}
 	}

@@ -122,7 +122,7 @@ namespace VotGES.PrognozNB
 			List<int> il=items.ToList();
 			double cnt=0;
 			int index=0;
-			while (cnt < 25/*30*/ && index <= 10) {
+			while (cnt < 30 && index <= 10) {
 				DateTime ds=date.AddHours(-2);
 				DateTime de=date.AddHours(0);
 				dataArrW=PiramidaAccess.GetDataFromDB(ds, de, 1, 2, 12, il, true, true);
@@ -252,6 +252,7 @@ namespace VotGES.PrognozNB
 			prognoz.Rashods.Add(datePrognozStart, prognoz.FirstData.Last().Value.Q);
 			prognoz.Napors.Add(datePrognozStart, prognoz.FirstData.Last().Value.VB - prognoz.FirstData.Last().Value.NB);
 			PrognozAnswer.Chart = getChart();
+			PrognozAnswer.Chart.processAxes();
 		}
 	}
 }
