@@ -97,9 +97,16 @@ namespace ModbusLib
 
 		public SortedList<string, double> getResultData() {
 			SortedList<string, double> ResultData=new SortedList<string,double>(CountData);
-			foreach (ModbusInitData initData in InitArr.Data) {
-				ResultData.Add(initData.ID,Data[initData.ID]);				
-			}
+			double val=0;
+			string nm;
+			foreach (KeyValuePair<string,double> de in Data){
+				val=de.Value;
+				nm = de.Key + "_FLAG";
+				if (Data.ContainsKey(nm) && Data[nm] != 0) {
+					val = Double.NaN;
+				}
+				ResultData.Add(de.Key,val);
+			}			
 			return ResultData;
 		}
 

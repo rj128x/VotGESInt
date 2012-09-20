@@ -26,8 +26,10 @@ namespace ModbusLib
 				MethodInfo mi = typeof(ModbusCalc).GetMethod(name, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
 				val=(double)mi.Invoke(this, new object[] { });				
 			} catch (Exception e) {
-				Logger.Error("Ошибка при расчете метода " + name);
-				Logger.Error(e.ToString());
+				if (!e.ToString().Contains("FlagError")) {
+					Logger.Error("Ошибка при расчете метода " + name);
+					Logger.Error(e.ToString());
+				}
 				val = Double.NaN;
 			}
 			Data[InitCalc.ID + "_" + data.ID] = val;
@@ -44,14 +46,14 @@ namespace ModbusLib
 		public double this[string key] {
 			get {
 				if (Double.IsNaN(Data[key])) {
-					throw new Exception("Флаг");
+					throw new Exception("FlagError");
 				}
 				return Data[key];
 			}
 		}
 		
 		public double P_GTP1() {
-			return this["MB_216"] + this["MB_266"];
+			return this["MB_216"] + this["MB_266"];			
 		}
 
 		public double P_GTP2() {
