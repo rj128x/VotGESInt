@@ -120,9 +120,10 @@ namespace VotGES.PrognozNB
 			List<PiramidaEnrty> dataArr=null;
 			List<PiramidaEnrty> dataArrP,dataArrW=null;
 			List<int> il=items.ToList();
-			double cnt=0;
+			double cntW=0;
+			double cntP=0;
 			int index=0;
-			while (cnt < 30 && index <= 10) {
+			while ((cntW < 25 || cntP<5) && index <= 10) {
 				DateTime ds=date.AddHours(-2);
 				DateTime de=date.AddHours(0);
 				dataArrW=PiramidaAccess.GetDataFromDB(ds, de, 1, 2, 12, il, true, true);
@@ -130,11 +131,13 @@ namespace VotGES.PrognozNB
 				dataArr = new List<PiramidaEnrty>();
 				foreach (PiramidaEnrty entry in dataArrW) {
 					dataArr.Add(entry);
+					cntW++;
 				}
 				foreach (PiramidaEnrty entry in dataArrP) {
 					dataArr.Add(entry);
+					cntP++;
 				}
-				cnt = dataArr.Count();
+				//cnt = dataArr.Count();
 				date = date.AddMinutes(-30);
 				index++;
 			}
