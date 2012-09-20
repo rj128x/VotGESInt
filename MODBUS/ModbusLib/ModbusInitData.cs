@@ -124,8 +124,8 @@ namespace ModbusLib
 					init.DBNameMin = init.DBNameMin == null ? DBNameMin : init.DBNameMin;
 					init.DBNameDiff = init.DBNameDiff == null ? DBNameDiff : init.DBNameDiff;
 
-					if (init.Name.Contains("_FLAG")) {
-						init.ID = init.ID + "_FLAG";
+					if (init.Name.Contains("_FLAG") && !init.ID.Contains("_FLAG")) {						
+						init.ID = (init.Addr-1) + "_FLAG";
 					}
 
 					FullData.Add(init.ID, init);

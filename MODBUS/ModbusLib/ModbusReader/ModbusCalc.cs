@@ -21,7 +21,7 @@ namespace ModbusLib
 		}
 
 		public void call(string name, ModbusInitData data) {
-			double val=0;
+			double val=Double.NaN;
 			try {
 				MethodInfo mi = typeof(ModbusCalc).GetMethod(name, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
 				val=(double)mi.Invoke(this, new object[] { });				

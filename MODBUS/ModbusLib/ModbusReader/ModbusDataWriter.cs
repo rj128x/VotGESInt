@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using VotGES;
 
 namespace ModbusLib
 {
@@ -14,6 +15,7 @@ namespace ModbusLib
 		public List<string> Headers { get; protected set; }
 		public string HeaderStr { get; protected set; }
 		public RWModeEnum RWMode { get; protected set; }
+		public bool FirstRun { get; protected set; }
 
 		public static string GetDir(ModbusInitDataArray InitArray, RWModeEnum RWMode, DateTime date) {
 			string dirName=String.Format("{0}\\{1}\\{2}\\{3}",Settings.single.DataPath,InitArray.ID,RWMode.ToString(),date.ToString("yyyy_MM_dd"));
@@ -47,13 +49,37 @@ namespace ModbusLib
 				} catch (Exception) { }
 				CurrentDate = dt;
 
-				string fileName=GetFileName(InitArray, RWMode, CurrentDate, true);
+				string fileName=GetFileName(InitArray, RWMode, CurrentDate, true);			
 				
-				HeaderStr = String.Format("{0};{1}", CurrentDate.ToString("dd.MM.yyyy HH:mm:ss"), String.Join(";", Headers));
 				bool newFile=!File.Exists(fileName);				
 				CurrentWriter=new StreamWriter(fileName,true);
 				if (newFile) {
+					initHeaders();
+					HeaderStr = String.Format("{0};{1}", CurrentDate.ToString("dd.MM.yyyy HH:mm:ss"), String.Join(";", Headers));
 					CurrentWriter.WriteLine(HeaderStr);
+				} else if (FirstRun) {
+					File.Copy(fileName, "temp.csv", true);
+					TextReader Reader = new StreamReader(File.Open("temp.csv", FileMode.Open, FileAccess.Read, FileShare.Read));
+					string first=Reader.ReadLine();
+					Reader.Close();
+					File.Delete("temp.csv");
+					string[]hs=first.Split(';');					
+					if (hs.Length > 1) {
+						Headers.Clear();
+						for (int i=1; i < hs.Length; i++) {
+							Headers.Add(hs[i]);
+						}
+					}
+					FirstRun = false;
+				}
+			}
+		}
+
+		protected void initHeaders() {
+			Headers = new List<string>();
+			foreach (ModbusInitData data in InitArray.Data) {
+				if (data.ID.Contains("_FLAG") || !String.IsNullOrEmpty(data.Name)) {
+					Headers.Add(data.ID);
 				}
 			}
 		}
@@ -61,12 +87,8 @@ namespace ModbusLib
 		public ModbusDataWriter(ModbusInitDataArray arr, RWModeEnum mode = RWModeEnum.hh) {
 			InitArray = arr;
 			Headers = new List<string>();
-			foreach (ModbusInitData data in arr.Data) {
-				if (!data.Name.Contains("_FLAG") && !String.IsNullOrEmpty(data.Name)) {
-					Headers.Add(data.ID);
-				}
-			}
 			RWMode = mode;
+			FirstRun = true;
 		}
 
 		public void writeData( SortedList<string, double> ResultData) {
@@ -74,7 +96,22 @@ namespace ModbusLib
 			double val;
 			string nm;
 			List<double> values=new List<double>();
-			foreach (KeyValuePair<string,double> de in ResultData) {				
+
+			foreach (string header in Headers) {
+				if (ResultData.ContainsKey(header)) {
+					val = ResultData[header];
+					nm = header + "_FLAG";
+					if (ResultData.ContainsKey(nm) && ResultData[nm] != 0) {
+						val = Double.NaN;
+					}
+					values.Add(val);
+				} else {
+					values.Add(Double.NaN);
+				}
+
+			}
+
+			/*foreach (KeyValuePair<string,double> de in ResultData) {				
 				if (Headers.Contains(de.Key)) {
 					val=de.Value;
 					//nm = InitArray.FullData.ContainsKey(de.Key + 1) ? InitArray.FullData[de.Key + 1].Name : "";
@@ -83,7 +120,7 @@ namespace ModbusLib
 						val = Double.NaN;
 					values.Add(val);
 				}
-			}
+			}*/
 			string valueStr=String.Format("{0};{1}", DateTime.Now.AddHours(-Settings.single.HoursDiff).ToString("dd.MM.yyyy HH:mm:ss"), String.Join(";", values));
 			CurrentWriter.WriteLine(valueStr);
 			CurrentWriter.Flush();
