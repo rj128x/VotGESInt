@@ -28,6 +28,7 @@ namespace ModbusLib
 			} catch (Exception e) {
 				Logger.Error("Ошибка при расчете метода " + name);
 				Logger.Error(e.ToString());
+				val = Double.NaN;
 			}
 			Data[InitCalc.ID + "_" + data.ID] = val;
 			ResultData.Add(data.ID,val);
@@ -39,29 +40,38 @@ namespace ModbusLib
 		}
 
 		#endregion
+
+		public double this[string key] {
+			get {
+				if (Double.IsNaN(Data[key])) {
+					throw new Exception("Флаг");
+				}
+				return Data[key];
+			}
+		}
 		
 		public double P_GTP1() {
-			return Data["MB_216"] + Data["MB_266"];
+			return this["MB_216"] + this["MB_266"];
 		}
 
 		public double P_GTP2() {
-			return Data["MB_316"] + Data["MB_366"] + Data["MB_416"] + Data["MB_466"] + Data["MB_516"] + Data["MB_566"] + Data["MB_616"] + Data["MB_666"];
+			return this["MB_316"] + this["MB_366"] + this["MB_416"] + this["MB_466"] + this["MB_516"] + this["MB_566"] + this["MB_616"] + this["MB_666"];
 		}
 
 		public double P_GES() {
-			return Data["MB_216"] + Data["MB_266"]+Data["MB_316"] + Data["MB_366"] + Data["MB_416"] + Data["MB_466"] + Data["MB_516"] + Data["MB_566"] + Data["MB_616"] + Data["MB_666"];
+			return this["MB_216"] + this["MB_266"]+this["MB_316"] + this["MB_366"] + this["MB_416"] + this["MB_466"] + this["MB_516"] + this["MB_566"] + this["MB_616"] + this["MB_666"];
 		}
 
 		public double Rashod_GES() {
-			return Data["MB_238"] + Data["MB_288"] + Data["MB_338"] + Data["MB_388"] + Data["MB_438"] + Data["MB_488"] + Data["MB_538"] + Data["MB_588"] + Data["MB_638"] + Data["MB_688"];
+			return this["MB_238"] + this["MB_288"] + this["MB_338"] + this["MB_388"] + this["MB_438"] + this["MB_488"] + this["MB_538"] + this["MB_588"] + this["MB_638"] + this["MB_688"];
 		}
 
 		public double Rashod_GTP1() {
-			return Data["MB_238"] + Data["MB_288"];
+			return this["MB_238"] + this["MB_288"];
 		}
 
 		public double Rashod_GTP2() {
-			return Data["MB_338"] + Data["MB_388"] + Data["MB_438"] + Data["MB_488"] + Data["MB_538"] + Data["MB_588"] + Data["MB_638"] + Data["MB_688"];
+			return this["MB_338"] + this["MB_388"] + this["MB_438"] + this["MB_488"] + this["MB_538"] + this["MB_588"] + this["MB_638"] + this["MB_688"];
 		}
 
 		public static List<int>gtp1=new List<int>(new int[] { 1, 2 });
@@ -69,15 +79,15 @@ namespace ModbusLib
 		public static List<int>ges=new List<int>(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
 
 		public double OptRashod_GTP1() {
-			return RUSA.getOptimRashod(Data["Calc_P_GTP1"], Data["MB_2014"], true, null, gtp1);
+			return RUSA.getOptimRashod(this["Calc_P_GTP1"], this["MB_2014"], true, null, gtp1);
 		}
 
 		public double OptRashod_GTP2() {
-			return RUSA.getOptimRashod(Data["Calc_P_GTP2"], Data["MB_2014"], true, null, gtp2);
+			return RUSA.getOptimRashod(this["Calc_P_GTP2"], this["MB_2014"], true, null, gtp2);
 		}
 
 		public double OptRashod_GES() {
-			return RUSA.getOptimRashod(Data["Calc_P_GES"], Data["MB_2014"], true, null, ges);
+			return RUSA.getOptimRashod(this["Calc_P_GES"], this["MB_2014"], true, null, ges);
 		}
 		
 	}
