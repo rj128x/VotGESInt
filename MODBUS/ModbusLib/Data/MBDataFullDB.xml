@@ -16,35 +16,35 @@
 	<ParNumberDiff>13</ParNumberDiff>
 	
 	<Data>
-		<ModbusInitData ID='2001' Addr='238' Name='Г1 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='104'/>
+		<ModbusInitData ID='2001' Addr='238' Name='Г1 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='104'/>
 		<ModbusInitData ID='2001_FLAG' Addr='239'/>
-		<ModbusInitData ID='2002' Addr='288' Name='Г2 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='129'/>
+		<ModbusInitData ID='2002' Addr='288' Name='Г2 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='129'/>
 		<ModbusInitData ID='2002_FLAG' Addr='289'/>
-		<ModbusInitData ID='2003' Addr='338' Name='Г3 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='154'/>
+		<ModbusInitData ID='2003' Addr='338' Name='Г3 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='154'/>
 		<ModbusInitData ID='2003_FLAG' Addr='339'/>
-		<ModbusInitData ID='2004' Addr='388' Name='Г4 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='179'/>
+		<ModbusInitData ID='2004' Addr='388' Name='Г4 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='179'/>
 		<ModbusInitData ID='2004_FLAG' Addr='389'/>
-		<ModbusInitData ID='2005' Addr='438' Name='Г5 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='204'/>
+		<ModbusInitData ID='2005' Addr='438' Name='Г5 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='204'/>
 		<ModbusInitData ID='2005_FLAG' Addr='439'/>
-		<ModbusInitData ID='2006' Addr='488' Name='Г6 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='229'/>
+		<ModbusInitData ID='2006' Addr='488' Name='Г6 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='229'/>
 		<ModbusInitData ID='2006_FLAG' Addr='489'/>
-		<ModbusInitData ID='2007' Addr='538' Name='Г7 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='254'/>
+		<ModbusInitData ID='2007' Addr='538' Name='Г7 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='254'/>
 		<ModbusInitData ID='2007_FLAG' Addr='539'/>
-		<ModbusInitData ID='2008' Addr='588' Name='Г8 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='279'/>
+		<ModbusInitData ID='2008' Addr='588' Name='Г8 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='279'/>
 		<ModbusInitData ID='2008_FLAG' Addr='589'/>
-		<ModbusInitData ID='2009' Addr='638' Name='Г9 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='304'/>
+		<ModbusInitData ID='2009' Addr='638' Name='Г9 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='304'/>
 		<ModbusInitData ID='2009_FLAG' Addr='639'/>
-		<ModbusInitData ID='2010' Addr='688' Name='Г10 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='329'/>
+		<ModbusInitData ID='2010' Addr='688' Name='Г10 Расход' Scale='1'  WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='329'/>
 		<ModbusInitData ID='2010_FLAG' Addr='689'/>
-		<ModbusInitData ID='2011' Addr='708' Name='Расход воды ГЭС' Scale='1'  WriteToDBHH='1'  DBNameHH='PSV' Obj='1' ObjType='2' Item='354'/>
+		<ModbusInitData ID='2011' Addr='708' Name='Расход воды ГЭС' Scale='1'  WriteToDBHH='1'  DBNameHH='P3000' Obj='1' ObjType='2' Item='354'/>
 		<ModbusInitData ID='2011_FLAG' Addr='709'/>
-		<ModbusInitData ID='2012' Addr='548' Name='Верхний бьеф сгл.' Scale='0.01'  WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='274'/>
+		<ModbusInitData ID='2012' Addr='548' Name='Верхний бьеф сгл.' Scale='0.01'  WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='274'/>
 		<ModbusInitData ID='2012_FLAG' Addr='549'/>
-		<ModbusInitData ID='2013' Addr='550' Name='Нижний бьеф сгл.' Scale='0.01'  WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='275'/>
+		<ModbusInitData ID='2013' Addr='550' Name='Нижний бьеф сгл.' Scale='0.01'  WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='275'/>
 		<ModbusInitData ID='2013_FLAG' Addr='551'/>
-		<ModbusInitData ID='2014' Addr='552' Name='Напор сглаженный' Scale='0.01' WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='276'/>
+		<ModbusInitData ID='2014' Addr='552' Name='Напор сглаженный' Scale='0.01' WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='276'/>
 		<ModbusInitData ID='2014_FLAG' Addr='553'/>
-		<ModbusInitData ID='2015' Addr='746' Name='Температура наружного воздуха' Scale='1'  WriteToDBHH='1' DBNameHH='PSV' Obj='1' ObjType='2' Item='373'/>
+		<ModbusInitData ID='2015' Addr='746' Name='Температура наружного воздуха' Scale='1'  WriteToDBHH='1' DBNameHH='P3000' Obj='1' ObjType='2' Item='373'/>
 		<ModbusInitData ID='2015_FLAG' Addr='747'/>
 		
 		<ModbusInitData ID='0' Addr='0' Name='Ток ШСВ 220' Scale='1'  WriteToDBHH='1'/>

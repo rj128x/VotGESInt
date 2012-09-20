@@ -87,7 +87,7 @@
 		<td valign='top'>			
 			<table class='cifr'>			
 			<tr>
-				<th colspan='17'>Суточная ведомость за <%=Model.DateStart.ToString("dd.MM.yyy")%></th>
+				<th colspan='17'>Суточная ведомость за <%=Model.DateStart.AddHours(Model.AddHours).ToString("dd.MM.yyyy")%></th>
 			</tr>
 			<tr>
 				<th rowspan='2'>Час</th>

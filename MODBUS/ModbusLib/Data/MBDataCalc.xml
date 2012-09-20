@@ -14,12 +14,12 @@
 		<ModbusInitData ID="P_GTP1" Name="P ГТП 1" FuncName="P_GTP1" WriteToDBHH="1" Item="2"/>
 		<ModbusInitData ID="P_GTP2" Name="P ГТП 2" FuncName="P_GTP2" WriteToDBHH="1" Item="3"/>
 		<ModbusInitData ID="P_GES" Name="P ГЭС" FuncName="P_GES" WriteToDBHH="1" Item="1"/>
-		<ModbusInitData ID="Rashod_GTP2" Name="Расход ГТП2" FuncName="Rashod_GTP2" WriteToDBHH="1" Item="5"/>
-		<ModbusInitData ID="Rashod_GTP2" Name="Расход ГТП1" FuncName="Rashod_GTP1" WriteToDBHH="1" Item="6"/>
+		<ModbusInitData ID="Rashod_GTP1" Name="Расход ГТП2" FuncName="Rashod_GTP1" WriteToDBHH="1" Item="5"/>
+		<ModbusInitData ID="Rashod_GTP2" Name="Расход ГТП1" FuncName="Rashod_GTP2" WriteToDBHH="1" Item="6"/>
 		<ModbusInitData ID="Rashod_GES" Name="Расход ГЭС" FuncName="Rashod_GES" WriteToDBHH="1" Item="4"/>		
-		<ModbusInitData ID="OptRashod_GTP1" Name="Опт Расход ГТП1" FuncName="OptRashod_GTP1" WriteToDBHH="1" Item="8"/>
-		<ModbusInitData ID="OptRashod_GTP2" Name="Опт Расход ГТП2" FuncName="OptRashod_GTP2" WriteToDBHH="1" Item="9"/>
-		<ModbusInitData ID="OptRashod_GES" Name="Опт Расход ГЭС" FuncName="OptRashod_GES" WriteToDBHH="1" Item="7"/>
+		<ModbusInitData ID="OptRashod_GTP1" Name="Опт Расход ГТП1" FuncName="OptRashod_GTP1" WriteToDBHH="1" Item="2" Obj="10" ObjType="2" DBNameHH="P3000"/>
+		<ModbusInitData ID="OptRashod_GTP2" Name="Опт Расход ГТП2" FuncName="OptRashod_GTP2" WriteToDBHH="1" Item="3" Obj="10" ObjType="2" DBNameHH="P3000"/>
+		<ModbusInitData ID="OptRashod_GES" Name="Опт Расход ГЭС" FuncName="OptRashod_GES" WriteToDBHH="1" Item="1" Obj="10" ObjType="2" DBNameHH="P3000"/>
 	</Data>
 
 </ModbusInitDataArray>
