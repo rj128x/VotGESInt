@@ -121,7 +121,13 @@ namespace ModbusLib
 				
 
 		public void reader_OnFinish(string InitArrayID, SortedList<string, double> ResultData) {
-			Logger.Info(DateTime.Now + " " + InitArrayID + "  read");
+			if (ResultData == null) {
+				Logger.Info(DateTime.Now + "   ===error");
+				Thread.Sleep(SleepTime);
+				Read();
+				return;
+			}
+			Logger.Info("=="+DateTime.Now+" "+InitArrayID+" finish read");
 			ModbusInitDataArray init=InitArrays[InitArrayID];
 			if (init.WriteMin) {
 				WritersMin[InitArrayID].writeData(ResultData);

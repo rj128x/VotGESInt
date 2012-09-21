@@ -2,30 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VotGES;
 
 namespace ModbusLib
 {
-
+	public delegate void ErrorConnectDelegate();
 	public class ModbusServer
 	{
+		public event ErrorConnectDelegate OnErrorConnect;
 		public string IP { get; protected set; }
 		public ushort Port { get; protected set; }
 
 		private Master modbusMaster;
 		public Master ModbusMaster {
 			get { 
-				if (!modbusMaster.connected){
-					modbusMaster.connect(IP, Port);
-				}
 				return modbusMaster;
 			}
 			protected set { modbusMaster = value; }
 		}
 
+		public Master ModbusMasterCon {
+			get {
+				if (!modbusMaster.connected) {
+					try {
+						modbusMaster.connect(IP, Port);
+					}catch{
+						Logger.Error("Ошибка при подключении "+IP+":"+Port);
+						if (OnErrorConnect != null) {
+							OnErrorConnect();
+						}
+					}
+				}
+				return modbusMaster;
+			}
+		}
+
+
 		public ModbusServer(string ip, ushort port) {
 			this.IP = ip;
 			this.Port = port;
-			this.modbusMaster = new Master(ip, port);
+			this.modbusMaster = new Master();
 		}		
 		
 	}
@@ -49,20 +65,36 @@ namespace ModbusLib
 			Data = new SortedList<string, double>(CountData);
 			StepData = 50;
 			server.ModbusMaster.OnResponseData += new Master.ResponseData(ModbusMaster_OnResponseData);
+			server.ModbusMaster.OnException += new Master.ExceptionData(ModbusMaster_OnException);
+			server.OnErrorConnect += new ErrorConnectDelegate(server_OnErrorConnect);
+		}
+
+		void server_OnErrorConnect() {
+			if (OnFinish != null) {
+				OnFinish(InitArr.ID, null);
+			}
+		}
+
+		void ModbusMaster_OnException(ushort id, byte function, byte exception) {
+			if (OnFinish != null) {
+				OnFinish(InitArr.ID, null);
+			}
 		}
 
 		protected ushort startAddr;
 		protected bool finished;
 
 		public void readData() {
-			startAddr=0;
+			Logger.Info(DateTime.Now + " " + InitArr.ID + "   start read");
+
+			startAddr =0;
 			finished = false;
 			Data.Clear();
 			continueRead();
 		}
 
-		protected void continueRead() {
-			Server.ModbusMaster.ReadInputRegister(startAddr, startAddr, (ushort)(StepData * 2));
+		protected void continueRead() {			
+			Server.ModbusMasterCon.ReadInputRegister(startAddr, startAddr, (ushort)(StepData * 2));
 			startAddr += (ushort)(StepData * 2);
 			finished = (startAddr > CountData * 2);
 		}
@@ -88,6 +120,9 @@ namespace ModbusLib
 			if (!finished) {
 				continueRead();
 			} else {
+				try {
+					Server.ModbusMaster.disconnect();
+				}catch{}
 				SortedList<string, double> ResultData=getResultData();
 				if (OnFinish != null) {
 					OnFinish(InitArr.ID, ResultData);

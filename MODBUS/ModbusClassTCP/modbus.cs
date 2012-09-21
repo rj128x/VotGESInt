@@ -205,6 +205,7 @@ namespace ModbusLib
                 }
                 tcpSynCl = null;
             }
+				_connected = false;
         }
 
         internal void CallException(ushort id, byte function, byte exception)
