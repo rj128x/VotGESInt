@@ -105,7 +105,7 @@ namespace ModbusLib
 			Calc.InitCalc = InitCalc;			
 		}
 
-		public void Read() {
+		public void Read() {			
 			foreach (string key in InitArrays.Keys) {
 				FinishReading[key] = false;
 			}
@@ -122,9 +122,12 @@ namespace ModbusLib
 
 		public void reader_OnFinish(string InitArrayID, SortedList<string, double> ResultData) {
 			if (ResultData == null) {
-				Logger.Info(DateTime.Now + "   ===error");
-				Thread.Sleep(SleepTime);
-				Read();
+				Logger.Info("==" + DateTime.Now + " " + InitArrayID + " error read");
+				FinishReading[InitArrayID] = true;
+				if (!FinishReading.Values.Contains(false)) {
+					Thread.Sleep(SleepTime);
+					Read();
+				}
 				return;
 			}
 			Logger.Info("=="+DateTime.Now+" "+InitArrayID+" finish read");
