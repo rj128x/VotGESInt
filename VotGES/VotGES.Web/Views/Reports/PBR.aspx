@@ -54,6 +54,7 @@
 			text-align: center;			
 			padding-left: 1px;			
 			padding-right: 1px;
+			width:80px;
 		}
 		
 		
@@ -66,7 +67,7 @@
 			text-align: right;
 		}	
 		
-		table td.fill{
+		table td.fill, table th.fill{
 			background-color:Gray;
 		}	
 	 </style>
@@ -75,29 +76,40 @@
 	<h1>ПБР на <%=Model.Date.ToString("dd.MM.yyyy") %></h1>
 	<table class='cifr'>
 		<tr>
-			<th>Время</th>
-			<th>ГТП-1</th>			
-			<th>РГЕ-2</th>
-			<th>РГЕ-3</th>
-			<th>РГЕ-4</th>
-			<th>ГТП-2</th>
-			<th>ГЭС</th>
-			<th width='100'>&nbsp;</th>
+			<th rowspan='3'>Время</th>
+			<th colspan='2'>ГТП-1 110кВ</th>
+			<th colspan='4'>ГТП-2 220кВ</th>
+			<th rowspan='3'>ГЭС</th>
+			<th rowspan='3'>&nbsp;</th>
+		</tr>
+		<tr>
+			<th>РГЕ-110кВ</th>
+			<th rowspan='2'>Сумма</th>
+			<th colspan='3'>РГЕ-220кВ</th>
+			<th rowspan='2'>Сумма</th>			
+		</tr>
+		<tr>			
+			<th>ГГ 1,2</th>			
+			<th>ГГ 3,4</th>			
+			<th>ГГ 5,6</th>			
+			<th>ГГ 7-10</th>						
 		</tr>
 		<%foreach (DateTime dt in Model.GES.SteppedPBR.Keys) { %>
 			<tr>
 				<th><%=dt.AddHours(2).ToString("HH:mm") %></th>
 				<td <%=Model.GTP1.ChangePBR[dt]?"class='fill'":""%>><%=Model.GTP1.SteppedPBR[dt].ToString("0.00") %></td>
+				<th <%=Model.GTP1.ChangePBR[dt]?"class='fill'":""%>><%=Model.GTP1.SteppedPBR[dt].ToString("0.00") %></th>
 				<td <%=Model.RGE2.ChangePBR[dt]?"class='fill'":""%>><%=Model.RGE2.SteppedPBR[dt].ToString("0.00") %></td>
 				<td <%=Model.RGE3.ChangePBR[dt]?"class='fill'":""%>><%=Model.RGE3.SteppedPBR[dt].ToString("0.00") %></td>
 				<td <%=Model.RGE4.ChangePBR[dt]?"class='fill'":""%>><%=Model.RGE4.SteppedPBR[dt].ToString("0.00") %></td>
-				<td <%=Model.GTP2.ChangePBR[dt]?"class='fill'":""%>><%=Model.GTP2.SteppedPBR[dt].ToString("0.00") %></td>
-				<td <%=Model.GES.ChangePBR[dt]?"class='fill'":""%>><%=Model.GES.SteppedPBR[dt].ToString("0.00") %></td>
+				<th <%=Model.GTP2.ChangePBR[dt]?"class='fill'":""%>><%=Model.GTP2.SteppedPBR[dt].ToString("0.00") %></th>
+				<th <%=Model.GES.ChangePBR[dt]?"class='fill'":""%>><%=Model.GES.SteppedPBR[dt].ToString("0.00") %></th>
 				<td><%=Model.ChangePBR[dt]?"Смена нагрузки":"" %></td>
 			</tr>
 		<%} %>
 		<tr>
 			<th>Итог</th>
+			<th><%=Model.GTP1.IntegratedPBR.Last().Value.ToString("0.00") %></th>
 			<th><%=Model.GTP1.IntegratedPBR.Last().Value.ToString("0.00") %></th>
 			<th><%=Model.RGE2.IntegratedPBR.Last().Value.ToString("0.00")%></th>
 			<th><%=Model.RGE3.IntegratedPBR.Last().Value.ToString("0.00")%></th>
