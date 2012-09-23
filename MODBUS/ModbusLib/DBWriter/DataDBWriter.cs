@@ -11,76 +11,147 @@ namespace ModbusLib
 {
 	public class DataDBRecord
 	{
-		public string Header{get; set;}
-		public double Min{get; set;} 
-		public double Max{get; set;} 
-		public double Avg {get; set;}
-		public double Eq {get; set;}
-		public double Count { get;  set; }
+		public string Header { get; set; }
+		public double Min { get; set; }
+		public double Max { get; set; }
+		public double Avg { get; set; }
+		public double AvgMin { get; set; }
+		public double Eq { get; set; }
+		public double Count { get; set; }
 		public SortedList<DateTime, double> DiffVals { get; set; }
+		public SortedList<DateTime, double> Vals { get; set; }
+		public ModbusInitData Init;
 
-		public DataDBRecord(string header) {
+		public DataDBRecord(string header, ModbusInitData init) {
 			this.Header = header;
+			this.Init = init;
 			Min = 10e10;
 			Max = -10e10;
 			Avg = 0;
 			Count = 0;
 			DiffVals = new SortedList<DateTime, double>();
+			Vals = new SortedList<DateTime, double>();
+		}
+
+		public void AddVal(DateTime date, double val) {
+			if (!Vals.ContainsKey(date)) {
+				Vals.Add(date, val);
+			}
+		}
+
+		public void ProcessVals() {
+			double avg=0;
+			double avgMin=0;
+			double cnt=0;
+			double cntMin=-1;
+			int currentMinute=Vals.First().Key.Minute;
+			foreach (KeyValuePair<DateTime,double>de in Vals) {
+				double val=de.Value;
+				AvgMin += val;
+				if (Min > val) {
+					Min = val;
+				}
+				if (Max < val) {
+					Max = val;
+				}
+				Eq = val;
+				Count++;
+				if (Init.WriteToDBDiff) {
+					if (DiffVals.Count == 0 ||
+						Math.Abs(DiffVals.Last().Value - val) > Init.Diff) {
+						DiffVals.Add(de.Key, val);
+					}
+				}
+
+				int minute=de.Key.Minute;
+				if (currentMinute != minute) {
+					int diffMin=currentMinute - minute;
+					avg += (avgMin / cntMin) * diffMin;
+					cnt += diffMin;
+
+					cntMin = 0;
+					avgMin = 0;
+					currentMinute = minute;
+				}
+				avgMin += val;
+				cntMin++;
+			}
+			if (cnt > 0) {
+				this.Avg = avg / cnt;
+			}
+			if (Count > 0) {
+				AvgMin = AvgMin / Count;
+			}
+
 		}
 	}
 
 	public class DataDBWriter
-	{		
-		public string FileName {get;protected set;}
-		public TextReader Reader {get;protected set;}
-		public List<string> Headers {get;protected set;}
-		public SortedList<string, DataDBRecord> Data {get; set;}
-		public List<DateTime> Dates {get;protected set;}
-		public DateTime Date {get; set;}
-		public ModbusInitDataArray InitArray {get;protected set;}
-		
+	{
+		public List<String> FileNames { get; protected set; }
+		public string FileName { get; protected set; }
+		public TextReader Reader { get; protected set; }
+		public List<string> Headers { get; protected set; }
+		public SortedList<string, DataDBRecord> Data { get; set; }
+		public DateTime Date { get; set; }
+		public ModbusInitDataArray InitArray { get; protected set; }
+
 		public DataDBWriter(ModbusInitDataArray initArray) {
 			InitArray = initArray;
 			Headers = new List<string>();
-			Dates = new List<DateTime>();
 			Data = new SortedList<string, DataDBRecord>();
 		}
 
-		public bool init(string fileName) {
-			FileName = fileName;
-			Headers.Clear();
-			Dates.Clear();
+		public bool init(List<string> fileNames) {
+			FileNames = fileNames;
 			Data.Clear();
+			bool ok=true;
 
-			return File.Exists(fileName);
+			foreach (string fileName in FileNames) {
+				ok = ok && File.Exists(fileName);
+			}
+			return ok;
 		}
 
 		public void ReadAll() {
-			try {
-				Reader = new StreamReader(System.IO.File.OpenRead(FileName));
-				readHeader();
-				readData();
-				foreach (DataDBRecord rec in Data.Values) {
-					if (rec.Count > 0) {
-						rec.Avg = rec.Avg / rec.Count;
-					}
+			foreach (string fileName in FileNames) {
+				FileName = fileName;
+				try {
+					Reader = new StreamReader(System.IO.File.OpenRead(FileName));
+					readHeader();
+					readData();
+				} catch (Exception e) {
+					Logger.Error("Ошибка при чтении данных");
+					Logger.Error(e.ToString());
+				} finally {
+					Reader.Close();
 				}
-			} catch (Exception e) {
-				Logger.Error("Ошибка при чтении данных");
-				Logger.Error(e.ToString());
-			} finally {
-				Reader.Close();
+			}
+
+			foreach (DataDBRecord rec in Data.Values) {
+				rec.ProcessVals();
+				if (rec.Count > 0) {
+					rec.Avg = rec.Avg / rec.Count;
+				}
 			}
 		}
 
 		protected void readHeader() {
+			Headers.Clear();
 			string headerStr=Reader.ReadLine();
 			string[] headersArr=headerStr.Split(';');
 			bool isFirst=true;
 			foreach (string header in headersArr) {
 				if (!isFirst) {
 					Headers.Add(header);
-					Data.Add(header, new DataDBRecord(header));
+					if (InitArray.FullData.ContainsKey(header)) {
+						ModbusInitData init=InitArray.FullData[header];
+						if (init.WriteToDBDiff || init.WriteToDBHH || init.WriteToDBMin) {
+							if (!Data.ContainsKey(header)) {
+								Data.Add(header, new DataDBRecord(header, init));
+							}
+						}
+					}
 				} else {
 					Date = DateTime.Parse(header);
 				}
@@ -94,7 +165,7 @@ namespace ModbusLib
 			while ((valsStr = Reader.ReadLine()) != null) {
 				string[]valsArr=valsStr.Split(';');
 				bool isFirst=true;
-				lastDate=DateTime.Now;
+				lastDate = DateTime.Now;
 				int index=0;
 				foreach (string valStr in valsArr) {
 					if (!isFirst) {
@@ -107,29 +178,16 @@ namespace ModbusLib
 						try {
 							if (!Double.IsNaN(val)) {
 								string header=Headers[index];
-								Data[header].Avg += val;
-								if (Data[header].Min > val) {
-									Data[header].Min = val;
-								}
-								if (Data[header].Max < val) {
-									Data[header].Max = val;
-								}
-								Data[header].Eq = val;
-								Data[header].Count++;
-								if (InitArray.FullData[header].WriteToDBDiff) {
-									if (Data[header].DiffVals.Count == 0 || 
-										Math.Abs(Data[header].DiffVals.Last().Value- val)>InitArray.FullData[header].Diff) {
-											Data[header].DiffVals.Add(lastDate, val);
-									}
+								if (Data.ContainsKey(header)) {
+									Data[header].AddVal(lastDate, val);
 								}
 							}
-						}catch {
-							Logger.Error("Ошибка при чтении строки файла "+FileName);
+						} catch {
+							Logger.Error("Ошибка при чтении строки файла " + FileName);
 						}
 						index++;
 					} else {
 						lastDate = DateTime.Parse(valStr);
-						Dates.Add(lastDate);
 					}
 					isFirst = false;
 				}
@@ -148,7 +206,7 @@ namespace ModbusLib
 				ModbusInitData init=InitArray.FullData[rec.Header];
 				if (init.WriteToDBHH || init.WriteToDBMin) {
 					if (init.WriteToDBMin && mode == RWModeEnum.min) {
-						string insert=String.Format(frmt, init.ParNumberMin, init.Obj, init.Item, rec.Avg, rec.Min, rec.Max, rec.Eq, init.ObjType,
+						string insert=String.Format(frmt, init.ParNumberMin, init.Obj, init.Item, rec.AvgMin, rec.Min, rec.Max, rec.Eq, init.ObjType,
 							Date.AddMinutes(1).ToString(df), DateTime.Now.ToString(df), 0);
 						string delete=String.Format(frmDel, init.ParNumberMin, init.Obj, init.ObjType, init.Item, Date.AddMinutes(1).ToString(df));
 						if (!inserts.ContainsKey(init.DBNameMin)) {
@@ -176,19 +234,19 @@ namespace ModbusLib
 						double lastVal=Double.NaN;
 						try {
 							string select=String.Format(
-								"SELECT TOP 1 VALUE0 FROM DATA WHERE ParNumber={0} and Object={1} and ObjType={2} and Item={3} and Data_date<'{4}' order by DATA_DATE desc", 
-								init.ParNumberDiff, init.Obj, init.ObjType, init.Item,rec.DiffVals.First().Key.ToString(df));
+								"SELECT TOP 1 VALUE0 FROM DATA WHERE ParNumber={0} and Object={1} and ObjType={2} and Item={3} and Data_date<'{4}' order by DATA_DATE desc",
+								init.ParNumberDiff, init.Obj, init.ObjType, init.Item, rec.DiffVals.First().Key.ToString(df));
 							con = PiramidaAccess.getConnection(init.DBNameDiff);
 							con.Open();
 							SqlCommand command=null;
 							command = con.CreateCommand();
 							command.CommandText = select;
-							lastVal=(double)command.ExecuteScalar();
-						}catch{
+							lastVal = (double)command.ExecuteScalar();
+						} catch {
 						} finally {
 							try { con.Close(); } catch { }
-						}						
-						if (!Double.IsNaN(lastVal)) {							
+						}
+						if (!Double.IsNaN(lastVal)) {
 							if (Math.Abs(lastVal - rec.DiffVals.First().Value) < init.Diff) {
 								rec.DiffVals.RemoveAt(0);
 							}
@@ -207,7 +265,7 @@ namespace ModbusLib
 					}
 				}
 			}
-			
+
 
 			foreach (KeyValuePair<string,List<string>> de in deletes) {
 				con = PiramidaAccess.getConnection(de.Key);

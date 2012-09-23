@@ -13,6 +13,7 @@ namespace ModbusLib
 		protected static Settings settings;
 		public string LogPath { get; set; }
 		public string DataPath { get; set; }
+		public List<string> AddDataPath { get; set; }
 		
 		public static Settings single {
 			get {

@@ -17,13 +17,13 @@ namespace ModbusLib
 		public RWModeEnum RWMode { get; protected set; }
 		public bool FirstRun { get; protected set; }
 
-		public static string GetDir(ModbusInitDataArray InitArray, RWModeEnum RWMode, DateTime date) {
-			string dirName=String.Format("{0}\\{1}\\{2}\\{3}",Settings.single.DataPath,InitArray.ID,RWMode.ToString(),date.ToString("yyyy_MM_dd"));
+		public static string GetDir(String path,ModbusInitDataArray InitArray, RWModeEnum RWMode, DateTime date) {
+			string dirName=String.Format("{0}\\{1}\\{2}\\{3}",path,InitArray.ID,RWMode.ToString(),date.ToString("yyyy_MM_dd"));
 			return dirName;
 		}
 
-		public static String GetFileName(ModbusInitDataArray InitArray, RWModeEnum RWMode, DateTime date,bool createDir) {
-			string dirName=GetDir(InitArray, RWMode, date);
+		public static String GetFileName(String path, ModbusInitDataArray InitArray, RWModeEnum RWMode, DateTime date, bool createDir) {
+			string dirName=GetDir(path, InitArray, RWMode, date);
 			if (createDir) {
 				Directory.CreateDirectory(dirName);
 			}
@@ -49,7 +49,7 @@ namespace ModbusLib
 				} catch (Exception) { }
 				CurrentDate = dt;
 
-				string fileName=GetFileName(InitArray, RWMode, CurrentDate, true);			
+				string fileName=GetFileName(Settings.single.DataPath, InitArray, RWMode, CurrentDate, true);
 				
 				bool newFile=!File.Exists(fileName);				
 				CurrentWriter=new StreamWriter(fileName,true);

@@ -3,6 +3,9 @@
 			 xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<LogPath>C:/MBData/Log</LogPath>
 	<DataPath>c:/MBData</DataPath>
+	<AddDataPath>
+		<string>c:/MBData</string>
+	</AddDataPath>
 	<HoursDiff>2</HoursDiff>	
 	<InitFiles>
 		<string>Data\MBDataFullDB.xml</string>

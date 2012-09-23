@@ -87,7 +87,14 @@ namespace ModbusLib
 			while (date <= DateEnd) {
 				try {					
 					DataDBWriter writer=Writers[idInitArray];
-					bool ready=writer.init(ModbusDataWriter.GetFileName(InitArrays[idInitArray], mode, date, false));
+					List<String> fileNames=new List<string>();
+					fileNames.Add(ModbusDataWriter.GetFileName(Settings.single.DataPath,InitArrays[idInitArray], mode, date, false));
+					foreach (string path in Settings.single.AddDataPath) {
+						try {
+							fileNames.Add(ModbusDataWriter.GetFileName(path, InitArrays[idInitArray], mode, date, false));
+						} catch { }
+					}
+					bool ready=writer.init(fileNames);
 					if (ready) {
 						Logger.Info(String.Format("=={0}", date));
 						writer.ReadAll();
