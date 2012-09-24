@@ -42,6 +42,7 @@ namespace ModbusLib
 
 			Settings settings=XMLSer<Settings>.fromXML("Data\\Settings.xml");
 			Settings.settings = settings;
+						
 		}
 	}
 }

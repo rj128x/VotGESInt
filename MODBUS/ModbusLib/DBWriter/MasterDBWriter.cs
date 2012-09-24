@@ -92,7 +92,7 @@ namespace ModbusLib
 					foreach (string path in Settings.single.AddDataPath) {
 						try {
 							fileNames.Add(ModbusDataWriter.GetFileName(path, InitArrays[idInitArray], mode, date, false));
-						} catch { }
+						} catch  {  }
 					}
 					bool ready=writer.init(fileNames);
 					if (ready) {

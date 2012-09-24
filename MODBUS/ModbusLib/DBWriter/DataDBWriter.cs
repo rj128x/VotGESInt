@@ -44,43 +44,45 @@ namespace ModbusLib
 			double avgMin=0;
 			double cnt=0;
 			double cntMin=-1;
-			int currentMinute=Vals.First().Key.Minute;
-			foreach (KeyValuePair<DateTime,double>de in Vals) {
-				double val=de.Value;
-				AvgMin += val;
-				if (Min > val) {
-					Min = val;
-				}
-				if (Max < val) {
-					Max = val;
-				}
-				Eq = val;
-				Count++;
-				if (Init.WriteToDBDiff) {
-					if (DiffVals.Count == 0 ||
-						Math.Abs(DiffVals.Last().Value - val) > Init.Diff) {
-						DiffVals.Add(de.Key, val);
+			if (Vals.Count > 0) {
+				int currentMinute=Vals.First().Key.Minute;
+				foreach (KeyValuePair<DateTime,double>de in Vals) {
+					double val=de.Value;
+					AvgMin += val;
+					if (Min > val) {
+						Min = val;
 					}
-				}
+					if (Max < val) {
+						Max = val;
+					}
+					Eq = val;
+					Count++;
+					if (Init.WriteToDBDiff) {
+						if (DiffVals.Count == 0 ||
+							Math.Abs(DiffVals.Last().Value - val) > Init.Diff) {
+							DiffVals.Add(de.Key, val);
+						}
+					}
 
-				int minute=de.Key.Minute;
-				if (currentMinute != minute) {
-					int diffMin=currentMinute - minute;
-					avg += (avgMin / cntMin) * diffMin;
-					cnt += diffMin;
+					int minute=de.Key.Minute;
+					if (currentMinute != minute) {
+						int diffMin=currentMinute - minute;
+						avg += (avgMin / cntMin) * diffMin;
+						cnt += diffMin;
 
-					cntMin = 0;
-					avgMin = 0;
-					currentMinute = minute;
+						cntMin = 0;
+						avgMin = 0;
+						currentMinute = minute;
+					}
+					avgMin += val;
+					cntMin++;
 				}
-				avgMin += val;
-				cntMin++;
-			}
-			if (cnt > 0) {
-				this.Avg = avg / cnt;
-			}
-			if (Count > 0) {
-				AvgMin = AvgMin / Count;
+				if (cnt > 0) {
+					this.Avg = avg / cnt;
+				}
+				if (Count > 0) {
+					AvgMin = AvgMin / Count;
+				}
 			}
 
 		}
@@ -105,16 +107,18 @@ namespace ModbusLib
 		public bool init(List<string> fileNames) {
 			FileNames = fileNames;
 			Data.Clear();
-			bool ok=true;
+			bool ok=false;
 
 			foreach (string fileName in FileNames) {
-				ok = ok && File.Exists(fileName);
+				ok = ok || File.Exists(fileName);
 			}
 			return ok;
 		}
 
 		public void ReadAll() {
 			foreach (string fileName in FileNames) {
+				if (!File.Exists(fileName))
+					continue;
 				FileName = fileName;
 				try {
 					Reader = new StreamReader(System.IO.File.OpenRead(FileName));
