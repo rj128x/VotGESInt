@@ -15,5 +15,7 @@
 /MODBUS/ModbusConsole/obj
 /MODBUS/DBConsole/bin
 /MODBUS/DBConsole/obj
+/MODBUS/ClearFolder/bin
+/MODBUS/ClearFolder/obj
 /MODBUS/ModbusLib/bin
 /MODBUS/ModbusLib/obj
