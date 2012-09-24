@@ -1,0 +1,5 @@
+D:\vs2010\VotGESInt\MODBUS\ClearFolder\bin\Release\ClearFolder.exe
+D:\vs2010\VotGESInt\MODBUS\ClearFolder\bin\Release\ClearFolder.pdb
+D:\vs2010\VotGESInt\MODBUS\ClearFolder\obj\x86\Release\ResolveAssemblyReference.cache
+D:\vs2010\VotGESInt\MODBUS\ClearFolder\obj\x86\Release\ClearFolder.exe
+D:\vs2010\VotGESInt\MODBUS\ClearFolder\obj\x86\Release\ClearFolder.pdb
