@@ -4,7 +4,7 @@
 	<LogPath>C:/MBData/Log</LogPath>
 	<DataPath>c:/MBData</DataPath>
 	<AddDataPath>
-		<string>c:/MBData</string>
+		<string>z:/MBData</string>
 	</AddDataPath>
 	<HoursDiff>2</HoursDiff>	
 	<InitFiles>

@@ -43,7 +43,7 @@ namespace ModbusLib
 			double avg=0;
 			double avgMin=0;
 			double cnt=0;
-			double cntMin=-1;
+			double cntMin=0;
 			if (Vals.Count > 0) {
 				int currentMinute=Vals.First().Key.Minute;
 				foreach (KeyValuePair<DateTime,double>de in Vals) {
@@ -66,10 +66,11 @@ namespace ModbusLib
 
 					int minute=de.Key.Minute;
 					if (currentMinute != minute) {
-						int diffMin=currentMinute - minute;
+						int diffMin=Math.Abs(currentMinute - minute);
 						avg += (avgMin / cntMin) * diffMin;
 						cnt += diffMin;
 
+						
 						cntMin = 0;
 						avgMin = 0;
 						currentMinute = minute;
@@ -134,9 +135,6 @@ namespace ModbusLib
 
 			foreach (DataDBRecord rec in Data.Values) {
 				rec.ProcessVals();
-				if (rec.Count > 0) {
-					rec.Avg = rec.Avg / rec.Count;
-				}
 			}
 		}
 
