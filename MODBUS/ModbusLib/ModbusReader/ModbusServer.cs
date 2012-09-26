@@ -70,7 +70,6 @@ namespace ModbusLib
 		}
 
 		protected void error() {
-			finished = true;
 			isError = true;
 			try {
 				Server.ModbusMaster.disconnect();				
@@ -81,23 +80,30 @@ namespace ModbusLib
 		}
 
 		void server_OnErrorConnect() {
-			Logger.Info("con");
+			Logger.Info("Ошибка подключения");
 			error();
 		}
 
 		void ModbusMaster_OnException(ushort id, byte function, byte exception) {
-			Logger.Info("exc");
+			Logger.Info("Ошибка при чтении данных");
 			error();
 		}
 
-		protected ushort startAddr;
-		protected bool finished;
+		protected ushort startAddr;		
 		protected bool isError;
+		protected SortedList<int,bool> finishedPart;
 
 		public void readData() {			
 			Logger.Info(DateTime.Now + " " + InitArr.ID + "   start read");
 			startAddr =0;
-			finished = false;
+
+			finishedPart = new SortedList<int, bool>();
+			int sa=0;
+			while (sa < CountData * 2) {
+				finishedPart.Add(sa, false);
+				sa += (ushort)(StepData * 2);
+			}
+
 			isError = false;
 			Data.Clear();
 			continueRead();
@@ -107,11 +113,11 @@ namespace ModbusLib
 			if (!isError) {
 				Server.ModbusMasterCon.ReadInputRegister(startAddr, startAddr, (ushort)(StepData * 2));
 				startAddr += (ushort)(StepData * 2);
-				finished = (startAddr > CountData * 2);
 			}
 		}
 
 		void ModbusMaster_OnResponseData(ushort id, byte function, byte[] data) {
+			finishedPart[id] = true;
 			if (!isError) {
 				int[] word=new int[data.Length / 2];
 				for (int i=0; i < data.Length; i = i + 2) {
@@ -127,9 +133,9 @@ namespace ModbusLib
 				foreach (int w in word) {
 					InitArr.WriteVal(startAddr, w, Data);
 					startAddr++;
-				}
+				}			
 
-				if (!finished) {
+				if (finishedPart.Values.Contains(false)) {
 					continueRead();
 				} else {
 					try {
