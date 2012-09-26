@@ -42,10 +42,12 @@
   <ItemGroup>
     <Compile Include="DBWriter\DataDBWriter.cs" />
     <Compile Include="DBWriter\MasterDBWriter.cs" />
+    <Compile Include="DBWriter\MasterDBWriterRunner.cs" />
     <Compile Include="ModbusReader\MasterModbusReader.cs" />
     <Compile Include="ModbusReader\ModbusCalc.cs" />
     <Compile Include="ModbusReader\ModbusDataWriter.cs" />
     <Compile Include="ModbusInitData.cs" />
+    <Compile Include="ModbusReader\ModbusReaderRunner.cs" />
     <Compile Include="ModbusReader\ModbusServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />

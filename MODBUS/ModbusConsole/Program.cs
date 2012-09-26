@@ -8,6 +8,8 @@ using System.IO;
 using System.Threading;
 using VotGES;
 using VotGES.Piramida;
+using ModbusLib.DBWriter;
+using ModbusLib.ModbusReader;
 
 namespace ModbusConsole
 {
@@ -15,20 +17,8 @@ namespace ModbusConsole
 	{
 
 		static void Main(string[] args) {
-			Settings.init();
-			DBSettings.init();
-			/*Settings.single.InitFiles = new List<string>();
-			Settings.single.InitFiles.Add("fsd");
-			XMLSer<Settings>.toXML(Settings.single,"c:\\out1.xml");*/
-			Logger.InitFileLogger(Settings.single.LogPath, "logR");
-
-			try {
-				MasterModbusReader reader=new MasterModbusReader(5000);
-				reader.Read();
-			}catch(Exception e){
-				Logger.Error(e.ToString());
-			}
-
+			
+			(new ModbusReaderRunner()).Run();
 
 			Console.ReadLine();
 		}

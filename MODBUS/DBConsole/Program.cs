@@ -5,6 +5,8 @@ using System.Text;
 using ModbusLib;
 using VotGES;
 using VotGES.Piramida;
+using ModbusLib.ModbusReader;
+using ModbusLib.DBWriter;
 
 namespace DBConsole
 {
@@ -12,38 +14,8 @@ namespace DBConsole
 	{
 		static void Main(string[] args) {
 
-			try {
-				Settings.init();
-				DBSettings.init();
-				Logger.InitFileLogger(Settings.single.LogPath, "logW");
-
-				MasterDBWriter writer=new MasterDBWriter();
-				writer.InitRun(30000, 3, -1);
-				writer.Run();
-
-				Console.ReadLine();
-			} catch (Exception e) {
-				//Logger.Error(e.ToString());
-				Logger.Error(e.ToString());
-			}
+			(new MasterDBWriterRunner()).Run();
+			Console.ReadLine();
 		}
-
-		static void Main1(string[] args) {
-
-			try {
-				Settings.init();
-				DBSettings.init();
-				Logger.InitFileLogger(Settings.single.LogPath, "logW");
-
-				MasterDBWriter writer=new MasterDBWriter();
-				writer.Process(DateTime.Now, RWModeEnum.hh, 300);
-
-				Console.ReadLine();
-			} catch (Exception e) {
-				//Logger.Error(e.ToString());
-				Console.WriteLine(e.ToString());
-			}
-		}
-
 	}
 }
