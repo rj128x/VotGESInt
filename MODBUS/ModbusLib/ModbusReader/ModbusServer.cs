@@ -15,7 +15,7 @@ namespace ModbusLib
 
 		private Master modbusMaster;
 		public Master ModbusMaster {
-			get { 
+			get {
 				return modbusMaster;
 			}
 			protected set { modbusMaster = value; }
@@ -26,8 +26,8 @@ namespace ModbusLib
 				if (!modbusMaster.connected) {
 					try {
 						modbusMaster.connect(IP, Port);
-					}catch{
-						Logger.Error("Ошибка при подключении "+IP+":"+Port);
+					} catch {
+						Logger.Error("Ошибка при подключении " + IP + ":" + Port);
 						if (OnErrorConnect != null) {
 							OnErrorConnect();
 						}
@@ -42,11 +42,11 @@ namespace ModbusLib
 			this.IP = ip;
 			this.Port = port;
 			this.modbusMaster = new Master();
-		}		
-		
+		}
+
 	}
 
-	public delegate void FinishEvent(string InitArrayID,SortedList<string, double> ResultData);
+	public delegate void FinishEvent(string InitArrayID, SortedList<string, double> ResultData);
 
 	public class ModbusDataReader
 	{
@@ -72,7 +72,7 @@ namespace ModbusLib
 		protected void error() {
 			isError = true;
 			try {
-				Server.ModbusMaster.disconnect();				
+				Server.ModbusMaster.disconnect();
 			} catch { }
 			if (OnFinish != null) {
 				OnFinish(InitArr.ID, null);
@@ -89,13 +89,13 @@ namespace ModbusLib
 			error();
 		}
 
-		protected ushort startAddr;		
+		protected ushort startAddr;
 		protected bool isError;
 		protected SortedList<int,bool> finishedPart;
 
-		public void readData() {			
+		public void readData() {
 			Logger.Info(DateTime.Now + " " + InitArr.ID + "   start read");
-			startAddr =0;
+			startAddr = 0;
 
 			finishedPart = new SortedList<int, bool>();
 			int sa=0;
@@ -133,7 +133,7 @@ namespace ModbusLib
 				foreach (int w in word) {
 					InitArr.WriteVal(startAddr, w, Data);
 					startAddr++;
-				}			
+				}
 
 				if (finishedPart.Values.Contains(false)) {
 					continueRead();
@@ -150,21 +150,17 @@ namespace ModbusLib
 		}
 
 		public SortedList<string, double> getResultData() {
-			SortedList<string, double> ResultData=new SortedList<string,double>(CountData);
+			SortedList<string, double> ResultData=new SortedList<string, double>(CountData);
 			double val=0;
-			string nm;			
-			foreach (KeyValuePair<string,double> de in Data){
-				try {
-					val = de.Value;
-					nm = de.Key + "_FLAG";
-					if (Data.ContainsKey(nm) && Data[nm] != 0) {
-						val = Double.NaN;
-					}
-					ResultData.Add(de.Key, val);
-				} catch (Exception e) {
-					Logger.Error(e.ToString());
+			string nm;
+			foreach (KeyValuePair<string,double> de in Data) {
+				val = de.Value;
+				nm = de.Key + "_FLAG";
+				if (Data.ContainsKey(nm) && Data[nm] != 0) {
+					val = Double.NaN;
 				}
-			}			
+				ResultData.Add(de.Key, val);
+			}
 			return ResultData;
 		}
 
