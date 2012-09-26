@@ -73,7 +73,7 @@ namespace ModbusLib
 			finished = true;
 			isError = true;
 			try {
-				Server.ModbusMaster.disconnect();
+				Server.ModbusMaster.disconnect();				
 			} catch { }
 			if (OnFinish != null) {
 				OnFinish(InitArr.ID, null);
@@ -81,10 +81,12 @@ namespace ModbusLib
 		}
 
 		void server_OnErrorConnect() {
+			Logger.Info("con");
 			error();
 		}
 
 		void ModbusMaster_OnException(ushort id, byte function, byte exception) {
+			Logger.Info("exc");
 			error();
 		}
 
@@ -92,7 +94,7 @@ namespace ModbusLib
 		protected bool finished;
 		protected bool isError;
 
-		public void readData() {
+		public void readData() {			
 			Logger.Info(DateTime.Now + " " + InitArr.ID + "   start read");
 			startAddr =0;
 			finished = false;
@@ -101,42 +103,42 @@ namespace ModbusLib
 			continueRead();
 		}
 
-		protected void continueRead() {			
-			Server.ModbusMasterCon.ReadInputRegister(startAddr, startAddr, (ushort)(StepData * 2));
-			startAddr += (ushort)(StepData * 2);
-			finished = (startAddr > CountData * 2);
+		protected void continueRead() {
+			if (!isError) {
+				Server.ModbusMasterCon.ReadInputRegister(startAddr, startAddr, (ushort)(StepData * 2));
+				startAddr += (ushort)(StepData * 2);
+				finished = (startAddr > CountData * 2);
+			}
 		}
 
 		void ModbusMaster_OnResponseData(ushort id, byte function, byte[] data) {
-			if (isError) {
-				return;
-			}
+			if (!isError) {
+				int[] word=new int[data.Length / 2];
+				for (int i=0; i < data.Length; i = i + 2) {
+					//word[i / 2] = data[i] * 256 + data[i + 1];
+					byte w1=data[i];
+					byte w2=data[i + 1];
+					byte[] vals=new byte[] { w2, w1 };
+					int w=BitConverter.ToInt16(vals, 0);
+					word[i / 2] = w;
+				}
 
-			int[] word=new int[data.Length / 2];
-			for (int i=0; i < data.Length; i = i + 2) {
-				//word[i / 2] = data[i] * 256 + data[i + 1];
-				byte w1=data[i];
-				byte w2=data[i + 1];
-				byte[] vals=new byte[]{w2,w1};
-				int w=BitConverter.ToInt16(vals, 0);
-				word[i / 2] = w;
-			}
+				ushort startAddr=id;
+				foreach (int w in word) {
+					InitArr.WriteVal(startAddr, w, Data);
+					startAddr++;
+				}
 
-			ushort startAddr=id;
-			foreach (int w in word) {
-				InitArr.WriteVal(startAddr, w, Data);
-				startAddr++;
-			}
-
-			if (!finished) {
-				continueRead();
-			} else {
-				try {
-					Server.ModbusMaster.disconnect();
-				}catch{}
-				SortedList<string, double> ResultData=getResultData();
-				if (OnFinish != null) {
-					OnFinish(InitArr.ID, ResultData);
+				if (!finished) {
+					continueRead();
+				} else {
+					try {
+						Server.ModbusMaster.disconnect();
+					} catch { }
+					SortedList<string, double> ResultData=getResultData();
+					if (OnFinish != null) {
+						OnFinish(InitArr.ID, ResultData);
+					}
 				}
 			}
 		}
@@ -144,14 +146,18 @@ namespace ModbusLib
 		public SortedList<string, double> getResultData() {
 			SortedList<string, double> ResultData=new SortedList<string,double>(CountData);
 			double val=0;
-			string nm;
+			string nm;			
 			foreach (KeyValuePair<string,double> de in Data){
-				val=de.Value;
-				nm = de.Key + "_FLAG";
-				if (Data.ContainsKey(nm) && Data[nm] != 0) {
-					val = Double.NaN;
+				try {
+					val = de.Value;
+					nm = de.Key + "_FLAG";
+					if (Data.ContainsKey(nm) && Data[nm] != 0) {
+						val = Double.NaN;
+					}
+					ResultData.Add(de.Key, val);
+				} catch (Exception e) {
+					Logger.Error(e.ToString());
 				}
-				ResultData.Add(de.Key,val);
 			}			
 			return ResultData;
 		}
