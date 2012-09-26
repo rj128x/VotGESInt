@@ -179,12 +179,12 @@
 				 %>
 					<tr>								
 						<th><%=date.AddHours(Model.AddHours).ToString("HH:mm")%></th>
-						<td><%=Model.PBR.HalfHoursPBR[date].ToString("0.00")%></td>
-						<td><%=Model.PBR.HalfHoursP[date].ToString("0.00")%></td>
+						<td><%=Model.PBR.RealPBR[date].ToString("0.00")%></td>
+						<td><%=Model[date, PiramidaRecords.MB_P_GES.Key].ToString("0.00")%></td>
 				
 						<th><%=date.AddHours(Model.AddHours).AddHours(12).ToString("HH:mm")%></th>			
-						<td><%=Model.PBR.HalfHoursPBR[date.AddHours(12)].ToString("0.00")%></td>
-						<td><%=Model.PBR.HalfHoursP[date.AddHours(12)].ToString("0.00")%></td>
+						<td><%=Model.PBR.RealPBR[date.AddHours(12)].ToString("0.00")%></td>
+						<td><%=Model.Dates.Contains(date.AddHours(12))?Model[date.AddHours(12), PiramidaRecords.MB_P_GES.Key].ToString("0.00"):"-"%></td>
 					</tr>
 				<%index++; }			 
 			 } %>

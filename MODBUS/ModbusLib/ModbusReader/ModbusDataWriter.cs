@@ -92,38 +92,33 @@ namespace ModbusLib
 		}
 
 		public void writeData( SortedList<string, double> ResultData) {
-			getWriter(DateTime.Now);
-			double val;
-			string nm;
-			List<double> values=new List<double>();
+			try {
+				getWriter(DateTime.Now);
+				double val;
+				string nm;
+				List<double> values=new List<double>();
 
-			foreach (string header in Headers) {
-				if (ResultData.ContainsKey(header)) {
-					val = ResultData[header];
-					nm = header + "_FLAG";
-					if (ResultData.ContainsKey(nm) && ResultData[nm] != 0) {
-						val = Double.NaN;
+				foreach (string header in Headers) {
+					if (ResultData.ContainsKey(header)) {
+						val = ResultData[header];
+						nm = header + "_FLAG";
+						if (ResultData.ContainsKey(nm) && ResultData[nm] != 0) {
+							val = Double.NaN;
+						}
+						values.Add(val);
+					} else {
+						values.Add(Double.NaN);
 					}
-					values.Add(val);
-				} else {
-					values.Add(Double.NaN);
+
 				}
 
+				string valueStr=String.Format("{0};{1}", DateTime.Now.AddHours(-Settings.single.HoursDiff).ToString("dd.MM.yyyy HH:mm:ss"), String.Join(";", values));
+				CurrentWriter.WriteLine(valueStr);
+				CurrentWriter.Flush();
+			} catch (Exception e) {
+				Logger.Error("Ошибка при записи строки в файл");
+				Logger.Error(e.ToString());
 			}
-
-			/*foreach (KeyValuePair<string,double> de in ResultData) {				
-				if (Headers.Contains(de.Key)) {
-					val=de.Value;
-					//nm = InitArray.FullData.ContainsKey(de.Key + 1) ? InitArray.FullData[de.Key + 1].Name : "";
-					nm = de.Key + "_FLAG";
-					if (InitArray.FullData.ContainsKey(nm) && ResultData[nm] != 0)
-						val = Double.NaN;
-					values.Add(val);
-				}
-			}*/
-			string valueStr=String.Format("{0};{1}", DateTime.Now.AddHours(-Settings.single.HoursDiff).ToString("dd.MM.yyyy HH:mm:ss"), String.Join(";", values));
-			CurrentWriter.WriteLine(valueStr);
-			CurrentWriter.Flush();
 		}
 	}
 }

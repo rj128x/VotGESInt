@@ -69,26 +69,34 @@ namespace ModbusLib
 			server.OnErrorConnect += new ErrorConnectDelegate(server_OnErrorConnect);
 		}
 
-		void server_OnErrorConnect() {
+		protected void error() {
+			finished = true;
+			isError = true;
+			try {
+				Server.ModbusMaster.disconnect();
+			} catch { }
 			if (OnFinish != null) {
 				OnFinish(InitArr.ID, null);
 			}
 		}
 
+		void server_OnErrorConnect() {
+			error();
+		}
+
 		void ModbusMaster_OnException(ushort id, byte function, byte exception) {
-			if (OnFinish != null) {
-				OnFinish(InitArr.ID, null);
-			}
+			error();
 		}
 
 		protected ushort startAddr;
 		protected bool finished;
+		protected bool isError;
 
 		public void readData() {
 			Logger.Info(DateTime.Now + " " + InitArr.ID + "   start read");
-
 			startAddr =0;
 			finished = false;
+			isError = false;
 			Data.Clear();
 			continueRead();
 		}
@@ -100,6 +108,9 @@ namespace ModbusLib
 		}
 
 		void ModbusMaster_OnResponseData(ushort id, byte function, byte[] data) {
+			if (isError) {
+				return;
+			}
 
 			int[] word=new int[data.Length / 2];
 			for (int i=0; i < data.Length; i = i + 2) {

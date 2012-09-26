@@ -118,31 +118,8 @@ namespace ModbusLib
 				de.Value.readData();
 			}			
 		}
-				
 
-		public void reader_OnFinish(string InitArrayID, SortedList<string, double> ResultData) {
-			if (ResultData == null) {
-				Logger.Info("==" + DateTime.Now + " " + InitArrayID + " error read");
-				FinishReading[InitArrayID] = true;
-				if (!FinishReading.Values.Contains(false)) {
-					Thread.Sleep(SleepTime);
-					Read();
-				}
-				return;
-			}
-			Logger.Info("=="+DateTime.Now+" "+InitArrayID+" finish read");
-			ModbusInitDataArray init=InitArrays[InitArrayID];
-			if (init.WriteMin) {
-				WritersMin[InitArrayID].writeData(ResultData);
-			}
-			if (init.WriteHH) {
-				WritersHH[InitArrayID].writeData(ResultData);
-			}
-			foreach(KeyValuePair<string,double> de in ResultData){
-				FullResultData[InitArrayID + "_" + de.Key] = de.Value;
-			}
-			FinishReading[InitArrayID] = true;
-			
+		public void ProcessFinish() {
 			if (!FinishReading.Values.Contains(false)) {
 				Logger.Info("===calc  ");
 				Calc.Init(FullResultData);
@@ -158,6 +135,32 @@ namespace ModbusLib
 				Logger.Info("====ok  ");
 				Thread.Sleep(SleepTime);
 				Read();
+			}
+		}
+
+		public void reader_OnFinish(string InitArrayID, SortedList<string, double> ResultData) {
+			ModbusInitDataArray init=InitArrays[InitArrayID];
+			if (ResultData == null) {
+				Logger.Info("==" + DateTime.Now + " " + InitArrayID + " error read");
+				FinishReading[InitArrayID] = true;
+				foreach (KeyValuePair<string,ModbusInitData> de in init.FullData) {
+					FullResultData[InitArrayID + "_" + de.Key] = double.NaN;
+				}
+				ProcessFinish();
+			} else {
+				Logger.Info("==" + DateTime.Now + " " + InitArrayID + " finish read");
+				if (init.WriteMin) {
+					WritersMin[InitArrayID].writeData(ResultData);
+				}
+				if (init.WriteHH) {
+					WritersHH[InitArrayID].writeData(ResultData);
+				}
+				foreach (KeyValuePair<string,double> de in ResultData) {
+					FullResultData[InitArrayID + "_" + de.Key] = de.Value;
+				}
+				FinishReading[InitArrayID] = true;
+
+				ProcessFinish();
 			}
 			
 		}
