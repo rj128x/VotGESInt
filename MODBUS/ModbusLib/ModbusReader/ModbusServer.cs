@@ -8,9 +8,11 @@ using System.Threading;
 namespace ModbusLib
 {
 	public delegate void ErrorConnectDelegate();
+	public delegate void ResponseDataDelegeate(ushort id, byte function, byte[] data);
 	public class ModbusServer
 	{
 		public event ErrorConnectDelegate OnErrorConnect;
+		public event ResponseDataDelegeate OnResponse;
 		public string IP { get; protected set; }
 		public ushort Port { get; protected set; }
 
@@ -38,11 +40,30 @@ namespace ModbusLib
 			}
 		}
 
+		public void Init() {
+			this.modbusMaster = new Master();
+			this.modbusMaster.OnException += new Master.ExceptionData(modbusMaster_OnException);
+			this.modbusMaster.OnResponseData += new Master.ResponseData(modbusMaster_OnResponseData);
+		}
+
+		void modbusMaster_OnResponseData(ushort id, byte function, byte[] data) {
+			if (OnResponse != null) {
+				OnResponse(id, function, data);
+			}
+		}
+
+		void modbusMaster_OnException(ushort id, byte function, byte exception) {
+			Logger.Error("Ошибка при чтении данных " + IP + ":" + Port);
+			if (OnErrorConnect != null) {
+				OnErrorConnect();
+			}
+		}
+
 
 		public ModbusServer(string ip, ushort port) {
 			this.IP = ip;
 			this.Port = port;
-			this.modbusMaster = new Master();
+			Init();
 		}
 
 	}
@@ -65,33 +86,27 @@ namespace ModbusLib
 			this.InitArr = initArr;
 			Data = new SortedList<string, double>(CountData);
 			StepData = 50;
-			server.ModbusMaster.OnResponseData += new Master.ResponseData(ModbusMaster_OnResponseData);
-			server.ModbusMaster.OnException += new Master.ExceptionData(ModbusMaster_OnException);
+			server.OnResponse += new ResponseDataDelegeate(ModbusMaster_OnResponseData);
 			server.OnErrorConnect += new ErrorConnectDelegate(server_OnErrorConnect);
+			
 		}
 
 		protected void error() {
 			if (!IsError) {
 				IsError = true;
 				initRead();
-				try {
-					Server.ModbusMaster.disconnect();
-				} catch { }
+				try { Server.ModbusMaster.disconnect(); } catch { }
+				try {	Server.Init();	} catch { }
 				if (OnFinish != null) {
 					OnFinish(InitArr.ID, null);
 				}
 			}
 		}
 
-		void server_OnErrorConnect() {
-			Logger.Error("Ошибка подключения");
+		void server_OnErrorConnect() {			
 			error();
 		}
-
-		void ModbusMaster_OnException(ushort id, byte function, byte exception) {
-			Logger.Error("Ошибка при чтении данных");
-			error();
-		}
+				
 
 		protected ushort StartAddr {  get;  set; }
 		protected bool IsError{ get;  set; }
