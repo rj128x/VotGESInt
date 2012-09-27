@@ -111,7 +111,7 @@ namespace ModbusLib
 			}
 
 			foreach (string key in ResultKeys) {
-				FullResultData[key] = 0;
+				FullResultData[key] = double.NaN;
 			}
 						
 			foreach (KeyValuePair<string,ModbusDataReader> de in Readers) {

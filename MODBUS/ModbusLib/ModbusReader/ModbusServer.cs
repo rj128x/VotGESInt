@@ -70,12 +70,14 @@ namespace ModbusLib
 		}
 
 		protected void error() {
-			IsError = true;
-			try {
-				Server.ModbusMaster.disconnect();
-			} catch { }
-			if (OnFinish != null) {
-				OnFinish(InitArr.ID, null);
+			if (!IsError) {
+				IsError = true;
+				try {
+					Server.ModbusMaster.disconnect();
+				} catch { }
+				if (OnFinish != null) {
+					OnFinish(InitArr.ID, null);
+				}
 			}
 		}
 
@@ -118,17 +120,15 @@ namespace ModbusLib
 					StartAddr = (ushort)StartedPart.First((KeyValuePair<int, bool> de) => { return de.Value == false; }).Key;
 					StartedPart[StartAddr] = true;
 					Server.ModbusMasterCon.ReadInputRegister(StartAddr, StartAddr, (ushort)(StepData * 2));
-				} else {
-					if (FinishedPart.Values.Contains(false)) {
-						Logger.Error("Не все параметры считаны");
-						error();
-					}
+				}else if (FinishedPart.Values.Contains(false)){
+					Logger.Error("Не все данные считаны");
+					error();
 				}
 			}
 		}
 
 		void ModbusMaster_OnResponseData(ushort id, byte function, byte[] data) {
-			if (!IsError) {
+			if (!IsError && StartedPart[id]) {
 				FinishedPart[id] = true;
 			
 				int[] word=new int[data.Length / 2];
