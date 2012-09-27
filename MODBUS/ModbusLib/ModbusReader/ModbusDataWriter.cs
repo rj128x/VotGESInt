@@ -95,18 +95,13 @@ namespace ModbusLib
 			try {
 				getWriter(DateTime.Now);
 				double val;
-				string nm;
 				List<double> values=new List<double>();
 
 				foreach (string header in Headers) {
 					if (ResultData.ContainsKey(header)) {
-						val = ResultData[header];
-						nm = header + "_FLAG";
-						if (ResultData.ContainsKey(nm) && ResultData[nm] != 0) {
-							val = Double.NaN;
-						}
+						val = ResultData[header];						
 						values.Add(val);
-					} else {
+					} else {						
 						values.Add(Double.NaN);
 					}
 

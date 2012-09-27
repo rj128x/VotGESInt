@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using VotGES;
+using System.Threading;
 
 namespace ModbusLib
 {
@@ -72,6 +73,7 @@ namespace ModbusLib
 		protected void error() {
 			if (!IsError) {
 				IsError = true;
+				initRead();
 				try {
 					Server.ModbusMaster.disconnect();
 				} catch { }
@@ -96,8 +98,7 @@ namespace ModbusLib
 		protected SortedList<int,bool> FinishedPart{ get;  set; }
 		protected SortedList<int, bool> StartedPart { get;  set; }
 
-		public void readData() {
-			Logger.Info(DateTime.Now + " " + InitArr.ID + "   start read");
+		protected void initRead() {
 			StartAddr = 0;
 
 			FinishedPart = new SortedList<int, bool>();
@@ -108,10 +109,15 @@ namespace ModbusLib
 				StartedPart.Add(sa, false);
 				sa += (ushort)(StepData * 2);
 			}
-
-			IsError = false;
 			Data.Clear();
+		}
+
+		public void readData() {
+			Logger.Info(DateTime.Now + " " + InitArr.ID + "   start read");
+			IsError = false;
+			initRead();
 			continueRead();
+
 		}
 
 		protected void continueRead() {
@@ -120,17 +126,25 @@ namespace ModbusLib
 					StartAddr = (ushort)StartedPart.First((KeyValuePair<int, bool> de) => { return de.Value == false; }).Key;
 					StartedPart[StartAddr] = true;
 					Server.ModbusMasterCon.ReadInputRegister(StartAddr, StartAddr, (ushort)(StepData * 2));
-				}else if (FinishedPart.Values.Contains(false)){
+				} else if (FinishedPart.Values.Contains(false)) {
 					Logger.Error("Не все данные считаны");
 					error();
+				} else {
+					try {
+						Server.ModbusMaster.disconnect();
+					} catch { }
+					SortedList<string, double> ResultData=getResultData();
+					if (OnFinish != null) {
+						OnFinish(InitArr.ID, ResultData);
+					}
 				}
 			}
 		}
 
 		void ModbusMaster_OnResponseData(ushort id, byte function, byte[] data) {
-			if (!IsError && StartedPart[id]) {
+			if (!IsError && StartAddr == id) {
 				FinishedPart[id] = true;
-			
+
 				int[] word=new int[data.Length / 2];
 				for (int i=0; i < data.Length; i = i + 2) {
 					//word[i / 2] = data[i] * 256 + data[i + 1];
@@ -147,17 +161,10 @@ namespace ModbusLib
 					startAddr++;
 				}
 
-				if (FinishedPart.Values.Contains(false)) {
-					continueRead();
-				} else {
-					try {
-						Server.ModbusMaster.disconnect();
-					} catch { }
-					SortedList<string, double> ResultData=getResultData();
-					if (OnFinish != null) {
-						OnFinish(InitArr.ID, ResultData);
-					}
-				}
+				continueRead();
+			} else if (!IsError){
+				Logger.Error(String.Format("Сбой при чтении данных id={0} StartAddr={1} Started[id]={2}",id,StartAddr,StartedPart[id]));
+				error();
 			}
 		}
 
@@ -168,7 +175,7 @@ namespace ModbusLib
 			foreach (KeyValuePair<string,double> de in Data) {
 				val = de.Value;
 				nm = de.Key + "_FLAG";
-				if (Data.ContainsKey(nm) && Data[nm] != 0) {
+				if (Data.ContainsKey(nm) && Data[nm] < 0) {
 					val = Double.NaN;
 				}
 				ResultData.Add(de.Key, val);
