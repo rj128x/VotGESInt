@@ -180,7 +180,7 @@
 					<tr>								
 						<th><%=date.AddHours(Model.AddHours).ToString("HH:mm")%></th>
 						<td><%=Model.PBR.RealPBR[date].ToString("0.00")%></td>
-						<td><%=Model[date, PiramidaRecords.MB_P_GES.Key].ToString("0.00")%></td>
+						<td><%=Model.Dates.Contains(date)?Model[date, PiramidaRecords.MB_P_GES.Key].ToString("0.00"):"-"%></td>
 				
 						<th><%=date.AddHours(Model.AddHours).AddHours(12).ToString("HH:mm")%></th>			
 						<td><%=Model.PBR.RealPBR[date.AddHours(12)].ToString("0.00")%></td>
@@ -213,7 +213,7 @@
 				</tr>
 				<%foreach (KeyValuePair<DateTime,double>de in Model.PZad){ %>
 				<tr>
-					<th><%=de.Key.AddHours(Model.AddHours).ToString("HH:mm")%></th>
+					<th><%=de.Key.AddHours(Model.AddHours).ToString("HH:mm:ss")%></th>
 					<td><%=de.Value.ToString("0.00") %></td>
 				</tr>
 				<%} %>

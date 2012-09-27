@@ -128,8 +128,9 @@ namespace ModbusLib
 		}
 
 		void ModbusMaster_OnResponseData(ushort id, byte function, byte[] data) {
-			FinishedPart[id] = true;
 			if (!IsError) {
+				FinishedPart[id] = true;
+			
 				int[] word=new int[data.Length / 2];
 				for (int i=0; i < data.Length; i = i + 2) {
 					//word[i / 2] = data[i] * 256 + data[i + 1];
