@@ -333,7 +333,7 @@
 	<hr />	
 	<table class='cifr'>
 		<tr>
-			<th>Час</th>
+			<th>Параметр</th>
 			<th>Генератор №1</th>
 			<th>Генератор №2</th>
 			<th>Генератор №3</th>
@@ -347,34 +347,54 @@
 			<th>Сумма</th>
 		</tr>
 		<tr>
-			<th>Пусков</th>
+			<th>Пусков/Осановов</th>
 			<%for (int ga=1;ga<=10;ga++){ %>
-				<td><%=Model.PuskStop.Data[ga].CountPusk.ToString("0") %></td>
+				<td>
+					<%=Model.PuskStop.Data[ga].CountPusk.ToString("0") %>/
+					<%=Model.PuskStop.Data[ga].CountStop.ToString("0") %>
+				</td>
 			<%} %>
-			<td><%=Model.PuskStop.SumRecord.CountPusk.ToString("0") %></td>
+			<td>
+				<%=Model.PuskStop.SumRecord.CountPusk.ToString("0") %> /
+				<%=Model.PuskStop.SumRecord.CountStop.ToString("0") %>
+			</td>
 		</tr>
 		<tr>
-			<th>Остановов</th>
+			<th>Пусков-переводов в ГР / СК</th>
 			<%for (int ga=1;ga<=10;ga++){ %>
-				<td><%=Model.PuskStop.Data[ga].CountStop.ToString("0") %></td>
+				<td>
+					<%=Model.PuskStop.Data[ga].CountPuskGen.ToString("0") %> /
+					<%=Model.PuskStop.Data[ga].CountPuskSK.ToString("0")%>
+				</td>
 			<%} %>
-			<td><%=Model.PuskStop.SumRecord.CountStop.ToString("0") %></td>
+			<td>
+				<%=Model.PuskStop.SumRecord.CountPuskGen.ToString("0") %> /
+				<%=Model.PuskStop.SumRecord.CountPuskSK.ToString("0") %>
+			</td>
 		</tr>
 		<tr>
-			<th>Пусков/переводов в ГР</th>
+			<th>Время работы/простоя</th>
 			<%for (int ga=1;ga<=10;ga++){ %>
-				<td><%=Model.PuskStop.Data[ga].CountPuskGen.ToString("0") %></td>
+				<td>
+					<%=Model.PuskStop.Data[ga].HoursWork.ToString("0.00") %> /
+					<%=Model.PuskStop.Data[ga].HoursStay.ToString("0.00")%>
+				</td>
 			<%} %>
-			<td><%=Model.PuskStop.SumRecord.CountPuskGen.ToString("0") %></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>Время работы в ГР / СК</th>
+			<%for (int ga=1;ga<=10;ga++){ %>
+				<td>
+					<%=Model.PuskStop.Data[ga].HoursGen.ToString("0.00") %> /
+					<%=Model.PuskStop.Data[ga].HoursSK.ToString("0.00")%>
+				</td>
+			<%} %>
+			<td>&nbsp;</td>
 		</tr>
 
-		<tr>
-			<th>Пусков/переводов в СК</th>
-			<%for (int ga=1;ga<=10;ga++){ %>
-				<td><%=Model.PuskStop.Data[ga].CountPuskSK.ToString("0") %></td>
-			<%} %>
-			<td><%=Model.PuskStop.SumRecord.CountPuskSK.ToString("0") %></td>
-		</tr>
+
+		
 	</table>
 
 

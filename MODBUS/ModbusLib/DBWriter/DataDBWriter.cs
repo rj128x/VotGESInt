@@ -198,17 +198,18 @@ namespace ModbusLib
 
 		public void writeData(RWModeEnum mode) {
 			SqlConnection con=null;
+			SqlDataReader reader=null;
 			SortedList<string,List<string>> inserts=new SortedList<string, List<string>>();
 			SortedList<string,List<string>> deletes=new SortedList<string, List<string>>();
-			string insertIntoHeader="INSERT INTO Data (parnumber,object,item,value0,valueMin,valueMax,valueEq,objtype,data_date,rcvstamp,season)";
-			string frmt="SELECT {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, '{8}', '{9}', {10}";
+			string insertIntoHeader="INSERT INTO Data (parnumber,object,item,value0,value1,valueMin,valueMax,valueEq,objtype,data_date,rcvstamp,season)";
+			string frmt="SELECT {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, '{9}', '{10}', {11}";
 			string frmDel="(parnumber={0} and object={1} and objType={2} and item={3} and data_date='{4}')";
 			string df=Settings.single.DBDateFormat;
 			foreach (DataDBRecord rec in Data.Values) {
 				ModbusInitData init=InitArray.FullData[rec.Header];
 				if (init.WriteToDBHH || init.WriteToDBMin || init.WriteToDBDiff) {
 					if (init.WriteToDBMin && mode == RWModeEnum.min) {
-						string insert=String.Format(frmt, init.ParNumberMin, init.Obj, init.Item, rec.AvgMin, rec.Min, rec.Max, rec.Eq, init.ObjType,
+						string insert=String.Format(frmt, init.ParNumberMin, init.Obj, init.Item, rec.AvgMin,0, rec.Min, rec.Max, rec.Eq, init.ObjType,
 							Date.AddMinutes(1).ToString(df), DateTime.Now.ToString(df), 0);
 						string delete=String.Format(frmDel, init.ParNumberMin, init.Obj, init.ObjType, init.Item, Date.AddMinutes(1).ToString(df));
 						if (!inserts.ContainsKey(init.DBNameMin)) {
@@ -221,7 +222,7 @@ namespace ModbusLib
 					}
 
 					if (init.WriteToDBHH && mode == RWModeEnum.hh) {
-						string insert=String.Format(frmt, init.ParNumberHH, init.Obj, init.Item, rec.Avg, rec.Min, rec.Max, rec.Eq, init.ObjType,
+						string insert=String.Format(frmt, init.ParNumberHH, init.Obj, init.Item, rec.Avg,0, rec.Min, rec.Max, rec.Eq, init.ObjType,
 							Date.AddMinutes(30).ToString(df), DateTime.Now.ToString(df), 0);
 						string delete=String.Format(frmDel, init.ParNumberHH, init.Obj, init.ObjType, init.Item, Date.AddMinutes(30).ToString(df));
 						if (!inserts.ContainsKey(init.DBNameHH)) {
@@ -235,18 +236,25 @@ namespace ModbusLib
 					
 					if (init.WriteToDBDiff && mode == RWModeEnum.hh) {						
 						double lastVal=Double.NaN;
+						DateTime lastDate=DateTime.Now;
 						try {
 							string select=String.Format(
-								"SELECT TOP 1 VALUE0 FROM DATA WHERE ParNumber={0} and Object={1} and ObjType={2} and Item={3} and Data_date<'{4}' order by DATA_DATE desc",
+								"SELECT TOP 1 data_date,VALUE0 FROM DATA WHERE ParNumber={0} and Object={1} and ObjType={2} and Item={3} and Data_date<'{4}' order by DATA_DATE desc",
 								init.ParNumberDiff, init.Obj, init.ObjType, init.Item, rec.DiffVals.First().Key.ToString(df));
 							con = PiramidaAccess.getConnection(init.DBNameDiff);
 							con.Open();
 							SqlCommand command=null;
 							command = con.CreateCommand();
 							command.CommandText = select;
-							lastVal = (double)command.ExecuteScalar();
+							reader=command.ExecuteReader();
+							if (reader.Read()) {
+								lastDate = Convert.ToDateTime(reader[0]);
+								lastVal = Convert.ToInt32(reader[1]);
+							}
+							//lastVal = (double)command.ExecuteScalar();							
 						} catch {
 						} finally {
+							try { reader.Close(); } catch { }
 							try { con.Close(); } catch { }
 						}
 						if (!Double.IsNaN(lastVal)) {
@@ -254,8 +262,13 @@ namespace ModbusLib
 								rec.DiffVals.RemoveAt(0);
 							}
 						}
+						
+						double timeChange;
+						DateTime prevDate=Double.IsNaN(lastVal) ? (rec.DiffVals.Count > 0 ? rec.DiffVals.First().Key : DateTime.Now) : lastDate;
+
 						foreach (KeyValuePair<DateTime,double>diff in rec.DiffVals) {
-							string insert=String.Format(frmt, init.ParNumberDiff, init.Obj, init.Item, diff.Value, diff.Value, diff.Value, diff.Value, init.ObjType,
+							timeChange = (diff.Key.Ticks - prevDate.Ticks) / (10000000.0*60.0);
+							string insert=String.Format(frmt, init.ParNumberDiff, init.Obj, init.Item, diff.Value, timeChange, diff.Value, diff.Value, diff.Value, init.ObjType,
 								diff.Key.ToString(df), DateTime.Now.ToString(df), 0);
 							string delete=String.Format(frmDel, init.ParNumberDiff, init.Obj, init.ObjType, init.Item, diff.Key.ToString(df));
 							if (!inserts.ContainsKey(init.DBNameDiff)) {
@@ -264,6 +277,7 @@ namespace ModbusLib
 							}
 							inserts[init.DBNameDiff].Add(insert);
 							deletes[init.DBNameDiff].Add(delete);
+							prevDate = diff.Key;
 						}
 					}
 				}
