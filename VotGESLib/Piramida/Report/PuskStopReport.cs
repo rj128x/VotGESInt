@@ -71,21 +71,15 @@ namespace VotGES.Piramida.Report
 
 			if (firstStop < firstRun || firstRun == DateTime.MinValue) {
 				valStart = getDiffMin(DateStart, firstStop);
-			} else {
-
-			}
+			} 
 			if (lastRun > lastStop || lastStop==DateTime.MaxValue) {
 				valEnd = getDiffMin(lastRun, DateEnd);
 			}
 
-			double wrk=min0;
+			
 			double stp=min1;
-
-			wrk += valEnd;
-
-
-
-			return val / 60;
+			
+			return wrk / 60;
 		}
 		
 
@@ -118,6 +112,7 @@ namespace VotGES.Piramida.Report
 				Data.Add(ga,rec);
 			}
 			SumRecord = new PuskStopRecord();
+					
 
 			SqlConnection con=null;			
 			try {				
@@ -181,9 +176,6 @@ namespace VotGES.Piramida.Report
 						}
 					}
 				}
-							
-
-
 			} catch (Exception e) {
 				Logger.Error("Ошибка при получении пусков-остановов");
 				Logger.Error(e.ToString());

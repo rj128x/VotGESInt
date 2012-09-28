@@ -347,7 +347,7 @@
 			<th>Сумма</th>
 		</tr>
 		<tr>
-			<th>Пусков/Осановов</th>
+			<th>Пусков/Остановов</th>
 			<%for (int ga=1;ga<=10;ga++){ %>
 				<td>
 					<%=Model.PuskStop.Data[ga].CountPusk.ToString("0") %>/
