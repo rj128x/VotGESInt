@@ -17,6 +17,14 @@ namespace VotGES.Piramida.Report
 		public double HoursStay { get; set; }
 		public double HoursGen { get; set; }
 		public double HoursSK { get; set; }
+
+		public double MinGen1 { get; set; }
+		public double MinGen0 { get; set; }
+		public double MinSK1 { get; set; }
+		public double MinSK0 { get; set; }
+		public double MinRun1 { get; set; }
+		public double MinRun0 { get; set; }
+
 		public DateTime FirstRun { get; set; }
 		public DateTime FirstStop { get; set; }
 		public DateTime LastRun { get; set; }
@@ -31,6 +39,45 @@ namespace VotGES.Piramida.Report
 		public DateTime FirstStopSK { get; set; }
 		public DateTime LastRunSK { get; set; }
 		public DateTime LastStopSK { get; set; }
+
+		public PuskStopRecord() {
+			FirstRun = DateTime.MinValue;
+			FirstStop = DateTime.MinValue;
+			LastRun = DateTime.MaxValue;
+			LastStop = DateTime.MaxValue;
+
+			FirstRunGen = DateTime.MinValue;
+			FirstStopGen = DateTime.MinValue;
+			LastRunGen = DateTime.MaxValue;
+			LastStopGen = DateTime.MaxValue;
+
+			FirstRunSK = DateTime.MinValue;
+			FirstStopSK = DateTime.MinValue;
+			LastRunSK = DateTime.MaxValue;
+			LastStopSK = DateTime.MaxValue;
+		}
+
+		public static double getDiffMin(DateTime start, DateTime end){
+			if (end>start){
+				return (end.Ticks - start.Ticks) / (10000000.0 * 60.0);
+			}
+			return 0;
+		}
+
+		protected double processDates(DateTime DateStart, DateTime DateEnd, DateTime firstRun, DateTime lastRun, DateTime firstStop, DateTime lastStop, double min0, double min1) {
+			double val=0;
+			val=min0 - getDiffMin(DateStart, firstRun) + getDiffMin(lastRun, DateEnd);
+			val = val < 0 ? 0 : val;
+			return val / 60;
+		}
+		
+
+		public void ProcessData(DateTime DateStart, DateTime DateEnd) {
+			HoursWork = processDates(DateStart, DateEnd, FirstRun, LastRun, FirstStop, LastStop, MinRun0, MinRun1);
+			HoursStay = getDiffMin(DateStart, DateEnd) / 60 - HoursWork;
+			HoursSK = processDates(DateStart, DateEnd, FirstRunSK, LastRunSK, FirstStopSK, LastStopSK, MinSK0, MinSK1);
+			HoursGen = processDates(DateStart, DateEnd, FirstRunGen, LastRunGen, FirstStopGen, LastStopGen, MinGen0, MinGen1);			
+		}
 	}
 
 	public class PuskStopReport
@@ -56,8 +103,7 @@ namespace VotGES.Piramida.Report
 			SumRecord = new PuskStopRecord();
 
 			SqlConnection con=null;			
-			try {
-				double FullMinutes=(DateEnd.Ticks - DateStart.Ticks) / (10000000.0 * 60.0);
+			try {				
 				string sel=String.Format("SELECT item, Value0, COUNT(VALUE0), sum(value1), min(data_date), max(data_date) FROM DATA WHERE Parnumber=13 and object=30 and objtype=2 and item>=1 and item<=30 and data_date>=@dateStart and data_date<=@dateEnd group by item, value0");
 				con = PiramidaAccess.getConnection("PSV");
 				con.Open();
@@ -82,35 +128,37 @@ namespace VotGES.Piramida.Report
 					if (item <= 10) {
 						if (value0 == 1) {
 							Data[ga].CountPuskGen = cnt;
-							Data[ga].HoursGen = hours;
+							Data[ga].MinGen1 = cnt;
 							Data[ga].FirstRunGen = minDate;
 							Data[ga].LastRunGen = maxDate;							
 						}
 						if (value0 == 0) {
+							Data[ga].MinGen0 = cnt;
 							Data[ga].FirstStopGen = minDate;
 							Data[ga].LastStopGen = maxDate;	
 						}
 					}else	if (item <= 20) {
 						if (value0 == 1) {
 							Data[ga].CountPuskSK = cnt;
-							Data[ga].HoursSK = hours;
+							Data[ga].MinSK1 = hours;
 							Data[ga].FirstRunSK = minDate;
 							Data[ga].LastRunSK = maxDate;
 						}
 						if (value0 == 0) {
+							Data[ga].MinSK0 = hours;
 							Data[ga].FirstStopSK = minDate;
 							Data[ga].LastStopSK = maxDate;
 						}
 					}else	if (item <= 30) {
 						if (value0 == 1) {
 							Data[ga].CountPusk = cnt;
-							Data[ga].HoursWork = hours;
+							Data[ga].MinRun1 = hours;
 							Data[ga].FirstRun = minDate;
 							Data[ga].LastRun = maxDate;
 						}
 						if (value0 == 0) {
 							Data[ga].CountStop = cnt;
-							Data[ga].HoursStay = hours;
+							Data[ga].MinRun0 = hours;
 							Data[ga].FirstStop = minDate;
 							Data[ga].LastStop = maxDate;
 						}
@@ -124,14 +172,14 @@ namespace VotGES.Piramida.Report
 				Logger.Error(e.ToString());
 			} finally { try { con.Close(); } catch { } }
 
+
+			double FullMinutes=(DateEnd.Ticks - DateStart.Ticks) / (10000000.0 * 60.0);
 			for (int ga=1; ga <= 10; ga++) {
 				SumRecord.CountPusk += Data[ga].CountPusk;
 				SumRecord.CountStop += Data[ga].CountStop;
 				SumRecord.CountPuskSK += Data[ga].CountPuskSK;
 				SumRecord.CountPuskGen += Data[ga].CountPuskGen;
-
-
-
+				Data[ga].ProcessData(DateStart,DateEnd);
 			}
 
 		}
