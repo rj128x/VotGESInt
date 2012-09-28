@@ -66,8 +66,25 @@ namespace VotGES.Piramida.Report
 
 		protected double processDates(DateTime DateStart, DateTime DateEnd, DateTime firstRun, DateTime lastRun, DateTime firstStop, DateTime lastStop, double min0, double min1) {
 			double val=0;
-			val=min0 - getDiffMin(DateStart, firstRun) + getDiffMin(lastRun, DateEnd);
-			val = val < 0 ? 0 : val;
+			double valEnd=0;
+			double valStart=0;
+
+			if (firstStop < firstRun || firstRun == DateTime.MinValue) {
+				valStart = getDiffMin(DateStart, firstStop);
+			} else {
+
+			}
+			if (lastRun > lastStop || lastStop==DateTime.MaxValue) {
+				valEnd = getDiffMin(lastRun, DateEnd);
+			}
+
+			double wrk=min0;
+			double stp=min1;
+
+			wrk += valEnd;
+
+
+
 			return val / 60;
 		}
 		
@@ -125,17 +142,18 @@ namespace VotGES.Piramida.Report
 					int ga=item % 10;
 					ga = ga == 0 ? 10 : ga;
 					
-					if (item <= 10) {
+					if (item <= 30) {
 						if (value0 == 1) {
-							Data[ga].CountPuskGen = cnt;
-							Data[ga].MinGen1 = cnt;
-							Data[ga].FirstRunGen = minDate;
-							Data[ga].LastRunGen = maxDate;							
+							Data[ga].CountPusk = cnt;
+							Data[ga].MinRun1 = hours;
+							Data[ga].FirstRun = minDate;
+							Data[ga].LastRun = maxDate;
 						}
 						if (value0 == 0) {
-							Data[ga].MinGen0 = cnt;
-							Data[ga].FirstStopGen = minDate;
-							Data[ga].LastStopGen = maxDate;	
+							Data[ga].CountStop = cnt;
+							Data[ga].MinRun0 = hours;
+							Data[ga].FirstStop = minDate;
+							Data[ga].LastStop = maxDate;
 						}
 					}else	if (item <= 20) {
 						if (value0 == 1) {
@@ -151,16 +169,15 @@ namespace VotGES.Piramida.Report
 						}
 					}else	if (item <= 30) {
 						if (value0 == 1) {
-							Data[ga].CountPusk = cnt;
-							Data[ga].MinRun1 = hours;
-							Data[ga].FirstRun = minDate;
-							Data[ga].LastRun = maxDate;
+							Data[ga].CountPuskGen = cnt;
+							Data[ga].MinGen1 = cnt;
+							Data[ga].FirstRunGen = minDate;
+							Data[ga].LastRunGen = maxDate;							
 						}
 						if (value0 == 0) {
-							Data[ga].CountStop = cnt;
-							Data[ga].MinRun0 = hours;
-							Data[ga].FirstStop = minDate;
-							Data[ga].LastStop = maxDate;
+							Data[ga].MinGen0 = cnt;
+							Data[ga].FirstStopGen = minDate;
+							Data[ga].LastStopGen = maxDate;	
 						}
 					}
 				}

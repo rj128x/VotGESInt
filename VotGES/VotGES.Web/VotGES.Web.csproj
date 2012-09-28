@@ -134,7 +134,7 @@
     <Content Include="Views\Reports\PBR.aspx" />
     <Content Include="Views\Reports\Prikaz20.aspx" />
     <Content Include="Views\Reports\SutVed.aspx" />
-    <Content Include="Views\Reports\SutVedPart.aspx" />
+    <Content Include="Views\Reports\SutVed2.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

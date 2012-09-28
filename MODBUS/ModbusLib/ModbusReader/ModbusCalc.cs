@@ -104,28 +104,16 @@ namespace ModbusLib
 		public double GA2_SK() { return this["MB_266"] < 0 ? 1 : 0; }
 		public double GA2_Run() { return this["MB_266"] != 0 ? 1 : 0; }
 
-		public double GA3_Gen() { return this["MB_316"] > 0 ? 1 : 0; }
-		public double GA3_SK() { return this["MB_316"] < 0 ? 1 : 0; }
 		public double GA3_Run() { return this["MB_316"] != 0 ? 1 : 0; }
 
-		public double GA4_Gen() { return this["MB_366"] > 0 ? 1 : 0; }
-		public double GA4_SK() { return this["MB_366"] < 0 ? 1 : 0; }
 		public double GA4_Run() { return this["MB_366"] != 0 ? 1 : 0; }
 
-		public double GA5_Gen() { return this["MB_416"] > 0 ? 1 : 0; }
-		public double GA5_SK() { return this["MB_416"] < 0 ? 1 : 0; }
 		public double GA5_Run() { return this["MB_416"] != 0 ? 1 : 0; }
 
-		public double GA6_Gen() { return this["MB_466"] > 0 ? 1 : 0; }
-		public double GA6_SK() { return this["MB_466"] < 0 ? 1 : 0; }
 		public double GA6_Run() { return this["MB_466"] != 0 ? 1 : 0; }
 
-		public double GA7_Gen() { return this["MB_516"] > 0 ? 1 : 0; }
-		public double GA7_SK() { return this["MB_516"] < 0 ? 1 : 0; }
 		public double GA7_Run() { return this["MB_516"] != 0 ? 1 : 0; }
 
-		public double GA8_Gen() { return this["MB_566"] > 0 ? 1 : 0; }
-		public double GA8_SK() { return this["MB_566"] < 0 ? 1 : 0; }
 		public double GA8_Run() { return this["MB_566"] != 0 ? 1 : 0; }
 
 		public double GA9_Gen() { return this["MB_616"] > 0 ? 1 : 0; }

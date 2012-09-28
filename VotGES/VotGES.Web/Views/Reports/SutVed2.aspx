@@ -361,21 +361,40 @@
 		</tr>
 		<tr>
 			<th>Пусков-переводов в ГР / СК</th>
-			<%for (int ga=1; ga <= 10; ga++) {
-				if (ga <= 2 || ga >= 9) {%>
-					<td>
-						<%=Model.PuskStop.Data[ga].CountPuskGen.ToString("0")%> /
-						<%=Model.PuskStop.Data[ga].CountPuskSK.ToString("0")%>
-					</td>
-				<%} else {%>
-					<td>&nbsp;</td>
-				<%}
-			} %>
+			<%for (int ga=1;ga<=10;ga++){ %>
+				<td>
+					<%=Model.PuskStop.Data[ga].CountPuskGen.ToString("0") %> /
+					<%=Model.PuskStop.Data[ga].CountPuskSK.ToString("0")%>
+				</td>
+			<%} %>
 			<td>
 				<%=Model.PuskStop.SumRecord.CountPuskGen.ToString("0") %> /
 				<%=Model.PuskStop.SumRecord.CountPuskSK.ToString("0") %>
 			</td>
-		</tr>		
+		</tr>
+		<tr>
+			<th>Время работы/простоя</th>
+			<%for (int ga=1;ga<=10;ga++){ %>
+				<td>
+					<%=Model.PuskStop.Data[ga].HoursWork.ToString("0.00") %> /
+					<%=Model.PuskStop.Data[ga].HoursStay.ToString("0.00")%>
+				</td>
+			<%} %>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th>Время работы в ГР / СК</th>
+			<%for (int ga=1;ga<=10;ga++){ %>
+				<td>
+					<%=Model.PuskStop.Data[ga].HoursGen.ToString("0.00") %> /
+					<%=Model.PuskStop.Data[ga].HoursSK.ToString("0.00")%>
+				</td>
+			<%} %>
+			<td>&nbsp;</td>
+		</tr>
+
+
+		
 	</table>
 
 
