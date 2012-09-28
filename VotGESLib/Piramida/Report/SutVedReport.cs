@@ -13,6 +13,7 @@ namespace VotGES.Piramida.Report
 		public SortedList<DateTime, double> PZad { get; set; }
 		public double LastP { get; set; }
 		public PBRDataHH PBR { get; set; }
+		public PuskStopReport PuskStop { get; set; }
 		public int AddHours { get; set; }
 		public SutVedReport(DateTime dateStart, DateTime dateEnd, IntervalReportEnum interval) :
 			base(dateStart, dateEnd, interval) {
@@ -69,6 +70,9 @@ namespace VotGES.Piramida.Report
 			finally { try { con.Close(); } catch { } }
 
 			LastP = lastP;
+
+			PuskStop = new PuskStopReport(DateStart,DateEnd);
+			PuskStop.ReadData();
 		}
 
 	}

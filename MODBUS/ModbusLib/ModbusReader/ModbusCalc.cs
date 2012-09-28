@@ -51,7 +51,8 @@ namespace ModbusLib
 				return Data[key];
 			}
 		}
-		
+
+		#region P
 		public double P_GTP1() {
 			return this["MB_216"] + this["MB_266"];			
 		}
@@ -63,7 +64,9 @@ namespace ModbusLib
 		public double P_GES() {
 			return this["MB_216"] + this["MB_266"]+this["MB_316"] + this["MB_366"] + this["MB_416"] + this["MB_466"] + this["MB_516"] + this["MB_566"] + this["MB_616"] + this["MB_666"];
 		}
+		#endregion
 
+		#region Rashod
 		public double Rashod_GES() {
 			return this["MB_238"] + this["MB_288"] + this["MB_338"] + this["MB_388"] + this["MB_438"] + this["MB_488"] + this["MB_538"] + this["MB_588"] + this["MB_638"] + this["MB_688"];
 		}
@@ -91,6 +94,47 @@ namespace ModbusLib
 		public double OptRashod_GES() {
 			return RUSA.getOptimRashod(this["Calc_P_GES"], this["MB_2014"], true, null, ges);
 		}
-		
+		#endregion
+
+		public double GA1_Gen() { return this["MB_216"] > 0 ? 1 : 0; }
+		public double GA1_SK() {return this["MB_216"] < 0 ? 1 : 0;}
+		public double GA1_Run() { return this["MB_216"] != 0 ? 1 : 0; }
+
+		public double GA2_Gen() { return this["MB_266"] > 0 ? 1 : 0; }
+		public double GA2_SK() { return this["MB_266"] < 0 ? 1 : 0; }
+		public double GA2_Run() { return this["MB_266"] != 0 ? 1 : 0; }
+
+		public double GA3_Gen() { return this["MB_316"] > 0 ? 1 : 0; }
+		public double GA3_SK() { return this["MB_316"] < 0 ? 1 : 0; }
+		public double GA3_Run() { return this["MB_316"] != 0 ? 1 : 0; }
+
+		public double GA4_Gen() { return this["MB_366"] > 0 ? 1 : 0; }
+		public double GA4_SK() { return this["MB_366"] < 0 ? 1 : 0; }
+		public double GA4_Run() { return this["MB_366"] != 0 ? 1 : 0; }
+
+		public double GA5_Gen() { return this["MB_416"] > 0 ? 1 : 0; }
+		public double GA5_SK() { return this["MB_416"] < 0 ? 1 : 0; }
+		public double GA5_Run() { return this["MB_416"] != 0 ? 1 : 0; }
+
+		public double GA6_Gen() { return this["MB_466"] > 0 ? 1 : 0; }
+		public double GA6_SK() { return this["MB_466"] < 0 ? 1 : 0; }
+		public double GA6_Run() { return this["MB_466"] != 0 ? 1 : 0; }
+
+		public double GA7_Gen() { return this["MB_516"] > 0 ? 1 : 0; }
+		public double GA7_SK() { return this["MB_516"] < 0 ? 1 : 0; }
+		public double GA7_Run() { return this["MB_516"] != 0 ? 1 : 0; }
+
+		public double GA8_Gen() { return this["MB_566"] > 0 ? 1 : 0; }
+		public double GA8_SK() { return this["MB_566"] < 0 ? 1 : 0; }
+		public double GA8_Run() { return this["MB_566"] != 0 ? 1 : 0; }
+
+		public double GA9_Gen() { return this["MB_616"] > 0 ? 1 : 0; }
+		public double GA9_SK() { return this["MB_616"] < 0 ? 1 : 0; }
+		public double GA9_Run() { return this["MB_616"] != 0 ? 1 : 0; }
+
+		public double GA10_Gen() { return this["MB_666"] > 0 ? 1 : 0; }
+		public double GA10_SK() { return this["MB_666"] < 0 ? 1 : 0; }
+		public double GA10_Run() { return this["MB_666"] != 0 ? 1 : 0; }
+
 	}
 }

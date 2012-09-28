@@ -16,6 +16,9 @@ namespace ModbusLib
 		public string IP { get; protected set; }
 		public ushort Port { get; protected set; }
 
+		protected Master.ExceptionData exceptionEvent;
+		protected Master.ResponseData responseEvent;
+
 		private Master modbusMaster;
 		public Master ModbusMaster {
 			get {
@@ -41,21 +44,29 @@ namespace ModbusLib
 		}
 
 		public void Init() {
-			this.modbusMaster = new Master();
-			this.modbusMaster.OnException += new Master.ExceptionData(modbusMaster_OnException);
-			this.modbusMaster.OnResponseData += new Master.ResponseData(modbusMaster_OnResponseData);
+			if (this.modbusMaster != null) {
+				this.modbusMaster.OnException -= exceptionEvent;
+				this.modbusMaster.OnResponseData -= responseEvent;
+			}
+			this.modbusMaster = new Master();			
+			this.modbusMaster.OnException += exceptionEvent;
+			this.modbusMaster.OnResponseData += responseEvent;
 		}
 
-		void modbusMaster_OnResponseData(ushort id, byte function, byte[] data) {
-			if (OnResponse != null) {
-				OnResponse(id, function, data);
+		void modbusMaster_OnResponseData(Master obj, ushort id, byte function, byte[] data) {
+			if (modbusMaster == obj) {
+				if (OnResponse != null) {
+					OnResponse(id, function, data);
+				}
 			}
 		}
 
-		void modbusMaster_OnException(ushort id, byte function, byte exception) {
-			Logger.Error("Ошибка при чтении данных " + IP + ":" + Port);
-			if (OnErrorConnect != null) {
-				OnErrorConnect();
+		void modbusMaster_OnException(Master obj, ushort id, byte function, byte exception) {
+			if (modbusMaster == obj) {
+				Logger.Error("Ошибка при чтении данных " + IP + ":" + Port);
+				if (OnErrorConnect != null) {
+					OnErrorConnect();
+				}
 			}
 		}
 
@@ -63,6 +74,8 @@ namespace ModbusLib
 		public ModbusServer(string ip, ushort port) {
 			this.IP = ip;
 			this.Port = port;
+			exceptionEvent = new Master.ExceptionData(modbusMaster_OnException);
+			responseEvent = new Master.ResponseData(modbusMaster_OnResponseData);
 			Init();
 		}
 
@@ -79,6 +92,7 @@ namespace ModbusLib
 		public ushort StepData { get; protected set; }
 		public ModbusServer Server { get; protected set; }
 		public ModbusInitDataArray InitArr { get; protected set; }
+		
 
 		public ModbusDataReader(ModbusServer server, ModbusInitDataArray initArr) {
 			this.Server = server;
@@ -96,7 +110,7 @@ namespace ModbusLib
 				IsError = true;
 				initRead();
 				try { Server.ModbusMaster.disconnect(); } catch { }
-				try {	Server.Init();	} catch { }
+				Server.Init();	
 				if (OnFinish != null) {
 					OnFinish(InitArr.ID, null);
 				}

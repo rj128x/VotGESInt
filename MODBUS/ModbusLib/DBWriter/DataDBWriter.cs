@@ -206,7 +206,7 @@ namespace ModbusLib
 			string df=Settings.single.DBDateFormat;
 			foreach (DataDBRecord rec in Data.Values) {
 				ModbusInitData init=InitArray.FullData[rec.Header];
-				if (init.WriteToDBHH || init.WriteToDBMin) {
+				if (init.WriteToDBHH || init.WriteToDBMin || init.WriteToDBDiff) {
 					if (init.WriteToDBMin && mode == RWModeEnum.min) {
 						string insert=String.Format(frmt, init.ParNumberMin, init.Obj, init.Item, rec.AvgMin, rec.Min, rec.Max, rec.Eq, init.ObjType,
 							Date.AddMinutes(1).ToString(df), DateTime.Now.ToString(df), 0);
@@ -232,7 +232,8 @@ namespace ModbusLib
 						deletes[init.DBNameHH].Add(delete);
 					}
 
-					if (init.WriteToDBDiff && mode == RWModeEnum.hh) {
+					
+					if (init.WriteToDBDiff && mode == RWModeEnum.hh) {						
 						double lastVal=Double.NaN;
 						try {
 							string select=String.Format(

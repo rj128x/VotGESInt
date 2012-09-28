@@ -82,11 +82,11 @@ namespace ModbusLib
 
         // ------------------------------------------------------------------------
         /// <summary>Response data event. This event is called when new data arrives</summary>
-        public delegate void ResponseData(ushort id, byte function, byte[] data);
+        public delegate void ResponseData(Master obj, ushort id, byte function, byte[] data);
         /// <summary>Response data event. This event is called when new data arrives</summary>
         public event ResponseData OnResponseData;
         /// <summary>Exception data event. This event is called when the data is incorrect</summary>
-        public delegate void ExceptionData(ushort id, byte function, byte exception);
+		  public delegate void ExceptionData(Master obj, ushort id, byte function, byte exception);
         /// <summary>Exception data event. This event is called when the data is incorrect</summary>
         public event ExceptionData OnException;
 
@@ -216,7 +216,7 @@ namespace ModbusLib
                 tcpSynCl = null;
                 tcpAsyCl = null;
             }
-            if (OnException != null) OnException(id, function, exception);
+            if (OnException != null) OnException(this, id, function, exception);
         }
 
         // ------------------------------------------------------------------------
@@ -600,7 +600,7 @@ namespace ModbusLib
             }
             // ------------------------------------------------------------
             // Response data is regular data
-            else if (OnResponseData != null) OnResponseData(id, function, data);
+            else if (OnResponseData != null) OnResponseData(this,id, function, data);
         }
 
         // ------------------------------------------------------------------------

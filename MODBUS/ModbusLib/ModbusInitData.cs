@@ -80,6 +80,7 @@ namespace ModbusLib
 			Item = -1;
 			FuncName = null;
 			Name = "";
+			Diff = 0;
 		}
 	}
 
