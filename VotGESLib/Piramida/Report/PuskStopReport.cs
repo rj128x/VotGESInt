@@ -65,29 +65,56 @@ namespace VotGES.Piramida.Report
 		}
 
 		protected double processDates(DateTime DateStart, DateTime DateEnd, DateTime firstRun, DateTime lastRun, DateTime firstStop, DateTime lastStop, double min0, double min1) {
-			double val=0;
-			double valEnd=0;
-			double valStart=0;
+			double result=0;
+			double wrk=min0;			
+			double stp=min1;
+			double wrkDiff;
+			double stpDiff;
 
-			if (firstStop < firstRun || firstRun == DateTime.MinValue) {
-				valStart = getDiffMin(DateStart, firstStop);
-			} 
-			if (lastRun > lastStop || lastStop==DateTime.MaxValue) {
-				valEnd = getDiffMin(lastRun, DateEnd);
+			if (lastRun < lastStop) {
+				stp += getDiffMin(lastStop, DateEnd);
+			}else if (lastStop>lastRun){
+				wrk+=getDiffMin(LastRun,DateEnd);
 			}
 
+			wrkDiff = getDiffMin(DateStart, DateEnd) - stp;
+			stpDiff = getDiffMin(DateStart, DateEnd) - wrk;
+
+			if (firstRun < firstStop) {
+				result = wrk;
+			} else {
+				result = wrkDiff;
+			}
 			
-			double stp=min1;
-			
-			return wrk / 60;
+			return result;
 		}
 		
 
 		public void ProcessData(DateTime DateStart, DateTime DateEnd) {
 			HoursWork = processDates(DateStart, DateEnd, FirstRun, LastRun, FirstStop, LastStop, MinRun0, MinRun1);
-			HoursStay = getDiffMin(DateStart, DateEnd) / 60 - HoursWork;
+			HoursStay = getDiffMin(DateStart, DateEnd)  - HoursWork;
 			HoursSK = processDates(DateStart, DateEnd, FirstRunSK, LastRunSK, FirstStopSK, LastStopSK, MinSK0, MinSK1);
 			HoursGen = processDates(DateStart, DateEnd, FirstRunGen, LastRunGen, FirstStopGen, LastStopGen, MinGen0, MinGen1);			
+		}
+
+		protected string getStrHours(double hours) {
+			return String.Format("{0}:{1}", (int)(hours / 60), (int)(hours % 60)); 
+		}
+
+		public string HoursWorkStr {
+			get { return getStrHours(HoursWork); }
+		}
+
+		public string HoursStayStr {
+			get { return getStrHours(HoursStay); }
+		}
+
+		public string HoursSKStr {
+			get { return getStrHours(HoursSK); }
+		}
+
+		public string HoursGenStr {
+			get { return getStrHours(HoursGen); }
 		}
 	}
 

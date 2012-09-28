@@ -133,6 +133,7 @@
     <Content Include="Views\Home\Test.aspx" />
     <Content Include="Views\Reports\PBR.aspx" />
     <Content Include="Views\Reports\Prikaz20.aspx" />
+    <Content Include="Views\Reports\PuskStop.aspx" />
     <Content Include="Views\Reports\SutVed.aspx" />
     <Content Include="Views\Reports\SutVed2.aspx" />
     <Content Include="Web.config" />

@@ -9,7 +9,8 @@ using VotGES.Chart;
 
 namespace VotGES.Piramida.Report
 {
-	public enum ReportTypeEnum { dayByMinutes, dayByHalfHours, dayByHours, monthByDays, monthByHalfHours, monthByHours, quarterByDays, yearByDays, yearByMonths, yearByQarters }
+	public enum ReportTypeEnum { dayByMinutes, dayByHalfHours, dayByHours, monthByDays, monthByHalfHours, 
+		monthByHours, quarterByDays, yearByDays, yearByMonths, yearByQarters, day, month,quarter,year}
 	public enum IntervalReportEnum { minute, halfHour, hour, day, month, quarter, year }
 	public enum ResultTypeEnum { min, max, avg, sum }
 	public enum DBOperEnum { min, max, avg, sum, eq }

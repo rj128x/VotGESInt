@@ -10,8 +10,7 @@
            d:DesignWidth="640" d:DesignHeight="480"
            Title="Суточная ведомость">
     <Grid x:Name="LayoutRoot">
-		<StackPanel>		 
-	 
+		<StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">		 	 
 		<Grid Name="pnlSettings" Width="300" HorizontalAlignment="Left">
 			<StackPanel>
 				<sdk:Calendar  
@@ -28,6 +27,13 @@
 							  Click="btnPrikaz20_Click"/>
 				</StackPanel>
 		</Grid>
+			<Grid Name="pnlReport" Width="300">
+				<StackPanel>
+					<usr:ReportSettingsControl x:Name="SettingsControl" 
+														IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+					<Button Name="btnGetPuskStop" Content="Получить пуски/остановы" Click="btnGetPuskStop_Click"/>
+				</StackPanel>
+			</Grid>
 		</StackPanel>
 	</Grid>
 </navigation:Page>

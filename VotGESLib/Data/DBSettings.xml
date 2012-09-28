@@ -4,21 +4,21 @@
 	<Databases>
 		<DBInfo>
 			<ID>PSV</ID>
-			<Address>192.168.140.240</Address>
+			<Address>.\SQLExpress</Address>
 			<DBName>PiramidaSV</DBName>
 			<User>sa</User>
 			<Password>pswd</Password>
 		</DBInfo>
 		<DBInfo>
 			<ID>P2000</ID>
-			<Address>192.168.140.240</Address>
+			<Address>.\SQLExpress</Address>
 			<DBName>Piramida2000</DBName>
 			<User>sa</User>
 			<Password>pswd</Password>
 		</DBInfo>
 		<DBInfo>
 			<ID>P3000</ID>
-			<Address>192.168.140.240</Address>
+			<Address>.\SQLExpress</Address>
 			<DBName>Piramida3000</DBName>
 			<User>sa</User>
 			<Password>pswd</Password>

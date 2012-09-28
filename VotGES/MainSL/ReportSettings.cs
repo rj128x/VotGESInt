@@ -54,16 +54,20 @@ namespace VotGES.Piramida.Report
 					case ReportTypeEnum.dayByHalfHours:
 					case ReportTypeEnum.dayByHours:
 					case ReportTypeEnum.dayByMinutes:
+					case ReportTypeEnum.day:
 						return getFullDay(settings.Date);
 					case ReportTypeEnum.monthByDays:
 					case ReportTypeEnum.monthByHours:
 					case ReportTypeEnum.monthByHalfHours:
+					case ReportTypeEnum.month:
 						return getFullMonth(settings.Year, settings.Month);
 					case ReportTypeEnum.quarterByDays:
+					case ReportTypeEnum.quarter:
 						return getFullQuarter(settings.Year, settings.Quarter);
 					case ReportTypeEnum.yearByDays:
 					case ReportTypeEnum.yearByMonths:
 					case ReportTypeEnum.yearByQarters:
+					case ReportTypeEnum.year:
 						return getFullYear(settings.Year);
 				}
 				return null;
@@ -101,6 +105,7 @@ namespace VotGES.Piramida.Report
 					case ReportTypeEnum.dayByMinutes:
 					case ReportTypeEnum.dayByHalfHours:
 					case ReportTypeEnum.dayByHours:
+					case ReportTypeEnum.day:
 						IsVisibleDate = true;
 						IsVisibleMonth = false;
 						IsVisibleQuarter = false;
@@ -109,12 +114,14 @@ namespace VotGES.Piramida.Report
 					case ReportTypeEnum.monthByDays:
 					case ReportTypeEnum.monthByHalfHours:
 					case ReportTypeEnum.monthByHours:
+					case ReportTypeEnum.month:
 						IsVisibleDate = false;
 						IsVisibleYear = true;
 						IsVisibleMonth = true;
 						IsVisibleQuarter = false;
 						break;
 					case ReportTypeEnum.quarterByDays:
+					case ReportTypeEnum.quarter:
 						IsVisibleDate = false;
 						IsVisibleYear = true;
 						IsVisibleMonth = false;
@@ -123,6 +130,7 @@ namespace VotGES.Piramida.Report
 					case ReportTypeEnum.yearByDays:
 					case ReportTypeEnum.yearByMonths:
 					case ReportTypeEnum.yearByQarters:
+					case ReportTypeEnum.year:
 						IsVisibleDate = false;
 						IsVisibleYear = true;
 						IsVisibleMonth = false;
@@ -210,21 +218,29 @@ namespace VotGES.Piramida.Report
 			}
 		}
 
-		public ReportSettings() {
+		public ReportSettings(bool onlyDates=true) {
 			ReportTypeNames = new Dictionary<ReportTypeEnum, string>();
 			MonthNames = new Dictionary<int, string>();
 			QuarterNames = new Dictionary<int, string>();
 
-			ReportTypeNames.Add(ReportTypeEnum.dayByMinutes, "За сутки по минутам");
-			ReportTypeNames.Add(ReportTypeEnum.dayByHalfHours, "За сутки по 30 минут");
-			ReportTypeNames.Add(ReportTypeEnum.dayByHours, "За сутки по часам");
-			ReportTypeNames.Add(ReportTypeEnum.monthByHalfHours, "За месяц по 30 минут");
-			ReportTypeNames.Add(ReportTypeEnum.monthByHours, "За месяц по часам");
-			ReportTypeNames.Add(ReportTypeEnum.monthByDays, "За месяц по дням");			
-			ReportTypeNames.Add(ReportTypeEnum.quarterByDays, "За квартал по дням");
-			ReportTypeNames.Add(ReportTypeEnum.yearByDays, "За год по дням");
-			ReportTypeNames.Add(ReportTypeEnum.yearByMonths, "За год по месяцам");
-			ReportTypeNames.Add(ReportTypeEnum.yearByQarters, "За год по кварталам");
+			if (!onlyDates) {
+				ReportTypeNames.Add(ReportTypeEnum.dayByMinutes, "За сутки по минутам");
+				ReportTypeNames.Add(ReportTypeEnum.dayByHalfHours, "За сутки по 30 минут");
+				ReportTypeNames.Add(ReportTypeEnum.dayByHours, "За сутки по часам");
+				ReportTypeNames.Add(ReportTypeEnum.monthByHalfHours, "За месяц по 30 минут");
+				ReportTypeNames.Add(ReportTypeEnum.monthByHours, "За месяц по часам");
+				ReportTypeNames.Add(ReportTypeEnum.monthByDays, "За месяц по дням");
+				ReportTypeNames.Add(ReportTypeEnum.quarterByDays, "За квартал по дням");
+				ReportTypeNames.Add(ReportTypeEnum.yearByDays, "За год по дням");
+				ReportTypeNames.Add(ReportTypeEnum.yearByMonths, "За год по месяцам");
+				ReportTypeNames.Add(ReportTypeEnum.yearByQarters, "За год по кварталам");
+			} else {
+				ReportTypeNames.Add(ReportTypeEnum.day, "За сутки");
+				ReportTypeNames.Add(ReportTypeEnum.month, "За месяц");
+				ReportTypeNames.Add(ReportTypeEnum.quarter, "За квартал");
+				ReportTypeNames.Add(ReportTypeEnum.year, "За год");
+			}
+
 
 			MonthNames.Add(1, "Январь");
 			MonthNames.Add(2, "Февраль");

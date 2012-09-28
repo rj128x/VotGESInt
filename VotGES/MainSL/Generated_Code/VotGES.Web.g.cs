@@ -2657,6 +2657,14 @@ namespace VotGES.Piramida.Report
         yearByMonths = 8,
         
         yearByQarters = 9,
+        
+        day = 10,
+        
+        month = 11,
+        
+        quarter = 12,
+        
+        year = 13,
     }
 }
 namespace VotGES.PrognozNB
