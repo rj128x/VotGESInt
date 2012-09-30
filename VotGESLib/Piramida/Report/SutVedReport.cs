@@ -31,12 +31,59 @@ namespace VotGES.Piramida.Report
 			RecordTypeDB tAvg=new RecordTypeDB(PiramidaRecords.MB_T, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.avg, dbOper: DBOperEnum.avg);
 			tAvg.ID = "T_AVG";
 			RecordTypeDB naporAvg=new RecordTypeDB(PiramidaRecords.MB_Napor_Sgl, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.avg, dbOper: DBOperEnum.avg);
-			naporAvg.ID = "NAPOR_AVG";			
+			naporAvg.ID = "NAPOR_AVG";
+			RecordTypeDB pAvg=new RecordTypeDB(PiramidaRecords.MB_P_GES, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.avg, dbOper: DBOperEnum.avg);
+			pAvg.ID = "P_AVG";
+
+			RecordTypeDB vbMin=new RecordTypeDB(PiramidaRecords.MB_VB_Sgl, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.min, dbOper: DBOperEnum.min);
+			vbMin.ID = "VB_MIN";
+			RecordTypeDB nbMin=new RecordTypeDB(PiramidaRecords.MB_NB_Sgl, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.min, dbOper: DBOperEnum.min);
+			nbMin.ID = "NB_MIN";
+			RecordTypeDB rashodMin=new RecordTypeDB(PiramidaRecords.MB_Rashod, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.min, dbOper: DBOperEnum.min);
+			rashodMin.ID = "RASHOD_MIN";
+			RecordTypeDB tMin=new RecordTypeDB(PiramidaRecords.MB_T, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.min, dbOper: DBOperEnum.min);
+			tMin.ID = "T_MIN";
+			RecordTypeDB naporMin=new RecordTypeDB(PiramidaRecords.MB_Napor_Sgl, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.min, dbOper: DBOperEnum.min);
+			naporMin.ID = "NAPOR_MIN";
+			RecordTypeDB pMin=new RecordTypeDB(PiramidaRecords.MB_P_GES, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.min, dbOper: DBOperEnum.min);
+			pMin.ID = "P_MIN";
+
+			RecordTypeDB vbMax=new RecordTypeDB(PiramidaRecords.MB_VB_Sgl, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.max, dbOper: DBOperEnum.max);
+			vbMax.ID = "VB_MAX";
+			RecordTypeDB nbMax=new RecordTypeDB(PiramidaRecords.MB_NB_Sgl, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.max, dbOper: DBOperEnum.max);
+			nbMax.ID = "NB_MAX";
+			RecordTypeDB rashodMax=new RecordTypeDB(PiramidaRecords.MB_Rashod, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.max, dbOper: DBOperEnum.max);
+			rashodMax.ID = "RASHOD_MAX";
+			RecordTypeDB tMax=new RecordTypeDB(PiramidaRecords.MB_T, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.max, dbOper: DBOperEnum.max);
+			tMax.ID = "T_MAX";
+			RecordTypeDB naporMax=new RecordTypeDB(PiramidaRecords.MB_Napor_Sgl, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.max, dbOper: DBOperEnum.max);
+			naporMax.ID = "NAPOR_MAX";
+			RecordTypeDB pMax=new RecordTypeDB(PiramidaRecords.MB_P_GES, parNumber: pn, visible: true, toChart: false, divParam: 1, multParam: 1, resultType: ResultTypeEnum.max, dbOper: DBOperEnum.max);
+			pMax.ID = "P_MAX";
+
+
+
+
 			this.AddRecordType(vbAvg);
 			this.AddRecordType(nbAvg);
 			this.AddRecordType(rashodAvg);
 			this.AddRecordType(tAvg);
 			this.AddRecordType(naporAvg);
+			this.AddRecordType(pAvg);
+
+			this.AddRecordType(vbMin);
+			this.AddRecordType(nbMin);
+			this.AddRecordType(rashodMin);
+			this.AddRecordType(tMin);
+			this.AddRecordType(naporMin);
+			this.AddRecordType(pMin);
+
+			this.AddRecordType(vbMax);
+			this.AddRecordType(nbMax);
+			this.AddRecordType(rashodMax);
+			this.AddRecordType(tMax);
+			this.AddRecordType(naporMax);
+			this.AddRecordType(pMax);
 	
 		}
 

@@ -141,7 +141,7 @@
 		 } %>
 			<tr>
 					<th>Среднее</th>
-					<td>&nbsp;</td>
+					<th><%=Model.ResultData["P_AVG"].ToString("0.00") %></th>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -156,6 +156,42 @@
 					<th><%=Model.ResultData["NB_AVG"].ToString("0.00") %></th>
 					<th><%=Model.ResultData["T_AVG"].ToString("0.00") %></th>
 					<th><%=Model.ResultData["RASHOD_AVG"].ToString("0.00") %></th>
+				</tr>
+				<tr>
+					<th>Мин</th>
+					<th><%=Model.ResultData["P_MIN"].ToString("0.00") %></th>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<th><%=Model.ResultData["VB_MIN"].ToString("0.00") %></th>
+					<th><%=Model.ResultData["NB_MIN"].ToString("0.00") %></th>
+					<th><%=Model.ResultData["T_MIN"].ToString("0.00") %></th>
+					<th><%=Model.ResultData["RASHOD_MIN"].ToString("0.00") %></th>
+				</tr>
+				<tr>
+					<th>Макс</th>
+					<th><%=Model.ResultData["P_MAX"].ToString("0.00") %></th>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<th><%=Model.ResultData["VB_MAX"].ToString("0.00") %></th>
+					<th><%=Model.ResultData["NB_MAX"].ToString("0.00") %></th>
+					<th><%=Model.ResultData["T_MAX"].ToString("0.00") %></th>
+					<th><%=Model.ResultData["RASHOD_MAX"].ToString("0.00") %></th>
 				</tr>
 			</table>
 		</td>

@@ -164,7 +164,7 @@ namespace VotGES.Piramida.Report
 					int ga=item % 10;
 					ga = ga == 0 ? 10 : ga;
 					
-					if (item <= 30) {
+					if (item <= 10) {
 						if (value0 == 1) {
 							Data[ga].CountPusk = cnt;
 							Data[ga].MinRun1 = hours;
