@@ -74,7 +74,7 @@ namespace VotGES.Piramida.Report
 			if (lastRun < lastStop) {
 				stp += getDiffMin(lastStop, DateEnd);
 			}else if (lastStop>lastRun){
-				wrk+=getDiffMin(LastRun,DateEnd);
+				wrk+=getDiffMin(lastRun,DateEnd);
 			}
 
 			wrkDiff = getDiffMin(DateStart, DateEnd) - stp;
@@ -192,12 +192,12 @@ namespace VotGES.Piramida.Report
 					}else	if (item <= 30) {
 						if (value0 == 1) {
 							Data[ga].CountPuskGen = cnt;
-							Data[ga].MinGen1 = cnt;
+							Data[ga].MinGen1 = hours;
 							Data[ga].FirstRunGen = minDate;
 							Data[ga].LastRunGen = maxDate;							
 						}
 						if (value0 == 0) {
-							Data[ga].MinGen0 = cnt;
+							Data[ga].MinGen0 = hours;
 							Data[ga].FirstStopGen = minDate;
 							Data[ga].LastStopGen = maxDate;	
 						}
