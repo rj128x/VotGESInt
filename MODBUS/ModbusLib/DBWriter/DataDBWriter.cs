@@ -59,7 +59,7 @@ namespace ModbusLib
 					Count++;
 					if (Init.WriteToDBDiff) {
 						if (DiffVals.Count == 0 ||
-							Math.Abs(DiffVals.Last().Value - val) > Init.Diff) {
+							Math.Abs(DiffVals.Last().Value - val) >= Init.Diff) {
 							DiffVals.Add(de.Key, val);
 						}
 					}

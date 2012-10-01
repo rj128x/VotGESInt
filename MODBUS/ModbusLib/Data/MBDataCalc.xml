@@ -23,26 +23,26 @@
 		<ModbusInitData ID="OptRashod_GTP2" Name="Опт Расход ГТП2" FuncName="OptRashod_GTP2" WriteToDBHH="1" Item="3" Obj="10" ObjType="2" DBNameHH="P3000"/>
 		<ModbusInitData ID="OptRashod_GES" Name="Опт Расход ГЭС" FuncName="OptRashod_GES" WriteToDBHH="1" Item="1" Obj="10" ObjType="2" DBNameHH="P3000"/>
 
-		<ModbusInitData ID="GA1_Run" Name="ГА-1 Зап" FuncName="GA1_Run" WriteToDBDiff="1" Item="1" Diff="1"/>
-		<ModbusInitData ID="GA2_Run" Name="ГА-2 Зап" FuncName="GA2_Run" WriteToDBDiff="1" Item="2" Diff="1"/>
-		<ModbusInitData ID="GA3_Run" Name="ГА-3 Зап" FuncName="GA3_Run" WriteToDBDiff="1" Item="3" Diff="1"/>
-		<ModbusInitData ID="GA4_Run" Name="ГА-4 Зап" FuncName="GA4_Run" WriteToDBDiff="1" Item="4" Diff="1"/>
-		<ModbusInitData ID="GA5_Run" Name="ГА-5 Зап" FuncName="GA5_Run" WriteToDBDiff="1" Item="5" Diff="1"/>
-		<ModbusInitData ID="GA6_Run" Name="ГА-6 Зап" FuncName="GA6_Run" WriteToDBDiff="1" Item="6" Diff="1"/>
-		<ModbusInitData ID="GA7_Run" Name="ГА-7 Зап" FuncName="GA7_Run" WriteToDBDiff="1" Item="7" Diff="1"/>
-		<ModbusInitData ID="GA8_Run" Name="ГА-8 Зап" FuncName="GA8_Run" WriteToDBDiff="1" Item="8" Diff="1"/>
-		<ModbusInitData ID="GA9_Run" Name="ГА-9 Зап" FuncName="GA9_Run" WriteToDBDiff="1" Item="9" Diff="1"/>
-		<ModbusInitData ID="GA10_Run" Name="ГА-10 Зап" FuncName="GA10_Run" WriteToDBDiff="1" Item="10" Diff="1"/>		
+		<ModbusInitData ID="GA1_Run" Name="ГА-1 Зап" FuncName="GA1_Run" WriteToDBDiff="1" Item="1" Diff="0.1"/>
+		<ModbusInitData ID="GA2_Run" Name="ГА-2 Зап" FuncName="GA2_Run" WriteToDBDiff="1" Item="2" Diff="0.1"/>
+		<ModbusInitData ID="GA3_Run" Name="ГА-3 Зап" FuncName="GA3_Run" WriteToDBDiff="1" Item="3" Diff="0.1"/>
+		<ModbusInitData ID="GA4_Run" Name="ГА-4 Зап" FuncName="GA4_Run" WriteToDBDiff="1" Item="4" Diff="0.1"/>
+		<ModbusInitData ID="GA5_Run" Name="ГА-5 Зап" FuncName="GA5_Run" WriteToDBDiff="1" Item="5" Diff="0.1"/>
+		<ModbusInitData ID="GA6_Run" Name="ГА-6 Зап" FuncName="GA6_Run" WriteToDBDiff="1" Item="6" Diff="0.1"/>
+		<ModbusInitData ID="GA7_Run" Name="ГА-7 Зап" FuncName="GA7_Run" WriteToDBDiff="1" Item="7" Diff="0.1"/>
+		<ModbusInitData ID="GA8_Run" Name="ГА-8 Зап" FuncName="GA8_Run" WriteToDBDiff="1" Item="8" Diff="0.1"/>
+		<ModbusInitData ID="GA9_Run" Name="ГА-9 Зап" FuncName="GA9_Run" WriteToDBDiff="1" Item="9" Diff="0.1"/>
+		<ModbusInitData ID="GA10_Run" Name="ГА-10 Зап" FuncName="GA10_Run" WriteToDBDiff="1" Item="10" Diff="0.1"/>		
 
-		<ModbusInitData ID="GA1_SK" Name="ГА-1 СК" FuncName="GA1_SK" WriteToDBDiff="1" Item="11" Diff="1"/>
-		<ModbusInitData ID="GA2_SK" Name="ГА-2 СК" FuncName="GA2_SK" WriteToDBDiff="1" Item="12" Diff="1"/>
-		<ModbusInitData ID="GA9_SK" Name="ГА-9 СК" FuncName="GA9_SK" WriteToDBDiff="1" Item="19" Diff="1"/>
-		<ModbusInitData ID="GA10_SK" Name="ГА-10 СК" FuncName="GA10_SK" WriteToDBDiff="1" Item="20" Diff="1"/>
+		<ModbusInitData ID="GA1_SK" Name="ГА-1 СК" FuncName="GA1_SK" WriteToDBDiff="1" Item="11" Diff="0.1"/>
+		<ModbusInitData ID="GA2_SK" Name="ГА-2 СК" FuncName="GA2_SK" WriteToDBDiff="1" Item="12" Diff="0.1"/>
+		<ModbusInitData ID="GA9_SK" Name="ГА-9 СК" FuncName="GA9_SK" WriteToDBDiff="1" Item="19" Diff="0.1"/>
+		<ModbusInitData ID="GA10_SK" Name="ГА-10 СК" FuncName="GA10_SK" WriteToDBDiff="1" Item="20" Diff="0.1"/>
 
-		<ModbusInitData ID="GA1_Gen" Name="ГА-1 ген" FuncName="GA1_Gen" WriteToDBDiff="1" Item="21" Diff="1"/>
-		<ModbusInitData ID="GA2_Gen" Name="ГА-2 ген" FuncName="GA2_Gen" WriteToDBDiff="1" Item="22" Diff="1"/>
-		<ModbusInitData ID="GA9_Gen" Name="ГА-9 ген" FuncName="GA9_Gen" WriteToDBDiff="1" Item="29" Diff="1"/>
-		<ModbusInitData ID="GA10_Gen" Name="ГА-10 ген" FuncName="GA10_Gen" WriteToDBDiff="1" Item="30" Diff="1"/>
+		<ModbusInitData ID="GA1_Gen" Name="ГА-1 ген" FuncName="GA1_Gen" WriteToDBDiff="1" Item="21" Diff="0.1"/>
+		<ModbusInitData ID="GA2_Gen" Name="ГА-2 ген" FuncName="GA2_Gen" WriteToDBDiff="1" Item="22" Diff="0.1"/>
+		<ModbusInitData ID="GA9_Gen" Name="ГА-9 ген" FuncName="GA9_Gen" WriteToDBDiff="1" Item="29" Diff="0.1"/>
+		<ModbusInitData ID="GA10_Gen" Name="ГА-10 ген" FuncName="GA10_Gen" WriteToDBDiff="1" Item="30" Diff="0.1"/>
 
 		
 		
