@@ -218,7 +218,7 @@ namespace VotGES.Piramida.Report
 			}
 		}
 
-		public ReportSettings(bool onlyDates=true) {
+		public void init(bool onlyDates = false) {
 			ReportTypeNames = new Dictionary<ReportTypeEnum, string>();
 			MonthNames = new Dictionary<int, string>();
 			QuarterNames = new Dictionary<int, string>();
@@ -266,8 +266,13 @@ namespace VotGES.Piramida.Report
 			Quarter = 1;
 
 			ReportType = ReportTypeEnum.dayByHalfHours;
+		}
+
+		public ReportSettings(bool onlyDates=false) {
+			init(onlyDates);
 
 		}
 
 	}
+	
 }

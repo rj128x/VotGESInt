@@ -27,11 +27,14 @@ namespace MainSL.Views
 			settings.Date = DateTime.Now.Date.AddDays(-1);
 			pnlSettings.DataContext = settings;
 			context = new ReportBaseDomainContext();
+			
 			SettingsControl.Settings.ReportType = ReportTypeEnum.day;
+			
 		}
-
+		
 		// Выполняется, когда пользователь переходит на эту страницу.
 		protected override void OnNavigatedTo(NavigationEventArgs e) {
+
 		}	
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e) {
