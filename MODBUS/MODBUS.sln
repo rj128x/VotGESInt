@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VotGESLib", "..\VotGESLib\V
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearFolder", "ClearFolder\ClearFolder.csproj", "{9137EF5C-6DE3-4517-8CA2-A5723BA69B9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearDB", "ClearDB\ClearDB.csproj", "{5F8B715D-BB8B-4ACB-9244-D18907203364}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +94,16 @@ Global
 		{9137EF5C-6DE3-4517-8CA2-A5723BA69B9E}.Release|Mixed Platforms.Build.0 = Release|x86
 		{9137EF5C-6DE3-4517-8CA2-A5723BA69B9E}.Release|x86.ActiveCfg = Release|x86
 		{9137EF5C-6DE3-4517-8CA2-A5723BA69B9E}.Release|x86.Build.0 = Release|x86
+		{5F8B715D-BB8B-4ACB-9244-D18907203364}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5F8B715D-BB8B-4ACB-9244-D18907203364}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{5F8B715D-BB8B-4ACB-9244-D18907203364}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{5F8B715D-BB8B-4ACB-9244-D18907203364}.Debug|x86.ActiveCfg = Debug|x86
+		{5F8B715D-BB8B-4ACB-9244-D18907203364}.Debug|x86.Build.0 = Debug|x86
+		{5F8B715D-BB8B-4ACB-9244-D18907203364}.Release|Any CPU.ActiveCfg = Release|x86
+		{5F8B715D-BB8B-4ACB-9244-D18907203364}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{5F8B715D-BB8B-4ACB-9244-D18907203364}.Release|Mixed Platforms.Build.0 = Release|x86
+		{5F8B715D-BB8B-4ACB-9244-D18907203364}.Release|x86.ActiveCfg = Release|x86
+		{5F8B715D-BB8B-4ACB-9244-D18907203364}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
