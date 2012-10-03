@@ -40,6 +40,7 @@ namespace VotGES.Piramida.Report
 		public DateTime LastRunSK { get; set; }
 		public DateTime LastStopSK { get; set; }
 
+
 		public bool? IsPrevRunned { get; set; }
 		public bool? IsPrevRunnedGen { get; set; }
 		public bool? IsPrevRunnedSK { get; set; }
@@ -104,11 +105,9 @@ namespace VotGES.Piramida.Report
 					result += getDiffMin(DateStart, firstStop);
 				}
 			} else {
-				if (isPrevRunned.Value) {
+				if (isPrevRunned.Value && firstStop<firstRun) {
 					result += getDiffMin(DateStart, firstStop);
-				} else {
-					result -= getDiffMin(DateStart, firstRun);
-				}
+				} 
 			}
 
 
@@ -237,7 +236,7 @@ namespace VotGES.Piramida.Report
 				Logger.Error(e.ToString());
 			} finally { try { con.Close(); } catch { } }
 
-			string selFrmt="SELECT top 1 max(data_date), item, value0 FROM DATA WHERE Parnumber=13 and object=30 and objtype=2 and item={0} and Value0 in (0,1) and data_date<@dateStart group by item, value0";
+			string selFrmt="SELECT top 1 data_date, item, value0 FROM DATA WHERE Parnumber=13 and object=30 and objtype=2 and item={0} and Value0 in (0,1) and data_date<@dateStart order by data_date desc";
 			List<string>selPrev=new List<string>();
 			for (int ga=1; ga <= 10; ga++) {
 				selPrev.Add(String.Format(selFrmt, ga));
@@ -266,12 +265,13 @@ namespace VotGES.Piramida.Report
 					ga = ga == 0 ? 10 : ga;
 
 					if (item <= 10) {
-						Data[ga].IsPrevRunned = (value0 == 1);
+						Data[ga].IsPrevRunned = (value0 == 1);						
 					} else if (item <= 20) {
 						Data[ga].IsPrevRunnedSK = (value0 == 1);
 					} else if (item <= 30) {
 						Data[ga].IsPrevRunnedGen = (value0 == 1);
 					}
+
 				}
 			} catch (Exception e) {
 				Logger.Error("Ошибка при получении пусков-остановов");
