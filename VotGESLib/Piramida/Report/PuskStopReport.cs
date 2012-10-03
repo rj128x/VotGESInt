@@ -34,11 +34,15 @@ namespace VotGES.Piramida.Report
 		public DateTime FirstStopGen { get; set; }
 		public DateTime LastRunGen { get; set; }
 		public DateTime LastStopGen { get; set; }
-		
+
 		public DateTime FirstRunSK { get; set; }
 		public DateTime FirstStopSK { get; set; }
 		public DateTime LastRunSK { get; set; }
 		public DateTime LastStopSK { get; set; }
+
+		public bool? IsPrevRunned { get; set; }
+		public bool? IsPrevRunnedGen { get; set; }
+		public bool? IsPrevRunnedSK { get; set; }
 
 		public PuskStopRecord() {
 			FirstRun = DateTime.MinValue;
@@ -57,48 +61,73 @@ namespace VotGES.Piramida.Report
 			LastStopSK = DateTime.MaxValue;
 		}
 
-		public static double getDiffMin(DateTime start, DateTime end){
-			if (end>start){
-				return (end.Ticks - start.Ticks) / (10000000.0 * 60.0);
-			}
-			return 0;
+		public static double getDiffMin(DateTime start, DateTime end) {
+			double res=0;
+			res = (end.Ticks - start.Ticks) / (10000000.0 * 60.0);
+			res = res > 0 ? res : 0;
+			return res;
 		}
 
-		protected double processDates(DateTime DateStart, DateTime DateEnd, DateTime firstRun, DateTime lastRun, DateTime firstStop, DateTime lastStop, double min0, double min1) {
+		protected double processDates(DateTime DateStart, DateTime DateEnd, DateTime firstRun, DateTime lastRun, DateTime firstStop, DateTime lastStop, double min0, double min1, bool? isPrevRunned) {
+			Logger.Info(String.Format("firstRun={0}  lastRun={1}  firstStop={2}  lastStop={3}   min0={4}   min1={5}  isPrevRun={6}",
+				firstRun, lastRun, firstStop, lastStop, min0, min1, isPrevRunned));
 			double result=0;
-			double wrk=min0;			
+			double wrk=min0;
 			double stp=min1;
-			double wrkDiff;
-			double stpDiff;
 
-			if (lastRun < lastStop) {
-				stp += getDiffMin(lastStop, DateEnd);
-			}else if (lastStop>lastRun){
-				wrk+=getDiffMin(lastRun,DateEnd);
-			}
+			lastRun = lastRun.Equals(DateTime.MaxValue) ? DateEnd : lastRun;
+			lastStop = lastStop.Equals(DateTime.MaxValue) ? DateEnd : lastStop;
+			firstRun = firstRun.Equals(DateTime.MinValue) ? DateStart : firstRun;
+			firstStop = firstStop.Equals(DateTime.MinValue) ? DateStart : firstStop;
 
-			wrkDiff = getDiffMin(DateStart, DateEnd) - stp;
-			stpDiff = getDiffMin(DateStart, DateEnd) - wrk;
-
-			if (firstRun < firstStop) {
-				result = wrk;
-			} else {
-				result = wrkDiff;
-			}
 			
+			Logger.Info(String.Format("firstRun={0}  lastRun={1}  firstStop={2}  lastStop={3}   min0={4}   min1={5}  isPrevRun={6}",
+				firstRun, lastRun, firstStop, lastStop, min0, min1, isPrevRunned));
+
+			if (firstRun.Equals(DateStart) && lastRun.Equals(DateEnd) && firstStop.Equals(DateStart) && lastStop.Equals(DateEnd)) {
+				result = 0;
+				if (isPrevRunned.HasValue && isPrevRunned.Value) {
+					result = getDiffMin(DateStart, DateEnd);
+				} else if (isPrevRunned.HasValue && !isPrevRunned.Value) {
+					result = 0;
+				} 				
+				return result;
+			}
+
+			result = wrk;
+			if (lastRun > lastStop) {
+				result += getDiffMin(lastRun, DateEnd);
+			}
+						
+			if (!isPrevRunned.HasValue) {
+				if (firstStop < firstRun) {
+					result += getDiffMin(DateStart, firstStop);
+				}
+			} else {
+				if (isPrevRunned.Value) {
+					result += getDiffMin(DateStart, firstStop);
+				} else {
+					result -= getDiffMin(DateStart, firstRun);
+				}
+			}
+
+
+
+			result=result>getDiffMin(DateStart,DateEnd)?getDiffMin(DateStart,DateEnd):result;
+			result = result < 0 ? 0 : result;
 			return result;
 		}
-		
+
 
 		public void ProcessData(DateTime DateStart, DateTime DateEnd) {
-			HoursWork = processDates(DateStart, DateEnd, FirstRun, LastRun, FirstStop, LastStop, MinRun0, MinRun1);
-			HoursStay = getDiffMin(DateStart, DateEnd)  - HoursWork;
-			HoursSK = processDates(DateStart, DateEnd, FirstRunSK, LastRunSK, FirstStopSK, LastStopSK, MinSK0, MinSK1);
-			HoursGen = processDates(DateStart, DateEnd, FirstRunGen, LastRunGen, FirstStopGen, LastStopGen, MinGen0, MinGen1);			
+			HoursWork = processDates(DateStart, DateEnd, FirstRun, LastRun, FirstStop, LastStop, MinRun0, MinRun1, IsPrevRunned);
+			/*HoursStay = getDiffMin(DateStart, DateEnd)  - HoursWork;
+			HoursSK = processDates(DateStart, DateEnd, FirstRunSK, LastRunSK, FirstStopSK, LastStopSK, MinSK0, MinSK1,IsPrevRunnedSK);
+			HoursGen = processDates(DateStart, DateEnd, FirstRunGen, LastRunGen, FirstStopGen, LastStopGen, MinGen0, MinGen1,IsPrevRunnedGen);		*/
 		}
 
 		protected string getStrHours(double hours) {
-			return String.Format("{0}:{1}", (int)(hours / 60), (int)(hours % 60)); 
+			return String.Format("{0}:{1}", (int)(hours / 60), (int)(hours % 60));
 		}
 
 		public string HoursWorkStr {
@@ -128,22 +157,21 @@ namespace VotGES.Piramida.Report
 		public PuskStopReport(DateTime DateStart, DateTime DateEnd) {
 			this.DateEnd = DateEnd;
 			this.DateStart = DateStart;
-			
+
 		}
-		
+
 		public void ReadData() {
-			this.Data=new SortedList<int,PuskStopRecord>();
-			for (int ga=1;ga<=10;ga++){
+			this.Data = new SortedList<int, PuskStopRecord>();
+			for (int ga=1; ga <= 10; ga++) {
 				PuskStopRecord rec=new PuskStopRecord();
-				rec.GA=ga;
-				Data.Add(ga,rec);
+				rec.GA = ga;
+				Data.Add(ga, rec);
 			}
 			SumRecord = new PuskStopRecord();
-					
 
-			SqlConnection con=null;			
-			try {				
-				string sel=String.Format("SELECT item, Value0, COUNT(VALUE0), sum(value1), min(data_date), max(data_date) FROM DATA WHERE Parnumber=13 and object=30 and objtype=2 and item>=1 and item<=30 and data_date>=@dateStart and data_date<=@dateEnd group by item, value0");
+			SqlConnection con=null;
+			try {
+				string sel=String.Format("SELECT item, value0, count(Value0), sum(value1), min(data_date), max(data_date) FROM DATA WHERE Parnumber=13 and object=30 and objtype=2 and item>=1 and item<=30 and data_date>=@dateStart and data_date<=@dateEnd group by item, value0");
 				con = PiramidaAccess.getConnection("PSV");
 				con.Open();
 				SqlCommand command=con.CreateCommand();
@@ -160,10 +188,11 @@ namespace VotGES.Piramida.Report
 					double hours=Convert.ToDouble(reader[3]);
 					DateTime minDate=Convert.ToDateTime(reader[4]);
 					DateTime maxDate=Convert.ToDateTime(reader[5]);
-										
+
+
 					int ga=item % 10;
 					ga = ga == 0 ? 10 : ga;
-					
+
 					if (item <= 10) {
 						if (value0 == 1) {
 							Data[ga].CountPusk = cnt;
@@ -177,7 +206,7 @@ namespace VotGES.Piramida.Report
 							Data[ga].FirstStop = minDate;
 							Data[ga].LastStop = maxDate;
 						}
-					}else	if (item <= 20) {
+					} else if (item <= 20) {
 						if (value0 == 1) {
 							Data[ga].CountPuskSK = cnt;
 							Data[ga].MinSK1 = hours;
@@ -189,17 +218,17 @@ namespace VotGES.Piramida.Report
 							Data[ga].FirstStopSK = minDate;
 							Data[ga].LastStopSK = maxDate;
 						}
-					}else	if (item <= 30) {
+					} else if (item <= 30) {
 						if (value0 == 1) {
 							Data[ga].CountPuskGen = cnt;
 							Data[ga].MinGen1 = hours;
 							Data[ga].FirstRunGen = minDate;
-							Data[ga].LastRunGen = maxDate;							
+							Data[ga].LastRunGen = maxDate;
 						}
 						if (value0 == 0) {
 							Data[ga].MinGen0 = hours;
 							Data[ga].FirstStopGen = minDate;
-							Data[ga].LastStopGen = maxDate;	
+							Data[ga].LastStopGen = maxDate;
 						}
 					}
 				}
@@ -208,14 +237,54 @@ namespace VotGES.Piramida.Report
 				Logger.Error(e.ToString());
 			} finally { try { con.Close(); } catch { } }
 
+			string selFrmt="SELECT top 1 max(data_date), item, value0 FROM DATA WHERE Parnumber=13 and object=30 and objtype=2 and item={0} and Value0 in (0,1) and data_date<@dateStart group by item, value0";
+			List<string>selPrev=new List<string>();
+			for (int ga=1; ga <= 10; ga++) {
+				selPrev.Add(String.Format(selFrmt, ga));
+				if (ga <= 2 || ga >= 9) {
+					selPrev.Add(String.Format(selFrmt, ga + 10));
+					selPrev.Add(String.Format(selFrmt, ga + 20));
+				}
+			}
 
-			double FullMinutes=(DateEnd.Ticks - DateStart.Ticks) / (10000000.0 * 60.0);
+			try {
+				string sel=String.Join("\nUNION ALL\n", selPrev);
+				con = PiramidaAccess.getConnection("PSV");
+				con.Open();
+				SqlCommand command=con.CreateCommand();
+				command.CommandText = sel;
+				//Logger.Info(sel);
+				command.Parameters.AddWithValue("@dateStart", DateStart);
+
+				SqlDataReader reader=command.ExecuteReader();
+				while (reader.Read()) {
+					DateTime date=Convert.ToDateTime(reader[0]);
+					int item=Convert.ToInt32(reader[1]);
+					int value0=Convert.ToInt32(reader[2]);
+
+					int ga=item % 10;
+					ga = ga == 0 ? 10 : ga;
+
+					if (item <= 10) {
+						Data[ga].IsPrevRunned = (value0 == 1);
+					} else if (item <= 20) {
+						Data[ga].IsPrevRunnedSK = (value0 == 1);
+					} else if (item <= 30) {
+						Data[ga].IsPrevRunnedGen = (value0 == 1);
+					}
+				}
+			} catch (Exception e) {
+				Logger.Error("Ошибка при получении пусков-остановов");
+				Logger.Error(e.ToString());
+			} finally { try { con.Close(); } catch { } }
+
+
 			for (int ga=1; ga <= 10; ga++) {
 				SumRecord.CountPusk += Data[ga].CountPusk;
 				SumRecord.CountStop += Data[ga].CountStop;
 				SumRecord.CountPuskSK += Data[ga].CountPuskSK;
 				SumRecord.CountPuskGen += Data[ga].CountPuskGen;
-				Data[ga].ProcessData(DateStart,DateEnd);
+				Data[ga].ProcessData(DateStart, DateEnd);
 			}
 
 		}
