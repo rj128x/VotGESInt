@@ -40,6 +40,10 @@ namespace VotGES.Piramida.Report
 		public DateTime LastRunSK { get; set; }
 		public DateTime LastStopSK { get; set; }
 
+		public DateTime LastDate { get; set; }
+		public DateTime LastDateSK { get; set; }
+		public DateTime LastDateGen { get; set; }
+
 
 		public bool? IsPrevRunned { get; set; }
 		public bool? IsPrevRunnedGen { get; set; }
@@ -69,9 +73,9 @@ namespace VotGES.Piramida.Report
 			return res;
 		}
 
-		protected double processDates(DateTime DateStart, DateTime DateEnd, DateTime firstRun, DateTime lastRun, DateTime firstStop, DateTime lastStop, double min0, double min1, bool? isPrevRunned) {
-			Logger.Info(String.Format("firstRun={0}  lastRun={1}  firstStop={2}  lastStop={3}   min0={4}   min1={5}  isPrevRun={6}",
-				firstRun, lastRun, firstStop, lastStop, min0, min1, isPrevRunned));
+		protected double processDates(DateTime DateStart, DateTime DateEnd, DateTime firstRun, DateTime lastRun, DateTime firstStop, DateTime lastStop, double min0, double min1, bool? isPrevRunned, DateTime lastDate) {
+			/*Logger.Info(String.Format("firstRun={0}  lastRun={1}  firstStop={2}  lastStop={3}   min0={4}   min1={5}  isPrevRun={6}",
+				firstRun, lastRun, firstStop, lastStop, min0, min1, isPrevRunned));*/
 			double result=0;
 			double wrk=min0;
 			double stp=min1;
@@ -85,7 +89,7 @@ namespace VotGES.Piramida.Report
 			Logger.Info(String.Format("firstRun={0}  lastRun={1}  firstStop={2}  lastStop={3}   min0={4}   min1={5}  isPrevRun={6}",
 				firstRun, lastRun, firstStop, lastStop, min0, min1, isPrevRunned));
 
-			if (firstRun.Equals(DateStart) && lastRun.Equals(DateEnd) && firstStop.Equals(DateStart) && lastStop.Equals(DateEnd)) {
+			if (min1==0 && min0==0) {
 				result = 0;
 				if (isPrevRunned.HasValue && isPrevRunned.Value) {
 					result = getDiffMin(DateStart, DateEnd);
@@ -106,7 +110,7 @@ namespace VotGES.Piramida.Report
 				}
 			} else {
 				if (isPrevRunned.Value && firstStop<firstRun) {
-					result += getDiffMin(DateStart, firstStop);
+					result -= getDiffMin(lastDate,DateStart);
 				} 
 			}
 
@@ -119,10 +123,10 @@ namespace VotGES.Piramida.Report
 
 
 		public void ProcessData(DateTime DateStart, DateTime DateEnd) {
-			HoursWork = processDates(DateStart, DateEnd, FirstRun, LastRun, FirstStop, LastStop, MinRun0, MinRun1, IsPrevRunned);
-			/*HoursStay = getDiffMin(DateStart, DateEnd)  - HoursWork;
-			HoursSK = processDates(DateStart, DateEnd, FirstRunSK, LastRunSK, FirstStopSK, LastStopSK, MinSK0, MinSK1,IsPrevRunnedSK);
-			HoursGen = processDates(DateStart, DateEnd, FirstRunGen, LastRunGen, FirstStopGen, LastStopGen, MinGen0, MinGen1,IsPrevRunnedGen);		*/
+			HoursWork = processDates(DateStart, DateEnd, FirstRun, LastRun, FirstStop, LastStop, MinRun0, MinRun1, IsPrevRunned,LastDate);
+			HoursStay = getDiffMin(DateStart, DateEnd)  - HoursWork;
+			HoursSK = processDates(DateStart, DateEnd, FirstRunSK, LastRunSK, FirstStopSK, LastStopSK, MinSK0, MinSK1,IsPrevRunnedSK,LastDateSK);
+			HoursGen = processDates(DateStart, DateEnd, FirstRunGen, LastRunGen, FirstStopGen, LastStopGen, MinGen0, MinGen1,IsPrevRunnedGen,LastDateGen);		
 		}
 
 		protected string getStrHours(double hours) {
@@ -175,7 +179,7 @@ namespace VotGES.Piramida.Report
 				con.Open();
 				SqlCommand command=con.CreateCommand();
 				command.CommandText = sel;
-				Logger.Info(sel);
+				//Logger.Info(sel);
 				command.Parameters.AddWithValue("@dateStart", DateStart);
 				command.Parameters.AddWithValue("@dateEnd", DateEnd);
 
@@ -265,11 +269,14 @@ namespace VotGES.Piramida.Report
 					ga = ga == 0 ? 10 : ga;
 
 					if (item <= 10) {
-						Data[ga].IsPrevRunned = (value0 == 1);						
+						Data[ga].IsPrevRunned = (value0 == 1);
+						Data[ga].LastDate = date;
 					} else if (item <= 20) {
 						Data[ga].IsPrevRunnedSK = (value0 == 1);
+						Data[ga].LastDateSK = date;
 					} else if (item <= 30) {
 						Data[ga].IsPrevRunnedGen = (value0 == 1);
+						Data[ga].LastDateGen = date;
 					}
 
 				}
