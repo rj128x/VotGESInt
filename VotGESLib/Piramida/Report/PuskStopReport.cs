@@ -85,9 +85,6 @@ namespace VotGES.Piramida.Report
 			firstRun = firstRun.Equals(DateTime.MinValue) ? DateStart : firstRun;
 			firstStop = firstStop.Equals(DateTime.MinValue) ? DateStart : firstStop;
 
-			
-			Logger.Info(String.Format("firstRun={0}  lastRun={1}  firstStop={2}  lastStop={3}   min0={4}   min1={5}  isPrevRun={6}",
-				firstRun, lastRun, firstStop, lastStop, min0, min1, isPrevRunned));
 
 			if (min1==0 && min0==0) {
 				result = 0;
@@ -240,7 +237,7 @@ namespace VotGES.Piramida.Report
 				Logger.Error(e.ToString());
 			} finally { try { con.Close(); } catch { } }
 
-			string selFrmt="SELECT top 1 data_date, item, value0 FROM DATA WHERE Parnumber=13 and object=30 and objtype=2 and item={0} and Value0 in (0,1) and data_date<@dateStart order by data_date desc";
+			string selFrmt="SELECT top 1 data_date, item, value0 FROM DATA WHERE Parnumber=13 and object=30 and objtype=2 and item={0} and Value0 in (0,1) and data_date=(Select top 1 data_date where data_date<@dateStart and Parnumber=13 and object=30 and objtype=2 and item={0} order by data_date desc)";
 			List<string>selPrev=new List<string>();
 			for (int ga=1; ga <= 10; ga++) {
 				selPrev.Add(String.Format(selFrmt, ga));
