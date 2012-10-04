@@ -122,6 +122,7 @@ namespace VotGES.Piramida.Report
 		public void ProcessData(DateTime DateStart, DateTime DateEnd) {
 			HoursWork = processDates(DateStart, DateEnd, FirstRun, LastRun, FirstStop, LastStop, MinRun0, MinRun1, IsPrevRunned,LastDate);
 			HoursStay = getDiffMin(DateStart, DateEnd)  - HoursWork;
+			//HoursStay = processDates(DateStart, DateEnd, FirstStop, LastStop, FirstRun, LastRun, MinRun1, MinRun0, !IsPrevRunned, LastDate);
 			HoursSK = processDates(DateStart, DateEnd, FirstRunSK, LastRunSK, FirstStopSK, LastStopSK, MinSK0, MinSK1,IsPrevRunnedSK,LastDateSK);
 			HoursGen = processDates(DateStart, DateEnd, FirstRunGen, LastRunGen, FirstStopGen, LastStopGen, MinGen0, MinGen1,IsPrevRunnedGen,LastDateGen);		
 		}
