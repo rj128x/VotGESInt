@@ -85,15 +85,15 @@
 		<tr>
 			<th rowspan='2'>Дата</th>
 			<%for (int ga=1;ga<=10;ga++){ %>
-				<th colspan='<%=((ga<=2 || ga>=9)?1:3)%>'>
-					Генератор №<%=ga %>
+				<th colspan='<%=((ga<=2 || ga>=9)?3:1)%>'>
+					Г/г №<%=ga %>
 				</th>
 			<%} %>
 		</tr>		
 
 		<tr>
 			<%for (int ga=1; ga <= 10; ga++) { %>
-				<th>Работа</th>				
+				<th>Раб</th>				
 				<%if (ga <= 2 || ga >= 9) { %>
 					<th>ГР</th>
 					<th>СК</th>

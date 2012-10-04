@@ -31,13 +31,14 @@ namespace VotGES.Piramida.Report
 
 		public static string getValue(bool? valStart, bool? valStop, string strStart, string strStop, string strNone) {
 			string str=strNone;
-			if (!valStart.HasValue && !valStart.HasValue) {
+			if (!valStart.HasValue && !valStop.HasValue) {
 				return str;
 			}
-			if (valStart.Value) {
+			if (valStart.HasValue && valStart.Value) {
 				str = strStart;
-			} if (valStart.Value) {
-				str = strNone;
+			}
+			if (valStop.HasValue && valStop.Value) {
+				str = strStop;
 			}
 			return str;
 		}
@@ -120,17 +121,17 @@ namespace VotGES.Piramida.Report
 						}
 					} else if (item <= 20) {
 						if (value0 == 1) {
-							PuskStopEvent.AddData(Data, date, ga, PuskStopState.startGR);
-						}
-						if (value0 == 0) {
-							PuskStopEvent.AddData(Data, date, ga, PuskStopState.stopGR);
-						}
-					} else if (item <= 30) {
-						if (value0 == 1) {
 							PuskStopEvent.AddData(Data, date, ga, PuskStopState.startSK);
 						}
 						if (value0 == 0) {
 							PuskStopEvent.AddData(Data, date, ga, PuskStopState.stopSK);
+						}
+					} else if (item <= 30) {
+						if (value0 == 1) {
+							PuskStopEvent.AddData(Data, date, ga, PuskStopState.startGR);
+						}
+						if (value0 == 0) {
+							PuskStopEvent.AddData(Data, date, ga, PuskStopState.stopGR);
 						}
 					}
 				}
