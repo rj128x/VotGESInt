@@ -54,7 +54,7 @@
 		}
 		
 		table.cifr td{	
-			text-align: right;
+			text-align: center;
 			white-space: nowrap;
 			padding-left: 1px;
 			padding-right: 1px;
@@ -67,16 +67,28 @@
 			padding-right: 1px;
 			white-space: nowrap;
 		}
-		
-		
-		table.cifr
-		{
-			margin-top:2px;
-		}
+				
 
-		table td.right,table th.right{
-			text-align: right;
-		}	
+		td.lb
+		{
+			border-left-width:medium;
+		}
+		
+		td.rb
+		{			
+			border-right-width:medium;
+		}
+		
+		td.runned
+		{			
+			background-color:Green;
+		}
+		
+		td.stopped
+		{
+			background-color:Red;
+		}
+		
 	 </style>
 </head>
 <body>
@@ -85,7 +97,7 @@
 		<tr>
 			<th rowspan='2'>Дата</th>
 			<%for (int ga=1;ga<=10;ga++){ %>
-				<th colspan='<%=((ga<=2 || ga>=9)?3:1)%>'>
+				<th class='lb rb' colspan='<%=((ga<=2 || ga>=9)?3:1)%>'>
 					Г/г №<%=ga %>
 				</th>
 			<%} %>
@@ -93,21 +105,21 @@
 
 		<tr>
 			<%for (int ga=1; ga <= 10; ga++) { %>
-				<th>Раб</th>				
+				<th class='lb'>Раб</th>				
 				<%if (ga <= 2 || ga >= 9) { %>
 					<th>ГР</th>
-					<th>СК</th>
+					<th class='rb'>СК</th>
 			<%}
 			} %>
 		</tr>	
 		<%foreach (PuskStopEvent ev in Model.Data.Values) { %>
 			<tr>
-				<th><%=ev.Date.ToString("dd.MM.yyyy HH:mm:ss") %></th>
+				<th class='lb rb'><%=ev.Date.ToString("dd.MM.yyyy HH:mm:ss") %></th>
 				<%for (int ga=1; ga <= 10; ga++) { %>
-				<td><%=PuskStopEvent.getValue(ev.Data[ga].Start, ev.Data[ga].Stop, "Пуск", "Стоп", "-") %></td>				
+				<td class='lb <%=ev.Data[ga].Runned?"runned":"stopped"%>'><%=PuskStopEvent.getValue(ev.Data[ga].Start, ev.Data[ga].Stop, "Пуск", "Стоп", "&nbsp;") %></td>				
 				<%if (ga <= 2 || ga >= 9) { %>
-					<td><%=PuskStopEvent.getValue(ev.Data[ga].StartGR, ev.Data[ga].StopGR, "Пуск", "Стоп", "-") %></td>
-					<td><%=PuskStopEvent.getValue(ev.Data[ga].StartSK, ev.Data[ga].StopSK, "Пуск", "Стоп", "-") %></td>
+					<td class='<%=ev.Data[ga].RunnedGR?"runned":"stopped"%>'><%=PuskStopEvent.getValue(ev.Data[ga].StartGR, ev.Data[ga].StopGR, "Пуск", "Стоп", "&nbsp;")%></td>
+					<td class='rb <%=ev.Data[ga].RunnedSK?"runned":"stopped"%>'><%=PuskStopEvent.getValue(ev.Data[ga].StartSK, ev.Data[ga].StopSK, "Пуск", "Стоп", "&nbsp;")%></td>
 				<%}
 				} %>
 			</tr>

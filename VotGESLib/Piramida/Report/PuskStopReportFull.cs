@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 namespace VotGES.Piramida.Report
 {
 	public enum PuskStopState { start, stop, startGR, stopGR, startSK, stopSK }
-	
+
 	public class PuskStopEvent
 	{
 		public class EventGA
@@ -19,13 +19,15 @@ namespace VotGES.Piramida.Report
 			public bool? StopGR { get; set; }
 			public bool? StartSK { get; set; }
 			public bool? StopSK { get; set; }
+			public bool Runned { get; set; }
+			public bool RunnedSK { get; set; }
+			public bool RunnedGR { get; set; }
 
-			
 		}
 		public DateTime Date { get; set; }
 		public SortedList<int,EventGA> Data;
 
-		public PuskStopEvent() {			
+		public PuskStopEvent() {
 			Data = new SortedList<int, EventGA>();
 		}
 
@@ -43,40 +45,7 @@ namespace VotGES.Piramida.Report
 			return str;
 		}
 
-		public static void AddData(SortedList<DateTime,PuskStopEvent> DataArray,DateTime date, int ga, PuskStopState state){
-			PuskStopEvent ev;
-			if (!DataArray.ContainsKey(date)){
-				ev=new PuskStopEvent();
-				ev.Date = date;
-				for (int g=1;g<=10;g++){
-					EventGA evGA=new EventGA();
-					evGA.GA = g;
-					ev.Data.Add(g,evGA);
-				}
-				DataArray.Add(date,ev);
-			}
-			ev=DataArray[date];
-			switch (state) {
-				case PuskStopState.start:
-					ev.Data[ga].Start = true;
-					break;
-				case PuskStopState.stop:
-					ev.Data[ga].Stop = true;
-					break;
-				case PuskStopState.startGR:
-					ev.Data[ga].StartGR = true;
-					break;
-				case PuskStopState.stopGR:
-					ev.Data[ga].StopGR = true;
-					break;
-				case PuskStopState.startSK:
-					ev.Data[ga].StartSK = true;
-					break;
-				case PuskStopState.stopSK:
-					ev.Data[ga].StopSK = true;
-					break;
-			}
-		}
+
 	}
 
 	public class PuskStopReportFull
@@ -88,7 +57,7 @@ namespace VotGES.Piramida.Report
 		public PuskStopReportFull(DateTime DateStart, DateTime DateEnd) {
 			this.DateEnd = DateEnd;
 			this.DateStart = DateStart;
-			
+
 		}
 
 		public void ReadData() {
@@ -114,31 +83,149 @@ namespace VotGES.Piramida.Report
 
 					if (item <= 10) {
 						if (value0 == 1) {
-							PuskStopEvent.AddData(Data, date, ga, PuskStopState.start);
+							AddData(date, ga, PuskStopState.start);
 						}
 						if (value0 == 0) {
-							PuskStopEvent.AddData(Data, date, ga, PuskStopState.stop);
+							AddData(date, ga, PuskStopState.stop);
 						}
 					} else if (item <= 20) {
 						if (value0 == 1) {
-							PuskStopEvent.AddData(Data, date, ga, PuskStopState.startSK);
+							AddData(date, ga, PuskStopState.startSK);
 						}
 						if (value0 == 0) {
-							PuskStopEvent.AddData(Data, date, ga, PuskStopState.stopSK);
+							AddData(date, ga, PuskStopState.stopSK);
 						}
 					} else if (item <= 30) {
 						if (value0 == 1) {
-							PuskStopEvent.AddData(Data, date, ga, PuskStopState.startGR);
+							AddData(date, ga, PuskStopState.startGR);
 						}
 						if (value0 == 0) {
-							PuskStopEvent.AddData(Data, date, ga, PuskStopState.stopGR);
+							AddData(date, ga, PuskStopState.stopGR);
 						}
 					}
 				}
+				ProcessData();
 			} catch (Exception e) {
 				Logger.Error("Ошибка при получении пусков-остановов (подробно)");
 				Logger.Error(e.ToString());
 			} finally { try { con.Close(); } catch { } }
 		}
+
+		protected void AddData(DateTime date, int ga, PuskStopState state) {
+			PuskStopEvent ev;
+			if (!Data.ContainsKey(date)) {
+				ev = new PuskStopEvent();
+				ev.Date = date;
+				for (int g=1; g <= 10; g++) {
+					PuskStopEvent.EventGA evGA=new PuskStopEvent.EventGA();
+					evGA.GA = g;
+					ev.Data.Add(g, evGA);
+				}
+				Data.Add(date, ev);
+			}
+			ev = Data[date];
+			switch (state) {
+				case PuskStopState.start:
+					ev.Data[ga].Start = true;
+					break;
+				case PuskStopState.stop:
+					ev.Data[ga].Stop = true;
+					break;
+				case PuskStopState.startGR:
+					ev.Data[ga].StartGR = true;
+					break;
+				case PuskStopState.stopGR:
+					ev.Data[ga].StopGR = true;
+					break;
+				case PuskStopState.startSK:
+					ev.Data[ga].StartSK = true;
+					break;
+				case PuskStopState.stopSK:
+					ev.Data[ga].StopSK = true;
+					break;
+			}
+		}
+
+		protected void ProcessData() {
+			for (int ga=1; ga <= 10; ga++) {
+				DateTime prevDate=DateTime.MinValue;
+				List<DateTime>prevDates=new List<DateTime>();
+				bool isFirst=true;
+				foreach (DateTime date in Data.Keys) {
+					PuskStopEvent.EventGA ev=Data[date].Data[ga];
+					if (ev.Start.HasValue || ev.Stop.HasValue) {
+						ev.Runned = ev.Start.HasValue && ev.Start.Value;
+						if (isFirst) {
+							foreach (DateTime dt in prevDates) {
+								Data[dt].Data[ga].Runned = !ev.Runned;
+							}
+						}
+						isFirst = false;
+					} else {
+						if (!isFirst) {
+							if (prevDate > DateTime.MinValue) {
+								ev.Runned = Data[prevDate].Data[ga].Runned;
+							}
+						} else {
+							prevDates.Add(date);
+						}
+					}
+					prevDate = date;
+				}
+
+				if (ga <= 2 || ga >= 9) {
+					prevDate = DateTime.MinValue;
+					prevDates = new List<DateTime>();
+					isFirst = true;
+					foreach (DateTime date in Data.Keys) {
+						PuskStopEvent.EventGA ev=Data[date].Data[ga];
+						if (ev.StartGR.HasValue || ev.StopGR.HasValue) {
+							ev.RunnedGR = ev.StartGR.HasValue && ev.StartGR.Value;
+							if (isFirst) {
+								foreach (DateTime dt in prevDates) {
+									Data[dt].Data[ga].RunnedGR = !ev.RunnedGR;
+								}
+							}
+							isFirst = false;
+						} else {
+							if (!isFirst) {
+								if (prevDate > DateTime.MinValue) {
+									ev.RunnedGR = Data[prevDate].Data[ga].RunnedGR;
+								}
+							} else {
+								prevDates.Add(date);
+							}
+						}
+						prevDate = date;
+					}
+
+					prevDate = DateTime.MinValue;
+					prevDates = new List<DateTime>();
+					isFirst = true;
+					foreach (DateTime date in Data.Keys) {
+						PuskStopEvent.EventGA ev=Data[date].Data[ga];
+						if (ev.StartSK.HasValue || ev.StopSK.HasValue) {
+							ev.RunnedSK = ev.StartSK.HasValue && ev.StartSK.Value;
+							if (isFirst) {
+								foreach (DateTime dt in prevDates) {
+									Data[dt].Data[ga].RunnedSK = !ev.RunnedSK;
+								}
+							}
+							isFirst = false;
+						} else {
+							if (!isFirst) {
+								if (prevDate > DateTime.MinValue) {
+									ev.RunnedSK = Data[prevDate].Data[ga].RunnedSK;
+								}
+							} else {
+								prevDates.Add(date);
+							}
+						}
+						prevDate = date;
+					}
+				}
+			}
+		}
+
 	}
 }
