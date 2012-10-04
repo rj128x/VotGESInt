@@ -181,7 +181,7 @@ namespace ClearDB
 				}
 				double napor=data[itemNapor];
 				double p=dataPFull[itemP];
-				p = p > 100000 ? p : 100000;
+				p = p > 100000 ? 100000 : p;
 				double q=RashodTable.getRashod(ga, p / 1000, napor);
 				if (data[itemQ] <= 0) {
 					data[itemQ] = q;
