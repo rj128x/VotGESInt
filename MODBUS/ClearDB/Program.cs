@@ -37,14 +37,14 @@ namespace ClearDB
 		static void Main(string[] args) {
 			DBSettings.init();
 			Logger.InitFileLogger("c:\\clearDB", "clear");
-			DateTime dateStart=new DateTime(2012, 1, 1);
-			DateTime dateEnd=new DateTime(2012, 9, 1);
+			DateTime dateStart=new DateTime(2012, 9, 1);
+			DateTime dateEnd=new DateTime(2012, 10, 1);
 
 			DateTime date=dateStart.AddMinutes(0);
 			while (date <= dateEnd) {
 				//Clear(date, date.AddHours(24));
-				//CalcOptim(date, date.AddHours(24));
-				rewriteWater(date, date.AddHours(24));
+				CalcOptim(date, date.AddHours(24));
+				//rewriteWater(date, date.AddHours(24));
 				date = date.AddHours(24);
 			}
 		}
