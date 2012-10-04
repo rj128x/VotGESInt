@@ -88,7 +88,6 @@ namespace VotGES.Piramida.Report
 
 
 			if (min1==0 && min0==0) {
-				//Logger.Info("No data");
 				result = 0;
 				if (isPrevRunned.HasValue && isPrevRunned.Value) {
 					result = getDiffMin(DateStart, DateEnd);
@@ -99,26 +98,16 @@ namespace VotGES.Piramida.Report
 			}
 
 			result = wrk;
-			if (lastRun > lastStop) {
+			if (lastRun > lastStop || (lastRun.Equals(firstRun) && min1 > 0 && min0 == 0)) {
 				result += getDiffMin(lastRun, DateEnd);
-				//Logger.Info("lastRun > lastStop");
-				//Logger.Info(result.ToString());
 			}
 						
-			if (!isPrevRunned.HasValue) {
-				if (firstStop < firstRun) {
-					result += getDiffMin(DateStart, firstStop);
-					//Logger.Info("firstStop < firstRun");
-					//Logger.Info(result.ToString());
-				}
-			} else {
-				if (isPrevRunned.Value && firstStop<firstRun) {
-					//Logger.Info("firstStop < firstRun");
+			if (isPrevRunned.HasValue) {
+				if (isPrevRunned.Value && (firstStop < firstRun || (firstStop.Equals(lastStop) && min0 > 0 && min1 == 0))) {
 					result -= getDiffMin(lastDate,DateStart);
 				} 
-			}
-
-
+			} 
+			
 			//Logger.Info(result.ToString());
 			result=result>getDiffMin(DateStart,DateEnd)?getDiffMin(DateStart,DateEnd):result;
 			result = result < 0 ? 0 : result;
