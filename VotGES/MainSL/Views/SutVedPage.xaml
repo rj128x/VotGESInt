@@ -32,6 +32,7 @@
 					<usr:ReportSettingsOnlyDatesControl x:Name="SettingsControl" 
 														IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 					<Button Name="btnGetPuskStop" Content="Получить пуски/остановы" Click="btnGetPuskStop_Click"/>
+					<Button Name="btnGetPuskStopFull" Content="Получить пуски/остановы (подробно)" Click="btnGetPuskStopFull_Click"/>
 				</StackPanel>
 			</Grid>
 		</StackPanel>
