@@ -26,6 +26,7 @@ namespace ClearDB
 		public double Q_OPT_GES { get; set; }
 
 		public void calc() {
+			Napor = Napor > 23 ? 23 : Napor;			
 			Q_OPT_GTP1 = RUSA.getOptimRashod(P_GTP1 / 1000, Napor, true, null, gtp1);
 			Q_OPT_GTP2 = RUSA.getOptimRashod(P_GTP2 / 1000, Napor, true, null, gtp2);
 			Q_OPT_GES = RUSA.getOptimRashod(P_GES / 1000, Napor, true, null, ges);
@@ -180,12 +181,13 @@ namespace ClearDB
 				}
 				double napor=data[itemNapor];
 				double p=dataPFull[itemP];
+				p = p > 100000 ? p : 100000;
 				double q=RashodTable.getRashod(ga, p / 1000, napor);
 				if (data[itemQ] <= 0) {
 					data[itemQ] = q;
 				}
 				try {
-					if ((data[itemQ] / q >= 2) || (q / data[itemQ] >= 2)) {
+					if ((data[itemQ] / q >= 1.2) || (q / data[itemQ] >= 1.2)) {
 						data[itemQ] = q;
 					}
 				} catch { }
@@ -296,7 +298,7 @@ namespace ClearDB
 						rec.Value[354] = q;
 					}
 					try {
-						if (rec.Value[354] / q > 2 || q / rec.Value[354] > 2) {
+						if (Math.Abs(rec.Value[354] - q )>10) {
 							rec.Value[354] = q;
 						}
 					} catch { }
