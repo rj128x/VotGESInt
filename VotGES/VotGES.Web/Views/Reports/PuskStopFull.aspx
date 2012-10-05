@@ -69,24 +69,26 @@
 		}
 				
 
-		td.lb
+		td.lb,th.lb
 		{
 			border-left-width:medium;
+			border-left-color:#473C8B;
 		}
 		
-		td.rb
+		td.rb,th.rb
 		{			
 			border-right-width:medium;
+			border-right-color:#473C8B;
 		}
 		
 		td.runned
 		{			
-			background-color:Green;
+			background-color:#43CD80;
 		}
 		
 		td.stopped
 		{
-			background-color:Red;
+			background-color:#FF7F50;
 		}
 		
 	 </style>
@@ -95,7 +97,7 @@
 	<h1>Работа генераторов с <%=Model.DateStart.ToString("dd.MM.yyyy HH:mm") %> по <%=Model.DateEnd.ToString("dd.MM.yyyy HH:mm") %></h1>
     <table class='cifr'>
 		<tr>
-			<th rowspan='2'>Дата</th>
+			<th class='lb rb' rowspan='2'>Дата</th>
 			<%for (int ga=1;ga<=10;ga++){ %>
 				<th class='lb rb' colspan='<%=((ga<=2 || ga>=9)?3:1)%>'>
 					Г/г №<%=ga %>
