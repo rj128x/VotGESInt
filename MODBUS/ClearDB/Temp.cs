@@ -13,7 +13,7 @@ namespace ClearDB
 	{
 		public static void WriteTemp(DateTime dateStart, DateTime dateEnd) {
 			Logger.Info(String.Format("{0} - {1}", dateStart, dateEnd));
-			FullReport report=new FullReport(dateStart, dateEnd, IntervalReportEnum.day);
+			FullReport report=new FullReport(dateStart.Date, dateEnd.Date, IntervalReportEnum.day);
 			List<string> need=new List<string>();
 			need.Add(PiramidaRecords.Water_Temp.Key);
 			report.InitNeedData(need);
