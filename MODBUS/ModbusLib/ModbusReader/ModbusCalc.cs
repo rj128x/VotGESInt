@@ -11,12 +11,12 @@ namespace ModbusLib
 	public class ModbusCalc
 	{
 		#region InitClass
-		
+
 		public SortedList<string, double> Data { get; set; }
 		public SortedList<string, double> ResultData { get; set; }
 		public ModbusInitDataArray InitCalc { get; set; }
 
-		public  ModbusCalc() {
+		public ModbusCalc() {
 			ResultData = new SortedList<string, double>();
 		}
 
@@ -24,7 +24,7 @@ namespace ModbusLib
 			double val=Double.NaN;
 			try {
 				MethodInfo mi = typeof(ModbusCalc).GetMethod(name, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-				val=(double)mi.Invoke(this, new object[] { });				
+				val = (double)mi.Invoke(this, new object[] { });
 			} catch (Exception e) {
 				if (!e.ToString().Contains("FlagError")) {
 					Logger.Error("Ошибка при расчете метода " + name);
@@ -33,7 +33,7 @@ namespace ModbusLib
 				val = Double.NaN;
 			}
 			Data[InitCalc.ID + "_" + data.ID] = val;
-			ResultData.Add(data.ID,val);
+			ResultData.Add(data.ID, val);
 		}
 
 		public void Init(SortedList<string, double> Data) {
@@ -54,7 +54,7 @@ namespace ModbusLib
 
 		#region P
 		public double P_GTP1() {
-			return this["MB_216"] + this["MB_266"];			
+			return this["MB_216"] + this["MB_266"];
 		}
 
 		public double P_GTP2() {
@@ -62,7 +62,7 @@ namespace ModbusLib
 		}
 
 		public double P_GES() {
-			return this["MB_216"] + this["MB_266"]+this["MB_316"] + this["MB_366"] + this["MB_416"] + this["MB_466"] + this["MB_516"] + this["MB_566"] + this["MB_616"] + this["MB_666"];
+			return this["MB_216"] + this["MB_266"] + this["MB_316"] + this["MB_366"] + this["MB_416"] + this["MB_466"] + this["MB_516"] + this["MB_566"] + this["MB_616"] + this["MB_666"];
 		}
 		#endregion
 
@@ -97,11 +97,11 @@ namespace ModbusLib
 		#endregion
 
 		public double GA1_Gen() { return this["MB_216"] > 0 ? 1 : 0; }
-		public double GA1_SK() {return this["MB_216"] < 0 ? 1 : 0;}
+		public double GA1_SK() { return (this["MB_216"] < 0 && this["MBDiscr_g1_sk"] == 1) ? 1 : 0; }
 		public double GA1_Run() { return this["MB_216"] != 0 ? 1 : 0; }
 
 		public double GA2_Gen() { return this["MB_266"] > 0 ? 1 : 0; }
-		public double GA2_SK() { return this["MB_266"] < 0 ? 1 : 0; }
+		public double GA2_SK() { return (this["MB_266"] < 0 && this["MBDiscr_g2_sk"] == 1) ? 1 : 0; }
 		public double GA2_Run() { return this["MB_266"] != 0 ? 1 : 0; }
 
 		public double GA3_Run() { return this["MB_316"] != 0 ? 1 : 0; }
@@ -117,11 +117,11 @@ namespace ModbusLib
 		public double GA8_Run() { return this["MB_566"] != 0 ? 1 : 0; }
 
 		public double GA9_Gen() { return this["MB_616"] > 0 ? 1 : 0; }
-		public double GA9_SK() { return this["MB_616"] < 0 ? 1 : 0; }
+		public double GA9_SK() { return (this["MB_616"] < 0 && this["MBDiscr_g9_sk"] == 1) ? 1 : 0; }
 		public double GA9_Run() { return this["MB_616"] != 0 ? 1 : 0; }
 
 		public double GA10_Gen() { return this["MB_666"] > 0 ? 1 : 0; }
-		public double GA10_SK() { return this["MB_666"] < 0 ? 1 : 0; }
+		public double GA10_SK() { return (this["MB_666"] < 0 && this["MBDiscr_g10_sk"] == 1) ? 1 : 0; }
 		public double GA10_Run() { return this["MB_666"] != 0 ? 1 : 0; }
 
 	}

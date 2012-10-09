@@ -99,7 +99,7 @@ namespace ModbusLib
 			this.CountData = initArr.MaxAddr;
 			this.InitArr = initArr;
 			Data = new SortedList<string, double>(CountData);
-			StepData = InitArr.IsDiscrete ? (ushort)(50 * 8) : (ushort)50;
+			StepData = InitArr.IsDiscrete ? (ushort)(100 * 8) : (ushort)50;
 			server.OnResponse += new ResponseDataDelegeate(ModbusMaster_OnResponseData);
 			server.OnErrorConnect += new ErrorConnectDelegate(server_OnErrorConnect);
 			
@@ -166,7 +166,6 @@ namespace ModbusLib
 					if (!InitArr.IsDiscrete) {
 						Server.ModbusMasterCon.ReadInputRegister(StartAddr, StartAddr, (ushort)(StepData * 2));
 					} else {
-						Logger.Info(String.Format("read {0}: {1}, {2}", StartAddr, StartAddr, (ushort)(StepData / 8)));
 						Server.ModbusMasterCon.ReadDiscreteInputs(StartAddr, StartAddr, (ushort)(StepData / 8));
 					}
 					
@@ -186,9 +185,6 @@ namespace ModbusLib
 		}
 
 		void ModbusMaster_OnResponseData(ushort id, byte function, byte[] data) {
-			if (InitArr.IsDiscrete) {
-				Logger.Info(String.Format("finish read {0}: {1}, {2}", id, function, data.Length));
-			}
 			if (!IsError && StartAddr == id) {
 				FinishedPart[id] = true;
 				int[] word=null;
