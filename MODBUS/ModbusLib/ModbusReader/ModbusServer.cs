@@ -99,7 +99,7 @@ namespace ModbusLib
 			this.CountData = initArr.MaxAddr;
 			this.InitArr = initArr;
 			Data = new SortedList<string, double>(CountData);
-			StepData = 50;
+			StepData = InitArr.IsDiscrete ? (ushort)(50 * 8) : (ushort)50;
 			server.OnResponse += new ResponseDataDelegeate(ModbusMaster_OnResponseData);
 			server.OnErrorConnect += new ErrorConnectDelegate(server_OnErrorConnect);
 			
@@ -132,11 +132,20 @@ namespace ModbusLib
 
 			FinishedPart = new SortedList<int, bool>();
 			StartedPart = new SortedList<int, bool>();
-			int sa=0;
-			while (sa < CountData * 2) {
-				FinishedPart.Add(sa, false);
-				StartedPart.Add(sa, false);
-				sa += (ushort)(StepData * 2);
+			if (!InitArr.IsDiscrete) {
+				int sa=0;
+				while (sa < CountData * 2) {
+					FinishedPart.Add(sa, false);
+					StartedPart.Add(sa, false);
+					sa += (ushort)(StepData * 2);
+				}
+			} else {
+				int sa=0;
+				while (sa < CountData) {
+					FinishedPart.Add(sa, false);
+					StartedPart.Add(sa, false);
+					sa += (ushort)(StepData / 8);
+				}
 			}
 			Data.Clear();
 		}
@@ -154,7 +163,13 @@ namespace ModbusLib
 				if (StartedPart.Values.Contains(false)) {
 					StartAddr = (ushort)StartedPart.First((KeyValuePair<int, bool> de) => { return de.Value == false; }).Key;
 					StartedPart[StartAddr] = true;
-					Server.ModbusMasterCon.ReadInputRegister(StartAddr, StartAddr, (ushort)(StepData * 2));
+					if (!InitArr.IsDiscrete) {
+						Server.ModbusMasterCon.ReadInputRegister(StartAddr, StartAddr, (ushort)(StepData * 2));
+					} else {
+						Logger.Info(String.Format("read {0}: {1}, {2}", StartAddr, StartAddr, (ushort)(StepData / 8)));
+						Server.ModbusMasterCon.ReadDiscreteInputs(StartAddr, StartAddr, (ushort)(StepData / 8));
+					}
+					
 				} else if (FinishedPart.Values.Contains(false)) {
 					Logger.Error("Не все данные считаны");
 					error();
@@ -171,19 +186,40 @@ namespace ModbusLib
 		}
 
 		void ModbusMaster_OnResponseData(ushort id, byte function, byte[] data) {
+			if (InitArr.IsDiscrete) {
+				Logger.Info(String.Format("finish read {0}: {1}, {2}", id, function, data.Length));
+			}
 			if (!IsError && StartAddr == id) {
 				FinishedPart[id] = true;
+				int[] word=null;
 
-				int[] word=new int[data.Length / 2];
-				for (int i=0; i < data.Length; i = i + 2) {
-					//word[i / 2] = data[i] * 256 + data[i + 1];
-					byte w1=data[i];
-					byte w2=data[i + 1];
-					byte[] vals=new byte[] { w2, w1 };
-					int w=BitConverter.ToInt16(vals, 0);
-					word[i / 2] = w;
+				if (!InitArr.IsDiscrete) {
+					word = new int[data.Length / 2];
+					for (int i=0; i < data.Length; i = i + 2) {
+						byte w1=data[i];
+						byte w2=data[i + 1];
+						byte[] vals=new byte[] { w2, w1 };
+						int w=BitConverter.ToInt16(vals, 0);
+						word[i / 2] = w;
+					}
+				} else {
+					word = new int[data.Length * 8];
+					for (int i=0; i < data.Length; i = i+1) {
+						byte w=data[i];
+						string str=Convert.ToString(w, 2);
+						while (str.Length < 8) {
+							str = "0" + str;
+						}						
+						char[] chars=str.ToCharArray();
+						for (int c=0; c < 8; c++) {
+							int val=0;
+							try {
+								val = Int32.Parse(chars[c].ToString());
+							} catch {}
+							word[i * 8 + (7-c)] = val;
+						}
+					}
 				}
-
 				ushort startAddr=id;
 				foreach (int w in word) {
 					InitArr.WriteVal(startAddr, w, Data);

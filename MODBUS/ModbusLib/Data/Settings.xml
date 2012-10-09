@@ -9,6 +9,7 @@
 	<HoursDiff>2</HoursDiff>	
 	<InitFiles>
 		<string>Data\MBDataFullDB.xml</string>
+		<string>Data\MBDiscrete.xml</string>
 	</InitFiles>
 	<InitCalcFile>Data\MBDataCalc.xml</InitCalcFile>
 	<DBDateFormat>yyyy-MM-dd HH:mm:ss</DBDateFormat>

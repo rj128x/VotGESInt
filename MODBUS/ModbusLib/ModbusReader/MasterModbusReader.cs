@@ -114,9 +114,10 @@ namespace ModbusLib
 				FullResultData[key] = double.NaN;
 			}
 						
-			foreach (KeyValuePair<string,ModbusDataReader> de in Readers) {
+			/*foreach (KeyValuePair<string,ModbusDataReader> de in Readers) {
 				de.Value.readData();
-			}			
+			}*/
+			Readers.First().Value.readData();
 		}
 
 		public void ProcessFinish() {
@@ -135,6 +136,9 @@ namespace ModbusLib
 				Logger.Info("====ok  ");
 				Thread.Sleep(SleepTime);
 				Read();
+			} else {
+				string next=FinishReading.First(de => de.Value == false).Key;
+				Readers[next].readData();
 			}
 		}
 

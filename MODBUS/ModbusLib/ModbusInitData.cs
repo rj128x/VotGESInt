@@ -81,6 +81,7 @@ namespace ModbusLib
 			FuncName = null;
 			Name = "";
 			Diff = 0;
+			Scale = 1;
 		}
 	}
 
@@ -92,6 +93,7 @@ namespace ModbusLib
 		public List<ModbusInitData> Data { get; set; }
 		public bool WriteMin { get; set; }
 		public bool WriteHH { get; set; }
+		public bool IsDiscrete { get; set; }
 
 		[System.Xml.Serialization.XmlIgnore]
 		public SortedList<string, ModbusInitData> FullData { get; set; }

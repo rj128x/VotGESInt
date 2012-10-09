@@ -4,7 +4,7 @@
 	<IP>192.168.140.230</IP>
 	<Port>502</Port>
 	<ID>MB</ID>
-	<WrIDin>0</WrIDin>
+	<WriteMin>0</WriteMin>
 	<WriteHH>1</WriteHH>
 	<Obj>3</Obj>
 	<ObjType>2</ObjType>
