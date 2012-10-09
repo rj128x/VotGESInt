@@ -115,13 +115,13 @@
 			} %>
 		</tr>	
 		<%foreach (PuskStopEvent ev in Model.Data.Values) { %>
-			<tr>
+			<tr height="<%=Math.Round(ev.DiffMin/2+20)%>">
 				<th class='lb rb'><%=ev.Date.ToString("dd.MM.yyyy HH:mm:ss") %></th>
 				<%for (int ga=1; ga <= 10; ga++) { %>
-				<td class='lb <%=ev.Data[ga].Runned?"runned":"stopped"%>' title='<%=ga.ToString()+"ГГ - " +ev.Date.ToString("dd.MM.yyyy HH:mm:ss")%>'><%=PuskStopEvent.getValue(ev.Data[ga].Start, ev.Data[ga].Stop, "Пуск", "Стоп", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")%></td>				
+				<td valign='top' class='lb <%=ev.Data[ga].Runned?"runned":"stopped"%>' title='<%=ga.ToString()+"ГГ - " +ev.Date.ToString("dd.MM.yyyy HH:mm:ss")%>'><%=PuskStopEvent.getValue(ev.Data[ga].Start, ev.Data[ga].Stop, "Пуск", "Стоп", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")%></td>				
 				<%if (ga <= 2 || ga >= 9) { %>
-					<td class='<%=ev.Data[ga].RunnedGR?"runned":"stopped"%>' title='<%=ga.ToString()+"ГГ (ГР) - " +ev.Date.ToString("dd.MM.yyyy HH:mm:ss")%>'><%=PuskStopEvent.getValue(ev.Data[ga].StartGR, ev.Data[ga].StopGR, "Пуск", "Стоп", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")%></td>
-					<td class='rb <%=ev.Data[ga].RunnedSK?"runned":"stopped"%>' title='<%=ga.ToString()+"ГГ (СК) - " +ev.Date.ToString("dd.MM.yyyy HH:mm:ss")%>'><%=PuskStopEvent.getValue(ev.Data[ga].StartSK, ev.Data[ga].StopSK, "Пуск", "Стоп", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")%></td>
+					<td valign='top' class='<%=ev.Data[ga].RunnedGR?"runned":"stopped"%>' title='<%=ga.ToString()+"ГГ (ГР) - " +ev.Date.ToString("dd.MM.yyyy HH:mm:ss")%>'><%=PuskStopEvent.getValue(ev.Data[ga].StartGR, ev.Data[ga].StopGR, "Пуск", "Стоп", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")%></td>
+					<td valign='top' class='rb <%=ev.Data[ga].RunnedSK?"runned":"stopped"%>' title='<%=ga.ToString()+"ГГ (СК) - " +ev.Date.ToString("dd.MM.yyyy HH:mm:ss")%>'><%=PuskStopEvent.getValue(ev.Data[ga].StartSK, ev.Data[ga].StopSK, "Пуск", "Стоп", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")%></td>
 				<%}
 				} %>
 			</tr>

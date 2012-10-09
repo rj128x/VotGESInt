@@ -26,6 +26,7 @@ namespace VotGES.Piramida.Report
 		}
 		public DateTime Date { get; set; }
 		public SortedList<int,EventGA> Data;
+		public double DiffMin{get;set;}
 
 		public PuskStopEvent() {
 			Data = new SortedList<int, EventGA>();
@@ -239,6 +240,13 @@ namespace VotGES.Piramida.Report
 				if (date < DateStart) {
 					Data.Remove(date);
 				}
+			}
+
+			foreach (PuskStopEvent ev in Data.Values) {
+				try {
+					DateTime next=Data.First(de => de.Key > ev.Date).Key;
+					ev.DiffMin = PuskStopRecord.getDiffMin(ev.Date, next);
+				} catch { }
 			}
 		}
 
