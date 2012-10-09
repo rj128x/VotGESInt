@@ -65,6 +65,14 @@ namespace VotGES.Piramida.Report
 			SqlConnection con=null;
 			try {
 				string sel=String.Format("SELECT data_date, item, value0  FROM DATA WHERE Parnumber=13 and object=30 and objtype=2 and item>=1 and item<=30 and data_date>=@dateStart and data_date<=@dateEnd");
+				for (int item=1; item <= 30; item++) {
+					int ga= item % 10;
+					ga = ga == 0 ? 10 : ga;
+					if (item <= 10 || (ga <= 2 || ga >= 9)) {
+						sel += String.Format("\n UNION ALL \n SELECT data_date, item, value0  FROM DATA WHERE Parnumber=13 and object=30 and objtype=2 and item={0} and data_date= (SELECT top 1 data_date from data WHERE Parnumber=13 and object=30 and objtype=2 and item={0} and data_date<@dateStart order by data_date desc)",item);
+					}
+					
+				}
 				con = PiramidaAccess.getConnection("PSV");
 				con.Open();
 				SqlCommand command=con.CreateCommand();
@@ -223,6 +231,13 @@ namespace VotGES.Piramida.Report
 						}
 						prevDate = date;
 					}
+				}
+			}
+
+			List<DateTime> dates=Data.Keys.ToList();
+			foreach (DateTime date in dates) {
+				if (date < DateStart) {
+					Data.Remove(date);
 				}
 			}
 		}

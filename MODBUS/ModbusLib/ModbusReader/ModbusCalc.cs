@@ -96,33 +96,33 @@ namespace ModbusLib
 		}
 		#endregion
 
-		public double GA1_Gen() { return this["MB_216"] > 0 ? 1 : 0; }
+		public double GA1_Gen() { return this["MB_216"] > 10 ? 1 : 0; }
 		public double GA1_SK() { return (this["MB_216"] < 0 && this["MBDiscr_g1_sk"] == 1) ? 1 : 0; }
-		public double GA1_Run() { return this["MB_216"] != 0 ? 1 : 0; }
+		public double GA1_Run() { return (this["MB_216"] > 10 || this["MBDiscr_g1_sk"] == 1) ? 1 : 0; }
 
-		public double GA2_Gen() { return this["MB_266"] > 0 ? 1 : 0; }
+		public double GA2_Gen() { return this["MB_266"] > 10 ? 1 : 0; }
 		public double GA2_SK() { return (this["MB_266"] < 0 && this["MBDiscr_g2_sk"] == 1) ? 1 : 0; }
-		public double GA2_Run() { return this["MB_266"] != 0 ? 1 : 0; }
+		public double GA2_Run() { return (this["MB_266"] > 10 || this["MBDiscr_g2_sk"] == 1) ? 1 : 0; }
 
-		public double GA3_Run() { return this["MB_316"] != 0 ? 1 : 0; }
+		public double GA3_Run() { return this["MB_316"] > 10 ? 1 : 0; }
 
-		public double GA4_Run() { return this["MB_366"] != 0 ? 1 : 0; }
+		public double GA4_Run() { return this["MB_366"] > 10 ? 1 : 0; }
 
-		public double GA5_Run() { return this["MB_416"] != 0 ? 1 : 0; }
+		public double GA5_Run() { return this["MB_416"] > 10 ? 1 : 0; }
 
-		public double GA6_Run() { return this["MB_466"] != 0 ? 1 : 0; }
+		public double GA6_Run() { return this["MB_466"] > 10 ? 1 : 0; }
 
-		public double GA7_Run() { return this["MB_516"] != 0 ? 1 : 0; }
+		public double GA7_Run() { return this["MB_516"] > 10 ? 1 : 0; }
 
-		public double GA8_Run() { return this["MB_566"] != 0 ? 1 : 0; }
+		public double GA8_Run() { return this["MB_566"] > 10 ? 1 : 0; }
 
-		public double GA9_Gen() { return this["MB_616"] > 0 ? 1 : 0; }
+		public double GA9_Gen() { return this["MB_616"] > 10 ? 1 : 0; }
 		public double GA9_SK() { return (this["MB_616"] < 0 && this["MBDiscr_g9_sk"] == 1) ? 1 : 0; }
-		public double GA9_Run() { return this["MB_616"] != 0 ? 1 : 0; }
+		public double GA9_Run() { return (this["MB_616"] > 10 || this["MBDiscr_g9_sk"] == 1) ? 1 : 0; }
 
-		public double GA10_Gen() { return this["MB_666"] > 0 ? 1 : 0; }
+		public double GA10_Gen() { return this["MB_666"] > 10 ? 1 : 0; }
 		public double GA10_SK() { return (this["MB_666"] < 0 && this["MBDiscr_g10_sk"] == 1) ? 1 : 0; }
-		public double GA10_Run() { return this["MB_666"] != 0 ? 1 : 0; }
+		public double GA10_Run() { return (this["MB_666"] > 10 || this["MBDiscr_g10_sk"] == 1) ? 1 : 0; }
 
 	}
 }
