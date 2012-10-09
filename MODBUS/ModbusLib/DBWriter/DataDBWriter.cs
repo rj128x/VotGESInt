@@ -204,6 +204,7 @@ namespace ModbusLib
 			string insertIntoHeader="INSERT INTO Data (parnumber,object,item,value0,value1,valueMin,valueMax,valueEq,objtype,data_date,rcvstamp,season)";
 			string frmt="SELECT {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, '{9}', '{10}', {11}";
 			string frmDel="(parnumber={0} and object={1} and objType={2} and item={3} and data_date='{4}')";
+			string frmDelAll="(parnumber={0} and object={1} and objType={2} and item={3} and data_date>='{4}' and data_date<='{5}')";
 			string df=Settings.single.DBDateFormat;
 			foreach (DataDBRecord rec in Data.Values) {
 				ModbusInitData init=InitArray.FullData[rec.Header];
@@ -214,6 +215,8 @@ namespace ModbusLib
 						string delete=String.Format(frmDel, init.ParNumberMin, init.Obj, init.ObjType, init.Item, Date.AddMinutes(1).ToString(df));
 						if (!inserts.ContainsKey(init.DBNameMin)) {
 							inserts.Add(init.DBNameMin, new List<string>());
+						}
+						if (!deletes.ContainsKey(init.DBNameMin)) {
 							deletes.Add(init.DBNameMin, new List<string>());
 						}
 
@@ -227,8 +230,11 @@ namespace ModbusLib
 						string delete=String.Format(frmDel, init.ParNumberHH, init.Obj, init.ObjType, init.Item, Date.AddMinutes(30).ToString(df));
 						if (!inserts.ContainsKey(init.DBNameHH)) {
 							inserts.Add(init.DBNameHH, new List<string>());
+						}
+						if (!deletes.ContainsKey(init.DBNameHH)) {
 							deletes.Add(init.DBNameHH, new List<string>());
 						}
+
 						inserts[init.DBNameHH].Add(insert);
 						deletes[init.DBNameHH].Add(delete);
 					}
@@ -265,27 +271,40 @@ namespace ModbusLib
 						
 						double timeChange;
 						DateTime prevDate=Double.IsNaN(lastVal) ? (rec.DiffVals.Count > 0 ? rec.DiffVals.First().Key : DateTime.Now) : lastDate;
+						
+						string delete=String.Format(frmDelAll, init.ParNumberDiff, init.Obj, init.ObjType, init.Item,
+							Date.ToString(df), Date.AddMinutes(30).ToString(df));
+						if (!deletes.ContainsKey(init.DBNameDiff)) {
+							deletes.Add(init.DBNameDiff, new List<string>());
+						}						
+						deletes[init.DBNameDiff].Add(delete);
 
 						foreach (KeyValuePair<DateTime,double>diff in rec.DiffVals) {
 							timeChange = (diff.Key.Ticks - prevDate.Ticks) / (10000000.0*60.0);
 							string insert=String.Format(frmt, init.ParNumberDiff, init.Obj, init.Item, diff.Value, timeChange, diff.Value, diff.Value, diff.Value, init.ObjType,
 								diff.Key.ToString(df), DateTime.Now.ToString(df), 0);
-							string delete=String.Format(frmDel, init.ParNumberDiff, init.Obj, init.ObjType, init.Item, diff.Key.ToString(df));
 							if (!inserts.ContainsKey(init.DBNameDiff)) {
 								inserts.Add(init.DBNameDiff, new List<string>());
-								deletes.Add(init.DBNameDiff, new List<string>());
 							}
 							inserts[init.DBNameDiff].Add(insert);
-							deletes[init.DBNameDiff].Add(delete);
 							prevDate = diff.Key;
 						}
 					}
 				}
 			}
 
+			SortedList<string,SqlConnection> connections=new SortedList<string, SqlConnection>();
+			SortedList<string,SqlTransaction> transactions=new SortedList<string, SqlTransaction>();
+			foreach (KeyValuePair<string,List<string>> de in deletes) {
+				SqlConnection conect = PiramidaAccess.getConnection(de.Key);
+				conect.Open();
+				SqlTransaction transact=conect.BeginTransaction("Start_" + de.Key);				
+				connections.Add(de.Key, conect);
+				transactions.Add(de.Key, transact);
+			}
 
 			foreach (KeyValuePair<string,List<string>> de in deletes) {
-				con = PiramidaAccess.getConnection(de.Key);
+				con = connections[de.Key];
 				List<string> qDels=new List<string>();
 				for (int i=0; i < de.Value.Count; i++) {
 					qDels.Add(de.Value[i]);
@@ -293,17 +312,17 @@ namespace ModbusLib
 						string deletesSQL=String.Join(" OR ", qDels);
 						string deleteSQL=String.Format("{0}\n{1}", "DELETE from DATA where", deletesSQL);
 						try {
-							con.Open();
 							SqlCommand command=null;
 							command = con.CreateCommand();
 							command.CommandText = deleteSQL;
-
+							command.Transaction = transactions[de.Key];
 							command.ExecuteNonQuery();
+							
 						} catch (Exception e) {
 							Logger.Error("Ошибка в запросе " + e);
 							Logger.Info(deleteSQL);
 						} finally {
-							try { con.Close(); } catch { }
+							//try { con.Close(); } catch { }
 						}
 						qDels = new List<string>();
 					}
@@ -312,7 +331,7 @@ namespace ModbusLib
 			}
 
 			foreach (KeyValuePair<string,List<string>> de in inserts) {
-				con = PiramidaAccess.getConnection(de.Key);
+				con = connections[de.Key];
 				List<string> qInserts=new List<string>();
 				for (int i=0; i < de.Value.Count; i++) {
 					qInserts.Add(de.Value[i]);
@@ -320,22 +339,29 @@ namespace ModbusLib
 						string insertsSQL=String.Join("\nUNION ALL\n", qInserts);
 						string insertSQL=String.Format("{0}\n{1}", insertIntoHeader, insertsSQL);
 						try {
-							con.Open();
+							//con.Open();
 							SqlCommand command=null;
 							command = con.CreateCommand();
 							command.CommandText = insertSQL;
+							command.Transaction = transactions[de.Key];
 							command.ExecuteNonQuery();
 						} catch (Exception e) {
 							Logger.Error("Ошибка в запросе " + e);
 							Logger.Info(insertSQL);
 						} finally {
-							try { con.Close(); } catch { }
+							//try { con.Close(); } catch { }
 						}
 						qInserts = new List<string>();
 					}
 				}
+			}
 
-
+			foreach (KeyValuePair<string,SqlConnection> de in connections) {
+				try {
+					transactions[de.Key].Commit();					
+				} catch { } finally {
+					try { de.Value.Close(); } catch { }
+				}
 			}
 		}
 	}

@@ -14,7 +14,7 @@ namespace DBConsole
 	{
 		static void Main(string[] args) {
 
-			(new MasterDBWriterRunner()).Run();
+			(new MasterDBWriterRunner()).Run(args);
 			Console.ReadLine();
 		}
 	}
