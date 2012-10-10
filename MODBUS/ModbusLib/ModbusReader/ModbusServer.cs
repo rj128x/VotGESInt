@@ -172,15 +172,17 @@ namespace ModbusLib
 
 		protected void continueRead() {
 			if (!IsError) {
-				if (StartedPart.Values.Contains(false)) {
-					StartAddr = (ushort)StartedPart.First((KeyValuePair<int, bool> de) => { return de.Value == false; }).Key;
-					StartedPart[StartAddr] = true;
-					if (!InitArr.IsDiscrete) {
-						Server.ModbusMasterCon.ReadInputRegister(StartAddr, StartAddr, (ushort)(StepData * 2));
-					} else {
-						Server.ModbusMasterCon.ReadDiscreteInputs(StartAddr, StartAddr, (ushort)(StepData / 8));
-					}
-					
+				if (StartedPart.Values.Contains(false)) {					
+					Master con=Server.ModbusMasterCon;
+					if (con.connected) {
+						StartAddr = (ushort)StartedPart.First((KeyValuePair<int, bool> de) => { return de.Value == false; }).Key;
+						StartedPart[StartAddr] = true;
+						if (!InitArr.IsDiscrete) {
+							con.ReadInputRegister(StartAddr, StartAddr, (ushort)(StepData * 2));
+						} else {
+							con.ReadDiscreteInputs(StartAddr, StartAddr, (ushort)(StepData / 8));
+						}
+					}					
 				} else if (FinishedPart.Values.Contains(false)) {
 					Logger.Error("Не все данные считаны");
 					error();
