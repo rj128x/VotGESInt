@@ -7,11 +7,11 @@ using System.Threading;
 
 namespace ModbusLib
 {
-	public delegate void ErrorConnectDelegate();
+	public delegate void ErrorDelegate();
 	public delegate void ResponseDataDelegeate(ushort id, byte function, byte[] data);
 	public class ModbusServer
 	{
-		public event ErrorConnectDelegate OnErrorConnect;
+		public event ErrorDelegate OnError;
 		public event ResponseDataDelegeate OnResponse;
 		public string IP { get; protected set; }
 		public ushort Port { get; protected set; }
@@ -32,10 +32,10 @@ namespace ModbusLib
 				if (!modbusMaster.connected) {
 					try {
 						modbusMaster.connect(IP, Port);
-					} catch {
-						Logger.Error("Ошибка при подключении " + IP + ":" + Port);
-						if (OnErrorConnect != null) {
-							OnErrorConnect();
+					} catch (Exception e) {
+						Logger.Error("Ошибка при подключении " + IP + ":" + Port+"  "+e.Message);
+						if (OnError != null) {
+							OnError();
 						}
 					}
 				}
@@ -51,7 +51,7 @@ namespace ModbusLib
 			this.modbusMaster = new Master();			
 			this.modbusMaster.OnException += exceptionEvent;
 			this.modbusMaster.OnResponseData += responseEvent;
-			this.modbusMaster.timeout = 1;
+			this.modbusMaster.timeout = 2000;
 		}
 
 		void modbusMaster_OnResponseData(Master obj, ushort id, byte function, byte[] data) {
@@ -65,8 +65,8 @@ namespace ModbusLib
 		void modbusMaster_OnException(Master obj, ushort id, byte function, byte exception) {
 			if (modbusMaster == obj) {
 				Logger.Error("Ошибка при чтении данных " + IP + ":" + Port);
-				if (OnErrorConnect != null) {
-					OnErrorConnect();
+				if (OnError != null) {
+					OnError();
 				}
 			}
 		}
@@ -102,7 +102,7 @@ namespace ModbusLib
 			Data = new SortedList<string, double>(CountData);
 			StepData = InitArr.IsDiscrete ? (ushort)(100 * 8) : (ushort)50;
 			server.OnResponse += new ResponseDataDelegeate(ModbusMaster_OnResponseData);
-			server.OnErrorConnect += new ErrorConnectDelegate(server_OnErrorConnect);
+			server.OnError += new ErrorDelegate(server_OnError);
 			
 		}
 
@@ -118,7 +118,7 @@ namespace ModbusLib
 			}
 		}
 
-		void server_OnErrorConnect() {			
+		void server_OnError() {			
 			error();
 		}
 				
@@ -236,7 +236,7 @@ namespace ModbusLib
 
 				continueRead();
 			} else if (!IsError){
-				Logger.Error(String.Format("Сбой при чтении данных id={0} StartAddr={1} Started[id]={2}",id,StartAddr,StartedPart[id]));
+				Logger.Error(String.Format("Сбой при чтении данных"));
 				error();
 			}
 		}

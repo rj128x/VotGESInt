@@ -77,6 +77,8 @@ namespace ModbusLib
 		private Socket tcpAsyCl;
 		private byte[] tcpAsyClBuffer = new byte[2048];
 
+		private Socket tcpSynCl;
+		private byte[] tcpSynClBuffer = new byte[2048];
 
 		// ------------------------------------------------------------------------
 		/// <summary>Response data event. This event is called when new data arrives</summary>
@@ -136,21 +138,20 @@ namespace ModbusLib
 				}
 				// ----------------------------------------------------------------
 				// Connect asynchronous client
-				tcpAsyCl = new Socket(IPAddress.Parse(ip).AddressFamily, SocketType.Stream, ProtocolType.Tcp);				
+				tcpAsyCl = new Socket(IPAddress.Parse(ip).AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 				tcpAsyCl.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.SendTimeout, _timeout);
 				tcpAsyCl.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, _timeout);
 				tcpAsyCl.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.NoDelay, 1);
-
-				_connected = false;
-				IAsyncResult result = tcpAsyCl.BeginConnect(IPAddress.Parse(ip), port, null, null);
-				bool success = result.AsyncWaitHandle.WaitOne(_timeout, true);
-				if (!success) {
-					tcpAsyCl.Close();
-					throw new ApplicationException("Failed to connect server");
-				}
-								
-				//tcpAsyCl.Connect(new IPEndPoint(IPAddress.Parse(ip), port));
-
+				tcpAsyCl.Connect(new IPEndPoint(IPAddress.Parse(ip), port));
+				
+				// ----------------------------------------------------------------
+				// Connect synchronous client
+				tcpSynCl = new Socket(IPAddress.Parse(ip).AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+				tcpSynCl.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.SendTimeout, _timeout);
+				tcpSynCl.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, _timeout);
+				tcpSynCl.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.NoDelay, 1);
+				tcpSynCl.Connect(new IPEndPoint(IPAddress.Parse(ip), port));
+				
 				_connected = true;
 			} catch (System.IO.IOException error) {
 				_connected = false;
@@ -166,7 +167,7 @@ namespace ModbusLib
 
 		// ------------------------------------------------------------------------
 		/// <summary>Destroy master instance.</summary>
-		~Master() {
+		~Master1() {
 			Dispose();
 		}
 
@@ -180,12 +181,20 @@ namespace ModbusLib
 				}
 				tcpAsyCl = null;
 			}
+			if (tcpSynCl != null) {
+				if (tcpSynCl.Connected) {
+					try { tcpSynCl.Shutdown(SocketShutdown.Both); } catch { }
+					tcpSynCl.Close();
+				}
+				tcpSynCl = null;
+			}
 			_connected = false;
 		}
 
 		internal void CallException(ushort id, byte function, byte exception) {
-			if ((tcpAsyCl == null) ) return;
+			if ((tcpAsyCl == null) || (tcpSynCl == null)) return;
 			if (exception == excExceptionConnectionLost) {
+				tcpSynCl = null;
 				tcpAsyCl = null;
 			}
 			if (OnException != null) OnException(this, id, function, exception);
@@ -200,6 +209,15 @@ namespace ModbusLib
 			WriteAsyncData(CreateReadHeader(id, startAddress, numInputs, fctReadCoil), id);
 		}
 
+		// ------------------------------------------------------------------------
+		/// <summary>Read coils from slave synchronous.</summary>
+		/// <param name="id">Unique id that marks the transaction. In asynchonous mode this id is given to the callback function.</param>
+		/// <param name="startAddress">Address from where the data read begins.</param>
+		/// <param name="numInputs">Length of data.</param>
+		/// <param name="values">Contains the result of function.</param>
+		public void ReadCoils(ushort id, ushort startAddress, ushort numInputs, ref byte[] values) {
+			values = WriteSyncData(CreateReadHeader(id, startAddress, numInputs, fctReadCoil), id);
+		}
 
 		// ------------------------------------------------------------------------
 		/// <summary>Read discrete inputs from slave asynchronous. The result is given in the response function.</summary>
@@ -210,6 +228,15 @@ namespace ModbusLib
 			WriteAsyncData(CreateReadHeader(id, startAddress, numInputs, fctReadDiscreteInputs), id);
 		}
 
+		// ------------------------------------------------------------------------
+		/// <summary>Read discrete inputs from slave synchronous.</summary>
+		/// <param name="id">Unique id that marks the transaction. In asynchonous mode this id is given to the callback function.</param>
+		/// <param name="startAddress">Address from where the data read begins.</param>
+		/// <param name="numInputs">Length of data.</param>
+		/// <param name="values">Contains the result of function.</param>
+		public void ReadDiscreteInputs(ushort id, ushort startAddress, ushort numInputs, ref byte[] values) {
+			values = WriteSyncData(CreateReadHeader(id, startAddress, numInputs, fctReadDiscreteInputs), id);
+		}
 
 		// ------------------------------------------------------------------------
 		/// <summary>Read holding registers from slave asynchronous. The result is given in the response function.</summary>
@@ -220,6 +247,15 @@ namespace ModbusLib
 			WriteAsyncData(CreateReadHeader(id, startAddress, numInputs, fctReadHoldingRegister), id);
 		}
 
+		// ------------------------------------------------------------------------
+		/// <summary>Read holding registers from slave synchronous.</summary>
+		/// <param name="id">Unique id that marks the transaction. In asynchonous mode this id is given to the callback function.</param>
+		/// <param name="startAddress">Address from where the data read begins.</param>
+		/// <param name="numInputs">Length of data.</param>
+		/// <param name="values">Contains the result of function.</param>
+		public void ReadHoldingRegister(ushort id, ushort startAddress, ushort numInputs, ref byte[] values) {
+			values = WriteSyncData(CreateReadHeader(id, startAddress, numInputs, fctReadHoldingRegister), id);
+		}
 
 		// ------------------------------------------------------------------------
 		/// <summary>Read input registers from slave asynchronous. The result is given in the response function.</summary>
@@ -230,6 +266,15 @@ namespace ModbusLib
 			WriteAsyncData(CreateReadHeader(id, startAddress, numInputs, fctReadInputRegister), id);
 		}
 
+		// ------------------------------------------------------------------------
+		/// <summary>Read input registers from slave synchronous.</summary>
+		/// <param name="id">Unique id that marks the transaction. In asynchonous mode this id is given to the callback function.</param>
+		/// <param name="startAddress">Address from where the data read begins.</param>
+		/// <param name="numInputs">Length of data.</param>
+		/// <param name="values">Contains the result of function.</param>
+		public void ReadInputRegister(ushort id, ushort startAddress, ushort numInputs, ref byte[] values) {
+			values = WriteSyncData(CreateReadHeader(id, startAddress, numInputs, fctReadInputRegister), id);
+		}
 
 		// ------------------------------------------------------------------------
 		/// <summary>Write single coil in slave asynchronous. The result is given in the response function.</summary>
@@ -244,6 +289,19 @@ namespace ModbusLib
 			WriteAsyncData(data, id);
 		}
 
+		// ------------------------------------------------------------------------
+		/// <summary>Write single coil in slave synchronous.</summary>
+		/// <param name="id">Unique id that marks the transaction. In asynchonous mode this id is given to the callback function.</param>
+		/// <param name="startAddress">Address from where the data read begins.</param>
+		/// <param name="OnOff">Specifys if the coil should be switched on or off.</param>
+		/// <param name="result">Contains the result of the synchronous write.</param>
+		public void WriteSingleCoils(ushort id, ushort startAddress, bool OnOff, ref byte[] result) {
+			byte[] data;
+			data = CreateWriteHeader(id, startAddress, 1, 1, fctWriteSingleCoil);
+			if (OnOff == true) data[10] = 255;
+			else data[10] = 0;
+			result = WriteSyncData(data, id);
+		}
 
 		// ------------------------------------------------------------------------
 		/// <summary>Write multiple coils in slave asynchronous. The result is given in the response function.</summary>
@@ -259,6 +317,20 @@ namespace ModbusLib
 			WriteAsyncData(data, id);
 		}
 
+		// ------------------------------------------------------------------------
+		/// <summary>Write multiple coils in slave synchronous.</summary>
+		/// <param name="id">Unique id that marks the transaction. In asynchonous mode this id is given to the callback function.</param>
+		/// <param name="startAddress">Address from where the data read begins.</param>
+		/// <param name="numBits">Specifys number of bits.</param>
+		/// <param name="values">Contains the bit information in byte format.</param>
+		/// <param name="result">Contains the result of the synchronous write.</param>
+		public void WriteMultipleCoils(ushort id, ushort startAddress, ushort numBits, byte[] values, ref byte[] result) {
+			byte numBytes = Convert.ToByte(values.Length);
+			byte[] data;
+			data = CreateWriteHeader(id, startAddress, numBits, (byte)(numBytes + 2), fctWriteMultipleCoils);
+			Array.Copy(values, 0, data, 13, numBytes);
+			result = WriteSyncData(data, id);
+		}
 
 		// ------------------------------------------------------------------------
 		/// <summary>Write single register in slave asynchronous. The result is given in the response function.</summary>
@@ -273,6 +345,19 @@ namespace ModbusLib
 			WriteAsyncData(data, id);
 		}
 
+		// ------------------------------------------------------------------------
+		/// <summary>Write single register in slave synchronous.</summary>
+		/// <param name="id">Unique id that marks the transaction. In asynchonous mode this id is given to the callback function.</param>
+		/// <param name="startAddress">Address to where the data is written.</param>
+		/// <param name="values">Contains the register information.</param>
+		/// <param name="result">Contains the result of the synchronous write.</param>
+		public void WriteSingleRegister(ushort id, ushort startAddress, byte[] values, ref byte[] result) {
+			byte[] data;
+			data = CreateWriteHeader(id, startAddress, 1, 1, fctWriteSingleRegister);
+			data[10] = values[0];
+			data[11] = values[1];
+			result = WriteSyncData(data, id);
+		}
 
 		// ------------------------------------------------------------------------
 		/// <summary>Write multiple registers in slave asynchronous. The result is given in the response function.</summary>
@@ -289,6 +374,21 @@ namespace ModbusLib
 			WriteAsyncData(data, id);
 		}
 
+		// ------------------------------------------------------------------------
+		/// <summary>Write multiple registers in slave synchronous.</summary>
+		/// <param name="id">Unique id that marks the transaction. In asynchonous mode this id is given to the callback function.</param>
+		/// <param name="startAddress">Address to where the data is written.</param>
+		/// <param name="values">Contains the register information.</param>
+		/// <param name="result">Contains the result of the synchronous write.</param>
+		public void WriteMultipleRegister(ushort id, ushort startAddress, byte[] values, ref byte[] result) {
+			ushort numBytes = Convert.ToUInt16(values.Length);
+			if (numBytes % 2 > 0) numBytes++;
+			byte[] data;
+
+			data = CreateWriteHeader(id, startAddress, Convert.ToUInt16(numBytes / 2), Convert.ToUInt16(numBytes + 2), fctWriteMultipleRegister);
+			Array.Copy(values, 0, data, 13, values.Length);
+			result = WriteSyncData(data, id);
+		}
 
 		// ------------------------------------------------------------------------
 		/// <summary>Read/Write multiple registers in slave asynchronous. The result is given in the response function.</summary>
@@ -307,6 +407,23 @@ namespace ModbusLib
 			WriteAsyncData(data, id);
 		}
 
+		// ------------------------------------------------------------------------
+		/// <summary>Read/Write multiple registers in slave synchronous. The result is given in the response function.</summary>
+		/// <param name="id">Unique id that marks the transaction. In asynchonous mode this id is given to the callback function.</param>
+		/// <param name="startReadAddress">Address from where the data read begins.</param>
+		/// <param name="numInputs">Length of data.</param>
+		/// <param name="startWriteAddress">Address to where the data is written.</param>
+		/// <param name="values">Contains the register information.</param>
+		/// <param name="result">Contains the result of the synchronous command.</param>
+		public void ReadWriteMultipleRegister(ushort id, ushort startReadAddress, ushort numInputs, ushort startWriteAddress, byte[] values, ref byte[] result) {
+			ushort numBytes = Convert.ToUInt16(values.Length);
+			if (numBytes % 2 > 0) numBytes++;
+			byte[] data;
+
+			data = CreateReadWriteHeader(id, startReadAddress, numInputs, startWriteAddress, Convert.ToUInt16(numBytes / 2));
+			Array.Copy(values, 0, data, 17, values.Length);
+			result = WriteSyncData(data, id);
+		}
 
 		// ------------------------------------------------------------------------
 		// Create modbus header for read action
@@ -434,6 +551,45 @@ namespace ModbusLib
 			else if (OnResponseData != null) OnResponseData(this, id, function, data);
 		}
 
-		
+		// ------------------------------------------------------------------------
+		// Write data and and wait for response
+		private byte[] WriteSyncData(byte[] write_data, ushort id) {
+
+			if (tcpSynCl.Connected) {
+				try {
+					tcpSynCl.Send(write_data, 0, write_data.Length, SocketFlags.None);
+					int result = tcpSynCl.Receive(tcpSynClBuffer, 0, tcpSynClBuffer.Length, SocketFlags.None);
+
+					byte function = tcpSynClBuffer[7];
+					byte[] data;
+
+					if (result == 0) CallException(id, write_data[7], excExceptionConnectionLost);
+
+					// ------------------------------------------------------------
+					// Response data is slave exception
+					if (function > excExceptionOffset) {
+						function -= excExceptionOffset;
+						CallException(id, function, tcpSynClBuffer[8]);
+						return null;
+					}
+						// ------------------------------------------------------------
+						// Write response data
+					else if ((function >= fctWriteSingleCoil) && (function != fctReadWriteMultipleRegister)) {
+						data = new byte[2];
+						Array.Copy(tcpSynClBuffer, 10, data, 0, 2);
+					}
+						// ------------------------------------------------------------
+						// Read response data
+					else {
+						data = new byte[tcpSynClBuffer[8]];
+						Array.Copy(tcpSynClBuffer, 9, data, 0, tcpSynClBuffer[8]);
+					}
+					return data;
+				} catch (SystemException) {
+					CallException(id, write_data[7], excExceptionConnectionLost);
+				}
+			} else CallException(id, write_data[7], excExceptionConnectionLost);
+			return null;
+		}
 	}
 }
