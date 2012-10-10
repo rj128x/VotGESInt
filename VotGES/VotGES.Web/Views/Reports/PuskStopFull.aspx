@@ -115,7 +115,7 @@
 			} %>
 		</tr>	
 		<%foreach (PuskStopEvent ev in Model.Data.Values) { %>
-			<tr height="<%=Math.Round(ev.DiffMin/2+20)%>">
+			<tr height="<%=Math.Round(ev.DiffMin/4+20)%>">
 				<th class='lb rb'><%=ev.Date.ToString("dd.MM.yyyy HH:mm:ss") %></th>
 				<%for (int ga=1; ga <= 10; ga++) { %>
 				<td valign='top' class='lb <%=ev.Data[ga].Runned?"runned":"stopped"%>' title='<%=ga.ToString()+"ГГ - " +ev.Date.ToString("dd.MM.yyyy HH:mm:ss")%>'><%=PuskStopEvent.getValue(ev.Data[ga].Start, ev.Data[ga].Stop, "Пуск", "Стоп", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")%></td>				
