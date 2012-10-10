@@ -127,26 +127,37 @@ namespace ModbusLib
 		protected SortedList<int,bool> FinishedPart{ get;  set; }
 		protected SortedList<int, bool> StartedPart { get;  set; }
 
+		protected List<int> getKeysForRead(int start, int end, int step) {
+			int sa=0;
+			List<int> res=new List<int>();
+			while (sa <= end) {
+				foreach (ModbusInitData data in InitArr.FullData.Values) {
+					if (data.Addr >= sa && data.Addr <= sa + step) {
+						res.Add(sa);
+						break;
+					}
+				}
+				sa += step;
+			}
+			return res;
+		}
+
 		protected void initRead() {
 			StartAddr = 0;
 
 			FinishedPart = new SortedList<int, bool>();
 			StartedPart = new SortedList<int, bool>();
+			List<int> keys;
 			if (!InitArr.IsDiscrete) {
-				int sa=0;
-				while (sa < CountData * 2) {
-					FinishedPart.Add(sa, false);
-					StartedPart.Add(sa, false);
-					sa += (ushort)(StepData * 2);
-				}
+				keys = getKeysForRead(0, CountData * 2, StepData*2);
 			} else {
-				int sa=0;
-				while (sa < CountData) {
-					FinishedPart.Add(sa, false);
-					StartedPart.Add(sa, false);
-					sa += (ushort)(StepData / 8);
-				}
+				keys = getKeysForRead(0, CountData , StepData /8);
 			}
+			foreach (int key in keys) {
+				FinishedPart.Add(key, false);
+				StartedPart.Add(key, false);
+			}
+
 			Data.Clear();
 		}
 
