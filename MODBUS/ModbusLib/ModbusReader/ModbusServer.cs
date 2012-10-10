@@ -51,6 +51,7 @@ namespace ModbusLib
 			this.modbusMaster = new Master();			
 			this.modbusMaster.OnException += exceptionEvent;
 			this.modbusMaster.OnResponseData += responseEvent;
+			this.modbusMaster.timeout = 1;
 		}
 
 		void modbusMaster_OnResponseData(Master obj, ushort id, byte function, byte[] data) {
