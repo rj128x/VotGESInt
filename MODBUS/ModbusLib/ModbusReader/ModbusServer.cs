@@ -9,6 +9,7 @@ namespace ModbusLib
 {
 	public delegate void ErrorDelegate();
 	public delegate void ResponseDataDelegeate(ushort id, byte function, byte[] data);
+	public delegate void ConnectDelegate();
 	public class ModbusServer
 	{
 		public event ErrorDelegate OnError;
@@ -27,31 +28,35 @@ namespace ModbusLib
 			protected set { modbusMaster = value; }
 		}
 
-		public Master ModbusMasterCon {
-			get {
-				if (!modbusMaster.connected) {
-					try {
-						modbusMaster.connect(IP, Port);
-					} catch (Exception e) {
-						Logger.Error("Ошибка при подключении " + IP + ":" + Port+"  "+e.Message);
-						if (OnError != null) {
-							OnError();
-						}
+		public void ProcessConnect(ConnectDelegate OnConnect) {
+			if (!modbusMaster.connected) {
+				try {
+					modbusMaster.connect(IP, Port);
+				} catch (Exception e) {
+					Logger.Error("Ошибка при подключении " + IP + ":" + Port + "  " + e.Message);
+					if (OnError != null) {
+						OnError();
 					}
+					return;
 				}
-				return modbusMaster;
+			}			
+			if (modbusMaster.connected) {
+				if (OnConnect != null) {
+					OnConnect();
+				}
 			}
 		}
-
+				
 		public void Init() {
 			if (this.modbusMaster != null) {
 				this.modbusMaster.OnException -= exceptionEvent;
 				this.modbusMaster.OnResponseData -= responseEvent;
+				try { modbusMaster.disconnect(); } catch { }
 			}
 			this.modbusMaster = new Master();			
 			this.modbusMaster.OnException += exceptionEvent;
 			this.modbusMaster.OnResponseData += responseEvent;
-			this.modbusMaster.timeout = 2000;
+			this.modbusMaster.timeout = 500;
 		}
 
 		void modbusMaster_OnResponseData(Master obj, ushort id, byte function, byte[] data) {
@@ -109,8 +114,7 @@ namespace ModbusLib
 		protected void error() {
 			if (!IsError) {
 				IsError = true;
-				initRead();
-				try { Server.ModbusMaster.disconnect(); } catch { }
+				//initRead();				
 				Server.Init();	
 				if (OnFinish != null) {
 					OnFinish(InitArr.ID, null);
@@ -160,6 +164,7 @@ namespace ModbusLib
 			}
 
 			Data.Clear();
+			//Logger.Info("Init");
 		}
 
 		public void readData() {
@@ -170,19 +175,20 @@ namespace ModbusLib
 
 		}
 
+		protected void ProcessConnect() {
+			StartAddr = (ushort)StartedPart.First((KeyValuePair<int, bool> de) => { return de.Value == false; }).Key;
+			if (!InitArr.IsDiscrete) {
+				Server.ModbusMaster.ReadInputRegister(StartAddr, StartAddr, (ushort)(StepData * 2));
+			} else {
+				Server.ModbusMaster.ReadDiscreteInputs(StartAddr, StartAddr, (ushort)(StepData / 8));
+			}
+			StartedPart[StartAddr] = true;
+		}
+
 		protected void continueRead() {
 			if (!IsError) {
 				if (StartedPart.Values.Contains(false)) {					
-					Master con=Server.ModbusMasterCon;
-					if (con.connected) {
-						StartAddr = (ushort)StartedPart.First((KeyValuePair<int, bool> de) => { return de.Value == false; }).Key;
-						StartedPart[StartAddr] = true;
-						if (!InitArr.IsDiscrete) {
-							con.ReadInputRegister(StartAddr, StartAddr, (ushort)(StepData * 2));
-						} else {
-							con.ReadDiscreteInputs(StartAddr, StartAddr, (ushort)(StepData / 8));
-						}
-					}					
+					Server.ProcessConnect(ProcessConnect);										
 				} else if (FinishedPart.Values.Contains(false)) {
 					Logger.Error("Не все данные считаны");
 					error();

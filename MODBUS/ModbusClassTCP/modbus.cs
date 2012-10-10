@@ -113,6 +113,7 @@ namespace ModbusLib
 		// ------------------------------------------------------------------------
 		/// <summary>Create master instance without parameters.</summary>
 		public Master() {
+			_connected = false;
 		}
 
 		// ------------------------------------------------------------------------
@@ -129,6 +130,7 @@ namespace ModbusLib
 		/// <param name="port">Port number of modbus slave. Usually port 502 is used.</param>
 		public void connect(string ip, ushort port) {
 			try {
+				_connected = false;
 				IPAddress _ip;
 				if (IPAddress.TryParse(ip, out _ip) == false) {
 					IPHostEntry hst = Dns.GetHostEntry(ip);
@@ -141,10 +143,9 @@ namespace ModbusLib
 				tcpAsyCl.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, _timeout);
 				tcpAsyCl.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.NoDelay, 1);
 
-				_connected = false;
 				IAsyncResult result = tcpAsyCl.BeginConnect(IPAddress.Parse(ip), port, null, null);
 				bool success = result.AsyncWaitHandle.WaitOne(_timeout, true);
-				if (!success) {
+				if (!success) {					
 					tcpAsyCl.Close();
 					throw new ApplicationException("Failed to connect server");
 				}
