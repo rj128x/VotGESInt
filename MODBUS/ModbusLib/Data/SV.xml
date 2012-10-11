@@ -333,6 +333,8 @@
 		
 		<ModbusInitData ID='750' Addr='750' Name='Суммарная Р ГЭС' Scale='0.1'   WriteToDBHH='1'/>
 		<ModbusInitData ID='751' Addr='751' Name='Суммарная Р ГЭС_FLAG' Scale='1' />
+		<ModbusInitData ID='764' Addr='764' Name='Суммарная Q ГЭС' Scale='0.1'   WriteToDBHH='1' />
+		<ModbusInitData ID='765' Addr='765' Name='Суммарная Q ГЭС_FLAG' Scale='1' />
 		
 		<ModbusInitData ID='810' Addr='810' Name='КШТ-1 110КВ' Scale='1'  WriteToDBHH='1'/>
 		<ModbusInitData ID='811' Addr='811' Name='КШТ-1 110КВ_FLAG' Scale='1' />
