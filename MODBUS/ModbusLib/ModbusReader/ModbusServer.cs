@@ -14,8 +14,8 @@ namespace ModbusLib
 	{
 		public event ErrorDelegate OnError;
 		public event ResponseDataDelegeate OnResponse;
-		public string IP { get; protected set; }
-		public ushort Port { get; protected set; }
+		public List<ServerInfo> Servers { get; protected set; }
+		public ServerInfo CurrentServer { get; protected set; }
 
 		protected Master.ExceptionData exceptionEvent;
 		protected Master.ResponseData responseEvent;
@@ -28,12 +28,32 @@ namespace ModbusLib
 			protected set { modbusMaster = value; }
 		}
 
+		protected void TryConnect() {
+			ServerInfo serv=CurrentServer;
+			while (!modbusMaster.connected) {
+				try {
+					modbusMaster.connect(serv.IP, serv.Port);
+				} catch (Exception e) {
+					Logger.Error("Ошибка при подключении " + serv.IP + ":" + serv.Port + "  " + e.Message);
+					if (serv == Servers.Last()) {
+						serv = Servers.First();
+					} else {
+						serv = Servers[Servers.IndexOf(serv) + 1];
+					}
+					if (serv == CurrentServer) {
+						throw new Exception("Не отвечают все сервера");
+					}
+				}				
+			}
+			CurrentServer = serv;
+		}
+
 		public void ProcessConnect(ConnectDelegate OnConnect) {
 			if (!modbusMaster.connected) {
 				try {
-					modbusMaster.connect(IP, Port);
+					TryConnect();
 				} catch (Exception e) {
-					Logger.Error("Ошибка при подключении " + IP + ":" + Port + "  " + e.Message);
+					Logger.Error("Ошибка при подключении " + e.Message);
 					if (OnError != null) {
 						OnError();
 					}
@@ -69,7 +89,7 @@ namespace ModbusLib
 
 		void modbusMaster_OnException(Master obj, ushort id, byte function, byte exception) {
 			if (modbusMaster == obj) {
-				Logger.Error("Ошибка при чтении данных " + IP + ":" + Port);
+				Logger.Error("Ошибка при чтении данных " + CurrentServer.IP + ":" + CurrentServer.Port);
 				if (OnError != null) {
 					OnError();
 				}
@@ -77,9 +97,9 @@ namespace ModbusLib
 		}
 
 
-		public ModbusServer(string ip, ushort port) {
-			this.IP = ip;
-			this.Port = port;
+		public ModbusServer(List<ServerInfo> Servers) {
+			this.Servers = Servers;
+			this.CurrentServer = Servers.First();
 			exceptionEvent = new Master.ExceptionData(modbusMaster_OnException);
 			responseEvent = new Master.ResponseData(modbusMaster_OnResponseData);
 			Init();

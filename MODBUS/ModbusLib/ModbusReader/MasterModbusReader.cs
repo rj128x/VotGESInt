@@ -39,7 +39,7 @@ namespace ModbusLib
 					String.Format("===Считано {0} записей", arr.FullData.Count);
 
 					Logger.Info(String.Format("Создание объекта чтения данных"));
-					ModbusServer sv=new ModbusServer(arr.IP, (ushort)arr.Port);
+					ModbusServer sv=new ModbusServer(arr.ServerInfoArray);
 					ModbusDataReader reader=new ModbusDataReader(sv, arr);
 					reader.OnFinish += new FinishEvent(reader_OnFinish);
 					Readers.Add(arr.ID, reader);

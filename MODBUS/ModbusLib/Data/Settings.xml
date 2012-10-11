@@ -8,7 +8,7 @@
 	</AddDataPath>
 	<HoursDiff>2</HoursDiff>	
 	<InitFiles>
-		<string>Data\MBDataFullDB.xml</string>
+		<string>Data\SV.xml</string>
 		<string>Data\MBDiscrete.xml</string>
 	</InitFiles>
 	<InitCalcFile>Data\MBDataCalc.xml</InitCalcFile>

@@ -7,7 +7,13 @@ using VotGES;
 namespace ModbusLib
 {
 	public enum RWModeEnum { hh, min }
-	
+
+	public class ServerInfo
+	{
+		public string IP { get; set; }
+		public ushort Port { get; set; }
+	}
+
 	public class ModbusInitData
 	{
 		[System.Xml.Serialization.XmlAttribute]
@@ -88,8 +94,7 @@ namespace ModbusLib
 	public class ModbusInitDataArray
 	{
 		public string ID { get; set; }
-		public string IP { get; set; }
-		public int Port { get; set; }
+		public List<ServerInfo> ServerInfoArray { get; set; }
 		public List<ModbusInitData> Data { get; set; }
 		public bool WriteMin { get; set; }
 		public bool WriteHH { get; set; }
