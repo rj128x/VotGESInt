@@ -69,6 +69,10 @@ namespace ClearDB
 						hh = 240;
 						Temp.WriteTemp(date, date.AddHours(hh));
 						break;
+					case "vaht":
+						hh = 240;
+						Vaht.WriteVaht(date, date.AddHours(hh));
+						break;
 				}
 				date = date.AddHours(hh);
 			}
