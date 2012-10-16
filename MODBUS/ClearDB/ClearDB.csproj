@@ -51,6 +51,7 @@
     <Compile Include="Vaht.cs" />
     <Compile Include="Water.cs" />
     <Compile Include="Temp.cs" />
+    <Compile Include="CopyData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\VotGESLib\VotGESLib.csproj">

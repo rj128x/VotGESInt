@@ -15,7 +15,7 @@ namespace ClearDB
 	class Program
 	{
 
-		protected static DateTime getDate(string ds) {
+		protected static DateTime getDate(string ds, bool minutes=false) {
 			DateTime date;
 			bool ok=DateTime.TryParse(ds, out date);
 			if (!ok) {
@@ -23,10 +23,12 @@ namespace ClearDB
 				ok = Int32.TryParse(ds, out hh);
 				DateTime now=DateTime.Now;
 				date = new DateTime(now.Year, now.Month, now.Day, now.Hour,0,0);
-				date = date.AddHours(-hh);
+				date = !minutes?date.AddHours(-hh):date.AddMinutes(-hh).AddMinutes(DateTime.Now.Minute);
 			}
 			return date;
 		}
+
+
 		static void Main(string[] args) {
 			DBSettings.init();
 			
@@ -37,8 +39,8 @@ namespace ClearDB
 
 			Logger.InitFileLogger(pathLog, "task");
 
-			DateTime dateStart=getDate(ds);
-			DateTime dateEnd=getDate(de);
+			DateTime dateStart=getDate(ds, task == "copy4");
+			DateTime dateEnd=getDate(de, task == "copy4");
 
 
 			System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("en-GB");
@@ -50,7 +52,7 @@ namespace ClearDB
 
 			DateTime date=dateStart.AddMinutes(0);
 			Logger.Info(task);
-			int hh=24;
+			double hh=24;
 			while (date <= dateEnd) {								
 				switch (task) {
 					case "clear":
@@ -72,6 +74,18 @@ namespace ClearDB
 					case "vaht":
 						hh = 240;
 						Vaht.WriteVaht(date, date.AddHours(hh));
+						break;
+					case "copy12":
+						hh = 4;
+						CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 12 }).ToList());						
+						break;
+					case "copy212":
+						hh = 24;
+						CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 212 }).ToList());
+						break;
+					case "copy4":
+						hh = 1.0/6.0;
+						CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 4, 204 }).ToList());
 						break;
 				}
 				date = date.AddHours(hh);

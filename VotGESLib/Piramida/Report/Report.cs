@@ -393,7 +393,7 @@ namespace VotGES.Piramida.Report
 			string objType=paramsArr[2];
 			string obj=paramsArr[3];
 
-			connection = Interval != IntervalReportEnum.minute ? PiramidaAccess.getConnection("P3000") : PiramidaAccess.getConnection("P2000");
+			connection = Interval != IntervalReportEnum.minute ? PiramidaAccess.getConnection("P3000") : PiramidaAccess.getConnection("P3000");
 			if (objType == "2" && (obj == "3" || obj == "30")) {
 				connection = PiramidaAccess.getConnection("PSV");
 			}

@@ -13,12 +13,9 @@ namespace ClearDB
 		public static string InsertIntoHeader="INSERT INTO Data (parnumber,object,item,value0,objtype,data_date,rcvstamp,season)";
 		public static string InsertInfoFormat="SELECT {0}, {1}, {2}, {3}, {4}, '{5}', '{6}', {7}";
 		public static string DateFormat="yyyy-MM-dd HH:mm:ss";
-		public static void AddData(List<string> insertsStrings, string insertIntoHeader, string conName) {
+		public static void AddData(List<string> insertsStrings, string insertIntoHeader, SqlTransaction transact) {
 			List<string>ins=new List<string>();
-			SqlConnection con=null;
 			try {
-				con = PiramidaAccess.getConnection(conName);
-				con.Open();
 				int i=0;
 				foreach (string insert in insertsStrings) {
 					i++;
@@ -26,8 +23,9 @@ namespace ClearDB
 					if (ins.Count % 20 == 0 || i == insertsStrings.Count) {
 						string insertsSQL = String.Join("\nUNION ALL\n", ins);
 						string insertSQL = String.Format("{0}\n{1}", insertIntoHeader, insertsSQL);
-						SqlCommand commandIns=con.CreateCommand();
+						SqlCommand commandIns=transact.Connection.CreateCommand();
 						commandIns.CommandText = insertSQL;
+						commandIns.Transaction = transact;
 						commandIns.ExecuteNonQuery();
 						ins.Clear();
 					}
@@ -35,24 +33,22 @@ namespace ClearDB
 			} catch (Exception e) {
 				Logger.Info(e.ToString());
 			} finally {
-				try { con.Close(); } catch { }
+				try {} catch { }
 			}
 		}
 
-		public static void Run(string com, string conName) {
+		public static void Run(string com, SqlTransaction transact) {
 			List<string>ins=new List<string>();
-			SqlConnection con=null;
 			try {
-				con = PiramidaAccess.getConnection(conName);
-				con.Open();
-				SqlCommand commandDel=con.CreateCommand();
+				SqlCommand commandDel=transact.Connection.CreateCommand();
 				commandDel.CommandText = com;
+				commandDel.Transaction = transact;
 				//Logger.Info(delStr);
 				commandDel.ExecuteNonQuery();								
 			} catch (Exception e) {
 				Logger.Info(e.ToString());
 			} finally {
-				try { con.Close(); } catch { }
+				try {  } catch { }
 			}
 		}
 	}

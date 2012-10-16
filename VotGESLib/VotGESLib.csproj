@@ -139,6 +139,7 @@
     <Content Include="Data\nnet\vges_nb.txt" />
     <Content Include="Data\DBSettings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Piramida\full.xml" />
     <Content Include="Piramida\sensors.xml" />

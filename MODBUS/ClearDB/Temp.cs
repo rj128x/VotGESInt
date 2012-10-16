@@ -30,9 +30,20 @@ namespace ClearDB
 
 			string delStr=String.Format("DELETE FROM DATA WHERE OBJECT=1 AND OBJTYPE=2 AND PARNUMBER=26 and item=373 and DATA_DATE IN ({0})", String.Join(",", dates));
 			
+			SqlConnection con = PiramidaAccess.getConnection("P3000");
+			con.Open();
+			SqlTransaction transact=con.BeginTransaction();
 			if (dates.Count > 0) {
-				DBClass.Run(delStr, "P3000");
-				DBClass.AddData(insertsStrings, DBClass.InsertIntoHeader, "P3000");				
+				DBClass.Run(delStr, transact);
+				DBClass.AddData(insertsStrings, DBClass.InsertIntoHeader, transact);
+
+				try {
+					transact.Commit();
+				} catch (Exception e) {
+					Logger.Info(e.ToString());
+				} finally {
+					try { transact.Connection.Close(); } catch { }
+				}
 			}
 		}
 		
