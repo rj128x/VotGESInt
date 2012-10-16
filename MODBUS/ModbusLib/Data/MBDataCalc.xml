@@ -2,7 +2,7 @@
 <ModbusInitDataArray xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 							xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<ID>Calc</ID>
-	<WriteMin>0</WriteMin>
+	<WriteMin>1</WriteMin>
 	<WriteHH>1</WriteHH>
 	<Obj>30</Obj>
 	<ObjType>2</ObjType>
@@ -13,9 +13,9 @@
 	<ParNumberDiff>13</ParNumberDiff>
 	<ParNumberMin>4</ParNumberMin>	
 	<Data>
-		<ModbusInitData ID="P_GTP1" Name="P ГТП 1" FuncName="P_GTP1" WriteToDBHH="1" Item="2"/>
-		<ModbusInitData ID="P_GTP2" Name="P ГТП 2" FuncName="P_GTP2" WriteToDBHH="1" Item="3"/>
-		<ModbusInitData ID="P_GES" Name="P ГЭС" FuncName="P_GES" WriteToDBHH="1" Item="1"/>
+		<ModbusInitData ID="P_GTP1" Name="P ГТП 1" FuncName="P_GTP1" WriteToDBHH="1" Item="2" WriteToDBMin="1"/>
+		<ModbusInitData ID="P_GTP2" Name="P ГТП 2" FuncName="P_GTP2" WriteToDBHH="1" Item="3"  WriteToDBMin="1"/>
+		<ModbusInitData ID="P_GES" Name="P ГЭС" FuncName="P_GES" WriteToDBHH="1" Item="1"  WriteToDBMin="1"/>
 		<ModbusInitData ID="Rashod_GTP1" Name="Расход ГТП2" FuncName="Rashod_GTP1" WriteToDBHH="1" Item="5"/>
 		<ModbusInitData ID="Rashod_GTP2" Name="Расход ГТП1" FuncName="Rashod_GTP2" WriteToDBHH="1" Item="6"/>
 		<ModbusInitData ID="Rashod_GES" Name="Расход ГЭС" FuncName="Rashod_GES" WriteToDBHH="1" Item="4"/>		

@@ -37,23 +37,27 @@ namespace VotGES
 			if (newLogger == null) {
 				newLogger = new Logger();
 			}
-		
 			
 			string fileName=String.Format("{0}/{1}_{2}.txt", path, name, DateTime.Now.ToString("dd_MM_yyyy"));
-			PatternLayout layout = new PatternLayout(@"[%d] %-10p %m%n");
-			newLogger.appender = new FileAppender();
-			newLogger.appender.Layout = layout;
-			newLogger.appender.File = fileName;
-			newLogger.appender.AppendToFile = true;
-			BasicConfigurator.Configure(newLogger.appender);
-			newLogger.appender.ActivateOptions();
-			
-			newLogger.logger = LogManager.GetLogger(name);
-			newLogger.Path=path;
-			newLogger.Name=name;
-			newLogger.IsFileLogger=true;
-			newLogger.Date = DateTime.Now.Date;
-			Logger.context = newLogger;
+			try {
+				PatternLayout layout = new PatternLayout(@"[%d] %-10p %m%n");
+				newLogger.appender = new FileAppender();
+				newLogger.appender.Layout = layout;
+				newLogger.appender.File = fileName;
+				newLogger.appender.AppendToFile = true;
+				BasicConfigurator.Configure(newLogger.appender);
+				newLogger.appender.ActivateOptions();
+
+				newLogger.logger = LogManager.GetLogger(name);
+				newLogger.Path = path;
+				newLogger.Name = name;
+				newLogger.IsFileLogger = true;
+				newLogger.Date = DateTime.Now.Date;
+				Logger.context = newLogger;
+			} catch (Exception e) {
+				Console.WriteLine("Ошибка при создании log-файла " + fileName);
+				Console.WriteLine(e.Message);				
+			}
 		}
 
 		public static void init(Logger context) {
@@ -75,17 +79,17 @@ namespace VotGES
 		}
 
 		protected virtual void info(string str, LoggerSource source = LoggerSource.none) {
-			logger.Info(createMessage(str, source));
+			try {	logger.Info(createMessage(str, source));} catch { }
 			Console.WriteLine(createMessage(str, source));
 		}
 
 		protected virtual void error(string str, LoggerSource source = LoggerSource.none) {
-			logger.Error(createMessage(str, source));
+			try { logger.Error(createMessage(str, source)); } catch { }
 			Console.WriteLine(createMessage(str, source));
 		}
 
 		protected virtual void debug(string str, LoggerSource source = LoggerSource.none) {
-			logger.Debug(createMessage(str, source));
+			try { logger.Debug(createMessage(str, source)); } catch { }
 			Console.WriteLine(createMessage(str, source));
 		}
 

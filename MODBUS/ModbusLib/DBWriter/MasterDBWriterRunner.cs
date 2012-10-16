@@ -18,9 +18,9 @@ namespace ModbusLib.DBWriter
 
 				if (args.Length > 0) {
 					DateTime dateStart=DateTime.Parse(args[0]);
-					writer.Process(dateStart, DateTime.Now, RWModeEnum.hh);
+					writer.Process(dateStart, DateTime.Now, (RWModeEnum)Enum.Parse(typeof(RWModeEnum), args[1]));					
 				} else {
-					writer.InitRun(30000, 3, -1);					
+					writer.InitRun(60000, 3, 5);					
 					writer.Run();
 				}
 

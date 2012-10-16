@@ -112,7 +112,7 @@ namespace ModbusLib
 				CurrentWriter.Flush();
 			} catch (Exception e) {
 				Logger.Error("Ошибка при записи строки в файл");
-				Logger.Error(e.ToString());
+				Logger.Error(e.Message);
 			}
 		}
 	}

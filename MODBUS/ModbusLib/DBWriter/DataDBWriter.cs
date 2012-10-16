@@ -127,7 +127,7 @@ namespace ModbusLib
 					readData();
 				} catch (Exception e) {
 					Logger.Error("Ошибка при чтении данных");
-					Logger.Error(e.ToString());
+					Logger.Error(e.Message);
 				} finally {
 					Reader.Close();
 				}

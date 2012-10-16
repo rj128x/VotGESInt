@@ -105,7 +105,7 @@ namespace ModbusLib
 					Logger.Error("Ошибка при записи в базу");
 					Logger.Info(e.ToString());					
 				} finally {
-					date = date.AddMinutes(30);
+					date = mode==RWModeEnum.hh?date.AddMinutes(30):date.AddMinutes(1);
 				}
 			}
 		}
@@ -121,10 +121,11 @@ namespace ModbusLib
 			Process(DateTime.Now, RWModeEnum.hh, DepthHH);
 			while (true) {					
 				if (DepthMin >= 0) {
+					Logger.Info("====================MIN==================");
 					Process(DateTime.Now, RWModeEnum.min, DepthMin);
 				}
 				if (DateTime.Now.Minute % 30 < 5 && DateTime.Now.Minute % 30 >= 1 && LastHHDate.AddMinutes(20) < DateTime.Now) {
-					Logger.Info("HH");
+					Logger.Info("====================HH===================");
 					Process(DateTime.Now, RWModeEnum.hh, DepthHH);
 					LastHHDate = DateTime.Now;
 				}
