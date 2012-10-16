@@ -64,6 +64,20 @@ namespace ModbusLib
 		public double P_GES() {
 			return this["MB_216"] + this["MB_266"] + this["MB_316"] + this["MB_366"] + this["MB_416"] + this["MB_466"] + this["MB_516"] + this["MB_566"] + this["MB_616"] + this["MB_666"];
 		}
+
+		public double P_RGE2() {
+			return this["MB_316"] + this["MB_366"];
+		}
+
+		public double P_RGE3() {
+			return this["MB_416"] + this["MB_466"];
+		}
+
+		public double P_RGE4() {
+			return this["MB_516"] + this["MB_566"] + this["MB_616"] + this["MB_666"];
+		}
+
+
 		#endregion
 
 		#region Rashod

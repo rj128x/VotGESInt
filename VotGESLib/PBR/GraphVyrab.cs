@@ -91,10 +91,7 @@ namespace VotGES.PBR
 			PBRData ges=new PBRData(dateStart, dateEnd, date, GTPEnum.ges);
 			PBRData gtp1=new PBRData(dateStart, dateEnd, date, GTPEnum.gtp1);
 			PBRData gtp2=new PBRData(dateStart, dateEnd, date, GTPEnum.gtp2);
-
-			
-
-			
+		
 			answer.Chart = new ChartAnswer();
 			answer.Chart.Properties = getChartProperties();
 			answer.Chart.Data = new ChartData();
