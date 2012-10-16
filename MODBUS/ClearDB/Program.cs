@@ -31,13 +31,17 @@ namespace ClearDB
 
 		static void Main(string[] args) {
 			DBSettings.init();
-			
+			string nameLog="";
+
 			string ds=args[0];
 			string de=args[1];
 			string task=args[2];
 			string pathLog=args[3];
+			try {
+				nameLog = args[4];
+			} catch { }
 
-			Logger.InitFileLogger(pathLog, "task");
+			Logger.InitFileLogger(pathLog, nameLog);
 
 			DateTime dateStart=getDate(ds, task == "copy4");
 			DateTime dateEnd=getDate(de, task == "copy4");
