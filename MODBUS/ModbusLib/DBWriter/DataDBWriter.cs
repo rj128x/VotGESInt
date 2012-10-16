@@ -201,9 +201,9 @@ namespace ModbusLib
 			SqlDataReader reader=null;
 			SortedList<string,List<string>> inserts=new SortedList<string, List<string>>();
 			SortedList<string,List<string>> deletes=new SortedList<string, List<string>>();
-			string insertIntoHeader="INSERT INTO Data (parnumber,object,item,value0,value1,valueMin,valueMax,valueEq,objtype,data_date,rcvstamp,season)";
+			string insertIntoHeader="INSERT INTO Data (parnumber,object,item,value0,value1,valueMin,valueMax,valueEq,objtype,data_date,rcvstamp,season)";			
 			string frmt="SELECT {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, '{9}', '{10}', {11}";
-			string frmDel="(parnumber={0} and object={1} and objType={2} and item={3} and data_date='{4}')";
+			//string frmDel="(parnumber={0} and object={1} and objType={2} and item={3} and data_date='{4}')";
 			string frmDelAll="(parnumber={0} and object={1} and objType={2} and item={3} and data_date>='{4}' and data_date<='{5}')";
 			string df=Settings.single.DBDateFormat;
 			foreach (DataDBRecord rec in Data.Values) {
@@ -212,7 +212,8 @@ namespace ModbusLib
 					if (init.WriteToDBMin && mode == RWModeEnum.min) {
 						string insert=String.Format(frmt, init.ParNumberMin, init.Obj, init.Item, rec.AvgMin,0, rec.Min, rec.Max, rec.Eq, init.ObjType,
 							Date.AddMinutes(1).ToString(df), DateTime.Now.ToString(df), 0);
-						string delete=String.Format(frmDel, init.ParNumberMin, init.Obj, init.ObjType, init.Item, Date.AddMinutes(1).ToString(df));
+						//string delete=String.Format(frmDel, init.ParNumberMin, init.Obj, init.ObjType, init.Item, Date.AddMinutes(1).ToString(df));
+						string delete=String.Format(frmDelAll, init.ParNumberMin, init.Obj, init.ObjType, init.Item, Date.ToString(df), Date.AddMinutes(1).ToString(df));
 						if (!inserts.ContainsKey(init.DBNameMin)) {
 							inserts.Add(init.DBNameMin, new List<string>());
 						}
@@ -220,14 +221,19 @@ namespace ModbusLib
 							deletes.Add(init.DBNameMin, new List<string>());
 						}
 
-						inserts[init.DBNameMin].Add(insert);
-						deletes[init.DBNameMin].Add(delete);
+						if (!inserts[init.DBNameMin].Contains(insert)) {
+							inserts[init.DBNameMin].Add(insert);
+						}
+						if (!deletes[init.DBNameMin].Contains(delete)) {
+							deletes[init.DBNameMin].Add(delete);
+						}
 					}
 
 					if (init.WriteToDBHH && mode == RWModeEnum.hh) {
 						string insert=String.Format(frmt, init.ParNumberHH, init.Obj, init.Item, rec.Avg,0, rec.Min, rec.Max, rec.Eq, init.ObjType,
 							Date.AddMinutes(30).ToString(df), DateTime.Now.ToString(df), 0);
-						string delete=String.Format(frmDel, init.ParNumberHH, init.Obj, init.ObjType, init.Item, Date.AddMinutes(30).ToString(df));
+						//string delete=String.Format(frmDel, init.ParNumberHH, init.Obj, init.ObjType, init.Item, Date.AddMinutes(30).ToString(df));
+						string delete=String.Format(frmDelAll, init.ParNumberHH, init.Obj, init.ObjType, init.Item, Date.ToString(df), Date.AddMinutes(30).ToString(df));
 						if (!inserts.ContainsKey(init.DBNameHH)) {
 							inserts.Add(init.DBNameHH, new List<string>());
 						}
@@ -235,8 +241,12 @@ namespace ModbusLib
 							deletes.Add(init.DBNameHH, new List<string>());
 						}
 
-						inserts[init.DBNameHH].Add(insert);
-						deletes[init.DBNameHH].Add(delete);
+						if (!inserts[init.DBNameHH].Contains(insert)) {
+							inserts[init.DBNameHH].Add(insert);
+						}
+						if (!deletes[init.DBNameHH].Contains(delete)) {
+							deletes[init.DBNameHH].Add(delete);
+						}
 					}
 
 					
@@ -278,16 +288,18 @@ namespace ModbusLib
 							deletes.Add(init.DBNameDiff, new List<string>());
 						}						
 						deletes[init.DBNameDiff].Add(delete);
-
+						
 						foreach (KeyValuePair<DateTime,double>diff in rec.DiffVals) {
 							timeChange = (diff.Key.Ticks - prevDate.Ticks) / (10000000.0*60.0);
 							string insert=String.Format(frmt, init.ParNumberDiff, init.Obj, init.Item, diff.Value, timeChange, diff.Value, diff.Value, diff.Value, init.ObjType,
 								diff.Key.ToString(df), DateTime.Now.ToString(df), 0);
+
 							if (!inserts.ContainsKey(init.DBNameDiff)) {
-								inserts.Add(init.DBNameDiff, new List<string>());
+								inserts.Add(init.DBNameDiff, new List<string>());								
 							}
 							inserts[init.DBNameDiff].Add(insert);
 							prevDate = diff.Key;
+							
 						}
 					}
 				}
@@ -327,7 +339,6 @@ namespace ModbusLib
 						qDels = new List<string>();
 					}
 				}
-
 			}
 
 			foreach (KeyValuePair<string,List<string>> de in inserts) {
