@@ -56,6 +56,10 @@ namespace MainSL.Views
 						chartControl.Create(answer);
 						tabHHReport.Visibility = System.Windows.Visibility.Collapsed;
 						tabHReport.Visibility = System.Windows.Visibility.Collapsed;
+						tabHHRGEReport.Visibility = System.Windows.Visibility.Collapsed;
+						tabHRGEReport.Visibility = System.Windows.Visibility.Collapsed;
+						tabChartRGE.Visibility = System.Windows.Visibility.Collapsed;
+						tabChart.Visibility = System.Windows.Visibility.Visible;
 					} catch (Exception ex) {
 						Logging.Logger.info(ex.ToString());
 						GlobalStatus.Current.ErrorLoad("Ошибка");
@@ -78,11 +82,81 @@ namespace MainSL.Views
 						ChartAnswer answer=oper.Value.Chart;
 						chartControl.Create(answer);
 						currentAnswer = oper.Value;
-						
+
 						tabHHReport.Visibility = System.Windows.Visibility.Visible;
 						tabHReport.Visibility = System.Windows.Visibility.Visible;
+						tabHHRGEReport.Visibility = System.Windows.Visibility.Collapsed;
+						tabHRGEReport.Visibility = System.Windows.Visibility.Collapsed;
+						tabChartRGE.Visibility = System.Windows.Visibility.Collapsed;
+						tabChart.Visibility = System.Windows.Visibility.Visible;
+						
 						cntrlHHReport.grdReport.ItemsSource = currentAnswer.TableHH;
 						cntrlHReport.grdReport.ItemsSource = currentAnswer.TableH;
+					} catch (Exception ex) {
+						Logging.Logger.info(ex.ToString());
+						GlobalStatus.Current.ErrorLoad("Ошибка");
+					} finally {
+						GlobalStatus.Current.StopLoad();
+					}
+				}, null);
+			GlobalStatus.Current.StartLoad(currentOper);
+		}
+
+		private void btnMinRGE_Click(object sender, RoutedEventArgs e) {
+			InvokeOperation currentOper=context.getGraphVyrabRGEMin(settings.Date,
+				oper => {
+					if (oper.IsCanceled) {
+						return;
+					}
+					GlobalStatus.Current.StartProcess();
+					try {
+						tabChartRGE.IsSelected = true;
+						chartControlRGE1.Create(oper.Value.ChartRGE1);
+						chartControlRGE2.Create(oper.Value.ChartRGE2);
+						chartControlRGE3.Create(oper.Value.ChartRGE3);
+						chartControlRGE4.Create(oper.Value.ChartRGE4);
+
+						tabHHReport.Visibility = System.Windows.Visibility.Collapsed;
+						tabHReport.Visibility = System.Windows.Visibility.Collapsed;
+						tabHHRGEReport.Visibility = System.Windows.Visibility.Collapsed;
+						tabHRGEReport.Visibility = System.Windows.Visibility.Collapsed;
+						tabChart.Visibility = System.Windows.Visibility.Collapsed;
+						tabChartRGE.Visibility = System.Windows.Visibility.Visible;
+						tabChart.Visibility = System.Windows.Visibility.Collapsed;
+					} catch (Exception ex) {
+						Logging.Logger.info(ex.ToString());
+						GlobalStatus.Current.ErrorLoad("Ошибка");
+					} finally {
+						GlobalStatus.Current.StopLoad();
+					}
+				}, null);
+			GlobalStatus.Current.StartLoad(currentOper);
+		}
+
+		private void btnHHRGE_Click(object sender, RoutedEventArgs e) {
+			InvokeOperation currentOper=context.getGraphVyrabRGEHH(settings.Date,
+				oper => {
+					if (oper.IsCanceled) {
+						return;
+					}
+					GlobalStatus.Current.StartProcess();
+
+					try {
+						chartControlRGE1.Create(oper.Value.ChartRGE1);
+						chartControlRGE2.Create(oper.Value.ChartRGE2);
+						chartControlRGE3.Create(oper.Value.ChartRGE3);
+						chartControlRGE4.Create(oper.Value.ChartRGE4);
+
+						tabHHReport.Visibility = System.Windows.Visibility.Collapsed;
+						tabHReport.Visibility = System.Windows.Visibility.Collapsed;
+						tabHHRGEReport.Visibility = System.Windows.Visibility.Visible;
+						tabHRGEReport.Visibility = System.Windows.Visibility.Visible;
+						tabChart.Visibility = System.Windows.Visibility.Collapsed;
+						tabChartRGE.Visibility = System.Windows.Visibility.Visible;
+						tabChart.Visibility = System.Windows.Visibility.Collapsed;
+
+						cntrlHHRGEReport.grdReport.ItemsSource = oper.Value.TableHH;
+						cntrlHRGEReport.grdReport.ItemsSource = oper.Value.TableH;
 					} catch (Exception ex) {
 						Logging.Logger.info(ex.ToString());
 						GlobalStatus.Current.ErrorLoad("Ошибка");

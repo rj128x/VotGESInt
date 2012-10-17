@@ -51,7 +51,7 @@
 
 					<Rectangle x:Name="Divider6" Style="{StaticResource DividerStyle}"/>
 					<HyperlinkButton x:Name="Link6" Style="{StaticResource LinkStyle}"
-                                     NavigateUri="/GraphVyrabPage" TargetName="ContentFrame" Content="График нагрузки"/>
+                                     NavigateUri="/GraphVyrabRGEPage" TargetName="ContentFrame" Content="График нагрузки"/>
 					
 					<Rectangle x:Name="Divider5" Style="{StaticResource DividerStyle}"/>
 					<HyperlinkButton x:Name="Link5" Style="{StaticResource LinkStyle}" 

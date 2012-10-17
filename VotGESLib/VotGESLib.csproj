@@ -72,6 +72,7 @@
     <Compile Include="PBR\PBRData.cs" />
     <Compile Include="PBR\PBRDataHH.cs" />
     <Compile Include="PBR\PBRFull.cs" />
+    <Compile Include="PBR\GraphVyrabRGE.cs" />
     <Compile Include="Piramida\PiramidaAccess.cs" />
     <Compile Include="Piramida\PiramidaRecord.cs" />
     <Compile Include="Piramida\PiramidaRecords.cs" />

@@ -11,7 +11,7 @@ namespace VotGES.PBR
 		public DateTime DateStart{get;protected set;}
 		public DateTime DateEnd{get;protected set;}
 
-		public int GTPIndex { get; protected set; }
+		public GTPEnum GTPIndex { get; protected set; }
 
 		public SortedList<DateTime, double> RealPBR{get;protected set;}
 		public SortedList<DateTime, double> HalfHoursP { get; protected set; }
@@ -25,7 +25,7 @@ namespace VotGES.PBR
 
 
 
-		public PBRDataHH(DateTime dateStart, DateTime dateEnd, int gtpIndex) {
+		public PBRDataHH(DateTime dateStart, DateTime dateEnd, GTPEnum gtpIndex) {
 			DateStart = dateStart.Date.AddHours(dateStart.Hour);
 			DateEnd = dateEnd.Date.AddHours(dateEnd.Hour);
 			GTPIndex = gtpIndex;
@@ -38,7 +38,7 @@ namespace VotGES.PBR
 		}
 
 		public void readData() {
-			int item=GTPIndex + 1;
+			int item=(int)GTPIndex;
 
 			List<int> items=(new int[] { item }).ToList<int>();
 			List<PiramidaEnrty> dataPBR=PiramidaAccess.GetDataFromDB(DateStart, DateEnd, 0, 2, 212, items, true, true);

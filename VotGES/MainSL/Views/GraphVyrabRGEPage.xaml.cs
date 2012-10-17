@@ -25,7 +25,7 @@ namespace MainSL.Views
 
 		public int Second {
 			get { return second; }
-			set { 
+			set {
 				second = value;
 				second = second < 0 ? 30 : second;
 				NotifyChanged("Second");
@@ -35,22 +35,23 @@ namespace MainSL.Views
 		private bool autoRefresh;
 		public bool AutoRefresh {
 			get { return autoRefresh; }
-			set { 
+			set {
 				autoRefresh = value;
 				NotifyChanged("AutoRefresh");
 			}
 		}
 	}
-	public partial class GraphVyrabPage : Page
+
+	public partial class GraphVyrabRGEPage : Page
 	{
 		DispatcherTimer timer;
-		public GraphVyrabAnswer CurrentAnswer { get; set; }
+		public FullGraphVyrab CurrentAnswer { get; set; }
 		public GraphVyrabDomainContext context;
 		public SettingsGraphVyab settings;
 
-		public GraphVyrabPage() {
+		public GraphVyrabRGEPage() {
 			InitializeComponent();
-			CurrentAnswer = new GraphVyrabAnswer();
+			CurrentAnswer = new FullGraphVyrab();
 			context = new GraphVyrabDomainContext();
 			pnlSettings.DataContext = CurrentAnswer;
 			settings = new SettingsGraphVyab();
@@ -91,17 +92,21 @@ namespace MainSL.Views
 		private void refresh() {
 			if (GlobalStatus.Current.IsBusy)
 				return;
-			InvokeOperation currentOper=context.getGraphVyrab(
+			InvokeOperation currentOper=context.getFullGraphVyrab(
 				oper => {
 					if (oper.IsCanceled) {
 						return;
 					}
 					GlobalStatus.Current.StartProcess();
 					try {
-						ChartAnswer answer=oper.Value.Chart;
-						txtActualDate.Text = oper.Value.ActualDate.ToString("HH:mm");
+						txtActualDate.Text = oper.Value.GTP.ActualDate.ToString("HH:mm");
 						pnlSettings.DataContext = oper.Value;
-						chartControl.Create(answer);
+						chartControl.Create(oper.Value.GTP.Chart);
+						chartControlRGE1.Create(oper.Value.RGE.ChartRGE1);
+						chartControlRGE2.Create(oper.Value.RGE.ChartRGE2);
+						chartControlRGE3.Create(oper.Value.RGE.ChartRGE3);
+						chartControlRGE4.Create(oper.Value.RGE.ChartRGE4);
+						CurrentAnswer = oper.Value;
 					} catch (Exception ex) {
 						Logging.Logger.info(ex.ToString());
 						GlobalStatus.Current.ErrorLoad("Ошибка");

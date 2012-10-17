@@ -149,9 +149,9 @@ namespace VotGES.PBR
 			CheckGraphVyrabAnswer answer=new CheckGraphVyrabAnswer();
 
 
-			PBRDataHH ges=new PBRDataHH(dateStart, dateEnd, 0);
-			PBRDataHH gtp1=new PBRDataHH(dateStart, dateEnd, 1);
-			PBRDataHH gtp2=new PBRDataHH(dateStart, dateEnd, 2);
+			PBRDataHH ges=new PBRDataHH(dateStart, dateEnd, GTPEnum.ges);
+			PBRDataHH gtp1=new PBRDataHH(dateStart, dateEnd, GTPEnum.gtp1);
+			PBRDataHH gtp2=new PBRDataHH(dateStart, dateEnd, GTPEnum.gtp2);
 
 			answer.Chart = new ChartAnswer();
 			answer.Chart.Properties = getChartProperties();

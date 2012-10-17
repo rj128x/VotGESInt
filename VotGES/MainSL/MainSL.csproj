@@ -125,9 +125,6 @@
     <Compile Include="Views\FullReportPage.xaml.cs">
       <DependentUpon>FullReportPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GraphVyrabPage.xaml.cs">
-      <DependentUpon>GraphVyrabPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ReportBaseControl.xaml.cs">
       <DependentUpon>ReportBaseControl.xaml</DependentUpon>
     </Compile>
@@ -155,6 +152,12 @@
     </Compile>
     <Compile Include="Views\ReportSettingsOnlyDatesControl.xaml.cs">
       <DependentUpon>ReportSettingsOnlyDatesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CheckGraphVyrabRGEReportControl.xaml.cs">
+      <DependentUpon>CheckGraphVyrabRGEReportControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GraphVyrabRGEPage.xaml.cs">
+      <DependentUpon>GraphVyrabRGEPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="VisiBloxChart\VisibloxChartSerie.cs">
       <SubType>Code</SubType>
@@ -189,10 +192,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GraphVyrabPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ReportBaseControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -214,6 +213,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ReportSettingsOnlyDatesControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CheckGraphVyrabRGEReportControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\GraphVyrabRGEPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

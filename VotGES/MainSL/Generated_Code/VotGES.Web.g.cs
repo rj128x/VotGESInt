@@ -1276,6 +1276,710 @@ namespace VotGES.PBR
     }
     
     /// <summary>
+    /// Класс "CheckGraphVyrabRGEAnswer".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.PBR")]
+    public sealed partial class CheckGraphVyrabRGEAnswer : ComplexObject
+    {
+        
+        private ChartAnswer _chartRGE1;
+        
+        private ChartAnswer _chartRGE2;
+        
+        private ChartAnswer _chartRGE3;
+        
+        private ChartAnswer _chartRGE4;
+        
+        private List<CheckGraphVyrabRGETableRow> _tableH;
+        
+        private List<CheckGraphVyrabRGETableRow> _tableHH;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnChartRGE1Changing(ChartAnswer value);
+        partial void OnChartRGE1Changed();
+        partial void OnChartRGE2Changing(ChartAnswer value);
+        partial void OnChartRGE2Changed();
+        partial void OnChartRGE3Changing(ChartAnswer value);
+        partial void OnChartRGE3Changed();
+        partial void OnChartRGE4Changing(ChartAnswer value);
+        partial void OnChartRGE4Changed();
+        partial void OnTableHChanging(List<CheckGraphVyrabRGETableRow> value);
+        partial void OnTableHChanged();
+        partial void OnTableHHChanging(List<CheckGraphVyrabRGETableRow> value);
+        partial void OnTableHHChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="CheckGraphVyrabRGEAnswer"/>.
+        /// </summary>
+        public CheckGraphVyrabRGEAnswer()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ChartRGE1".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartAnswer ChartRGE1
+        {
+            get
+            {
+                return this._chartRGE1;
+            }
+            set
+            {
+                if ((this._chartRGE1 != value))
+                {
+                    this.OnChartRGE1Changing(value);
+                    this.RaiseDataMemberChanging("ChartRGE1");
+                    this.ValidateProperty("ChartRGE1", value);
+                    this._chartRGE1 = value;
+                    this.RaiseDataMemberChanged("ChartRGE1");
+                    this.OnChartRGE1Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ChartRGE2".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartAnswer ChartRGE2
+        {
+            get
+            {
+                return this._chartRGE2;
+            }
+            set
+            {
+                if ((this._chartRGE2 != value))
+                {
+                    this.OnChartRGE2Changing(value);
+                    this.RaiseDataMemberChanging("ChartRGE2");
+                    this.ValidateProperty("ChartRGE2", value);
+                    this._chartRGE2 = value;
+                    this.RaiseDataMemberChanged("ChartRGE2");
+                    this.OnChartRGE2Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ChartRGE3".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartAnswer ChartRGE3
+        {
+            get
+            {
+                return this._chartRGE3;
+            }
+            set
+            {
+                if ((this._chartRGE3 != value))
+                {
+                    this.OnChartRGE3Changing(value);
+                    this.RaiseDataMemberChanging("ChartRGE3");
+                    this.ValidateProperty("ChartRGE3", value);
+                    this._chartRGE3 = value;
+                    this.RaiseDataMemberChanged("ChartRGE3");
+                    this.OnChartRGE3Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ChartRGE4".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartAnswer ChartRGE4
+        {
+            get
+            {
+                return this._chartRGE4;
+            }
+            set
+            {
+                if ((this._chartRGE4 != value))
+                {
+                    this.OnChartRGE4Changing(value);
+                    this.RaiseDataMemberChanging("ChartRGE4");
+                    this.ValidateProperty("ChartRGE4", value);
+                    this._chartRGE4 = value;
+                    this.RaiseDataMemberChanged("ChartRGE4");
+                    this.OnChartRGE4Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "TableH".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<CheckGraphVyrabRGETableRow> TableH
+        {
+            get
+            {
+                return this._tableH;
+            }
+            set
+            {
+                if ((this._tableH != value))
+                {
+                    this.OnTableHChanging(value);
+                    this.RaiseDataMemberChanging("TableH");
+                    this.ValidateProperty("TableH", value);
+                    this._tableH = value;
+                    this.RaiseDataMemberChanged("TableH");
+                    this.OnTableHChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "TableHH".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<CheckGraphVyrabRGETableRow> TableHH
+        {
+            get
+            {
+                return this._tableHH;
+            }
+            set
+            {
+                if ((this._tableHH != value))
+                {
+                    this.OnTableHHChanging(value);
+                    this.RaiseDataMemberChanging("TableHH");
+                    this.ValidateProperty("TableHH", value);
+                    this._tableHH = value;
+                    this.RaiseDataMemberChanged("TableHH");
+                    this.OnTableHHChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "CheckGraphVyrabRGETableRow".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.PBR")]
+    public sealed partial class CheckGraphVyrabRGETableRow : ComplexObject
+    {
+        
+        private double _rge1Diff;
+        
+        private double _rge1DiffProc;
+        
+        private double _rge1Fakt;
+        
+        private double _rge1Plan;
+        
+        private double _rge2Diff;
+        
+        private double _rge2DiffProc;
+        
+        private double _rge2Fakt;
+        
+        private double _rge2Plan;
+        
+        private double _rge3Diff;
+        
+        private double _rge3DiffProc;
+        
+        private double _rge3Fakt;
+        
+        private double _rge3Plan;
+        
+        private double _rge4Diff;
+        
+        private double _rge4DiffProc;
+        
+        private double _rge4Fakt;
+        
+        private double _rge4Plan;
+        
+        private string _title;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnRGE1DiffChanging(double value);
+        partial void OnRGE1DiffChanged();
+        partial void OnRGE1DiffProcChanging(double value);
+        partial void OnRGE1DiffProcChanged();
+        partial void OnRGE1FaktChanging(double value);
+        partial void OnRGE1FaktChanged();
+        partial void OnRGE1PlanChanging(double value);
+        partial void OnRGE1PlanChanged();
+        partial void OnRGE2DiffChanging(double value);
+        partial void OnRGE2DiffChanged();
+        partial void OnRGE2DiffProcChanging(double value);
+        partial void OnRGE2DiffProcChanged();
+        partial void OnRGE2FaktChanging(double value);
+        partial void OnRGE2FaktChanged();
+        partial void OnRGE2PlanChanging(double value);
+        partial void OnRGE2PlanChanged();
+        partial void OnRGE3DiffChanging(double value);
+        partial void OnRGE3DiffChanged();
+        partial void OnRGE3DiffProcChanging(double value);
+        partial void OnRGE3DiffProcChanged();
+        partial void OnRGE3FaktChanging(double value);
+        partial void OnRGE3FaktChanged();
+        partial void OnRGE3PlanChanging(double value);
+        partial void OnRGE3PlanChanged();
+        partial void OnRGE4DiffChanging(double value);
+        partial void OnRGE4DiffChanged();
+        partial void OnRGE4DiffProcChanging(double value);
+        partial void OnRGE4DiffProcChanged();
+        partial void OnRGE4FaktChanging(double value);
+        partial void OnRGE4FaktChanged();
+        partial void OnRGE4PlanChanging(double value);
+        partial void OnRGE4PlanChanged();
+        partial void OnTitleChanging(string value);
+        partial void OnTitleChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="CheckGraphVyrabRGETableRow"/>.
+        /// </summary>
+        public CheckGraphVyrabRGETableRow()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE1Diff".
+        /// </summary>
+        [DataMember()]
+        public double RGE1Diff
+        {
+            get
+            {
+                return this._rge1Diff;
+            }
+            set
+            {
+                if ((this._rge1Diff != value))
+                {
+                    this.OnRGE1DiffChanging(value);
+                    this.RaiseDataMemberChanging("RGE1Diff");
+                    this.ValidateProperty("RGE1Diff", value);
+                    this._rge1Diff = value;
+                    this.RaiseDataMemberChanged("RGE1Diff");
+                    this.OnRGE1DiffChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE1DiffProc".
+        /// </summary>
+        [DataMember()]
+        public double RGE1DiffProc
+        {
+            get
+            {
+                return this._rge1DiffProc;
+            }
+            set
+            {
+                if ((this._rge1DiffProc != value))
+                {
+                    this.OnRGE1DiffProcChanging(value);
+                    this.RaiseDataMemberChanging("RGE1DiffProc");
+                    this.ValidateProperty("RGE1DiffProc", value);
+                    this._rge1DiffProc = value;
+                    this.RaiseDataMemberChanged("RGE1DiffProc");
+                    this.OnRGE1DiffProcChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE1Fakt".
+        /// </summary>
+        [DataMember()]
+        public double RGE1Fakt
+        {
+            get
+            {
+                return this._rge1Fakt;
+            }
+            set
+            {
+                if ((this._rge1Fakt != value))
+                {
+                    this.OnRGE1FaktChanging(value);
+                    this.RaiseDataMemberChanging("RGE1Fakt");
+                    this.ValidateProperty("RGE1Fakt", value);
+                    this._rge1Fakt = value;
+                    this.RaiseDataMemberChanged("RGE1Fakt");
+                    this.OnRGE1FaktChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE1Plan".
+        /// </summary>
+        [DataMember()]
+        public double RGE1Plan
+        {
+            get
+            {
+                return this._rge1Plan;
+            }
+            set
+            {
+                if ((this._rge1Plan != value))
+                {
+                    this.OnRGE1PlanChanging(value);
+                    this.RaiseDataMemberChanging("RGE1Plan");
+                    this.ValidateProperty("RGE1Plan", value);
+                    this._rge1Plan = value;
+                    this.RaiseDataMemberChanged("RGE1Plan");
+                    this.OnRGE1PlanChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE2Diff".
+        /// </summary>
+        [DataMember()]
+        public double RGE2Diff
+        {
+            get
+            {
+                return this._rge2Diff;
+            }
+            set
+            {
+                if ((this._rge2Diff != value))
+                {
+                    this.OnRGE2DiffChanging(value);
+                    this.RaiseDataMemberChanging("RGE2Diff");
+                    this.ValidateProperty("RGE2Diff", value);
+                    this._rge2Diff = value;
+                    this.RaiseDataMemberChanged("RGE2Diff");
+                    this.OnRGE2DiffChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE2DiffProc".
+        /// </summary>
+        [DataMember()]
+        public double RGE2DiffProc
+        {
+            get
+            {
+                return this._rge2DiffProc;
+            }
+            set
+            {
+                if ((this._rge2DiffProc != value))
+                {
+                    this.OnRGE2DiffProcChanging(value);
+                    this.RaiseDataMemberChanging("RGE2DiffProc");
+                    this.ValidateProperty("RGE2DiffProc", value);
+                    this._rge2DiffProc = value;
+                    this.RaiseDataMemberChanged("RGE2DiffProc");
+                    this.OnRGE2DiffProcChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE2Fakt".
+        /// </summary>
+        [DataMember()]
+        public double RGE2Fakt
+        {
+            get
+            {
+                return this._rge2Fakt;
+            }
+            set
+            {
+                if ((this._rge2Fakt != value))
+                {
+                    this.OnRGE2FaktChanging(value);
+                    this.RaiseDataMemberChanging("RGE2Fakt");
+                    this.ValidateProperty("RGE2Fakt", value);
+                    this._rge2Fakt = value;
+                    this.RaiseDataMemberChanged("RGE2Fakt");
+                    this.OnRGE2FaktChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE2Plan".
+        /// </summary>
+        [DataMember()]
+        public double RGE2Plan
+        {
+            get
+            {
+                return this._rge2Plan;
+            }
+            set
+            {
+                if ((this._rge2Plan != value))
+                {
+                    this.OnRGE2PlanChanging(value);
+                    this.RaiseDataMemberChanging("RGE2Plan");
+                    this.ValidateProperty("RGE2Plan", value);
+                    this._rge2Plan = value;
+                    this.RaiseDataMemberChanged("RGE2Plan");
+                    this.OnRGE2PlanChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE3Diff".
+        /// </summary>
+        [DataMember()]
+        public double RGE3Diff
+        {
+            get
+            {
+                return this._rge3Diff;
+            }
+            set
+            {
+                if ((this._rge3Diff != value))
+                {
+                    this.OnRGE3DiffChanging(value);
+                    this.RaiseDataMemberChanging("RGE3Diff");
+                    this.ValidateProperty("RGE3Diff", value);
+                    this._rge3Diff = value;
+                    this.RaiseDataMemberChanged("RGE3Diff");
+                    this.OnRGE3DiffChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE3DiffProc".
+        /// </summary>
+        [DataMember()]
+        public double RGE3DiffProc
+        {
+            get
+            {
+                return this._rge3DiffProc;
+            }
+            set
+            {
+                if ((this._rge3DiffProc != value))
+                {
+                    this.OnRGE3DiffProcChanging(value);
+                    this.RaiseDataMemberChanging("RGE3DiffProc");
+                    this.ValidateProperty("RGE3DiffProc", value);
+                    this._rge3DiffProc = value;
+                    this.RaiseDataMemberChanged("RGE3DiffProc");
+                    this.OnRGE3DiffProcChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE3Fakt".
+        /// </summary>
+        [DataMember()]
+        public double RGE3Fakt
+        {
+            get
+            {
+                return this._rge3Fakt;
+            }
+            set
+            {
+                if ((this._rge3Fakt != value))
+                {
+                    this.OnRGE3FaktChanging(value);
+                    this.RaiseDataMemberChanging("RGE3Fakt");
+                    this.ValidateProperty("RGE3Fakt", value);
+                    this._rge3Fakt = value;
+                    this.RaiseDataMemberChanged("RGE3Fakt");
+                    this.OnRGE3FaktChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE3Plan".
+        /// </summary>
+        [DataMember()]
+        public double RGE3Plan
+        {
+            get
+            {
+                return this._rge3Plan;
+            }
+            set
+            {
+                if ((this._rge3Plan != value))
+                {
+                    this.OnRGE3PlanChanging(value);
+                    this.RaiseDataMemberChanging("RGE3Plan");
+                    this.ValidateProperty("RGE3Plan", value);
+                    this._rge3Plan = value;
+                    this.RaiseDataMemberChanged("RGE3Plan");
+                    this.OnRGE3PlanChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE4Diff".
+        /// </summary>
+        [DataMember()]
+        public double RGE4Diff
+        {
+            get
+            {
+                return this._rge4Diff;
+            }
+            set
+            {
+                if ((this._rge4Diff != value))
+                {
+                    this.OnRGE4DiffChanging(value);
+                    this.RaiseDataMemberChanging("RGE4Diff");
+                    this.ValidateProperty("RGE4Diff", value);
+                    this._rge4Diff = value;
+                    this.RaiseDataMemberChanged("RGE4Diff");
+                    this.OnRGE4DiffChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE4DiffProc".
+        /// </summary>
+        [DataMember()]
+        public double RGE4DiffProc
+        {
+            get
+            {
+                return this._rge4DiffProc;
+            }
+            set
+            {
+                if ((this._rge4DiffProc != value))
+                {
+                    this.OnRGE4DiffProcChanging(value);
+                    this.RaiseDataMemberChanging("RGE4DiffProc");
+                    this.ValidateProperty("RGE4DiffProc", value);
+                    this._rge4DiffProc = value;
+                    this.RaiseDataMemberChanged("RGE4DiffProc");
+                    this.OnRGE4DiffProcChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE4Fakt".
+        /// </summary>
+        [DataMember()]
+        public double RGE4Fakt
+        {
+            get
+            {
+                return this._rge4Fakt;
+            }
+            set
+            {
+                if ((this._rge4Fakt != value))
+                {
+                    this.OnRGE4FaktChanging(value);
+                    this.RaiseDataMemberChanging("RGE4Fakt");
+                    this.ValidateProperty("RGE4Fakt", value);
+                    this._rge4Fakt = value;
+                    this.RaiseDataMemberChanged("RGE4Fakt");
+                    this.OnRGE4FaktChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE4Plan".
+        /// </summary>
+        [DataMember()]
+        public double RGE4Plan
+        {
+            get
+            {
+                return this._rge4Plan;
+            }
+            set
+            {
+                if ((this._rge4Plan != value))
+                {
+                    this.OnRGE4PlanChanging(value);
+                    this.RaiseDataMemberChanging("RGE4Plan");
+                    this.ValidateProperty("RGE4Plan", value);
+                    this._rge4Plan = value;
+                    this.RaiseDataMemberChanged("RGE4Plan");
+                    this.OnRGE4PlanChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Title".
+        /// </summary>
+        [DataMember()]
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+            set
+            {
+                if ((this._title != value))
+                {
+                    this.OnTitleChanging(value);
+                    this.RaiseDataMemberChanging("Title");
+                    this.ValidateProperty("Title", value);
+                    this._title = value;
+                    this.RaiseDataMemberChanged("Title");
+                    this.OnTitleChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
     /// Класс "CheckGraphVyrabTableRow".
     /// </summary>
     [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.PBR")]
@@ -1915,6 +2619,430 @@ namespace VotGES.PBR
                     this._vyrabPlan = value;
                     this.RaiseDataMemberChanged("VyrabPlan");
                     this.OnVyrabPlanChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "GraphVyrabRGEAnswer".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.PBR")]
+    public sealed partial class GraphVyrabRGEAnswer : ComplexObject
+    {
+        
+        private DateTime _actualDate;
+        
+        private ChartAnswer _chartRGE1;
+        
+        private ChartAnswer _chartRGE2;
+        
+        private ChartAnswer _chartRGE3;
+        
+        private ChartAnswer _chartRGE4;
+        
+        private List<GraphVyrabRGETableRow> _tableCurrent;
+        
+        private List<GraphVyrabRGETableRow> _tableHour;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnActualDateChanging(DateTime value);
+        partial void OnActualDateChanged();
+        partial void OnChartRGE1Changing(ChartAnswer value);
+        partial void OnChartRGE1Changed();
+        partial void OnChartRGE2Changing(ChartAnswer value);
+        partial void OnChartRGE2Changed();
+        partial void OnChartRGE3Changing(ChartAnswer value);
+        partial void OnChartRGE3Changed();
+        partial void OnChartRGE4Changing(ChartAnswer value);
+        partial void OnChartRGE4Changed();
+        partial void OnTableCurrentChanging(List<GraphVyrabRGETableRow> value);
+        partial void OnTableCurrentChanged();
+        partial void OnTableHourChanging(List<GraphVyrabRGETableRow> value);
+        partial void OnTableHourChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="GraphVyrabRGEAnswer"/>.
+        /// </summary>
+        public GraphVyrabRGEAnswer()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ActualDate".
+        /// </summary>
+        [DataMember()]
+        public DateTime ActualDate
+        {
+            get
+            {
+                return this._actualDate;
+            }
+            set
+            {
+                if ((this._actualDate != value))
+                {
+                    this.OnActualDateChanging(value);
+                    this.RaiseDataMemberChanging("ActualDate");
+                    this.ValidateProperty("ActualDate", value);
+                    this._actualDate = value;
+                    this.RaiseDataMemberChanged("ActualDate");
+                    this.OnActualDateChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ChartRGE1".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartAnswer ChartRGE1
+        {
+            get
+            {
+                return this._chartRGE1;
+            }
+            set
+            {
+                if ((this._chartRGE1 != value))
+                {
+                    this.OnChartRGE1Changing(value);
+                    this.RaiseDataMemberChanging("ChartRGE1");
+                    this.ValidateProperty("ChartRGE1", value);
+                    this._chartRGE1 = value;
+                    this.RaiseDataMemberChanged("ChartRGE1");
+                    this.OnChartRGE1Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ChartRGE2".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartAnswer ChartRGE2
+        {
+            get
+            {
+                return this._chartRGE2;
+            }
+            set
+            {
+                if ((this._chartRGE2 != value))
+                {
+                    this.OnChartRGE2Changing(value);
+                    this.RaiseDataMemberChanging("ChartRGE2");
+                    this.ValidateProperty("ChartRGE2", value);
+                    this._chartRGE2 = value;
+                    this.RaiseDataMemberChanged("ChartRGE2");
+                    this.OnChartRGE2Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ChartRGE3".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartAnswer ChartRGE3
+        {
+            get
+            {
+                return this._chartRGE3;
+            }
+            set
+            {
+                if ((this._chartRGE3 != value))
+                {
+                    this.OnChartRGE3Changing(value);
+                    this.RaiseDataMemberChanging("ChartRGE3");
+                    this.ValidateProperty("ChartRGE3", value);
+                    this._chartRGE3 = value;
+                    this.RaiseDataMemberChanged("ChartRGE3");
+                    this.OnChartRGE3Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ChartRGE4".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public ChartAnswer ChartRGE4
+        {
+            get
+            {
+                return this._chartRGE4;
+            }
+            set
+            {
+                if ((this._chartRGE4 != value))
+                {
+                    this.OnChartRGE4Changing(value);
+                    this.RaiseDataMemberChanging("ChartRGE4");
+                    this.ValidateProperty("ChartRGE4", value);
+                    this._chartRGE4 = value;
+                    this.RaiseDataMemberChanged("ChartRGE4");
+                    this.OnChartRGE4Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "TableCurrent".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<GraphVyrabRGETableRow> TableCurrent
+        {
+            get
+            {
+                return this._tableCurrent;
+            }
+            set
+            {
+                if ((this._tableCurrent != value))
+                {
+                    this.OnTableCurrentChanging(value);
+                    this.RaiseDataMemberChanging("TableCurrent");
+                    this.ValidateProperty("TableCurrent", value);
+                    this._tableCurrent = value;
+                    this.RaiseDataMemberChanged("TableCurrent");
+                    this.OnTableCurrentChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "TableHour".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<GraphVyrabRGETableRow> TableHour
+        {
+            get
+            {
+                return this._tableHour;
+            }
+            set
+            {
+                if ((this._tableHour != value))
+                {
+                    this.OnTableHourChanging(value);
+                    this.RaiseDataMemberChanging("TableHour");
+                    this.ValidateProperty("TableHour", value);
+                    this._tableHour = value;
+                    this.RaiseDataMemberChanged("TableHour");
+                    this.OnTableHourChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Класс "GraphVyrabRGETableRow".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.PBR")]
+    public sealed partial class GraphVyrabRGETableRow : ComplexObject
+    {
+        
+        private string _format;
+        
+        private double _rge1;
+        
+        private double _rge2;
+        
+        private double _rge3;
+        
+        private double _rge4;
+        
+        private string _title;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnFormatChanging(string value);
+        partial void OnFormatChanged();
+        partial void OnRGE1Changing(double value);
+        partial void OnRGE1Changed();
+        partial void OnRGE2Changing(double value);
+        partial void OnRGE2Changed();
+        partial void OnRGE3Changing(double value);
+        partial void OnRGE3Changed();
+        partial void OnRGE4Changing(double value);
+        partial void OnRGE4Changed();
+        partial void OnTitleChanging(string value);
+        partial void OnTitleChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="GraphVyrabRGETableRow"/>.
+        /// </summary>
+        public GraphVyrabRGETableRow()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Format".
+        /// </summary>
+        [DataMember()]
+        public string Format
+        {
+            get
+            {
+                return this._format;
+            }
+            set
+            {
+                if ((this._format != value))
+                {
+                    this.OnFormatChanging(value);
+                    this.RaiseDataMemberChanging("Format");
+                    this.ValidateProperty("Format", value);
+                    this._format = value;
+                    this.RaiseDataMemberChanged("Format");
+                    this.OnFormatChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE1".
+        /// </summary>
+        [DataMember()]
+        public double RGE1
+        {
+            get
+            {
+                return this._rge1;
+            }
+            set
+            {
+                if ((this._rge1 != value))
+                {
+                    this.OnRGE1Changing(value);
+                    this.RaiseDataMemberChanging("RGE1");
+                    this.ValidateProperty("RGE1", value);
+                    this._rge1 = value;
+                    this.RaiseDataMemberChanged("RGE1");
+                    this.OnRGE1Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE2".
+        /// </summary>
+        [DataMember()]
+        public double RGE2
+        {
+            get
+            {
+                return this._rge2;
+            }
+            set
+            {
+                if ((this._rge2 != value))
+                {
+                    this.OnRGE2Changing(value);
+                    this.RaiseDataMemberChanging("RGE2");
+                    this.ValidateProperty("RGE2", value);
+                    this._rge2 = value;
+                    this.RaiseDataMemberChanged("RGE2");
+                    this.OnRGE2Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE3".
+        /// </summary>
+        [DataMember()]
+        public double RGE3
+        {
+            get
+            {
+                return this._rge3;
+            }
+            set
+            {
+                if ((this._rge3 != value))
+                {
+                    this.OnRGE3Changing(value);
+                    this.RaiseDataMemberChanging("RGE3");
+                    this.ValidateProperty("RGE3", value);
+                    this._rge3 = value;
+                    this.RaiseDataMemberChanged("RGE3");
+                    this.OnRGE3Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE4".
+        /// </summary>
+        [DataMember()]
+        public double RGE4
+        {
+            get
+            {
+                return this._rge4;
+            }
+            set
+            {
+                if ((this._rge4 != value))
+                {
+                    this.OnRGE4Changing(value);
+                    this.RaiseDataMemberChanging("RGE4");
+                    this.ValidateProperty("RGE4", value);
+                    this._rge4 = value;
+                    this.RaiseDataMemberChanged("RGE4");
+                    this.OnRGE4Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Title".
+        /// </summary>
+        [DataMember()]
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+            set
+            {
+                if ((this._title != value))
+                {
+                    this.OnTitleChanging(value);
+                    this.RaiseDataMemberChanging("Title");
+                    this.ValidateProperty("Title", value);
+                    this._title = value;
+                    this.RaiseDataMemberChanged("Title");
+                    this.OnTitleChanged();
                 }
             }
         }
@@ -3751,6 +4879,91 @@ namespace VotGES.Web.Services
     }
     
     /// <summary>
+    /// Класс "FullGraphVyrab".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Web.Services")]
+    public sealed partial class FullGraphVyrab : ComplexObject
+    {
+        
+        private GraphVyrabAnswer _gtp;
+        
+        private GraphVyrabRGEAnswer _rge;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnGTPChanging(GraphVyrabAnswer value);
+        partial void OnGTPChanged();
+        partial void OnRGEChanging(GraphVyrabRGEAnswer value);
+        partial void OnRGEChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="FullGraphVyrab"/>.
+        /// </summary>
+        public FullGraphVyrab()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GTP".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public GraphVyrabAnswer GTP
+        {
+            get
+            {
+                return this._gtp;
+            }
+            set
+            {
+                if ((this._gtp != value))
+                {
+                    this.OnGTPChanging(value);
+                    this.RaiseDataMemberChanging("GTP");
+                    this.ValidateProperty("GTP", value);
+                    this._gtp = value;
+                    this.RaiseDataMemberChanged("GTP");
+                    this.OnGTPChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RGE".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public GraphVyrabRGEAnswer RGE
+        {
+            get
+            {
+                return this._rge;
+            }
+            set
+            {
+                if ((this._rge != value))
+                {
+                    this.OnRGEChanging(value);
+                    this.RaiseDataMemberChanging("RGE");
+                    this.ValidateProperty("RGE", value);
+                    this._rge = value;
+                    this.RaiseDataMemberChanged("RGE");
+                    this.OnRGEChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
     /// Контекст DomainContext, соответствующий службе "GraphVyrabDomainService" DomainService.
     /// </summary>
     public sealed partial class GraphVyrabDomainContext : DomainContext
@@ -3792,6 +5005,28 @@ namespace VotGES.Web.Services
                 base(domainClient)
         {
             this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getFullGraphVyrab" службы DomainService.
+        /// </summary>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<FullGraphVyrab> getFullGraphVyrab(Action<InvokeOperation<FullGraphVyrab>> callback, object userState)
+        {
+            this.ValidateMethod("getFullGraphVyrab", null);
+            return ((InvokeOperation<FullGraphVyrab>)(this.InvokeOperation("getFullGraphVyrab", typeof(FullGraphVyrab), null, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getFullGraphVyrab" службы DomainService.
+        /// </summary>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<FullGraphVyrab> getFullGraphVyrab()
+        {
+            this.ValidateMethod("getFullGraphVyrab", null);
+            return ((InvokeOperation<FullGraphVyrab>)(this.InvokeOperation("getFullGraphVyrab", typeof(FullGraphVyrab), null, true, null, null)));
         }
         
         /// <summary>
@@ -3873,6 +5108,84 @@ namespace VotGES.Web.Services
         }
         
         /// <summary>
+        /// Асинхронно вызывает метод "getGraphVyrabRGE" службы DomainService.
+        /// </summary>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<GraphVyrabRGEAnswer> getGraphVyrabRGE(Action<InvokeOperation<GraphVyrabRGEAnswer>> callback, object userState)
+        {
+            this.ValidateMethod("getGraphVyrabRGE", null);
+            return ((InvokeOperation<GraphVyrabRGEAnswer>)(this.InvokeOperation("getGraphVyrabRGE", typeof(GraphVyrabRGEAnswer), null, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getGraphVyrabRGE" службы DomainService.
+        /// </summary>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<GraphVyrabRGEAnswer> getGraphVyrabRGE()
+        {
+            this.ValidateMethod("getGraphVyrabRGE", null);
+            return ((InvokeOperation<GraphVyrabRGEAnswer>)(this.InvokeOperation("getGraphVyrabRGE", typeof(GraphVyrabRGEAnswer), null, true, null, null)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getGraphVyrabRGEHH" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<CheckGraphVyrabRGEAnswer> getGraphVyrabRGEHH(DateTime date, Action<InvokeOperation<CheckGraphVyrabRGEAnswer>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            this.ValidateMethod("getGraphVyrabRGEHH", parameters);
+            return ((InvokeOperation<CheckGraphVyrabRGEAnswer>)(this.InvokeOperation("getGraphVyrabRGEHH", typeof(CheckGraphVyrabRGEAnswer), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getGraphVyrabRGEHH" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<CheckGraphVyrabRGEAnswer> getGraphVyrabRGEHH(DateTime date)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            this.ValidateMethod("getGraphVyrabRGEHH", parameters);
+            return ((InvokeOperation<CheckGraphVyrabRGEAnswer>)(this.InvokeOperation("getGraphVyrabRGEHH", typeof(CheckGraphVyrabRGEAnswer), parameters, true, null, null)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getGraphVyrabRGEMin" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<GraphVyrabRGEAnswer> getGraphVyrabRGEMin(DateTime date, Action<InvokeOperation<GraphVyrabRGEAnswer>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            this.ValidateMethod("getGraphVyrabRGEMin", parameters);
+            return ((InvokeOperation<GraphVyrabRGEAnswer>)(this.InvokeOperation("getGraphVyrabRGEMin", typeof(GraphVyrabRGEAnswer), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getGraphVyrabRGEMin" службы DomainService.
+        /// </summary>
+        /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<GraphVyrabRGEAnswer> getGraphVyrabRGEMin(DateTime date)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("date", date);
+            this.ValidateMethod("getGraphVyrabRGEMin", parameters);
+            return ((InvokeOperation<GraphVyrabRGEAnswer>)(this.InvokeOperation("getGraphVyrabRGEMin", typeof(GraphVyrabRGEAnswer), parameters, true, null, null)));
+        }
+        
+        /// <summary>
         /// Создает новый объект EntityContainer для наборов сущностей EntitySets данного контекста DomainContext.
         /// </summary>
         /// <returns>Новый экземпляр контейнера.</returns>
@@ -3887,6 +5200,23 @@ namespace VotGES.Web.Services
         [ServiceContract()]
         public interface IGraphVyrabDomainServiceContract
         {
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "getFullGraphVyrab".
+            /// </summary>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getFullGraphVyrabDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getFullGraphVyrab", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getFullGraphVyrabResponse")]
+            IAsyncResult BegingetFullGraphVyrab(AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BegingetFullGraphVyrab".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetFullGraphVyrab".</param>
+            /// <returns>Объект "FullGraphVyrab", возвращенный из операции "getFullGraphVyrab".</returns>
+            FullGraphVyrab EndgetFullGraphVyrab(IAsyncResult result);
             
             /// <summary>
             /// Асинхронно вызывает операцию "getGraphVyrab".
@@ -3940,6 +5270,59 @@ namespace VotGES.Web.Services
             /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetGraphVyrabMin".</param>
             /// <returns>Объект "GraphVyrabAnswer", возвращенный из операции "getGraphVyrabMin".</returns>
             GraphVyrabAnswer EndgetGraphVyrabMin(IAsyncResult result);
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "getGraphVyrabRGE".
+            /// </summary>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGEDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGE", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGEResponse")]
+            IAsyncResult BegingetGraphVyrabRGE(AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BegingetGraphVyrabRGE".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetGraphVyrabRGE".</param>
+            /// <returns>Объект "GraphVyrabRGEAnswer", возвращенный из операции "getGraphVyrabRGE".</returns>
+            GraphVyrabRGEAnswer EndgetGraphVyrabRGE(IAsyncResult result);
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "getGraphVyrabRGEHH".
+            /// </summary>
+            /// <param name="date">Значение параметра "date" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGEHHDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGEHH", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGEHHResponse")]
+            IAsyncResult BegingetGraphVyrabRGEHH(DateTime date, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BegingetGraphVyrabRGEHH".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetGraphVyrabRGEHH".</param>
+            /// <returns>Объект "CheckGraphVyrabRGEAnswer", возвращенный из операции "getGraphVyrabRGEHH".</returns>
+            CheckGraphVyrabRGEAnswer EndgetGraphVyrabRGEHH(IAsyncResult result);
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "getGraphVyrabRGEMin".
+            /// </summary>
+            /// <param name="date">Значение параметра "date" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGEMinDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGEMin", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGEMinResponse")]
+            IAsyncResult BegingetGraphVyrabRGEMin(DateTime date, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BegingetGraphVyrabRGEMin".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetGraphVyrabRGEMin".</param>
+            /// <returns>Объект "GraphVyrabRGEAnswer", возвращенный из операции "getGraphVyrabRGEMin".</returns>
+            GraphVyrabRGEAnswer EndgetGraphVyrabRGEMin(IAsyncResult result);
         }
         
         internal sealed class GraphVyrabDomainContextEntityContainer : EntityContainer
