@@ -59,9 +59,13 @@ namespace ClearDB
 			double hh=24;
 			while (date <= dateEnd) {								
 				switch (task) {
-					case "clear":
+					case "clear3000":
 						hh = 24;
-						ClearDB.Clear(date,date.AddHours(hh));
+						ClearDB.Clear(date,date.AddHours(hh),"P3000");
+						break;
+					case "clearMin":
+						hh = 24;
+						ClearDB.Clear(date, date.AddHours(hh), "PMin");
 						break;
 					case "optim":
 						hh = 24;
@@ -81,15 +85,15 @@ namespace ClearDB
 						break;
 					case "copy12":
 						hh = 4;
-						CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 12 }).ToList());						
+						CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 12 }).ToList(),"P3000");						
 						break;
 					case "copy212":
 						hh = 24;
-						CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 212 }).ToList());
+						CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 212 }).ToList(), "P3000");
 						break;
 					case "copy4":
 						hh = 1.0/6.0;
-						CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 4, 204 }).ToList());
+						CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 4, 204 }).ToList(), "PMin");
 						break;
 				}
 				date = date.AddHours(hh);

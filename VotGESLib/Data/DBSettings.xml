@@ -23,5 +23,12 @@
 			<User>sa</User>
 			<Password>pswd</Password>
 		</DBInfo>
+		<DBInfo>
+			<ID>PMin</ID>
+			<Address>192.168.140.240</Address>
+			<DBName>PiramidaMin</DBName>
+			<User>sa</User>
+			<Password>pswd</Password>
+		</DBInfo>
 	</Databases>
 </DBSettings>	
