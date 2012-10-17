@@ -142,8 +142,8 @@ namespace VotGES.PBR
 
 				answer.TableHour.Add(new GraphVyrabRGETableRow("P план", Math.Round(rge1Hour["plan"]), Math.Round(rge2Hour["plan"]), Math.Round(rge3Hour["plan"]), Math.Round(rge4Hour["plan"])));
 				answer.TableHour.Add(new GraphVyrabRGETableRow("P факт", Math.Round(rge1Hour["fakt"]), Math.Round(rge2Hour["fakt"]), Math.Round(rge3Hour["fakt"]), Math.Round(rge4Hour["fakt"])));
-				answer.TableHour.Add(new GraphVyrabRGETableRow("P откл", Math.Round(rge1Hour["diff"]), Math.Round(rge2Hour["diff"]), Math.Round(rge3Hour["diff"]), Math.Round(rge4Hour["diff"])));
-				answer.TableHour.Add(new GraphVyrabRGETableRow("P откл %", Math.Round(rge1Hour["diffProc"]), Math.Round(rge2Hour["diffProc"]), Math.Round(rge3Hour["diffProc"]), Math.Round(rge4Hour["diffProc"])));
+				answer.TableHour.Add(new GraphVyrabRGETableRow("P откл", rge1Hour["diff"], rge2Hour["diff"], rge3Hour["diff"], rge4Hour["diff"]));
+				answer.TableHour.Add(new GraphVyrabRGETableRow("P откл %", rge1Hour["diffProc"],rge2Hour["diffProc"], rge3Hour["diffProc"], rge4Hour["diffProc"]));
 				answer.TableHour.Add(new GraphVyrabRGETableRow("P рек", Math.Round(rge1Hour["recP"]), Math.Round(rge2Hour["recP"]), Math.Round(rge3Hour["recP"]), Math.Round(rge4Hour["recP"])));
 		
 			}
@@ -161,6 +161,10 @@ namespace VotGES.PBR
 			answer.ChartRGE4.Data.addSerie(getDataSerie("Fakt", rge4.RealP, -1));
 			answer.ChartRGE4.Data.addSerie(getDataSerie("Plan", rge4.SteppedPBR, -1));
 
+			answer.ChartRGE1.processAxes();
+			answer.ChartRGE2.processAxes();
+			answer.ChartRGE3.processAxes();
+			answer.ChartRGE4.processAxes();
 
 			return answer;
 		}
@@ -266,6 +270,11 @@ namespace VotGES.PBR
 			answer.ChartRGE4.Data.addSerie(getDataSerie("Fakt", rge4.HalfHoursP, -30));
 			answer.ChartRGE4.Data.addSerie(getDataSerie("Plan", rge4.HalfHoursPBR, -30));
 
+			answer.ChartRGE1.processAxes();
+			answer.ChartRGE2.processAxes();
+			answer.ChartRGE3.processAxes();
+			answer.ChartRGE4.processAxes();
+
 			return answer;
 		}
 
@@ -288,11 +297,12 @@ namespace VotGES.PBR
 			props.XValueFormatString = "dd.MM HH:mm";
 
 			ChartAxisProperties pAx=new ChartAxisProperties();
-			pAx.ProcessAuto = false;
+			pAx.ProcessAuto = true;
 			pAx.Auto = true;
 			pAx.Min = 0;
 			pAx.Max = max;
 			pAx.Interval = 10;
+			pAx.MinHeight = 10;
 			pAx.Index = 0;
 
 			ChartAxisProperties vAx=new ChartAxisProperties();
@@ -320,8 +330,9 @@ namespace VotGES.PBR
 			PlanSerie.YAxisIndex = 0;
 			PlanSerie.Enabled = true;
 
-			props.addSerie(PlanSerie);
 			props.addSerie(FaktSerie);
+			props.addSerie(PlanSerie);
+			
 			
 
 			return props;
