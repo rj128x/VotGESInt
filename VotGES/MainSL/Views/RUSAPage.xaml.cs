@@ -27,6 +27,15 @@ namespace MainSL.Views
 			}
 		}
 
+		RashodHarsData currentRashodHarsData;
+		public RashodHarsData CurrentRashodHarsData {
+			get { return currentRashodHarsData; }
+			set { 
+				currentRashodHarsData = value;
+				pnlDataRashodHars.DataContext = CurrentRashodHarsData;
+			}
+		}
+
 		RUSADomainContext context;
 
 		public RUSAPage() {
@@ -48,7 +57,20 @@ namespace MainSL.Views
 			}
 			CurrentData.Power = 300;
 			CurrentData.Napor = 21;
-			
+
+
+			CurrentRashodHarsData = new RashodHarsData();
+			CurrentRashodHarsData.Napor = 21;
+			CurrentRashodHarsData.Power = 300;
+			CurrentRashodHarsData.Rashod = 1200;
+			CurrentRashodHarsData.GANumbers = new Dictionary<int, string>();
+			for (int ga=1; ga <= 10; ga++) {
+				CurrentRashodHarsData.GANumbers.Add(ga, "Генератор " + ga);
+			}
+			CurrentRashodHarsData.GANumbers.Add(11, "Средний по станции");
+			CurrentRashodHarsData.GANumbers.Add(12, "Оптимальный по станции");
+			CurrentRashodHarsData.GANumber = 11;
+			cmbGenSelect.ItemsSource = CurrentRashodHarsData.GANumbers;
 		}
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e) {
@@ -71,12 +93,47 @@ namespace MainSL.Views
 					GlobalStatus.Current.StopLoad();
 				}
 			},null);
-			GlobalStatus.Current.StartLoad(currentOper);
-			
+			GlobalStatus.Current.StartLoad(currentOper);			
 		}
 
 		void processOper_Completed(object sender, EventArgs e) {
 
+		}
+
+		private void btnCalcRashod_Click(object sender, RoutedEventArgs e) {			
+			InvokeOperation currentOper=context.processRashodHarsData(CurrentRashodHarsData,true, oper => {
+				if (oper.IsCanceled) {
+					return;
+				}
+				try {
+					GlobalStatus.Current.StartProcess();
+					CurrentRashodHarsData = oper.Value;
+				} catch (Exception ex) {
+					Logging.Logger.info(ex.ToString());
+					GlobalStatus.Current.ErrorLoad("Ошибка");
+				} finally {
+					GlobalStatus.Current.StopLoad();
+				}
+			}, null);
+			GlobalStatus.Current.StartLoad(currentOper);		
+		}
+
+		private void btnCalcPower_Click(object sender, RoutedEventArgs e) {
+			InvokeOperation currentOper=context.processRashodHarsData(CurrentRashodHarsData,false, oper => {
+				if (oper.IsCanceled) {
+					return;
+				}
+				try {
+					GlobalStatus.Current.StartProcess();
+					CurrentRashodHarsData = oper.Value;
+				} catch (Exception ex) {
+					Logging.Logger.info(ex.ToString());
+					GlobalStatus.Current.ErrorLoad("Ошибка");
+				} finally {
+					GlobalStatus.Current.StopLoad();
+				}
+			}, null);
+			GlobalStatus.Current.StartLoad(currentOper);	
 		}
 
 	}

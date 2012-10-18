@@ -115,6 +115,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ProcessRUSAData.cs" />
     <Compile Include="Models\RUSAData.cs" />
+    <Compile Include="Models\RashodHarsData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationDomainService.cs" />
     <Compile Include="Services\GraphVyrabDomainService.cs" />

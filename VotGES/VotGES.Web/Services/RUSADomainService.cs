@@ -29,6 +29,12 @@ namespace VotGES.Web.Services
 			}
 			return data;
 		}
+
+		public RashodHarsData processRashodHarsData(RashodHarsData data, bool calcRashod) {
+			WebLogger.Info("RashodHars process", VotGES.Logger.LoggerSource.service);
+			data.ProcessData(calcRashod);
+			return data;
+		}
 	}
 }
 

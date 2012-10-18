@@ -4326,6 +4326,201 @@ namespace VotGES.Web.Models
     }
     
     /// <summary>
+    /// Класс "RashodHarsData".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Web.Models")]
+    public sealed partial class RashodHarsData : ComplexObject
+    {
+        
+        private int _gaNumber;
+        
+        private Dictionary<int, string> _gaNumbers;
+        
+        private Guid _id;
+        
+        private double _napor;
+        
+        private double _power;
+        
+        private double _rashod;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnGANumberChanging(int value);
+        partial void OnGANumberChanged();
+        partial void OnGANumbersChanging(Dictionary<int, string> value);
+        partial void OnGANumbersChanged();
+        partial void OnIdChanging(Guid value);
+        partial void OnIdChanged();
+        partial void OnNaporChanging(double value);
+        partial void OnNaporChanged();
+        partial void OnPowerChanging(double value);
+        partial void OnPowerChanged();
+        partial void OnRashodChanging(double value);
+        partial void OnRashodChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="RashodHarsData"/>.
+        /// </summary>
+        public RashodHarsData()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GANumber".
+        /// </summary>
+        [DataMember()]
+        public int GANumber
+        {
+            get
+            {
+                return this._gaNumber;
+            }
+            set
+            {
+                if ((this._gaNumber != value))
+                {
+                    this.OnGANumberChanging(value);
+                    this.RaiseDataMemberChanging("GANumber");
+                    this.ValidateProperty("GANumber", value);
+                    this._gaNumber = value;
+                    this.RaiseDataMemberChanged("GANumber");
+                    this.OnGANumberChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "GANumbers".
+        /// </summary>
+        [DataMember()]
+        public Dictionary<int, string> GANumbers
+        {
+            get
+            {
+                return this._gaNumbers;
+            }
+            set
+            {
+                if ((this._gaNumbers != value))
+                {
+                    this.OnGANumbersChanging(value);
+                    this.RaiseDataMemberChanging("GANumbers");
+                    this.ValidateProperty("GANumbers", value);
+                    this._gaNumbers = value;
+                    this.RaiseDataMemberChanged("GANumbers");
+                    this.OnGANumbersChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Id".
+        /// </summary>
+        [DataMember()]
+        public Guid Id
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                if ((this._id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.RaiseDataMemberChanging("Id");
+                    this.ValidateProperty("Id", value);
+                    this._id = value;
+                    this.RaiseDataMemberChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Napor".
+        /// </summary>
+        [DataMember()]
+        public double Napor
+        {
+            get
+            {
+                return this._napor;
+            }
+            set
+            {
+                if ((this._napor != value))
+                {
+                    this.OnNaporChanging(value);
+                    this.RaiseDataMemberChanging("Napor");
+                    this.ValidateProperty("Napor", value);
+                    this._napor = value;
+                    this.RaiseDataMemberChanged("Napor");
+                    this.OnNaporChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Power".
+        /// </summary>
+        [DataMember()]
+        public double Power
+        {
+            get
+            {
+                return this._power;
+            }
+            set
+            {
+                if ((this._power != value))
+                {
+                    this.OnPowerChanging(value);
+                    this.RaiseDataMemberChanging("Power");
+                    this.ValidateProperty("Power", value);
+                    this._power = value;
+                    this.RaiseDataMemberChanged("Power");
+                    this.OnPowerChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Rashod".
+        /// </summary>
+        [DataMember()]
+        public double Rashod
+        {
+            get
+            {
+                return this._rashod;
+            }
+            set
+            {
+                if ((this._rashod != value))
+                {
+                    this.OnRashodChanging(value);
+                    this.RaiseDataMemberChanging("Rashod");
+                    this.ValidateProperty("Rashod", value);
+                    this._rashod = value;
+                    this.RaiseDataMemberChanged("Rashod");
+                    this.OnRashodChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
     /// Класс "RUSAData".
     /// </summary>
     [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Web.Models")]
@@ -6033,6 +6228,38 @@ namespace VotGES.Web.Services
         }
         
         /// <summary>
+        /// Асинхронно вызывает метод "processRashodHarsData" службы DomainService.
+        /// </summary>
+        /// <param name="data">Значение параметра "data" для данного действия.</param>
+        /// <param name="calcRashod">Значение параметра "calcRashod" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<RashodHarsData> processRashodHarsData(RashodHarsData data, bool calcRashod, Action<InvokeOperation<RashodHarsData>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("data", data);
+            parameters.Add("calcRashod", calcRashod);
+            this.ValidateMethod("processRashodHarsData", parameters);
+            return ((InvokeOperation<RashodHarsData>)(this.InvokeOperation("processRashodHarsData", typeof(RashodHarsData), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "processRashodHarsData" службы DomainService.
+        /// </summary>
+        /// <param name="data">Значение параметра "data" для данного действия.</param>
+        /// <param name="calcRashod">Значение параметра "calcRashod" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<RashodHarsData> processRashodHarsData(RashodHarsData data, bool calcRashod)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("data", data);
+            parameters.Add("calcRashod", calcRashod);
+            this.ValidateMethod("processRashodHarsData", parameters);
+            return ((InvokeOperation<RashodHarsData>)(this.InvokeOperation("processRashodHarsData", typeof(RashodHarsData), parameters, true, null, null)));
+        }
+        
+        /// <summary>
         /// Асинхронно вызывает метод "processRUSAData" службы DomainService.
         /// </summary>
         /// <param name="data">Значение параметра "data" для данного действия.</param>
@@ -6075,6 +6302,25 @@ namespace VotGES.Web.Services
         [ServiceContract()]
         public interface IRUSADomainServiceContract
         {
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "processRashodHarsData".
+            /// </summary>
+            /// <param name="data">Значение параметра "data" для данного действия.</param>
+            /// <param name="calcRashod">Значение параметра "calcRashod" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/RUSADomainService/processRashodHarsDataDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/RUSADomainService/processRashodHarsData", ReplyAction="http://tempuri.org/RUSADomainService/processRashodHarsDataResponse")]
+            IAsyncResult BeginprocessRashodHarsData(RashodHarsData data, bool calcRashod, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BeginprocessRashodHarsData".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginprocessRashodHarsData".</param>
+            /// <returns>Объект "RashodHarsData", возвращенный из операции "processRashodHarsData".</returns>
+            RashodHarsData EndprocessRashodHarsData(IAsyncResult result);
             
             /// <summary>
             /// Асинхронно вызывает операцию "processRUSAData".

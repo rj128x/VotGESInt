@@ -221,6 +221,11 @@ namespace VotGES
 			return getRashodTable(ga).getRashod(power, napor);
 		}
 
+		public static double getPower(int ga, double rashod, double napor) {
+			if (rashod == 0) return 0;
+			return getRashodTable(ga).getPower(rashod, napor);
+		}
+
 		public static double KPD(double power, double napor, double rashod) {
 			return 1000 * power / (9.81 * napor) / rashod;
 		}
