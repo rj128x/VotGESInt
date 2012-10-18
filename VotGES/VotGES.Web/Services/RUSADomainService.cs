@@ -35,6 +35,12 @@ namespace VotGES.Web.Services
 			data.ProcessData(calcRashod);
 			return data;
 		}
+
+		public RashodHarsData processMaket(RashodHarsData data) {
+			WebLogger.Info("Maket process", VotGES.Logger.LoggerSource.service);
+			data.ProcessMaket();
+			return data;
+		}
 	}
 }
 

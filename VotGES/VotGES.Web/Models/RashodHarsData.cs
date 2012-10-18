@@ -24,6 +24,9 @@ namespace VotGES.Web.Models
 		public double RashodGTP1 { get; set; }
 		public double RashodGTP2 { get; set; }
 		public double RashodGES { get; set; }
+
+		public double RashodTime { get; set; }
+		public double PowerTime { get; set; }
 				
 	}
 	public class RashodHarsData : INotifyPropertyChanged
@@ -40,7 +43,7 @@ namespace VotGES.Web.Models
 			set { id = value; }
 		}
 
-		private int gaNumber;
+		private int gaNumber=11;
 		public int GANumber
 		{
 		  get { return gaNumber; }
@@ -107,7 +110,14 @@ namespace VotGES.Web.Models
 			set { rashodFavr = value; }
 		}
 
-		private Maket8HoursData maket;
+		private bool maket8Optim;
+
+		public bool Maket8Optim {
+			get { return maket8Optim; }
+			set { maket8Optim = value; }
+		}
+
+		private Maket8HoursData maket=new Maket8HoursData();
 		public Maket8HoursData Maket {
 			get { return maket; }
 			set { maket = value; }
@@ -125,8 +135,26 @@ namespace VotGES.Web.Models
 			}
 		}
 
-		public void ProcessMaket(bool calcRashod) {
-			Maket = new Maket8HoursData();
+		public void ProcessMaket() {			
+			double rashod8=(RashodFavr * 24 - Rashod0 * (24 - NeedTime)) / NeedTime;
+			double power=RashodTable.getPower(maket8Optim?12:11, rashod8, Napor);
+			Maket.P8HoursGTP1 = PGTP1;
+			Maket.P8HoursGTP2 = power - PGTP1;
+			Maket.P8HoursGES = power;
+			Maket.PPikGTP1 = PRaspGTP1 - Maket.P8HoursGTP1;
+			Maket.PPikGTP2 = PRaspGTP2 - Maket.P8HoursGTP2;
+			Maket.PPikGES = PRaspGTP1 + PRaspGTP2 - power;
+
+			Maket.RashodGTP1 = RashodTable.getStationRashod(Maket.P8HoursGTP1, Napor, Maket8Optim?RashodCalcMode.min:RashodCalcMode.avg);
+			Maket.RashodGTP2 = RashodTable.getStationRashod(Maket.P8HoursGTP2, Napor, Maket8Optim ? RashodCalcMode.min : RashodCalcMode.avg);
+			Maket.RashodGES = Maket.RashodGTP1 + Maket.RashodGTP2;
+
+			Maket.PRaspGTP1 = PRaspGTP1;
+			Maket.PRaspGTP2 = PRaspGTP2;
+			Maket.PRaspGES = PRaspGTP1+PRaspGTP2;
+
+			Maket.RashodTime = rashod8;
+			Maket.PowerTime = power;
 		}
 
 		public RashodHarsData() {

@@ -4338,6 +4338,8 @@ namespace VotGES.Web.Models
         
         private double _p8HoursGTP2;
         
+        private double _powerTime;
+        
         private double _pPikGES;
         
         private double _pPikGTP1;
@@ -4356,6 +4358,8 @@ namespace VotGES.Web.Models
         
         private double _rashodGTP2;
         
+        private double _rashodTime;
+        
         #region Определение методов расширяемости
 
         /// <summary>
@@ -4369,6 +4373,8 @@ namespace VotGES.Web.Models
         partial void OnP8HoursGTP1Changed();
         partial void OnP8HoursGTP2Changing(double value);
         partial void OnP8HoursGTP2Changed();
+        partial void OnPowerTimeChanging(double value);
+        partial void OnPowerTimeChanged();
         partial void OnPPikGESChanging(double value);
         partial void OnPPikGESChanged();
         partial void OnPPikGTP1Changing(double value);
@@ -4387,6 +4393,8 @@ namespace VotGES.Web.Models
         partial void OnRashodGTP1Changed();
         partial void OnRashodGTP2Changing(double value);
         partial void OnRashodGTP2Changed();
+        partial void OnRashodTimeChanging(double value);
+        partial void OnRashodTimeChanged();
 
         #endregion
         
@@ -4467,6 +4475,30 @@ namespace VotGES.Web.Models
                     this._p8HoursGTP2 = value;
                     this.RaiseDataMemberChanged("P8HoursGTP2");
                     this.OnP8HoursGTP2Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PowerTime".
+        /// </summary>
+        [DataMember()]
+        public double PowerTime
+        {
+            get
+            {
+                return this._powerTime;
+            }
+            set
+            {
+                if ((this._powerTime != value))
+                {
+                    this.OnPowerTimeChanging(value);
+                    this.RaiseDataMemberChanging("PowerTime");
+                    this.ValidateProperty("PowerTime", value);
+                    this._powerTime = value;
+                    this.RaiseDataMemberChanged("PowerTime");
+                    this.OnPowerTimeChanged();
                 }
             }
         }
@@ -4686,6 +4718,30 @@ namespace VotGES.Web.Models
                 }
             }
         }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RashodTime".
+        /// </summary>
+        [DataMember()]
+        public double RashodTime
+        {
+            get
+            {
+                return this._rashodTime;
+            }
+            set
+            {
+                if ((this._rashodTime != value))
+                {
+                    this.OnRashodTimeChanging(value);
+                    this.RaiseDataMemberChanging("RashodTime");
+                    this.ValidateProperty("RashodTime", value);
+                    this._rashodTime = value;
+                    this.RaiseDataMemberChanged("RashodTime");
+                    this.OnRashodTimeChanged();
+                }
+            }
+        }
     }
     
     /// <summary>
@@ -4702,6 +4758,8 @@ namespace VotGES.Web.Models
         private Guid _id;
         
         private Maket8HoursData _maket;
+        
+        private bool _maket8Optim;
         
         private double _napor;
         
@@ -4736,6 +4794,8 @@ namespace VotGES.Web.Models
         partial void OnIdChanged();
         partial void OnMaketChanging(Maket8HoursData value);
         partial void OnMaketChanged();
+        partial void OnMaket8OptimChanging(bool value);
+        partial void OnMaket8OptimChanged();
         partial void OnNaporChanging(double value);
         partial void OnNaporChanged();
         partial void OnNeedTimeChanging(int value);
@@ -4859,6 +4919,30 @@ namespace VotGES.Web.Models
                     this._maket = value;
                     this.RaiseDataMemberChanged("Maket");
                     this.OnMaketChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Maket8Optim".
+        /// </summary>
+        [DataMember()]
+        public bool Maket8Optim
+        {
+            get
+            {
+                return this._maket8Optim;
+            }
+            set
+            {
+                if ((this._maket8Optim != value))
+                {
+                    this.OnMaket8OptimChanging(value);
+                    this.RaiseDataMemberChanging("Maket8Optim");
+                    this.ValidateProperty("Maket8Optim", value);
+                    this._maket8Optim = value;
+                    this.RaiseDataMemberChanged("Maket8Optim");
+                    this.OnMaket8OptimChanged();
                 }
             }
         }
@@ -6788,6 +6872,34 @@ namespace VotGES.Web.Services
         }
         
         /// <summary>
+        /// Асинхронно вызывает метод "processMaket" службы DomainService.
+        /// </summary>
+        /// <param name="data">Значение параметра "data" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<RashodHarsData> processMaket(RashodHarsData data, Action<InvokeOperation<RashodHarsData>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("data", data);
+            this.ValidateMethod("processMaket", parameters);
+            return ((InvokeOperation<RashodHarsData>)(this.InvokeOperation("processMaket", typeof(RashodHarsData), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "processMaket" службы DomainService.
+        /// </summary>
+        /// <param name="data">Значение параметра "data" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<RashodHarsData> processMaket(RashodHarsData data)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("data", data);
+            this.ValidateMethod("processMaket", parameters);
+            return ((InvokeOperation<RashodHarsData>)(this.InvokeOperation("processMaket", typeof(RashodHarsData), parameters, true, null, null)));
+        }
+        
+        /// <summary>
         /// Асинхронно вызывает метод "processRashodHarsData" службы DomainService.
         /// </summary>
         /// <param name="data">Значение параметра "data" для данного действия.</param>
@@ -6862,6 +6974,24 @@ namespace VotGES.Web.Services
         [ServiceContract()]
         public interface IRUSADomainServiceContract
         {
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "processMaket".
+            /// </summary>
+            /// <param name="data">Значение параметра "data" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/RUSADomainService/processMaketDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/RUSADomainService/processMaket", ReplyAction="http://tempuri.org/RUSADomainService/processMaketResponse")]
+            IAsyncResult BeginprocessMaket(RashodHarsData data, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BeginprocessMaket".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BeginprocessMaket".</param>
+            /// <returns>Объект "RashodHarsData", возвращенный из операции "processMaket".</returns>
+            RashodHarsData EndprocessMaket(IAsyncResult result);
             
             /// <summary>
             /// Асинхронно вызывает операцию "processRashodHarsData".

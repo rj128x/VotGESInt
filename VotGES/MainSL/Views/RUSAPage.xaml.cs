@@ -31,7 +31,7 @@ namespace MainSL.Views
 		public RashodHarsData CurrentRashodHarsData {
 			get { return currentRashodHarsData; }
 			set { 
-				currentRashodHarsData = value;
+				currentRashodHarsData = value;				
 				pnlDataRashodHars.DataContext = CurrentRashodHarsData;
 			}
 		}
@@ -39,9 +39,10 @@ namespace MainSL.Views
 		RashodHarsData currentMaket8;
 		public RashodHarsData CurrentMaket8 {
 			get { return currentMaket8; }
-			set { 
+			set { 								
 				currentMaket8 = value;
 				pnlDataMaket8.DataContext = CurrentMaket8;
+				
 			}
 		}
 
@@ -71,15 +72,16 @@ namespace MainSL.Views
 			CurrentRashodHarsData = new RashodHarsData();
 			CurrentRashodHarsData.Napor = 21;
 			CurrentRashodHarsData.Power = 300;
-			CurrentRashodHarsData.Rashod = 1200;
+			CurrentRashodHarsData.Rashod = 1300;
 			CurrentRashodHarsData.GANumbers = new Dictionary<int, string>();
 			for (int ga=1; ga <= 10; ga++) {
 				CurrentRashodHarsData.GANumbers.Add(ga, "Генератор " + ga);
 			}
 			CurrentRashodHarsData.GANumbers.Add(11, "Средний по станции");
 			CurrentRashodHarsData.GANumbers.Add(12, "Оптимальный по станции");
-			CurrentRashodHarsData.GANumber = 11;
 			cmbGenSelect.ItemsSource = CurrentRashodHarsData.GANumbers;
+			CurrentRashodHarsData.GANumber = 11;
+			
 
 			CurrentMaket8 = new RashodHarsData();
 			CurrentMaket8.Napor = 21;
@@ -90,6 +92,7 @@ namespace MainSL.Views
 			CurrentMaket8.PGTP1 = 80;
 			CurrentMaket8.NeedTime = 8;
 			CurrentMaket8.Rashod0 = 0;
+			CurrentMaket8.Maket = new Maket8HoursData();
 		}
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e) {
@@ -156,7 +159,21 @@ namespace MainSL.Views
 		}
 
 		private void btnCalcMaket_Click(object sender, RoutedEventArgs e) {
-
+			InvokeOperation currentOper=context.processMaket(CurrentMaket8, oper => {
+				if (oper.IsCanceled) {
+					return;
+				}
+				try {
+					GlobalStatus.Current.StartProcess();
+					CurrentMaket8 = oper.Value;
+				} catch (Exception ex) {
+					Logging.Logger.info(ex.ToString());
+					GlobalStatus.Current.ErrorLoad("Ошибка");
+				} finally {
+					GlobalStatus.Current.StopLoad();
+				}
+			}, null);
+			GlobalStatus.Current.StartLoad(currentOper);	
 		}
 
 	}

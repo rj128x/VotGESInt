@@ -96,6 +96,12 @@
 		<Setter Property="FontFamily" Value="Comic Sans MS"/>
 	</Style>
 
+	<Style x:Key="Caption" TargetType="TextBlock">
+		<Setter Property="FontWeight" Value="Bold"/>		
+		<Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="HorizontalAlignment" Value="Center"/>
+	</Style>
+
 	<Style x:Key="LabelChb" TargetType="CheckBox">
 		<Setter Property="FontWeight" Value="Normal"/>
 		<Setter Property="FontStyle" Value="Italic"/>
