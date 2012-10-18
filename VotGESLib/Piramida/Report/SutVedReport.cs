@@ -89,7 +89,7 @@ namespace VotGES.Piramida.Report
 
 		public override void ReadData() {
 			base.ReadData();
-			PBR = new PBRDataHH(DateStart, DateEnd, 0);
+			PBR = new PBRDataHH(DateStart, DateEnd, GTPEnum.ges);
 			PBR.InitData();
 
 			PZad = new SortedList<DateTime, double>();

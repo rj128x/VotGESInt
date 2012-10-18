@@ -15,7 +15,7 @@ namespace ClearDB
 			String com1=String.Format("DELETE FROM DATA WHERE (parnumber=4 or parnumber=204) and DATA_DATE>='{0}' AND DATA_DATE<='{1}'",
 					dateStart.ToString("yyyy-MM-dd HH:mm:ss"), dateEnd.ToString("yyyy-MM-dd HH:mm:ss"));
 			run(com1, "4, 204",DBName);
-			String com2=String.Format("DELETE FROM DATA WHERE parnumber in (24,26,34,36,46,101,204,213,10012,10024,10026,10034,10036,20012,20024,20026,20034,20036) and (object<>7 or object<>1) and DATA_DATE>='{0}' AND DATA_DATE<='{1}'",
+			String com2=String.Format("DELETE FROM DATA WHERE parnumber in (24,26,34,36,46,101,204,213,10012,10024,10026,10034,10036,20012,20024,20026,20034,20036) and (object<>7 and object<>1) and DATA_DATE>='{0}' AND DATA_DATE<='{1}'",
 				dateStart.ToString("yyyy-MM-dd HH:mm:ss"), dateEnd.ToString("yyyy-MM-dd HH:mm:ss"));
 			run(com2, "parnumbers",DBName);
 			/*String com3=String.Format("DELETE FROM DATA WHERE  objType=2 and (object in (53500,4)) and (parnumber in (12,212,226)) and DATA_DATE>='{0}' AND DATA_DATE<='{1}'",
