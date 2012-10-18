@@ -4326,6 +4326,369 @@ namespace VotGES.Web.Models
     }
     
     /// <summary>
+    /// Класс "Maket8HoursData".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Web.Models")]
+    public sealed partial class Maket8HoursData : ComplexObject
+    {
+        
+        private double _p8HoursGES;
+        
+        private double _p8HoursGTP1;
+        
+        private double _p8HoursGTP2;
+        
+        private double _pPikGES;
+        
+        private double _pPikGTP1;
+        
+        private double _pPikGTP2;
+        
+        private double _pRaspGES;
+        
+        private double _pRaspGTP1;
+        
+        private double _pRaspGTP2;
+        
+        private double _rashodGES;
+        
+        private double _rashodGTP1;
+        
+        private double _rashodGTP2;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnP8HoursGESChanging(double value);
+        partial void OnP8HoursGESChanged();
+        partial void OnP8HoursGTP1Changing(double value);
+        partial void OnP8HoursGTP1Changed();
+        partial void OnP8HoursGTP2Changing(double value);
+        partial void OnP8HoursGTP2Changed();
+        partial void OnPPikGESChanging(double value);
+        partial void OnPPikGESChanged();
+        partial void OnPPikGTP1Changing(double value);
+        partial void OnPPikGTP1Changed();
+        partial void OnPPikGTP2Changing(double value);
+        partial void OnPPikGTP2Changed();
+        partial void OnPRaspGESChanging(double value);
+        partial void OnPRaspGESChanged();
+        partial void OnPRaspGTP1Changing(double value);
+        partial void OnPRaspGTP1Changed();
+        partial void OnPRaspGTP2Changing(double value);
+        partial void OnPRaspGTP2Changed();
+        partial void OnRashodGESChanging(double value);
+        partial void OnRashodGESChanged();
+        partial void OnRashodGTP1Changing(double value);
+        partial void OnRashodGTP1Changed();
+        partial void OnRashodGTP2Changing(double value);
+        partial void OnRashodGTP2Changed();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="Maket8HoursData"/>.
+        /// </summary>
+        public Maket8HoursData()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "P8HoursGES".
+        /// </summary>
+        [DataMember()]
+        public double P8HoursGES
+        {
+            get
+            {
+                return this._p8HoursGES;
+            }
+            set
+            {
+                if ((this._p8HoursGES != value))
+                {
+                    this.OnP8HoursGESChanging(value);
+                    this.RaiseDataMemberChanging("P8HoursGES");
+                    this.ValidateProperty("P8HoursGES", value);
+                    this._p8HoursGES = value;
+                    this.RaiseDataMemberChanged("P8HoursGES");
+                    this.OnP8HoursGESChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "P8HoursGTP1".
+        /// </summary>
+        [DataMember()]
+        public double P8HoursGTP1
+        {
+            get
+            {
+                return this._p8HoursGTP1;
+            }
+            set
+            {
+                if ((this._p8HoursGTP1 != value))
+                {
+                    this.OnP8HoursGTP1Changing(value);
+                    this.RaiseDataMemberChanging("P8HoursGTP1");
+                    this.ValidateProperty("P8HoursGTP1", value);
+                    this._p8HoursGTP1 = value;
+                    this.RaiseDataMemberChanged("P8HoursGTP1");
+                    this.OnP8HoursGTP1Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "P8HoursGTP2".
+        /// </summary>
+        [DataMember()]
+        public double P8HoursGTP2
+        {
+            get
+            {
+                return this._p8HoursGTP2;
+            }
+            set
+            {
+                if ((this._p8HoursGTP2 != value))
+                {
+                    this.OnP8HoursGTP2Changing(value);
+                    this.RaiseDataMemberChanging("P8HoursGTP2");
+                    this.ValidateProperty("P8HoursGTP2", value);
+                    this._p8HoursGTP2 = value;
+                    this.RaiseDataMemberChanged("P8HoursGTP2");
+                    this.OnP8HoursGTP2Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PPikGES".
+        /// </summary>
+        [DataMember()]
+        public double PPikGES
+        {
+            get
+            {
+                return this._pPikGES;
+            }
+            set
+            {
+                if ((this._pPikGES != value))
+                {
+                    this.OnPPikGESChanging(value);
+                    this.RaiseDataMemberChanging("PPikGES");
+                    this.ValidateProperty("PPikGES", value);
+                    this._pPikGES = value;
+                    this.RaiseDataMemberChanged("PPikGES");
+                    this.OnPPikGESChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PPikGTP1".
+        /// </summary>
+        [DataMember()]
+        public double PPikGTP1
+        {
+            get
+            {
+                return this._pPikGTP1;
+            }
+            set
+            {
+                if ((this._pPikGTP1 != value))
+                {
+                    this.OnPPikGTP1Changing(value);
+                    this.RaiseDataMemberChanging("PPikGTP1");
+                    this.ValidateProperty("PPikGTP1", value);
+                    this._pPikGTP1 = value;
+                    this.RaiseDataMemberChanged("PPikGTP1");
+                    this.OnPPikGTP1Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PPikGTP2".
+        /// </summary>
+        [DataMember()]
+        public double PPikGTP2
+        {
+            get
+            {
+                return this._pPikGTP2;
+            }
+            set
+            {
+                if ((this._pPikGTP2 != value))
+                {
+                    this.OnPPikGTP2Changing(value);
+                    this.RaiseDataMemberChanging("PPikGTP2");
+                    this.ValidateProperty("PPikGTP2", value);
+                    this._pPikGTP2 = value;
+                    this.RaiseDataMemberChanged("PPikGTP2");
+                    this.OnPPikGTP2Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PRaspGES".
+        /// </summary>
+        [DataMember()]
+        public double PRaspGES
+        {
+            get
+            {
+                return this._pRaspGES;
+            }
+            set
+            {
+                if ((this._pRaspGES != value))
+                {
+                    this.OnPRaspGESChanging(value);
+                    this.RaiseDataMemberChanging("PRaspGES");
+                    this.ValidateProperty("PRaspGES", value);
+                    this._pRaspGES = value;
+                    this.RaiseDataMemberChanged("PRaspGES");
+                    this.OnPRaspGESChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PRaspGTP1".
+        /// </summary>
+        [DataMember()]
+        public double PRaspGTP1
+        {
+            get
+            {
+                return this._pRaspGTP1;
+            }
+            set
+            {
+                if ((this._pRaspGTP1 != value))
+                {
+                    this.OnPRaspGTP1Changing(value);
+                    this.RaiseDataMemberChanging("PRaspGTP1");
+                    this.ValidateProperty("PRaspGTP1", value);
+                    this._pRaspGTP1 = value;
+                    this.RaiseDataMemberChanged("PRaspGTP1");
+                    this.OnPRaspGTP1Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PRaspGTP2".
+        /// </summary>
+        [DataMember()]
+        public double PRaspGTP2
+        {
+            get
+            {
+                return this._pRaspGTP2;
+            }
+            set
+            {
+                if ((this._pRaspGTP2 != value))
+                {
+                    this.OnPRaspGTP2Changing(value);
+                    this.RaiseDataMemberChanging("PRaspGTP2");
+                    this.ValidateProperty("PRaspGTP2", value);
+                    this._pRaspGTP2 = value;
+                    this.RaiseDataMemberChanged("PRaspGTP2");
+                    this.OnPRaspGTP2Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RashodGES".
+        /// </summary>
+        [DataMember()]
+        public double RashodGES
+        {
+            get
+            {
+                return this._rashodGES;
+            }
+            set
+            {
+                if ((this._rashodGES != value))
+                {
+                    this.OnRashodGESChanging(value);
+                    this.RaiseDataMemberChanging("RashodGES");
+                    this.ValidateProperty("RashodGES", value);
+                    this._rashodGES = value;
+                    this.RaiseDataMemberChanged("RashodGES");
+                    this.OnRashodGESChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RashodGTP1".
+        /// </summary>
+        [DataMember()]
+        public double RashodGTP1
+        {
+            get
+            {
+                return this._rashodGTP1;
+            }
+            set
+            {
+                if ((this._rashodGTP1 != value))
+                {
+                    this.OnRashodGTP1Changing(value);
+                    this.RaiseDataMemberChanging("RashodGTP1");
+                    this.ValidateProperty("RashodGTP1", value);
+                    this._rashodGTP1 = value;
+                    this.RaiseDataMemberChanged("RashodGTP1");
+                    this.OnRashodGTP1Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RashodGTP2".
+        /// </summary>
+        [DataMember()]
+        public double RashodGTP2
+        {
+            get
+            {
+                return this._rashodGTP2;
+            }
+            set
+            {
+                if ((this._rashodGTP2 != value))
+                {
+                    this.OnRashodGTP2Changing(value);
+                    this.RaiseDataMemberChanging("RashodGTP2");
+                    this.ValidateProperty("RashodGTP2", value);
+                    this._rashodGTP2 = value;
+                    this.RaiseDataMemberChanged("RashodGTP2");
+                    this.OnRashodGTP2Changed();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
     /// Класс "RashodHarsData".
     /// </summary>
     [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Web.Models")]
@@ -4338,11 +4701,25 @@ namespace VotGES.Web.Models
         
         private Guid _id;
         
+        private Maket8HoursData _maket;
+        
         private double _napor;
+        
+        private int _needTime;
+        
+        private double _pgtp1;
         
         private double _power;
         
+        private double _pRaspGTP1;
+        
+        private double _pRaspGTP2;
+        
         private double _rashod;
+        
+        private double _rashod0;
+        
+        private double _rashodFavr;
         
         #region Определение методов расширяемости
 
@@ -4357,12 +4734,26 @@ namespace VotGES.Web.Models
         partial void OnGANumbersChanged();
         partial void OnIdChanging(Guid value);
         partial void OnIdChanged();
+        partial void OnMaketChanging(Maket8HoursData value);
+        partial void OnMaketChanged();
         partial void OnNaporChanging(double value);
         partial void OnNaporChanged();
+        partial void OnNeedTimeChanging(int value);
+        partial void OnNeedTimeChanged();
+        partial void OnPGTP1Changing(double value);
+        partial void OnPGTP1Changed();
         partial void OnPowerChanging(double value);
         partial void OnPowerChanged();
+        partial void OnPRaspGTP1Changing(double value);
+        partial void OnPRaspGTP1Changed();
+        partial void OnPRaspGTP2Changing(double value);
+        partial void OnPRaspGTP2Changed();
         partial void OnRashodChanging(double value);
         partial void OnRashodChanged();
+        partial void OnRashod0Changing(double value);
+        partial void OnRashod0Changed();
+        partial void OnRashodFavrChanging(double value);
+        partial void OnRashodFavrChanged();
 
         #endregion
         
@@ -4448,6 +4839,31 @@ namespace VotGES.Web.Models
         }
         
         /// <summary>
+        /// Возвращает или задает значение параметра "Maket".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public Maket8HoursData Maket
+        {
+            get
+            {
+                return this._maket;
+            }
+            set
+            {
+                if ((this._maket != value))
+                {
+                    this.OnMaketChanging(value);
+                    this.RaiseDataMemberChanging("Maket");
+                    this.ValidateProperty("Maket", value);
+                    this._maket = value;
+                    this.RaiseDataMemberChanged("Maket");
+                    this.OnMaketChanged();
+                }
+            }
+        }
+        
+        /// <summary>
         /// Возвращает или задает значение параметра "Napor".
         /// </summary>
         [DataMember()]
@@ -4467,6 +4883,54 @@ namespace VotGES.Web.Models
                     this._napor = value;
                     this.RaiseDataMemberChanged("Napor");
                     this.OnNaporChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "NeedTime".
+        /// </summary>
+        [DataMember()]
+        public int NeedTime
+        {
+            get
+            {
+                return this._needTime;
+            }
+            set
+            {
+                if ((this._needTime != value))
+                {
+                    this.OnNeedTimeChanging(value);
+                    this.RaiseDataMemberChanging("NeedTime");
+                    this.ValidateProperty("NeedTime", value);
+                    this._needTime = value;
+                    this.RaiseDataMemberChanged("NeedTime");
+                    this.OnNeedTimeChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PGTP1".
+        /// </summary>
+        [DataMember()]
+        public double PGTP1
+        {
+            get
+            {
+                return this._pgtp1;
+            }
+            set
+            {
+                if ((this._pgtp1 != value))
+                {
+                    this.OnPGTP1Changing(value);
+                    this.RaiseDataMemberChanging("PGTP1");
+                    this.ValidateProperty("PGTP1", value);
+                    this._pgtp1 = value;
+                    this.RaiseDataMemberChanged("PGTP1");
+                    this.OnPGTP1Changed();
                 }
             }
         }
@@ -4496,6 +4960,54 @@ namespace VotGES.Web.Models
         }
         
         /// <summary>
+        /// Возвращает или задает значение параметра "PRaspGTP1".
+        /// </summary>
+        [DataMember()]
+        public double PRaspGTP1
+        {
+            get
+            {
+                return this._pRaspGTP1;
+            }
+            set
+            {
+                if ((this._pRaspGTP1 != value))
+                {
+                    this.OnPRaspGTP1Changing(value);
+                    this.RaiseDataMemberChanging("PRaspGTP1");
+                    this.ValidateProperty("PRaspGTP1", value);
+                    this._pRaspGTP1 = value;
+                    this.RaiseDataMemberChanged("PRaspGTP1");
+                    this.OnPRaspGTP1Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PRaspGTP2".
+        /// </summary>
+        [DataMember()]
+        public double PRaspGTP2
+        {
+            get
+            {
+                return this._pRaspGTP2;
+            }
+            set
+            {
+                if ((this._pRaspGTP2 != value))
+                {
+                    this.OnPRaspGTP2Changing(value);
+                    this.RaiseDataMemberChanging("PRaspGTP2");
+                    this.ValidateProperty("PRaspGTP2", value);
+                    this._pRaspGTP2 = value;
+                    this.RaiseDataMemberChanged("PRaspGTP2");
+                    this.OnPRaspGTP2Changed();
+                }
+            }
+        }
+        
+        /// <summary>
         /// Возвращает или задает значение параметра "Rashod".
         /// </summary>
         [DataMember()]
@@ -4515,6 +5027,54 @@ namespace VotGES.Web.Models
                     this._rashod = value;
                     this.RaiseDataMemberChanged("Rashod");
                     this.OnRashodChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Rashod0".
+        /// </summary>
+        [DataMember()]
+        public double Rashod0
+        {
+            get
+            {
+                return this._rashod0;
+            }
+            set
+            {
+                if ((this._rashod0 != value))
+                {
+                    this.OnRashod0Changing(value);
+                    this.RaiseDataMemberChanging("Rashod0");
+                    this.ValidateProperty("Rashod0", value);
+                    this._rashod0 = value;
+                    this.RaiseDataMemberChanged("Rashod0");
+                    this.OnRashod0Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "RashodFavr".
+        /// </summary>
+        [DataMember()]
+        public double RashodFavr
+        {
+            get
+            {
+                return this._rashodFavr;
+            }
+            set
+            {
+                if ((this._rashodFavr != value))
+                {
+                    this.OnRashodFavrChanging(value);
+                    this.RaiseDataMemberChanging("RashodFavr");
+                    this.ValidateProperty("RashodFavr", value);
+                    this._rashodFavr = value;
+                    this.RaiseDataMemberChanged("RashodFavr");
+                    this.OnRashodFavrChanged();
                 }
             }
         }

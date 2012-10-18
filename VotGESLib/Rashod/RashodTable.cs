@@ -178,7 +178,7 @@ namespace VotGES
 				double power=power1 + (power2 - power1) * naporK;
 
 				//Logger.debug(String.Format("Мощность расход: {0} napor: {1} ({2})", rashod, napor, power));
-				return rashod;
+				return power;
 			} catch (Exception e) {
 				Logger.Error(String.Format("Ошибка получения мощности расход: {0} napor: {1} ({2})", rashod, napor, e.Message));
 				return 0;

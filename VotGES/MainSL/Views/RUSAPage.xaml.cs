@@ -36,6 +36,15 @@ namespace MainSL.Views
 			}
 		}
 
+		RashodHarsData currentMaket8;
+		public RashodHarsData CurrentMaket8 {
+			get { return currentMaket8; }
+			set { 
+				currentMaket8 = value;
+				pnlDataMaket8.DataContext = CurrentMaket8;
+			}
+		}
+
 		RUSADomainContext context;
 
 		public RUSAPage() {
@@ -71,6 +80,16 @@ namespace MainSL.Views
 			CurrentRashodHarsData.GANumbers.Add(12, "Оптимальный по станции");
 			CurrentRashodHarsData.GANumber = 11;
 			cmbGenSelect.ItemsSource = CurrentRashodHarsData.GANumbers;
+
+			CurrentMaket8 = new RashodHarsData();
+			CurrentMaket8.Napor = 21;
+			CurrentMaket8.NeedTime = 8;
+			CurrentMaket8.RashodFavr = 1200;
+			CurrentMaket8.PRaspGTP1 = 220;
+			CurrentMaket8.PRaspGTP2 = 800;
+			CurrentMaket8.PGTP1 = 80;
+			CurrentMaket8.NeedTime = 8;
+			CurrentMaket8.Rashod0 = 0;
 		}
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e) {
@@ -134,6 +153,10 @@ namespace MainSL.Views
 				}
 			}, null);
 			GlobalStatus.Current.StartLoad(currentOper);	
+		}
+
+		private void btnCalcMaket_Click(object sender, RoutedEventArgs e) {
+
 		}
 
 	}
