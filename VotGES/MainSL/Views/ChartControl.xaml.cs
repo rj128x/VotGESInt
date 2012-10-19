@@ -77,7 +77,9 @@ namespace MainSL.Views
 
 
 			CurrentChart.YAxis = Axes[0];
-			CurrentChart.SecondaryYAxis = Axes[1];
+			try {
+				CurrentChart.SecondaryYAxis = Axes[1];
+			} catch { }
 
 
 			ChartSeries = new List<VisibloxChartSerie>();

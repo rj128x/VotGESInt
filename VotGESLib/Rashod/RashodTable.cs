@@ -18,12 +18,12 @@ namespace VotGES
 		protected double[] powers;
 		protected double[][] rashods;
 		protected SortedList<double,SortedList<double,double>> rashodsByNapor;
-		protected double minPower;
-		protected double maxPower;
-		protected double minNapor;
-		protected double maxNapor;		
-		protected double stepNapor;
-		protected double stepPower;
+		public double minPower { get; protected set; }
+		public double maxPower { get; protected set; }
+		public double minNapor { get; protected set; }
+		public double maxNapor { get; protected set; }
+		public double stepNapor { get; protected set; }
+		public double stepPower { get; protected set; }
 
 		protected static RashodTable[] rashodTables;
 		public static string debugId=Guid.NewGuid().ToString();
@@ -78,20 +78,30 @@ namespace VotGES
 			}
 			string[]rows=str.Split('\n');
 			int Row = 0;
+			minPower = double.MaxValue;
+			maxPower = double.MinValue;
+			minNapor = double.MaxValue;
+			maxNapor = double.MinValue;
 			foreach (string strLine in rows) {
 				try {
-					string[] Line = strLine.Replace(",",".").Split(';');
+					string[] Line = strLine.Replace(",",".").Replace(" ","").Split(';');
 					if (Row == 0) {
 						//strArray = new string[Line.Length, 111];
 						napors = new double[Line.Length - 1];
 						rashods = new double[len][];
 						powers = new double[len];
 						for (int column=1; column < Line.Length; column++) {
-							napors[column - 1] = Double.Parse(Line[column], GlobalVotGES.NFIPoint);
+							double napor=Double.Parse(Line[column], GlobalVotGES.NFIPoint);
+							maxNapor = napor > maxNapor ? napor : maxNapor;
+							minNapor=napor<minNapor?napor:minNapor;
+							napors[column - 1] = napor;
 						}
 					} else {
 						rashods[Row-1]=new double[Line.Length - 1];
-						powers[Row - 1] = Double.Parse(Line[0], GlobalVotGES.NFIPoint);
+						double power=Double.Parse(Line[0], GlobalVotGES.NFIPoint);
+						minPower = power < minPower ? power : minPower;
+						maxPower = power > maxPower ? power : maxPower;
+						powers[Row - 1] = power;
 						for (int column=1; column < Line.Length; column++) {
 							rashods[Row - 1][column - 1] = Double.Parse(Line[column], GlobalVotGES.NFIPoint);
 						}
@@ -99,10 +109,10 @@ namespace VotGES
 					Row++;
 				} catch { }
 			}
-			minPower = powers[0];
+			/*minPower = powers[0];
 			maxPower = powers[powers.Length - 1];
 			minNapor = napors[0];
-			maxNapor = napors[napors.Length - 1];
+			maxNapor = napors[napors.Length - 1];*/
 			stepPower = powers[1] - powers[0];
 			stepNapor = napors[1] - napors[0];
 
@@ -227,7 +237,7 @@ namespace VotGES
 		}
 
 		public static double KPD(double power, double napor, double rashod) {
-			return 1000 * power / (9.81 * napor) / rashod;
+			return rashod > 0 ? 1000 * power / (9.81 * napor) / rashod : 0;
 		}
 
 		public static double getStationRashod(double power, double napor, RashodCalcMode mode) {

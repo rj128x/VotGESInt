@@ -11,6 +11,8 @@ namespace VotGES.Web.Services
 	using VotGES.Web.Models;
 	using VotGES.Web.Logging;
 	using VotGES.Piramida.Report;
+using VotGES.Chart;
+using VotGES.Rashod;
 
 
 	// TODO: создайте методы, содержащие собственную логику приложения.
@@ -46,6 +48,16 @@ namespace VotGES.Web.Services
 		public Dictionary<int, string> getStopGA() {
 			WebLogger.Info("Get Pusk Stop GA", VotGES.Logger.LoggerSource.service);
 			return PuskStopReportFull.TimeStopGA();
+		}
+
+		public ChartAnswer getChart(RashodHarsData data, RHChartType type) {
+			switch (type) {
+				case RHChartType.GA_QotP:
+					return RashodHars.GetGA_QotP(data.GANumber, false, data.Napor);
+				case RHChartType.GA_KPDotP:
+					return RashodHars.GetGA_QotP(data.GANumber, true, data.Napor);
+			}
+			return null;
 		}
 	}
 }

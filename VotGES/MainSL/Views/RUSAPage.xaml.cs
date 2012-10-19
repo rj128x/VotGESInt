@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using VotGES.Web.Models;
 using System.ServiceModel.DomainServices.Client;
 using VotGES.Web.Services;
+using VotGES.Rashod;
 
 namespace MainSL.Views
 {
@@ -39,11 +40,13 @@ namespace MainSL.Views
 		}
 
 		RUSADomainContext context;
+		ChartWindow chartWindow;
 
 		public RUSAPage() {
 			InitializeComponent();
 			context = new RUSADomainContext();
 			cntrlRUSA.init(context);
+			chartWindow = new ChartWindow();
 		}
 
 		
@@ -136,6 +139,74 @@ namespace MainSL.Views
 				}
 			}, null);
 			GlobalStatus.Current.StartLoad(currentOper);	
+		}
+
+		private void loagChart(RHChartType type) {
+			InvokeOperation currentOper=context.getChart(CurrentRashodHarsData,type, oper => {
+				if (oper.IsCanceled) {
+					return;
+				}
+				try {
+					GlobalStatus.Current.StartProcess();
+
+					chartWindow.cntrlChart.Create(oper.Value);
+					chartWindow.Show();
+				} catch (Exception ex) {
+					Logging.Logger.info(ex.ToString());
+					GlobalStatus.Current.ErrorLoad("Ошибка");
+				} finally {
+					GlobalStatus.Current.StopLoad();
+				}
+			}, null);
+			GlobalStatus.Current.StartLoad(currentOper);	
+		}
+
+		private void btnGA_QotP_Click(object sender, RoutedEventArgs e) {
+			loagChart(RHChartType.GA_QotP);
+		}
+
+		private void btnGA_KPDotP_Click(object sender, RoutedEventArgs e) {
+			loagChart(RHChartType.GA_KPDotP);
+		}
+
+		private void btnGA_QotH_Click(object sender, RoutedEventArgs e) {
+			loagChart(RHChartType.GA_QotH);
+		}
+
+		private void btnGA_KPDotH_Click(object sender, RoutedEventArgs e) {
+			loagChart(RHChartType.GA_KPDotH);
+		}
+
+		private void btnCMPGA_QotP_Click(object sender, RoutedEventArgs e) {
+			loagChart(RHChartType.CMPGA_QotP);
+		}
+
+		private void btnCMPGA_KPDotP_Click(object sender, RoutedEventArgs e) {
+			loagChart(RHChartType.CMPGA_KPDotP);
+		}
+
+		private void btnCMPGA_QotH_Click(object sender, RoutedEventArgs e) {
+			loagChart(RHChartType.CMPGA_QotH);
+		}
+
+		private void btnCMPGA_KPDotH_Click(object sender, RoutedEventArgs e) {
+			loagChart(RHChartType.CMPGA_KPDotH);
+		}
+
+		private void btnCMPST_QotP_Click(object sender, RoutedEventArgs e) {
+			loagChart(RHChartType.CMPST_QotP);
+		}
+
+		private void btnCMPST_KPDotP_Click(object sender, RoutedEventArgs e) {
+			loagChart(RHChartType.CMPST_KPDotP);
+		}
+
+		private void btnCMPST_QotH_Click(object sender, RoutedEventArgs e) {
+			loagChart(RHChartType.CMPST_QotH);
+		}
+
+		private void btnCMPST_KPDotH_Click(object sender, RoutedEventArgs e) {
+			loagChart(RHChartType.CMPST_KPDotH);
 		}
 
 	}

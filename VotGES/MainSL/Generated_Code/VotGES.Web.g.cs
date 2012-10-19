@@ -4229,6 +4229,46 @@ namespace VotGES.PrognozNB
         }
     }
 }
+namespace VotGES.Rashod
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.ServiceModel.DomainServices;
+    using System.ServiceModel.DomainServices.Client;
+    using System.ServiceModel.DomainServices.Client.ApplicationServices;
+    
+    
+    public enum RHChartType
+    {
+        
+        GA_QotP = 0,
+        
+        GA_KPDotP = 1,
+        
+        GA_QotH = 2,
+        
+        GA_KPDotH = 3,
+        
+        CMPGA_QotP = 4,
+        
+        CMPGA_KPDotP = 5,
+        
+        CMPGA_QotH = 6,
+        
+        CMPGA_KPDotH = 7,
+        
+        CMPST_QotP = 8,
+        
+        CMPST_KPDotP = 9,
+        
+        CMPST_QotH = 10,
+        
+        CMPST_KPDotH = 11,
+    }
+}
 namespace VotGES.Web.Models
 {
     using System;
@@ -5940,6 +5980,7 @@ namespace VotGES.Web.Services
     using VotGES.PBR;
     using VotGES.Piramida.Report;
     using VotGES.PrognozNB;
+    using VotGES.Rashod;
     using VotGES.Web.Models;
     
     
@@ -7349,6 +7390,38 @@ namespace VotGES.Web.Services
         }
         
         /// <summary>
+        /// Асинхронно вызывает метод "getChart" службы DomainService.
+        /// </summary>
+        /// <param name="data">Значение параметра "data" для данного действия.</param>
+        /// <param name="type">Значение параметра "type" для данного действия.</param>
+        /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
+        /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<ChartAnswer> getChart(RashodHarsData data, RHChartType type, Action<InvokeOperation<ChartAnswer>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("data", data);
+            parameters.Add("type", type);
+            this.ValidateMethod("getChart", parameters);
+            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("getChart", typeof(ChartAnswer), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Асинхронно вызывает метод "getChart" службы DomainService.
+        /// </summary>
+        /// <param name="data">Значение параметра "data" для данного действия.</param>
+        /// <param name="type">Значение параметра "type" для данного действия.</param>
+        /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
+        public InvokeOperation<ChartAnswer> getChart(RashodHarsData data, RHChartType type)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("data", data);
+            parameters.Add("type", type);
+            this.ValidateMethod("getChart", parameters);
+            return ((InvokeOperation<ChartAnswer>)(this.InvokeOperation("getChart", typeof(ChartAnswer), parameters, true, null, null)));
+        }
+        
+        /// <summary>
         /// Асинхронно вызывает метод "getStopGA" службы DomainService.
         /// </summary>
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
@@ -7473,6 +7546,25 @@ namespace VotGES.Web.Services
         [ServiceContract()]
         public interface IRUSADomainServiceContract
         {
+            
+            /// <summary>
+            /// Асинхронно вызывает операцию "getChart".
+            /// </summary>
+            /// <param name="data">Значение параметра "data" для данного действия.</param>
+            /// <param name="type">Значение параметра "type" для данного действия.</param>
+            /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
+            /// <param name="asyncState">Необязательный объект состояния.</param>
+            /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/RUSADomainService/getChartDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/RUSADomainService/getChart", ReplyAction="http://tempuri.org/RUSADomainService/getChartResponse")]
+            IAsyncResult BegingetChart(RashodHarsData data, RHChartType type, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Завершает асинхронную операцию, начатую "BegingetChart".
+            /// </summary>
+            /// <param name="result">Интерфейс IAsyncResult, возвращенный из "BegingetChart".</param>
+            /// <returns>Объект "ChartAnswer", возвращенный из операции "getChart".</returns>
+            ChartAnswer EndgetChart(IAsyncResult result);
             
             /// <summary>
             /// Асинхронно вызывает операцию "getStopGA".
