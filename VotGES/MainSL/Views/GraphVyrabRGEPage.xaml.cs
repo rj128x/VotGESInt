@@ -103,7 +103,7 @@ namespace MainSL.Views
 					}
 					GlobalStatus.Current.StartProcess();
 					try {
-						txtActualDate.Text = oper.Value.GTP.ActualDate.ToString("HH:mm");
+						txtActualDate.Text = "График нагрузки на " + oper.Value.GTP.ActualDate.ToString("HH:mm") + " (мск)";
 						pnlSettings.DataContext = oper.Value;
 						CurrentAnswer = oper.Value;
 						processGTP();

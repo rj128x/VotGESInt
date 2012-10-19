@@ -29,9 +29,17 @@
 							<RowDefinition Height="1*"/>
 						</Grid.RowDefinitions>
 						<usr:ChartControl x:Name="chartControlRGE1" VerticalAlignment="Stretch" Grid.Row="0"/>
+						<TextBlock Text="ГГ 1-2" FontSize="12" FontStyle="Italic" FontWeight="ExtraBold"
+						  HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0"/>
 						<usr:ChartControl x:Name="chartControlRGE2" VerticalAlignment="Stretch" Grid.Row="1"/>
+						<TextBlock Text="ГГ 3-4" FontSize="12" FontStyle="Italic" FontWeight="ExtraBold"
+						  HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="1"/>
 						<usr:ChartControl x:Name="chartControlRGE3" VerticalAlignment="Stretch" Grid.Row="2"/>
-						<usr:ChartControl x:Name="chartControlRGE4" VerticalAlignment="Stretch" Grid.Row="3"/>						
+						<TextBlock Text="ГГ 5-6" FontSize="12" FontStyle="Italic" FontWeight="ExtraBold"
+						  HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="2"/>
+						<usr:ChartControl x:Name="chartControlRGE4" VerticalAlignment="Stretch" Grid.Row="3"/>
+						<TextBlock Text="ГГ 7-10" FontSize="12" FontStyle="Italic" FontWeight="ExtraBold"
+						  HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="3"/>
 					</Grid>
 				</sdk:TabItem>
 			</sdk:TabControl>
@@ -40,7 +48,7 @@
 			
 			<Grid x:Name="pnlSettings" Grid.Column="1">
 				<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
-					<TextBlock Text="Мгновенные значения" Style="{StaticResource Label}" FontSize="12"/>
+					<TextBlock Text="Мгновенные значения" Style="{StaticResource Label}" FontSize="12" HorizontalAlignment="Right"/>
 					<TextBlock Text="ГТП, ГЭС" Style="{StaticResource Label}" FontSize="12"/>
 					<sdk:DataGrid ItemsSource="{Binding GTP.TableCurrent}"
 						AutoGenerateColumns="False" >
@@ -119,7 +127,7 @@
 					</sdk:DataGrid>
 
 
-					<TextBlock Text="Значения за текущий час" Style="{StaticResource Label}" FontSize="12"/>
+					<TextBlock Text="Значения за текущий час" Style="{StaticResource Label}" FontSize="12" HorizontalAlignment="Right"/>
 					<TextBlock Text="ГТП, ГЭС" Style="{StaticResource Label}" FontSize="12"/>
 					<sdk:DataGrid ItemsSource="{Binding GTP.TableHour}"
 						AutoGenerateColumns="False" >
@@ -235,9 +243,10 @@
 									<ColumnDefinition/>
 									<ColumnDefinition/>
 									<ColumnDefinition/>
-									<ColumnDefinition/>
 								</Grid.ColumnDefinitions>
 								<Grid.RowDefinitions>
+									<RowDefinition/>
+									<RowDefinition/>
 									<RowDefinition/>
 									<RowDefinition/>
 									<RowDefinition/>
@@ -245,25 +254,25 @@
 								</Grid.RowDefinitions>
 								<TextBlock Text="ГА-1" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="0"/>
 								<TextBlock Text="ГА-2" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="1"/>
-								<TextBlock Text="ГА-3" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="2"/>
-								<TextBlock Text="ГА-4" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="3"/>
-								<TextBlock Text="ГА-5" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="4"/>
-								<TextBlock Text="ГА-6" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="0"/>
-								<TextBlock Text="ГА-7" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="1"/>
-								<TextBlock Text="ГА-8" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="2"/>
-								<TextBlock Text="ГА-9" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="3"/>
-								<TextBlock Text="ГА-10" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="4"/>
+								<TextBlock Text="ГА-3" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="0"/>
+								<TextBlock Text="ГА-4" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="1"/>
+								<TextBlock Text="ГА-5" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="2"/>
+								<TextBlock Text="ГА-6" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="3"/>
+								<TextBlock Text="ГА-7" Style="{StaticResource Caption}" Grid.Row="4" Grid.Column="0"/>
+								<TextBlock Text="ГА-8" Style="{StaticResource Caption}" Grid.Row="4" Grid.Column="1"/>
+								<TextBlock Text="ГА-9" Style="{StaticResource Caption}" Grid.Row="4" Grid.Column="2"/>
+								<TextBlock Text="ГА-10" Style="{StaticResource Caption}" Grid.Row="4" Grid.Column="3"/>
 
 								<TextBlock Name="txtSropGA1" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="0"/>
 								<TextBlock Name="txtSropGA2" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="1"/>
-								<TextBlock Name="txtSropGA3" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="2"/>
-								<TextBlock Name="txtSropGA4" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="3"/>
-								<TextBlock Name="txtSropGA5" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="4"/>
-								<TextBlock Name="txtSropGA6" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="0"/>
-								<TextBlock Name="txtSropGA7" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="1"/>
-								<TextBlock Name="txtSropGA8" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="2"/>
-								<TextBlock Name="txtSropGA9" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="3"/>
-								<TextBlock Name="txtSropGA10" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="4"/>
+								<TextBlock Name="txtSropGA3" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="0"/>
+								<TextBlock Name="txtSropGA4" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="1"/>
+								<TextBlock Name="txtSropGA5" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="2"/>
+								<TextBlock Name="txtSropGA6" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="3"/>
+								<TextBlock Name="txtSropGA7" Style="{StaticResource Caption}" Grid.Row="5" Grid.Column="0"/>
+								<TextBlock Name="txtSropGA8" Style="{StaticResource Caption}" Grid.Row="5" Grid.Column="1"/>
+								<TextBlock Name="txtSropGA9" Style="{StaticResource Caption}" Grid.Row="5" Grid.Column="2"/>
+								<TextBlock Name="txtSropGA10" Style="{StaticResource Caption}" Grid.Row="5" Grid.Column="3"/>
 
 							</Grid>
 						</StackPanel>
