@@ -41,7 +41,7 @@ namespace VotGES.PBR
 		public GraphVyrabAnswer() {
 			TableCurrent = new List<GraphVyrabTableRow>();
 			TableHour = new List<GraphVyrabTableRow>();
-		}
+		}		
 	}
 
 	public class CheckGraphVyrabTableRow

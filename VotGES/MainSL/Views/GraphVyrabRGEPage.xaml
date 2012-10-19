@@ -14,13 +14,13 @@
 				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
-			<sdk:TabControl >
-				<sdk:TabItem Name="tabChart" Header="График">
+			<sdk:TabControl SelectionChanged="TabControl_SelectionChanged">
+				<sdk:TabItem Name="tabChart" Header="График ГТП">
 					<Grid>						
 						<usr:ChartControl x:Name="chartControl" VerticalAlignment="Stretch"/>						
 					</Grid>
 				</sdk:TabItem>
-				<sdk:TabItem Name="tabChartRGE" Header="График РГЕ">
+				<sdk:TabItem Name="tabChartRGE" Header="График РГЕ" IsSelected="true">
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="1*"/>
@@ -224,6 +224,48 @@
 							</StackPanel>
 							<Button Name="btnRefresh" Content="Обновить сейчас" Click="btnRefresh_Click" 
 									  HorizontalAlignment="Stretch" VerticalAlignment="Top" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
+						</StackPanel>
+					</Border>
+					<Border Style="{StaticResource borderGray}" Margin="0,10,0,0" Name="pnlStopTime">
+						<StackPanel>							
+							<TextBlock Text="Простой генераторов (ДД:ЧЧ:ММ)" Style="{StaticResource Label}"/>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition/>
+									<RowDefinition/>
+									<RowDefinition/>
+									<RowDefinition/>
+								</Grid.RowDefinitions>
+								<TextBlock Text="ГА-1" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="0"/>
+								<TextBlock Text="ГА-2" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="1"/>
+								<TextBlock Text="ГА-3" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="2"/>
+								<TextBlock Text="ГА-4" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="3"/>
+								<TextBlock Text="ГА-5" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="4"/>
+								<TextBlock Text="ГА-6" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="0"/>
+								<TextBlock Text="ГА-7" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="1"/>
+								<TextBlock Text="ГА-8" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="2"/>
+								<TextBlock Text="ГА-9" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="3"/>
+								<TextBlock Text="ГА-10" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="4"/>
+
+								<TextBlock Name="txtSropGA1" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="0"/>
+								<TextBlock Name="txtSropGA2" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="1"/>
+								<TextBlock Name="txtSropGA3" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="2"/>
+								<TextBlock Name="txtSropGA4" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="3"/>
+								<TextBlock Name="txtSropGA5" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="4"/>
+								<TextBlock Name="txtSropGA6" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="0"/>
+								<TextBlock Name="txtSropGA7" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="1"/>
+								<TextBlock Name="txtSropGA8" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="2"/>
+								<TextBlock Name="txtSropGA9" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="3"/>
+								<TextBlock Name="txtSropGA10" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="4"/>
+
+							</Grid>
 						</StackPanel>
 					</Border>
 				</StackPanel>

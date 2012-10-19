@@ -250,5 +250,60 @@ namespace VotGES.Piramida.Report
 			}
 		}
 
+		public static Dictionary<int, string> TimeStopGA() {
+			Dictionary<int,string> Result=new Dictionary<int, string>();
+			string sel;
+			SqlConnection con=null;
+			try {
+				List<string> sels=new List<string>();
+				for (int item=1; item <= 10; item++) {
+					int ga= item % 10;
+					ga = ga == 0 ? 10 : ga;
+					sel = String.Format("SELECT data_date, item, value0  FROM DATA WHERE Parnumber=13 and object=30 and objtype=2 and item={0} and data_date= (SELECT top 1 data_date from data WHERE Parnumber=13 and object=30 and objtype=2 and item={0} and data_date<@dateStart order by data_date desc)",item);
+					sels.Add(sel);					
+				}
+				sel=String.Join("\n UNION ALL \n", sels);
+				con = PiramidaAccess.getConnection("PSV");
+				con.Open();
+				SqlCommand command=con.CreateCommand();
+				command.CommandText = sel;
+				command.Parameters.AddWithValue("@dateStart", DateTime.Now);
+
+				SqlDataReader reader=command.ExecuteReader();
+				while (reader.Read()) {
+					DateTime date=Convert.ToDateTime(reader[0]);
+					int item=Convert.ToInt32(reader[1]);
+					int value0=Convert.ToInt32(reader[2]);
+					int ga=item % 10;
+					ga = ga == 0 ? 10 : ga;
+
+					if (value0 == 1) {
+						Result.Add(ga, "0");
+					}
+					if (value0 == 0) {
+						double diff=PuskStopRecord.getDiffMin(date,DateTime.Now.AddHours(-2));
+						int days=(int)(diff / 60 / 24);
+						int hours=(int)(diff % (60*24))/60;
+						int minutes=(int)(diff - days * 60 * 24 - hours * 60);
+						string res=String.Format(" {0}:{1:00}:{2:00} ", days, hours, minutes);
+						Result.Add(ga,res);
+					}
+				}
+			} catch (Exception e) {
+				Logger.Error("Ошибка при получении пусков-остановов (подробно)");
+				Logger.Error(e.ToString());
+			} finally { try { con.Close(); } catch { } }
+
+			for (int ga=1; ga <= 10;ga++ ) {
+				if (!Result.ContainsKey(ga)) {
+					Result.Add(ga, "-");
+				}
+				if (Result[ga].Length > 12) {
+					Result[ga] = "-";
+				}
+			}
+			return Result;
+		}
+
 	}
 }

@@ -19,29 +19,6 @@ using System.Windows.Threading;
 
 namespace MainSL.Views
 {
-	public class SettingsGraphVyab : SettingsBase
-	{
-		private int second;
-
-		public int Second {
-			get { return second; }
-			set {
-				second = value;
-				second = second < 0 ? 30 : second;
-				NotifyChanged("Second");
-			}
-		}
-
-		private bool autoRefresh;
-		public bool AutoRefresh {
-			get { return autoRefresh; }
-			set {
-				autoRefresh = value;
-				NotifyChanged("AutoRefresh");
-			}
-		}
-	}
-
 	public partial class GraphVyrabRGEPage : Page
 	{
 		DispatcherTimer timer;
@@ -89,6 +66,33 @@ namespace MainSL.Views
 			refresh();
 		}
 
+		private void processGTP() {
+			if (tabChart.IsSelected) {
+				chartControl.Create(CurrentAnswer.GTP.Chart);
+				chartControl.Visibility = System.Windows.Visibility.Visible;
+			} else {
+				chartControl.Visibility = System.Windows.Visibility.Collapsed;
+			}
+		}
+
+		private void processRGE() {
+			if (tabChartRGE.IsSelected) {
+				chartControlRGE1.Create(CurrentAnswer.RGE.ChartRGE1);
+				chartControlRGE2.Create(CurrentAnswer.RGE.ChartRGE2);
+				chartControlRGE3.Create(CurrentAnswer.RGE.ChartRGE3);
+				chartControlRGE4.Create(CurrentAnswer.RGE.ChartRGE4);
+				chartControlRGE1.Visibility = System.Windows.Visibility.Visible;
+				chartControlRGE2.Visibility = System.Windows.Visibility.Visible;
+				chartControlRGE3.Visibility = System.Windows.Visibility.Visible;
+				chartControlRGE4.Visibility = System.Windows.Visibility.Visible;
+			} else {
+				chartControlRGE1.Visibility = System.Windows.Visibility.Collapsed;
+				chartControlRGE2.Visibility = System.Windows.Visibility.Collapsed;
+				chartControlRGE3.Visibility = System.Windows.Visibility.Collapsed;
+				chartControlRGE4.Visibility = System.Windows.Visibility.Collapsed;
+			}
+		}
+
 		private void refresh() {
 			if (GlobalStatus.Current.IsBusy)
 				return;
@@ -101,12 +105,22 @@ namespace MainSL.Views
 					try {
 						txtActualDate.Text = oper.Value.GTP.ActualDate.ToString("HH:mm");
 						pnlSettings.DataContext = oper.Value;
-						chartControl.Create(oper.Value.GTP.Chart);
-						chartControlRGE1.Create(oper.Value.RGE.ChartRGE1);
-						chartControlRGE2.Create(oper.Value.RGE.ChartRGE2);
-						chartControlRGE3.Create(oper.Value.RGE.ChartRGE3);
-						chartControlRGE4.Create(oper.Value.RGE.ChartRGE4);
 						CurrentAnswer = oper.Value;
+						processGTP();
+						processRGE();
+
+						Dictionary<int,string> stopTime=oper.Value.TimeStopGA;
+						txtSropGA1.Text = stopTime[1];
+						txtSropGA2.Text = stopTime[2];
+						txtSropGA3.Text = stopTime[3];
+						txtSropGA4.Text = stopTime[4];
+						txtSropGA5.Text = stopTime[5];
+						txtSropGA6.Text = stopTime[6];
+						txtSropGA7.Text = stopTime[7];
+						txtSropGA8.Text = stopTime[8];
+						txtSropGA9.Text = stopTime[9];
+						txtSropGA10.Text = stopTime[10];
+
 					} catch (Exception ex) {
 						Logging.Logger.info(ex.ToString());
 						GlobalStatus.Current.ErrorLoad("Ошибка");
@@ -117,5 +131,37 @@ namespace MainSL.Views
 			GlobalStatus.Current.StartLoad(currentOper);
 		}
 
+		private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+			try {
+				processRGE();
+			} catch { }
+			try {
+				processGTP();
+			} catch { }
+		}
+		
+	}
+
+	public class SettingsGraphVyab : SettingsBase
+	{
+		private int second;
+
+		public int Second {
+			get { return second; }
+			set {
+				second = value;
+				second = second < 0 ? 30 : second;
+				NotifyChanged("Second");
+			}
+		}
+
+		private bool autoRefresh;
+		public bool AutoRefresh {
+			get { return autoRefresh; }
+			set {
+				autoRefresh = value;
+				NotifyChanged("AutoRefresh");
+			}
+		}
 	}
 }

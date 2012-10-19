@@ -9,11 +9,13 @@ namespace VotGES.Web.Services
 	using System.ServiceModel.DomainServices.Hosting;
 	using System.ServiceModel.DomainServices.Server;
 	using VotGES.PBR;
+	using VotGES.Piramida.Report;
 
 	public class FullGraphVyrab
 	{
 		public GraphVyrabAnswer GTP { get; set; }
 		public GraphVyrabRGEAnswer RGE { get; set; }
+		public Dictionary<int, string> TimeStopGA { get; set; }
 	}
 
 	// TODO: создайте методы, содержащие собственную логику приложения.
@@ -87,12 +89,12 @@ namespace VotGES.Web.Services
 		}
 
 		public FullGraphVyrab getFullGraphVyrab() {
-			FullGraphVyrab answer=new FullGraphVyrab();
+			FullGraphVyrab answer=new FullGraphVyrab();			
 			answer.GTP = getGraphVyrab();
-			answer.RGE = getGraphVyrabRGE();
+			answer.RGE = getGraphVyrabRGE();			
+			answer.TimeStopGA = PuskStopReportFull.TimeStopGA();
+			
 			return answer;
 		}
 	}
 }
-
-

@@ -10,6 +10,7 @@ namespace VotGES.Web.Services
 	using System.ServiceModel.DomainServices.Server;
 	using VotGES.Web.Models;
 	using VotGES.Web.Logging;
+	using VotGES.Piramida.Report;
 
 
 	// TODO: создайте методы, содержащие собственную логику приложения.
@@ -40,6 +41,11 @@ namespace VotGES.Web.Services
 			WebLogger.Info("Maket process", VotGES.Logger.LoggerSource.service);
 			data.ProcessMaket();
 			return data;
+		}
+
+		public Dictionary<int, string> getStopGA() {
+			WebLogger.Info("Get Pusk Stop GA", VotGES.Logger.LoggerSource.service);
+			return PuskStopReportFull.TimeStopGA();
 		}
 	}
 }
