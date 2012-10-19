@@ -10,12 +10,17 @@ namespace VotGES.Web.Services
 	using System.ServiceModel.DomainServices.Server;
 	using VotGES.PBR;
 	using VotGES.Piramida.Report;
+	using VotGES.Piramida;
 
 	public class FullGraphVyrab
 	{
 		public GraphVyrabAnswer GTP { get; set; }
 		public GraphVyrabRGEAnswer RGE { get; set; }
 		public Dictionary<int, string> TimeStopGA { get; set; }
+		public double Napor { get; set; }
+		public FullGraphVyrab(){
+			Napor = 21;
+		}
 	}
 
 	// TODO: создайте методы, содержащие собственную логику приложения.
@@ -89,10 +94,14 @@ namespace VotGES.Web.Services
 		}
 
 		public FullGraphVyrab getFullGraphVyrab() {
-			FullGraphVyrab answer=new FullGraphVyrab();			
+			FullGraphVyrab answer=new FullGraphVyrab();
 			answer.GTP = getGraphVyrab();
 			answer.RGE = getGraphVyrabRGE();			
 			answer.TimeStopGA = PuskStopReportFull.TimeStopGA();
+			try {
+				List<PiramidaEnrty>list=PiramidaAccess.GetDataFromDB(DateTime.Now.AddHours(-4), DateTime.Now.AddHours(-2), 1, 2, 12, (new int[] { 276 }).ToList(), true, true, "P3000");
+				answer.Napor = list.Last().Value0;
+			} catch { }
 			
 			return answer;
 		}

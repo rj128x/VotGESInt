@@ -25,10 +25,12 @@ namespace MainSL.Views
 		public FullGraphVyrab CurrentAnswer { get; set; }
 		public GraphVyrabDomainContext context;
 		public SettingsGraphVyab settings;
+		public RUSAWindow rusaWindow;
 
 		public GraphVyrabRGEPage() {
 			InitializeComponent();
 			CurrentAnswer = new FullGraphVyrab();
+			CurrentAnswer.Napor = 21;
 			context = new GraphVyrabDomainContext();
 			pnlSettings.DataContext = CurrentAnswer;
 			settings = new SettingsGraphVyab();
@@ -38,7 +40,7 @@ namespace MainSL.Views
 			timer = new DispatcherTimer();
 			timer.Tick += new EventHandler(timer_Tick);
 			timer.Interval = new TimeSpan(0, 0, 1);
-			
+			rusaWindow = new RUSAWindow();
 		}
 
 		void timer_Tick(object sender, EventArgs e) {
@@ -106,8 +108,12 @@ namespace MainSL.Views
 						txtActualDate.Text = "График нагрузки на " + oper.Value.GTP.ActualDate.ToString("HH:mm") + " (мск)";
 						pnlSettings.DataContext = oper.Value;
 						CurrentAnswer = oper.Value;
-						processGTP();
-						processRGE();
+						try {
+							processGTP();
+						} catch { }
+						try {
+							processRGE();
+						} catch { }
 
 						Dictionary<int,string> stopTime=oper.Value.TimeStopGA;
 						txtSropGA1.Text = stopTime[1];
@@ -138,6 +144,63 @@ namespace MainSL.Views
 			try {
 				processGTP();
 			} catch { }
+		}
+
+		public void showRusa() {
+			try {
+				if (CurrentAnswer != null) {
+					rusaWindow.initNapor(CurrentAnswer.Napor);
+				}
+			} catch { }
+			rusaWindow.Show();
+		}
+
+		private void btnGTP1_Click(object sender, RoutedEventArgs e) {
+			rusaWindow.initGTP1();
+			try {
+				rusaWindow.initPower(CurrentAnswer.GTP.TableCurrent[1].GTP1);
+			} catch { }
+			showRusa();
+		}
+
+		private void btnGTP2_Click(object sender, RoutedEventArgs e) {
+			rusaWindow.initGTP2();
+			try {
+				rusaWindow.initPower(CurrentAnswer.GTP.TableCurrent[1].GTP2);
+			} catch { }
+			showRusa();
+		}
+
+		private void btnGES_Click(object sender, RoutedEventArgs e) {
+			rusaWindow.initGES();
+			try {
+				rusaWindow.initPower(CurrentAnswer.GTP.TableCurrent[1].GES);
+			} catch { }
+			showRusa();
+		}
+
+		private void btnRGE2_Click(object sender, RoutedEventArgs e) {
+			rusaWindow.initRGE2();
+			try {
+				rusaWindow.initPower(CurrentAnswer.RGE.TableCurrent[1].RGE2);
+			} catch { }
+			showRusa();
+		}
+
+		private void btnRGE3_Click(object sender, RoutedEventArgs e) {
+			rusaWindow.initRGE3();
+			try {
+				rusaWindow.initPower(CurrentAnswer.RGE.TableCurrent[1].RGE3);
+			} catch { }
+			showRusa();
+		}
+
+		private void btnRGE4_Click(object sender, RoutedEventArgs e) {
+			rusaWindow.initRGE4();
+			try {
+				rusaWindow.initPower(CurrentAnswer.RGE.TableCurrent[1].RGE4);
+			} catch { }
+			showRusa();
 		}
 		
 	}

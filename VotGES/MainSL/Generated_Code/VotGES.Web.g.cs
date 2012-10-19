@@ -6147,6 +6147,8 @@ namespace VotGES.Web.Services
         
         private GraphVyrabAnswer _gtp;
         
+        private double _napor;
+        
         private GraphVyrabRGEAnswer _rge;
         
         private Dictionary<int, string> _timeStopGA;
@@ -6160,6 +6162,8 @@ namespace VotGES.Web.Services
         partial void OnCreated();
         partial void OnGTPChanging(GraphVyrabAnswer value);
         partial void OnGTPChanged();
+        partial void OnNaporChanging(double value);
+        partial void OnNaporChanged();
         partial void OnRGEChanging(GraphVyrabRGEAnswer value);
         partial void OnRGEChanged();
         partial void OnTimeStopGAChanging(Dictionary<int, string> value);
@@ -6197,6 +6201,30 @@ namespace VotGES.Web.Services
                     this._gtp = value;
                     this.RaiseDataMemberChanged("GTP");
                     this.OnGTPChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Napor".
+        /// </summary>
+        [DataMember()]
+        public double Napor
+        {
+            get
+            {
+                return this._napor;
+            }
+            set
+            {
+                if ((this._napor != value))
+                {
+                    this.OnNaporChanging(value);
+                    this.RaiseDataMemberChanging("Napor");
+                    this.ValidateProperty("Napor", value);
+                    this._napor = value;
+                    this.RaiseDataMemberChanged("Napor");
+                    this.OnNaporChanged();
                 }
             }
         }

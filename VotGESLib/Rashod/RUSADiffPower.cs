@@ -183,7 +183,7 @@ namespace VotGES.Rashod
 		public static List<RusaChoice> getChoices(List<int> availGenerators, double napor, double power, int countChoices = 1) {
 			try {
 				return getFromCache(availGenerators, napor, countChoices).RUSARecords[0][power].choices.Values.ToList();
-			} catch {
+			} catch {				
 				return new List<RusaChoice>();
 			}
 		}
