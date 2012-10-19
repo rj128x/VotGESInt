@@ -81,7 +81,37 @@
 						<sdk:TabItem Name="tabEq" Header="Равн">
 								<usr:RUSAGridControl x:Name="gridEq"  DataContext="{Binding EqResult}"/>
 						</sdk:TabItem>
-						
+						<sdk:TabItem Name="tab1" Header="1 ГА">
+							<usr:RUSAGridControl x:Name="grid1"/>
+						</sdk:TabItem>
+						<sdk:TabItem Name="tab2" Header="2 ГА">
+							<usr:RUSAGridControl x:Name="grid2"/>
+						</sdk:TabItem>
+						<sdk:TabItem Name="tab3" Header="3 ГА">
+							<usr:RUSAGridControl x:Name="grid3"/>
+						</sdk:TabItem>
+						<sdk:TabItem Name="tab4" Header="4 ГА">
+							<usr:RUSAGridControl x:Name="grid4"/>
+						</sdk:TabItem>
+						<sdk:TabItem Name="tab5" Header="5 ГА">
+							<usr:RUSAGridControl x:Name="grid5"/>
+						</sdk:TabItem>
+						<sdk:TabItem Name="tab6" Header="6 ГА">
+							<usr:RUSAGridControl x:Name="grid6"/>
+						</sdk:TabItem>
+						<sdk:TabItem Name="tab7" Header="7 ГА">
+							<usr:RUSAGridControl x:Name="grid7"/>
+						</sdk:TabItem>
+						<sdk:TabItem Name="tab8" Header="8 ГА">
+							<usr:RUSAGridControl x:Name="grid8"/>
+						</sdk:TabItem>
+						<sdk:TabItem Name="tab9" Header="9 ГА">
+							<usr:RUSAGridControl x:Name="grid9"/>
+						</sdk:TabItem>
+						<sdk:TabItem Name="tab10" Header="10 ГА">
+							<usr:RUSAGridControl x:Name="grid10"/>
+						</sdk:TabItem>
+
 					</sdk:TabControl>
 				</Grid>
 			</Grid>

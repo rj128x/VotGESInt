@@ -23,7 +23,8 @@ namespace MainSL.Views
 	public partial class RUSAControl : UserControl
 	{
 		RUSADomainContext context;
-
+		Dictionary<int,TabItem>items;
+		Dictionary<int,RUSAGridControl>gridControls;
 		private RUSAData currentData;
 		public RUSAData CurrentData {
 			get { return currentData; }
@@ -50,6 +51,32 @@ namespace MainSL.Views
 			}
 			CurrentData.Power = 300;
 			CurrentData.Napor = 21;
+
+			items=new Dictionary<int, TabItem>();
+			gridControls=new Dictionary<int, RUSAGridControl>();
+
+			items.Add(1, tab1);
+			items.Add(2, tab2);
+			items.Add(3, tab3);
+			items.Add(4, tab4);
+			items.Add(5, tab5);
+			items.Add(6, tab6);
+			items.Add(7, tab7);
+			items.Add(8, tab8);
+			items.Add(9, tab9);
+			items.Add(10, tab10);
+
+			gridControls.Add(1, grid1);
+			gridControls.Add(2, grid2);
+			gridControls.Add(3, grid3);
+			gridControls.Add(4, grid4);
+			gridControls.Add(5, grid5);
+			gridControls.Add(6, grid6);
+			gridControls.Add(7, grid7);
+			gridControls.Add(8, grid8);
+			gridControls.Add(9, grid9);
+			gridControls.Add(10, grid10);
+
 		}
 
 		public void destroy() {
@@ -64,6 +91,14 @@ namespace MainSL.Views
 				try {
 					GlobalStatus.Current.StartProcess();
 					CurrentData = oper.Value;
+					for (int count=1;count<=10;count++){
+						items[count].Visibility = System.Windows.Visibility.Collapsed;
+						gridControls[count].DataContext = null;
+					}
+					foreach (FullResultRUSARecord record in CurrentData.FullResultList) {
+						gridControls[record.CountGA].DataContext = record.Data;
+						items[record.CountGA].Visibility = System.Windows.Visibility.Visible;						
+					}
 				} catch (Exception ex) {
 					Logging.Logger.info(ex.ToString());
 					GlobalStatus.Current.ErrorLoad("Ошибка");

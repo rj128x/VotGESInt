@@ -4243,6 +4243,90 @@ namespace VotGES.Web.Models
     
     
     /// <summary>
+    /// Класс "FullResultRUSARecord".
+    /// </summary>
+    [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Web.Models")]
+    public sealed partial class FullResultRUSARecord : ComplexObject
+    {
+        
+        private int _countGA;
+        
+        private List<RUSAResult> _data;
+        
+        #region Определение методов расширяемости
+
+        /// <summary>
+        /// Этот метод вызывается из конструктора по завершении инициализации и
+        /// не может быть использован для последующей настройки объекта.
+        /// </summary>
+        partial void OnCreated();
+        partial void OnCountGAChanging(int value);
+        partial void OnCountGAChanged();
+        partial void OnDataChanging(List<RUSAResult> value);
+        partial void OnDataChanged();
+
+        #endregion
+        
+        
+        /// <summary>
+        /// Инициализация нового экземпляра класса <see cref="FullResultRUSARecord"/>.
+        /// </summary>
+        public FullResultRUSARecord()
+        {
+            this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "CountGA".
+        /// </summary>
+        [DataMember()]
+        public int CountGA
+        {
+            get
+            {
+                return this._countGA;
+            }
+            set
+            {
+                if ((this._countGA != value))
+                {
+                    this.OnCountGAChanging(value);
+                    this.RaiseDataMemberChanging("CountGA");
+                    this.ValidateProperty("CountGA", value);
+                    this._countGA = value;
+                    this.RaiseDataMemberChanged("CountGA");
+                    this.OnCountGAChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Data".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<RUSAResult> Data
+        {
+            get
+            {
+                return this._data;
+            }
+            set
+            {
+                if ((this._data != value))
+                {
+                    this.OnDataChanging(value);
+                    this.RaiseDataMemberChanging("Data");
+                    this.ValidateProperty("Data", value);
+                    this._data = value;
+                    this.RaiseDataMemberChanged("Data");
+                    this.OnDataChanged();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
     /// Класс "GAParams".
     /// </summary>
     [DataContract(Namespace="http://schemas.datacontract.org/2004/07/VotGES.Web.Models")]
@@ -5175,6 +5259,8 @@ namespace VotGES.Web.Models
         
         private List<RUSAResult> _eqResult;
         
+        private List<FullResultRUSARecord> _fullResultList;
+        
         private List<GAParams> _gaAvail;
         
         private Guid _id;
@@ -5196,6 +5282,8 @@ namespace VotGES.Web.Models
         partial void OnDiffResultChanged();
         partial void OnEqResultChanging(List<RUSAResult> value);
         partial void OnEqResultChanged();
+        partial void OnFullResultListChanging(List<FullResultRUSARecord> value);
+        partial void OnFullResultListChanged();
         partial void OnGaAvailChanging(List<GAParams> value);
         partial void OnGaAvailChanged();
         partial void OnIdChanging(Guid value);
@@ -5264,6 +5352,31 @@ namespace VotGES.Web.Models
                     this._eqResult = value;
                     this.RaiseDataMemberChanged("EqResult");
                     this.OnEqResultChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "FullResultList".
+        /// </summary>
+        [DataMember()]
+        [Display(AutoGenerateField=false)]
+        public List<FullResultRUSARecord> FullResultList
+        {
+            get
+            {
+                return this._fullResultList;
+            }
+            set
+            {
+                if ((this._fullResultList != value))
+                {
+                    this.OnFullResultListChanging(value);
+                    this.RaiseDataMemberChanging("FullResultList");
+                    this.ValidateProperty("FullResultList", value);
+                    this._fullResultList = value;
+                    this.RaiseDataMemberChanged("FullResultList");
+                    this.OnFullResultListChanged();
                 }
             }
         }
@@ -5398,7 +5511,29 @@ namespace VotGES.Web.Models
     public sealed partial class RUSAResult : ComplexObject
     {
         
+        private int _count;
+        
         private double _kpd;
+        
+        private double _pga1;
+        
+        private double _pga10;
+        
+        private double _pga2;
+        
+        private double _pga3;
+        
+        private double _pga4;
+        
+        private double _pga5;
+        
+        private double _pga6;
+        
+        private double _pga7;
+        
+        private double _pga8;
+        
+        private double _pga9;
         
         private double _rashod;
         
@@ -5411,8 +5546,30 @@ namespace VotGES.Web.Models
         /// не может быть использован для последующей настройки объекта.
         /// </summary>
         partial void OnCreated();
+        partial void OnCountChanging(int value);
+        partial void OnCountChanged();
         partial void OnKPDChanging(double value);
         partial void OnKPDChanged();
+        partial void OnPGA1Changing(double value);
+        partial void OnPGA1Changed();
+        partial void OnPGA10Changing(double value);
+        partial void OnPGA10Changed();
+        partial void OnPGA2Changing(double value);
+        partial void OnPGA2Changed();
+        partial void OnPGA3Changing(double value);
+        partial void OnPGA3Changed();
+        partial void OnPGA4Changing(double value);
+        partial void OnPGA4Changed();
+        partial void OnPGA5Changing(double value);
+        partial void OnPGA5Changed();
+        partial void OnPGA6Changing(double value);
+        partial void OnPGA6Changed();
+        partial void OnPGA7Changing(double value);
+        partial void OnPGA7Changed();
+        partial void OnPGA8Changing(double value);
+        partial void OnPGA8Changed();
+        partial void OnPGA9Changing(double value);
+        partial void OnPGA9Changed();
         partial void OnRashodChanging(double value);
         partial void OnRashodChanged();
         partial void OnSostavChanging(Dictionary<int, double> value);
@@ -5427,6 +5584,30 @@ namespace VotGES.Web.Models
         public RUSAResult()
         {
             this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Count".
+        /// </summary>
+        [DataMember()]
+        public int Count
+        {
+            get
+            {
+                return this._count;
+            }
+            set
+            {
+                if ((this._count != value))
+                {
+                    this.OnCountChanging(value);
+                    this.RaiseDataMemberChanging("Count");
+                    this.ValidateProperty("Count", value);
+                    this._count = value;
+                    this.RaiseDataMemberChanged("Count");
+                    this.OnCountChanged();
+                }
+            }
         }
         
         /// <summary>
@@ -5449,6 +5630,246 @@ namespace VotGES.Web.Models
                     this._kpd = value;
                     this.RaiseDataMemberChanged("KPD");
                     this.OnKPDChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PGA1".
+        /// </summary>
+        [DataMember()]
+        public double PGA1
+        {
+            get
+            {
+                return this._pga1;
+            }
+            set
+            {
+                if ((this._pga1 != value))
+                {
+                    this.OnPGA1Changing(value);
+                    this.RaiseDataMemberChanging("PGA1");
+                    this.ValidateProperty("PGA1", value);
+                    this._pga1 = value;
+                    this.RaiseDataMemberChanged("PGA1");
+                    this.OnPGA1Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PGA10".
+        /// </summary>
+        [DataMember()]
+        public double PGA10
+        {
+            get
+            {
+                return this._pga10;
+            }
+            set
+            {
+                if ((this._pga10 != value))
+                {
+                    this.OnPGA10Changing(value);
+                    this.RaiseDataMemberChanging("PGA10");
+                    this.ValidateProperty("PGA10", value);
+                    this._pga10 = value;
+                    this.RaiseDataMemberChanged("PGA10");
+                    this.OnPGA10Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PGA2".
+        /// </summary>
+        [DataMember()]
+        public double PGA2
+        {
+            get
+            {
+                return this._pga2;
+            }
+            set
+            {
+                if ((this._pga2 != value))
+                {
+                    this.OnPGA2Changing(value);
+                    this.RaiseDataMemberChanging("PGA2");
+                    this.ValidateProperty("PGA2", value);
+                    this._pga2 = value;
+                    this.RaiseDataMemberChanged("PGA2");
+                    this.OnPGA2Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PGA3".
+        /// </summary>
+        [DataMember()]
+        public double PGA3
+        {
+            get
+            {
+                return this._pga3;
+            }
+            set
+            {
+                if ((this._pga3 != value))
+                {
+                    this.OnPGA3Changing(value);
+                    this.RaiseDataMemberChanging("PGA3");
+                    this.ValidateProperty("PGA3", value);
+                    this._pga3 = value;
+                    this.RaiseDataMemberChanged("PGA3");
+                    this.OnPGA3Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PGA4".
+        /// </summary>
+        [DataMember()]
+        public double PGA4
+        {
+            get
+            {
+                return this._pga4;
+            }
+            set
+            {
+                if ((this._pga4 != value))
+                {
+                    this.OnPGA4Changing(value);
+                    this.RaiseDataMemberChanging("PGA4");
+                    this.ValidateProperty("PGA4", value);
+                    this._pga4 = value;
+                    this.RaiseDataMemberChanged("PGA4");
+                    this.OnPGA4Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PGA5".
+        /// </summary>
+        [DataMember()]
+        public double PGA5
+        {
+            get
+            {
+                return this._pga5;
+            }
+            set
+            {
+                if ((this._pga5 != value))
+                {
+                    this.OnPGA5Changing(value);
+                    this.RaiseDataMemberChanging("PGA5");
+                    this.ValidateProperty("PGA5", value);
+                    this._pga5 = value;
+                    this.RaiseDataMemberChanged("PGA5");
+                    this.OnPGA5Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PGA6".
+        /// </summary>
+        [DataMember()]
+        public double PGA6
+        {
+            get
+            {
+                return this._pga6;
+            }
+            set
+            {
+                if ((this._pga6 != value))
+                {
+                    this.OnPGA6Changing(value);
+                    this.RaiseDataMemberChanging("PGA6");
+                    this.ValidateProperty("PGA6", value);
+                    this._pga6 = value;
+                    this.RaiseDataMemberChanged("PGA6");
+                    this.OnPGA6Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PGA7".
+        /// </summary>
+        [DataMember()]
+        public double PGA7
+        {
+            get
+            {
+                return this._pga7;
+            }
+            set
+            {
+                if ((this._pga7 != value))
+                {
+                    this.OnPGA7Changing(value);
+                    this.RaiseDataMemberChanging("PGA7");
+                    this.ValidateProperty("PGA7", value);
+                    this._pga7 = value;
+                    this.RaiseDataMemberChanged("PGA7");
+                    this.OnPGA7Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PGA8".
+        /// </summary>
+        [DataMember()]
+        public double PGA8
+        {
+            get
+            {
+                return this._pga8;
+            }
+            set
+            {
+                if ((this._pga8 != value))
+                {
+                    this.OnPGA8Changing(value);
+                    this.RaiseDataMemberChanging("PGA8");
+                    this.ValidateProperty("PGA8", value);
+                    this._pga8 = value;
+                    this.RaiseDataMemberChanged("PGA8");
+                    this.OnPGA8Changed();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "PGA9".
+        /// </summary>
+        [DataMember()]
+        public double PGA9
+        {
+            get
+            {
+                return this._pga9;
+            }
+            set
+            {
+                if ((this._pga9 != value))
+                {
+                    this.OnPGA9Changing(value);
+                    this.RaiseDataMemberChanging("PGA9");
+                    this.ValidateProperty("PGA9", value);
+                    this._pga9 = value;
+                    this.RaiseDataMemberChanged("PGA9");
+                    this.OnPGA9Changed();
                 }
             }
         }

@@ -6,7 +6,7 @@ using System.Text;
 namespace VotGES.Rashod
 {
 	public static class RUSA
-	{
+	{		
 		public static double getOptimRashod(double power, double napor, bool min = true, List<int> sostav =null, List<int> avail=null) {			
 			try {
 				if (avail == null) {
@@ -14,15 +14,15 @@ namespace VotGES.Rashod
 					for (int ga=1; ga <= 10; ga++) {
 						avail.Add(ga);
 					}
-				}
-				
+				}				
 				if (power < 35)
 					return 0;
 				double minRashod=10e6;
 				double maxRashod=0;
 				for (int count=1; count <= avail.Count; count++) {					
 					double divPower=(double)power / (double)count;
-					if ((divPower < 35) || (divPower > 110))
+					
+					if ((divPower < 35) || (divPower > 111))
 						continue;
 					SortedList<double,int>rashods=new SortedList<double, int>();
 					foreach(int ga in avail) {
@@ -98,7 +98,7 @@ namespace VotGES.Rashod
 
 					
 					double divPower=power / gas.Count;
-					if ((divPower > 35) && (divPower < 110) && allAvail) {
+					if ((divPower >= 35) && (divPower <= 110) && allAvail) {
 
 						double rashod=0;
 						foreach (int ga in gas) {

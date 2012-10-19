@@ -8,13 +8,13 @@ namespace VotGES.Web.Models
 {
 	public class ProcessRUSAData
 	{
-		public static void processEqualData(RUSAData data) {			
+		public static void processEqualData(RUSAData data) {
 			SortedList<double,List<int>> sostavs=RUSA.getOptimRashodsFull(data.Power, data.Napor, data.getAvailGenerators());
 			int index=0;
 			data.EqResult = new List<RUSAResult>();
-			foreach (KeyValuePair<double, List<int>> de in sostavs) {
-				if (index == 10)
-					break;
+			Dictionary<int, FullResultRUSARecord> FullResult = new Dictionary<int, FullResultRUSARecord>();
+			List<int> counts=new List<int>();
+			foreach (KeyValuePair<double, List<int>> de in sostavs) {				
 				index++;
 				double rashod=de.Key;
 				List<int> sostav=de.Value;				
@@ -24,11 +24,21 @@ namespace VotGES.Web.Models
 				foreach (int ga in sostav) {
 					result.Sostav.Add(ga, data.Power / sostav.Count);
 				}
+				result.ProcessSostav(result.Sostav);
+				result.Sostav = null;
+
 				result.KPD = RashodTable.KPD(data.Power, data.Napor, rashod) * 100;
-				data.EqResult.Add(result);
+				result.Count = sostav.Count;
+
+				if (!FullResult.ContainsKey(sostav.Count)) {
+					data.EqResult.Add(result);
+					FullResult.Add(sostav.Count, new FullResultRUSARecord());
+					FullResult[sostav.Count].Data = new List<RUSAResult>();
+				}
+				FullResult[sostav.Count].Data.Add(result);
+				FullResult[sostav.Count].CountGA = sostav.Count;
 			}
-
-
+			data.FullResultList = FullResult.Values.ToList();
 		}
 
 		public static void processDiffData(RUSAData data) {
@@ -39,12 +49,17 @@ namespace VotGES.Web.Models
 				RUSAResult result=new RUSAResult();
 				result.Rashod = rashod;
 				result.Sostav = new Dictionary<int, double>();
+				int count=0;
 				foreach (KeyValuePair<int, double> de in choice.sostav) {
 					if (de.Value > 0) {
 						result.Sostav.Add(de.Key, de.Value);
+						count++;
 					}
 				}
+				result.ProcessSostav(result.Sostav);
+				result.Sostav = null;
 				result.KPD = RashodTable.KPD(data.Power, data.Napor, rashod)*100;
+				result.Count = count;
 				data.DiffResult.Add(result);
 			}			
 		}

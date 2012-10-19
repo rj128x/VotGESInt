@@ -41,7 +41,8 @@
 							<TextBox Text="{Binding Power,Mode=TwoWay, StringFormat='0.00'}" Grid.Row="1" Grid.Column="1" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 							<TextBox Text="{Binding Rashod,Mode=TwoWay, StringFormat='0.00'}" Grid.Row="2" Grid.Column="1" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 							<ComboBox Grid.Row="3" Grid.Column="2" Name="cmbGenSelect" SelectedValue="{Binding GANumber,Mode=TwoWay}" 
-								DisplayMemberPath="Value" SelectedValuePath="Key"/>
+								DisplayMemberPath="Value" SelectedValuePath="Key"
+								IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 						</Grid>
 						<Button Name="btnCalcRashod" Click="btnCalcRashod_Click" Content="Расчет расхода" Margin="0,20,0,0" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 						<Button Name="btnCalcPower" Click="btnCalcPower_Click" Content="Расчет мощности"  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
