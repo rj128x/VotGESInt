@@ -163,17 +163,29 @@ namespace VotGES.Rashod
 		}
 
 		public static double getMinRashod(List<int> availGenerators, double napor, double power, int countChoices = 1) {
-			double min=getFromCache(availGenerators, napor, countChoices).RUSARecords[0][power].choices.First().Key;
-			return min;
+			try {
+				double min=getFromCache(availGenerators, napor, countChoices).RUSARecords[0][power].choices.First().Key;
+				return min;
+			} catch {
+				return -1;
+			}
 		}
 
 		public static SortedList<int, double> getMinSostav(List<int> availGenerators, double napor, double power, int countChoices = 1) {
-			RusaRecord rec= getFromCache(availGenerators, napor, countChoices).RUSARecords[0][power];
-			return rec.choices.First().Value.sostav;
+			try {
+				RusaRecord rec= getFromCache(availGenerators, napor, countChoices).RUSARecords[0][power];
+				return rec.choices.First().Value.sostav;
+			} catch {
+				return null;
+			}
 		}
 
 		public static List<RusaChoice> getChoices(List<int> availGenerators, double napor, double power, int countChoices = 1) {
-			return getFromCache(availGenerators, napor,countChoices).RUSARecords[0][power].choices.Values.ToList();
+			try {
+				return getFromCache(availGenerators, napor, countChoices).RUSARecords[0][power].choices.Values.ToList();
+			} catch {
+				return new List<RusaChoice>();
+			}
 		}
 
 	}

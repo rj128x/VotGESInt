@@ -13,32 +13,36 @@ namespace VotGES.Web.Models
 			int index=0;
 			data.EqResult = new List<RUSAResult>();
 			Dictionary<int, FullResultRUSARecord> FullResult = new Dictionary<int, FullResultRUSARecord>();
-			List<int> counts=new List<int>();
-			foreach (KeyValuePair<double, List<int>> de in sostavs) {				
-				index++;
-				double rashod=de.Key;
-				List<int> sostav=de.Value;				
-				RUSAResult result=new RUSAResult();
-				result.Rashod = rashod;
-				result.Sostav = new Dictionary<int, double>();
-				foreach (int ga in sostav) {
-					result.Sostav.Add(ga, data.Power / sostav.Count);
-				}
-				result.ProcessSostav(result.Sostav);
-				result.Sostav = null;
+			try {
+				foreach (KeyValuePair<double, List<int>> de in sostavs) {
+					index++;
+					double rashod=de.Key;
+					List<int> sostav=de.Value;
+					RUSAResult result=new RUSAResult();
+					result.Rashod = rashod;
+					result.Sostav = new Dictionary<int, double>();
+					foreach (int ga in sostav) {
+						result.Sostav.Add(ga, data.Power / sostav.Count);
+					}
+					result.ProcessSostav(result.Sostav);
+					result.Sostav = null;
 
-				result.KPD = RashodTable.KPD(data.Power, data.Napor, rashod) * 100;
-				result.Count = sostav.Count;
+					result.KPD = RashodTable.KPD(data.Power, data.Napor, rashod) * 100;
+					result.Count = sostav.Count;
 
-				if (!FullResult.ContainsKey(sostav.Count)) {
-					data.EqResult.Add(result);
-					FullResult.Add(sostav.Count, new FullResultRUSARecord());
-					FullResult[sostav.Count].Data = new List<RUSAResult>();
+					if (!FullResult.ContainsKey(sostav.Count)) {
+						data.EqResult.Add(result);
+						FullResult.Add(sostav.Count, new FullResultRUSARecord());
+						FullResult[sostav.Count].Data = new List<RUSAResult>();
+					}
+					FullResult[sostav.Count].Data.Add(result);
+					FullResult[sostav.Count].CountGA = sostav.Count;
 				}
-				FullResult[sostav.Count].Data.Add(result);
-				FullResult[sostav.Count].CountGA = sostav.Count;
+				data.FullResultList = FullResult.Values.ToList();
+			} catch (Exception e) {
+				Logger.Error("Ошибка при расчете РУСА ");
+				Logger.Error(e.ToString());
 			}
-			data.FullResultList = FullResult.Values.ToList();
 		}
 
 		public static void processDiffData(RUSAData data) {
