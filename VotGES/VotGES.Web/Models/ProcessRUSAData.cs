@@ -13,7 +13,7 @@ namespace VotGES.Web.Models
 			int index=0;
 			data.EqResult = new List<RUSAResult>();
 			foreach (KeyValuePair<double, List<int>> de in sostavs) {
-				if (index == 3)
+				if (index == 10)
 					break;
 				index++;
 				double rashod=de.Key;
@@ -32,10 +32,10 @@ namespace VotGES.Web.Models
 		}
 
 		public static void processDiffData(RUSAData data) {
-			List<RUSADiffPower.RusaChoice> choices=RUSADiffPower.getChoices(data.getAvailGenerators(), data.Napor, data.Power,3);
+			List<RUSADiffPower.RusaChoice> choices=RUSADiffPower.getChoices(data.getAvailGenerators(), data.Napor, data.Power,5);
+			data.DiffResult = new List<RUSAResult>();
 			foreach (RUSADiffPower.RusaChoice choice in choices) {
-				double rashod=choice.rashod;
-				data.DiffResult = new List<RUSAResult>();
+				double rashod=choice.rashod;				
 				RUSAResult result=new RUSAResult();
 				result.Rashod = rashod;
 				result.Sostav = new Dictionary<int, double>();
@@ -45,7 +45,7 @@ namespace VotGES.Web.Models
 					}
 				}
 				result.KPD = RashodTable.KPD(data.Power, data.Napor, rashod)*100;
-				data.EqResult.Add(result);
+				data.DiffResult.Add(result);
 			}			
 		}
 

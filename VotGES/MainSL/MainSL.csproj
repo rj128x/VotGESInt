@@ -159,6 +159,12 @@
     <Compile Include="Views\GraphVyrabRGEPage.xaml.cs">
       <DependentUpon>GraphVyrabRGEPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RUSAControl.xaml.cs">
+      <DependentUpon>RUSAControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RUSAGridControl.xaml.cs">
+      <DependentUpon>RUSAGridControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VisiBloxChart\VisibloxChartSerie.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -221,6 +227,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\GraphVyrabRGEPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RUSAControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RUSAGridControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

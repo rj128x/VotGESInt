@@ -16,8 +16,8 @@
     <file relUrl="Views/Account/ChangePasswordSuccess.aspx" publishTime="09/18/2012 09:16:21" />
     <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="01/14/2011 14:13:44" />
     <file relUrl="bin/ru/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
-    <file relUrl="ClientBin/MainSL.xap" publishTime="10/19/2012 13:24:33" />
-    <file relUrl="bin/VotGES.Web.pdb" publishTime="10/19/2012 11:25:27" />
+    <file relUrl="ClientBin/MainSL.xap" publishTime="10/19/2012 15:45:19" />
+    <file relUrl="bin/VotGES.Web.pdb" publishTime="10/19/2012 15:48:09" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Hosting.xml" publishTime="01/14/2011 14:08:54" />
     <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:50" />
     <file relUrl="bin/System.ServiceModel.DomainServices.Server.xml" publishTime="01/14/2011 14:08:52" />
@@ -41,7 +41,7 @@
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="09/18/2012 09:16:20" />
     <file relUrl="Views/Home/Index.aspx" publishTime="09/18/2012 09:16:21" />
     <file relUrl="bin/es/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="01/14/2011 14:13:48" />
-    <file relUrl="bin/VotGES.Web.dll" publishTime="10/19/2012 11:25:27" />
+    <file relUrl="bin/VotGES.Web.dll" publishTime="10/19/2012 15:48:09" />
     <file relUrl="bin/log4net.dll" publishTime="09/18/2012 09:16:25" />
     <file relUrl="Views/Shared/Site.Master" publishTime="09/18/2012 09:16:21" />
     <file relUrl="Views/Home/Test.aspx" publishTime="09/18/2012 09:16:21" />
