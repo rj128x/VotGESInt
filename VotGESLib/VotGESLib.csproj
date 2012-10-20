@@ -107,6 +107,7 @@
     <Compile Include="Rashod\RashodTable.cs" />
     <Compile Include="Rashod\RUSA.cs" />
     <Compile Include="Rashod\RUSADiffPower.cs" />
+    <Compile Include="Rashod\RusaUtils.cs" />
     <Compile Include="XMLSer\XMLSer.cs" />
   </ItemGroup>
   <ItemGroup>

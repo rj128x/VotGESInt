@@ -150,8 +150,8 @@ namespace VotGES.Rashod
 				serie.Color = color;
 				serie.LineWidth = 2;
 				serie.SerieType = ChartSerieType.line;
-				serie.Title = "Мощность(опт) " + post;
-				serie.TagName = "PowerOpt_" + index;
+				serie.Title = "Мощность(ср) " + post;
+				serie.TagName = "PowerAvg_" + index;
 				serie.YAxisIndex = 0;
 				props.addSerie(serie);
 			}
