@@ -44,26 +44,46 @@
 								DisplayMemberPath="Value" SelectedValuePath="Key"
 								IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 						</Grid>
-						<Button Name="btnCalcRashod" Click="btnCalcRashod_Click" Content="Расчет расхода" Margin="0,20,0,0" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-						<Button Name="btnCalcPower" Click="btnCalcPower_Click" Content="Расчет мощности"  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 						<StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-							<Button Name="btnGA_QotP" Click="btnGA_QotP_Click" Content="Q(P)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-							<Button Name="btnGA_KPDotP" Click="btnGA_KPDotP_Click" Content="КПД(P)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-							<Button Name="btnGA_QotH" Click="btnGA_QotH_Click" Content="Q(H)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-							<Button Name="btnGA_KPDotH" Click="btnGA_KPDotH_Click" Content="КПД(H)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+						<Button Name="btnCalcRashod" Width="125" Click="btnCalcRashod_Click" Content="Расчет расхода"  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+						<Button Name="btnCalcPower" Width="125" Click="btnCalcPower_Click" Content="Расчет мощности"  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 						</StackPanel>
-						<StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-							<Button Name="btnCMPGA_QotP" Click="btnCMPGA_QotP_Click" Content="Q(P)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-							<Button Name="btnCMPGA_KPDotP" Click="btnCMPGA_KPDotP_Click" Content="КПД(P)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-							<Button Name="btnCMPGA_QotH" Click="btnCMPGA_QotH_Click" Content="Q(H)"  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-							<Button Name="btnCMPGA_KPDotH" Click="btnCMPGA_KPDotH_Click" Content="КПД(H)"  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-						</StackPanel>
-						<StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-							<Button Name="btnCMPST_QotP" Click="btnCMPST_QotP_Click" Content="Q(P)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-							<Button Name="btnCMPST_KPDotP" Click="btnCMPST_KPDotP_Click" Content="КПД(P)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-							<Button Name="btnCMPST_QotH" Click="btnCMPST_QotH_Click" Content="Q(H)"  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-							<Button Name="btnCMPST_KPDotH" Click="btnCMPST_KPDotH_Click" Content="КПД(H)"  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-						</StackPanel>
+
+						<Border Style="{StaticResource borderGray}" Margin="0,10,0,0" Grid.Row="0">
+							<StackPanel>
+							<TextBlock Text="Характеристика выбранного ГА" Grid.Row="0" Grid.Column="0" Style="{StaticResource Label}"/>
+							<StackPanel Orientation="Horizontal">
+									<Button Name="btnGA_QotP" Width="60" Click="btnGA_QotP_Click" Content="Q(P)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+									<Button Name="btnGA_KPDotP" Width="60" Click="btnGA_KPDotP_Click" Content="КПД(P)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+									<Button Name="btnGA_QotH" Width="60" Click="btnGA_QotH_Click" Content="Q(H)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+									<Button Name="btnGA_KPDotH" Width="60" Click="btnGA_KPDotH_Click" Content="КПД(H)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+							</StackPanel>
+							</StackPanel>
+						</Border>
+
+						<Border Style="{StaticResource borderGray}" Margin="0,10,0,0" Grid.Row="0">
+							<StackPanel>
+								<TextBlock Text="Сравнение характеристик ГА" Grid.Row="0" Grid.Column="0" Style="{StaticResource Label}"/>
+								<StackPanel Orientation="Horizontal">
+									<Button Name="btnCMPGA_QotP" Width="60" Click="btnCMPGA_QotP_Click" Content="Q(P)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+									<Button Name="btnCMPGA_KPDotP" Width="60" Click="btnCMPGA_KPDotP_Click" Content="КПД(P)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+									<Button Name="btnCMPGA_QotH" Width="60" Click="btnCMPGA_QotH_Click" Content="Q(H)"  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+									<Button Name="btnCMPGA_KPDotH" Width="60" Click="btnCMPGA_KPDotH_Click" Content="КПД(H)"  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+								</StackPanel>
+							</StackPanel>
+						</Border>
+
+						<Border Style="{StaticResource borderGray}" Margin="0,10,0,0" Grid.Row="0">
+							<StackPanel>
+								<TextBlock Text="Сравнение оптим. и средней характеристик" Grid.Row="0" Grid.Column="0" Style="{StaticResource Label}"/>
+								<StackPanel Orientation="Horizontal" >
+									<Button Name="btnCMPST_QotP" Width="60" Click="btnCMPST_QotP_Click" Content="Q(P)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+									<Button Name="btnCMPST_KPDotP" Width="60" Click="btnCMPST_KPDotP_Click" Content="КПД(P)" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+									<Button Name="btnCMPST_QotH" Width="60" Click="btnCMPST_QotH_Click" Content="Q(H)"  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+									<Button Name="btnCMPST_KPDotH" Width="60" Click="btnCMPST_KPDotH_Click" Content="КПД(H)"  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+								</StackPanel>
+							</StackPanel>
+						</Border>
 					</StackPanel>
 				</Border>
 

@@ -101,6 +101,8 @@ namespace VotGES.Chart
         
         private ChartProperties _properties;
         
+        private string _title;
+        
         #region Определение методов расширяемости
 
         /// <summary>
@@ -112,6 +114,8 @@ namespace VotGES.Chart
         partial void OnDataChanged();
         partial void OnPropertiesChanging(ChartProperties value);
         partial void OnPropertiesChanged();
+        partial void OnTitleChanging(string value);
+        partial void OnTitleChanged();
 
         #endregion
         
@@ -170,6 +174,30 @@ namespace VotGES.Chart
                     this._properties = value;
                     this.RaiseDataMemberChanged("Properties");
                     this.OnPropertiesChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "Title".
+        /// </summary>
+        [DataMember()]
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+            set
+            {
+                if ((this._title != value))
+                {
+                    this.OnTitleChanging(value);
+                    this.RaiseDataMemberChanging("Title");
+                    this.ValidateProperty("Title", value);
+                    this._title = value;
+                    this.RaiseDataMemberChanged("Title");
+                    this.OnTitleChanged();
                 }
             }
         }

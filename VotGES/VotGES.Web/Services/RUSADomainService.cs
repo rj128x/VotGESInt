@@ -56,6 +56,26 @@ using VotGES.Rashod;
 					return RashodHars.GetGA_QotP(data.GANumber, false, data.Napor);
 				case RHChartType.GA_KPDotP:
 					return RashodHars.GetGA_QotP(data.GANumber, true, data.Napor);
+				case RHChartType.GA_QotH:
+					return RashodHars.GetGA_QotH(data.GANumber, false, data.Power);
+				case RHChartType.GA_KPDotH:
+					return RashodHars.GetGA_QotH(data.GANumber, true, data.Power);
+				case RHChartType.CMPGA_QotP:
+					return RashodHars.GetCMPGA_QotP(new int[]{1,2,3,4,5,6,7,8,9,10}, false, data.Napor);
+				case RHChartType.CMPGA_KPDotP:
+					return RashodHars.GetCMPGA_QotP(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, true, data.Napor);
+				case RHChartType.CMPGA_QotH:
+					return RashodHars.GetCMPGA_QotH(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, false, data.Power);
+				case RHChartType.CMPGA_KPDotH:
+					return RashodHars.GetCMPGA_QotH(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, true, data.Power);
+				case RHChartType.CMPST_QotP:
+					return RashodHars.GetCMPST_QotP(false, data.Napor);
+				case RHChartType.CMPST_KPDotP:
+					return RashodHars.GetCMPST_QotP(true, data.Napor);
+				case RHChartType.CMPST_QotH:
+					return RashodHars.GetCMPST_QotH(false, data.Power);
+				case RHChartType.CMPST_KPDotH:
+					return RashodHars.GetCMPST_QotH(true, data.Power);	
 			}
 			return null;
 		}

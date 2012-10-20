@@ -9,6 +9,7 @@ namespace VotGES.Chart
 	{
 		public ChartData Data { get; set; }
 		public ChartProperties Properties { get; set; }
+		public string Title { get; set; }
 
 		public void processAxes() {
 			foreach (ChartAxisProperties ax in Properties.Axes) {

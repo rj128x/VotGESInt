@@ -141,7 +141,7 @@ namespace MainSL.Views
 			GlobalStatus.Current.StartLoad(currentOper);	
 		}
 
-		private void loagChart(RHChartType type) {
+		private void loadChart(RHChartType type) {
 			InvokeOperation currentOper=context.getChart(CurrentRashodHarsData,type, oper => {
 				if (oper.IsCanceled) {
 					return;
@@ -150,6 +150,7 @@ namespace MainSL.Views
 					GlobalStatus.Current.StartProcess();
 
 					chartWindow.cntrlChart.Create(oper.Value);
+					chartWindow.Title = oper.Value.Title;
 					chartWindow.Show();
 				} catch (Exception ex) {
 					Logging.Logger.info(ex.ToString());
@@ -162,51 +163,51 @@ namespace MainSL.Views
 		}
 
 		private void btnGA_QotP_Click(object sender, RoutedEventArgs e) {
-			loagChart(RHChartType.GA_QotP);
+			loadChart(RHChartType.GA_QotP);
 		}
 
 		private void btnGA_KPDotP_Click(object sender, RoutedEventArgs e) {
-			loagChart(RHChartType.GA_KPDotP);
+			loadChart(RHChartType.GA_KPDotP);
 		}
 
 		private void btnGA_QotH_Click(object sender, RoutedEventArgs e) {
-			loagChart(RHChartType.GA_QotH);
+			loadChart(RHChartType.GA_QotH);
 		}
 
 		private void btnGA_KPDotH_Click(object sender, RoutedEventArgs e) {
-			loagChart(RHChartType.GA_KPDotH);
+			loadChart(RHChartType.GA_KPDotH);
 		}
 
 		private void btnCMPGA_QotP_Click(object sender, RoutedEventArgs e) {
-			loagChart(RHChartType.CMPGA_QotP);
+			loadChart(RHChartType.CMPGA_QotP);
 		}
 
 		private void btnCMPGA_KPDotP_Click(object sender, RoutedEventArgs e) {
-			loagChart(RHChartType.CMPGA_KPDotP);
+			loadChart(RHChartType.CMPGA_KPDotP);
 		}
 
 		private void btnCMPGA_QotH_Click(object sender, RoutedEventArgs e) {
-			loagChart(RHChartType.CMPGA_QotH);
+			loadChart(RHChartType.CMPGA_QotH);
 		}
 
 		private void btnCMPGA_KPDotH_Click(object sender, RoutedEventArgs e) {
-			loagChart(RHChartType.CMPGA_KPDotH);
+			loadChart(RHChartType.CMPGA_KPDotH);
 		}
 
 		private void btnCMPST_QotP_Click(object sender, RoutedEventArgs e) {
-			loagChart(RHChartType.CMPST_QotP);
+			loadChart(RHChartType.CMPST_QotP);
 		}
 
 		private void btnCMPST_KPDotP_Click(object sender, RoutedEventArgs e) {
-			loagChart(RHChartType.CMPST_KPDotP);
+			loadChart(RHChartType.CMPST_KPDotP);
 		}
 
 		private void btnCMPST_QotH_Click(object sender, RoutedEventArgs e) {
-			loagChart(RHChartType.CMPST_QotH);
+			loadChart(RHChartType.CMPST_QotH);
 		}
 
 		private void btnCMPST_KPDotH_Click(object sender, RoutedEventArgs e) {
-			loagChart(RHChartType.CMPST_KPDotH);
+			loadChart(RHChartType.CMPST_KPDotH);
 		}
 
 	}
