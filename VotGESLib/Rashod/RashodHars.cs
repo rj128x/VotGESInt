@@ -292,8 +292,7 @@ namespace VotGES.Rashod
 
 		public static ChartAnswer GetCMPST_QotP(bool isKPD, double napor) {
 			ChartAnswer answer=new ChartAnswer();
-			answer.Title = isKPD ? "Оптимальный и средний КПД станции при напоре {0}" : "Оптимальная и средняя расходная характеристика станции при напоре {0}";
-			answer.Title = String.Format(answer.Title, napor);
+			answer.Title = isKPD ? "Оптимальный и средний КПД станции при разных напорах" : "Оптимальная и средняя расходная характеристика станции при разных напорах";
 
 			double[]napors=new double[] { 16, 17, 18, 19, 20, 21, 22, napor };
 			answer.Properties = getChartPropertiesNaporsCMP(napors);
@@ -327,8 +326,7 @@ namespace VotGES.Rashod
 
 		public static ChartAnswer GetCMPST_QotH(bool isKPD, double power) {
 			ChartAnswer answer=new ChartAnswer();
-			answer.Title = isKPD ? "Оптимальный и средний КПД станции при мощности {0}" : "Оптимальная и средняя расходная характеристика станции при мощности {0}";
-			answer.Title = String.Format(answer.Title, power);
+			answer.Title = isKPD ? "Оптимальный и средний КПД станции при разных мощностях" : "Оптимальная и средняя расходная характеристика станции при разных мощностях";
 			double[]powers = new double[] { 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, power };
 			answer.Properties = getChartPropertiesPowersCMP(powers);
 			answer.Data = new ChartData();
