@@ -145,8 +145,10 @@ namespace VotGES.Web.Models
 			Maket.PPikGTP2 = PRaspGTP2 - Maket.P8HoursGTP2;
 			Maket.PPikGES = PRaspGTP1 + PRaspGTP2 - power;
 
-			Maket.RashodGTP1 = RashodTable.getStationRashod(Maket.P8HoursGTP1, Napor, Maket8Optim?RashodCalcMode.min:RashodCalcMode.avg);
-			Maket.RashodGTP2 = RashodTable.getStationRashod(Maket.P8HoursGTP2, Napor, Maket8Optim ? RashodCalcMode.min : RashodCalcMode.avg);
+			int ga=Maket8Optim ? 12 : 11;
+
+			Maket.RashodGTP1 = RashodTable.getRashod(ga, Maket.P8HoursGTP1, Napor);
+			Maket.RashodGTP2 = RashodTable.getRashod(ga, Maket.P8HoursGTP2, Napor);
 			Maket.RashodGES = Maket.RashodGTP1 + Maket.RashodGTP2;
 
 			Maket.PRaspGTP1 = PRaspGTP1;

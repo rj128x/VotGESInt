@@ -22,7 +22,8 @@ namespace VotGES.Rashod
 			while (napor <= RashodTable.getRashodTable(1).maxNapor) {
 				napors.Add(napor);
 				foreach(double power in powers) {
-					double rashod=RUSADiffPower.getMinRashod(gens, napor, power, 1);
+					//double rashod= RUSADiffPower.getMinRashod(gens, napor, power, 1);
+					double rashod=RUSA.getOptimRashod(power, napor);
 					DATA[power].Add(napor, rashod);
 				}
 				napor += 0.1;

@@ -22,11 +22,11 @@ namespace VotGES.Rashod
 				for (int count=1; count <= avail.Count; count++) {					
 					double divPower=(double)power / (double)count;
 					
-					if ((divPower < 35) || (divPower > 111))
+					if ((divPower < 35) || (divPower > 110))
 						continue;
 					SortedList<double,int>rashods=new SortedList<double, int>();
 					foreach(int ga in avail) {
-						double rashodGA=RashodTable.getRashod(ga, divPower, napor);						
+						double rashodGA=RashodTable.getRashod(ga, divPower, napor);					
 						while (rashods.Keys.Contains(rashodGA)) {
 							rashodGA += 10e-5;
 						}
