@@ -171,6 +171,9 @@
     <Compile Include="Views\RUSAGridControl.xaml.cs">
       <DependentUpon>RUSAGridControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ReportsPage.xaml.cs">
+      <DependentUpon>ReportsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VisiBloxChart\VisibloxChartSerie.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -245,6 +248,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\RUSAGridControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ReportsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -27,9 +27,11 @@ namespace VotGES.Piramida.Report
 			ReportGARecords.AddCalcRecords(this, false, false, result);
 
 			ReportLinesRecords.AddLineRecordsP(this, parNumber, 1, scaleDiv, false, false, oper, result);
+			ReportLinesRecords.AddLineRecordsQ(this, parNumber, 1, scaleDiv, false, false, oper, result);
 			ReportLinesRecords.AddCalcRecords(this, false, false, result);
 
 			ReportGlTransformRecords.AddGLTransformRecordsP(this, parNumber, 1, scaleDiv, false, false, oper, result);
+			ReportGlTransformRecords.AddGLTransformRecordsQ(this, parNumber, 1, scaleDiv, false, false, oper, result);
 			ReportGlTransformRecords.AddPRecordsForNebalans(this, parNumber, 1, scaleDiv, false, false, oper, result);
 			ReportGlTransformRecords.AddCalcRecords(this, false, false, result);
 
@@ -38,6 +40,7 @@ namespace VotGES.Piramida.Report
 
 			ReportWaterRecords.AddPRecordsWater(this, parNumber, 1, 1, false, false, DBOperEnum.avg, ResultTypeEnum.avg);
 			ReportWaterRecords.AddGSVRecords(this, 26, 1, 1, false, false, DBOperEnum.avg, ResultTypeEnum.avg);
+			ReportWaterRecords.AddCalcRecords(this, false, false, ResultTypeEnum.avg);
 
 			ReportMainRecords.AddPRecords(this, parNumber, 1, scaleDiv, false, false, oper, result);
 			ReportMainRecords.AddCalcRecords(this, false, false, result);

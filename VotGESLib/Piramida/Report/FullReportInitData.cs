@@ -63,8 +63,16 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.Water_Napor));
 			record.addChild(GetFullReportRecord(PiramidaRecords.Water_NB));
 			record.addChild(GetFullReportRecord(PiramidaRecords.Water_QGES));
+			record.addChild(GetFullReportRecord(ReportWaterRecords.Water_QGTP1));
+			record.addChild(GetFullReportRecord(ReportWaterRecords.Water_QGTP1));
 			record.addChild(GetFullReportRecord(PiramidaRecords.Water_Temp));
 			record.addChild(GetFullReportRecord(PiramidaRecords.Water_VB));
+			record.addChild(GetFullReportRecord(PiramidaRecords.Water_QOptGES));
+			record.addChild(GetFullReportRecord(PiramidaRecords.Water_QOptGTP1));
+			record.addChild(GetFullReportRecord(PiramidaRecords.Water_QOptGTP2));
+			record.addChild(GetFullReportRecord(ReportWaterRecords.Water_OVER_GES));
+			record.addChild(GetFullReportRecord(ReportWaterRecords.Water_OVER_GTP1));
+			record.addChild(GetFullReportRecord(ReportWaterRecords.Water_OVER_GTP2));
 
 			record = RootMain.addChild(GetFullReportRecord("Суточная ведомость", "gsv"));
 			record.addChild(GetFullReportRecord(PiramidaRecords.GSV2));

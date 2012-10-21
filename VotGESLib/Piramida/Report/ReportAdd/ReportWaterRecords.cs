@@ -7,18 +7,53 @@ namespace VotGES.Piramida.Report
 {
 	public class ReportWaterRecords
 	{
-		
+		public static RecordTypeCalc Water_QGTP1=new RecordTypeCalc("Water_QGTP1", "Расход ГТП-1", null);
+		public static RecordTypeCalc Water_QGTP2=new RecordTypeCalc("Water_QGTP2", "Расход ГТП-2", null);
+		public static RecordTypeCalc Water_OVER_GES=new RecordTypeCalc("Water_OVER_GES", "О ВЭР ГЭС", null);
+		public static RecordTypeCalc Water_OVER_GTP1=new RecordTypeCalc("Water_OVER_GTP1", "О ВЭР ГТП1", null);
+		public static RecordTypeCalc Water_OVER_GTP2=new RecordTypeCalc("Water_OVER_GTP2", "О ВЭР ГТП2", null);
 
 		public static void CreateWater() {
-			
+			Water_QGTP1.CalcFunction = new RecordCalcDelegate((report, date) => {
+				return report[date, PiramidaRecords.Water_Q_GA1.Key] + 
+						 report[date, PiramidaRecords.Water_Q_GA2.Key];
+			});
+
+			Water_QGTP2.CalcFunction = new RecordCalcDelegate((report, date) => {
+				return report[date, PiramidaRecords.Water_Q_GA3.Key] +
+						 report[date, PiramidaRecords.Water_Q_GA4.Key] +
+						 report[date, PiramidaRecords.Water_Q_GA5.Key] +
+						 report[date, PiramidaRecords.Water_Q_GA6.Key] +
+						 report[date, PiramidaRecords.Water_Q_GA7.Key] +
+						 report[date, PiramidaRecords.Water_Q_GA8.Key] +
+						 report[date, PiramidaRecords.Water_Q_GA9.Key] +
+						 report[date, PiramidaRecords.Water_Q_GA10.Key];
+			});
+
+			Water_OVER_GTP1.CalcFunction = new RecordCalcDelegate((report, date) => {
+				return report[date, PiramidaRecords.Water_QOptGTP1.Key] / report[date, ReportWaterRecords.Water_QGTP1.ID] * 100;
+			});
+
+			Water_OVER_GTP2.CalcFunction = new RecordCalcDelegate((report, date) => {
+				return report[date, PiramidaRecords.Water_QOptGTP2.Key] / report[date, ReportWaterRecords.Water_QGTP2.ID] * 100;
+			});
+
+			Water_OVER_GES.CalcFunction = new RecordCalcDelegate((report, date) => {
+				return report[date, PiramidaRecords.Water_QOptGES.Key] / report[date, PiramidaRecords.Water_QGES.Key] * 100;
+			});
 		}
 
 		static ReportWaterRecords() {
 			CreateWater();
+
 		}
 
 		public static void AddCalcRecords(Report report, bool visible, bool toChart, ResultTypeEnum oper) {
-			
+			report.AddRecordType(new RecordTypeCalc(Water_QGTP1, toChart, visible, oper));
+			report.AddRecordType(new RecordTypeCalc(Water_QGTP2, toChart, visible, oper));
+			report.AddRecordType(new RecordTypeCalc(Water_OVER_GES, toChart, visible, oper));
+			report.AddRecordType(new RecordTypeCalc(Water_OVER_GTP1, toChart, visible, oper));
+			report.AddRecordType(new RecordTypeCalc(Water_OVER_GTP2, toChart, visible, oper));
 		}
 
 		public static void AddPRecordsWater(Report report, int parNumber, double scaleMult, double scaleDiv, bool visible, bool toChart, DBOperEnum oper, ResultTypeEnum result) {
@@ -36,6 +71,8 @@ namespace VotGES.Piramida.Report
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.Water_Q_GA9, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType:result, dbOper:oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.Water_QGES, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType:result, dbOper:oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.Water_QOptGES, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType:result, dbOper:oper));
+			report.AddRecordType(new RecordTypeDB(PiramidaRecords.Water_QOptGTP1, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
+			report.AddRecordType(new RecordTypeDB(PiramidaRecords.Water_QOptGTP2, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.Water_Temp, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType:result, dbOper:oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.Water_VB, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType:result, dbOper:oper));
 		}
@@ -66,8 +103,7 @@ namespace VotGES.Piramida.Report
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.GSV24, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.GSV25, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.GSV26, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.GSV27, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
-			
+			report.AddRecordType(new RecordTypeDB(PiramidaRecords.GSV27, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));			
 		}
 
 	}

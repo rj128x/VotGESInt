@@ -276,7 +276,9 @@ namespace VotGES.Piramida
 		public static PiramidaRecord Water_Napor=new PiramidaRecord(2, 1, 276, "Напор");
 		public static PiramidaRecord Water_Temp=new PiramidaRecord(2, 1, 373, "Температура");
 		public static PiramidaRecord Water_QGES=new PiramidaRecord(2, 1, 354, "Расход ГЭС");
-		public static PiramidaRecord Water_QOptGES=new PiramidaRecord(2, 10, 3, "Расход ГЭС");
+		public static PiramidaRecord Water_QOptGES=new PiramidaRecord(2, 10, 3, "Опт. расход ГЭС");
+		public static PiramidaRecord Water_QOptGTP1=new PiramidaRecord(2, 10, 1, "Опт. расход ГТП-1");
+		public static PiramidaRecord Water_QOptGTP2=new PiramidaRecord(2, 10, 2, "Опт. расход ГТП-2");
 
 		public static PiramidaRecord Water_Q_GA1=new PiramidaRecord(2, 1, 104, "Расход ГА-1");
 		public static PiramidaRecord Water_Q_GA2=new PiramidaRecord(2, 1, 129, "Расход ГА-2");
