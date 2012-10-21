@@ -16,6 +16,16 @@ namespace VotGES.Piramida.Report
 		public static RecordTypeCalc P_1T_110=new RecordTypeCalc("P_1T_110", "1Т 110 P", null);
 		public static RecordTypeCalc P_4T_220=new RecordTypeCalc("P_4T_220", "4Т 220 P", null);
 
+		public static RecordTypeCalc Q_56AT_220=new RecordTypeCalc("Q_56AT_220", "5-6АТ 220 Q", null);
+		public static RecordTypeCalc Q_56AT_110=new RecordTypeCalc("Q_56AT_110", "5-6АТ 110 Q", null);
+		public static RecordTypeCalc Q_2AT_220=new RecordTypeCalc("Q_2AT_220", "2АТ 220 Q", null);
+		public static RecordTypeCalc Q_2AT_500=new RecordTypeCalc("Q_2AT_500", "2АТ 500 Q", null);
+		public static RecordTypeCalc Q_3AT_220=new RecordTypeCalc("Q_3AT_220", "3АТ 220 Q", null);
+		public static RecordTypeCalc Q_3AT_500=new RecordTypeCalc("Q_3AT_500", "3АТ 500 Q", null);
+		public static RecordTypeCalc Q_1T_110=new RecordTypeCalc("Q_1T_110", "1Т 110 Q", null);
+		public static RecordTypeCalc Q_4T_220=new RecordTypeCalc("Q_4T_220", "4Т 220 Q", null);
+
+
 		public static RecordTypeCalc P_56AT_Nebalans=new RecordTypeCalc("P_56AT_Nebalans", "5-6АТ Небаланс P", null);
 		public static RecordTypeCalc P_2AT_Nebalans=new RecordTypeCalc("P_2AT_Nebalans", "2АТ Небаланс P", null);
 		public static RecordTypeCalc P_3AT_Nebalans=new RecordTypeCalc("P_3AT_Nebalans", "3АТ Небаланс P", null);
@@ -124,15 +134,57 @@ namespace VotGES.Piramida.Report
 				});
 
 
-			P_1T_110.CalcFunction=
+			Q_1T_110.CalcFunction=
 				new RecordCalcDelegate((report, date) => {
-					return (report[date,PiramidaRecords.P_1T_110_Priem.Key] - report[date,PiramidaRecords.P_1T_110_Otd.Key]);
+					return (report[date,PiramidaRecords.Q_1T_110_Priem.Key] - report[date,PiramidaRecords.Q_1T_110_Otd.Key]);
 				});
 
-			P_4T_220.CalcFunction=
+			Q_4T_220.CalcFunction=
 				new RecordCalcDelegate((report, date) => {
-					return (report[date,PiramidaRecords.P_4T_220_Priem.Key] - report[date,PiramidaRecords.P_4T_220_Otd.Key]);
+					return (report[date,PiramidaRecords.Q_4T_220_Priem.Key] - report[date,PiramidaRecords.Q_4T_220_Otd.Key]);
 				});
+
+			Q_56AT_220.CalcFunction =
+				new RecordCalcDelegate((report, date) => {
+					return (report[date, PiramidaRecords.Q_56AT_220_Priem.Key] - report[date, PiramidaRecords.Q_56AT_220_Otd.Key]);
+				});
+
+			Q_56AT_110.CalcFunction =
+				new RecordCalcDelegate((report, date) => {
+					return (report[date, PiramidaRecords.Q_56AT_110_Priem.Key] - report[date, PiramidaRecords.Q_56AT_110_Otd.Key]);
+				});
+
+			Q_2AT_220.CalcFunction =
+				new RecordCalcDelegate((report, date) => {
+					return (report[date, PiramidaRecords.Q_2AT_220_Priem.Key] - report[date, PiramidaRecords.Q_2AT_220_Otd.Key]);
+				});
+
+			Q_2AT_500.CalcFunction =
+				new RecordCalcDelegate((report, date) => {
+					return (report[date, PiramidaRecords.Q_2AT_500_Priem.Key] - report[date, PiramidaRecords.Q_2AT_500_Otd.Key]);
+				});
+
+			Q_3AT_220.CalcFunction =
+				new RecordCalcDelegate((report, date) => {
+					return (report[date, PiramidaRecords.Q_3AT_220_Priem.Key] - report[date, PiramidaRecords.Q_3AT_220_Otd.Key]);
+				});
+
+			Q_3AT_500.CalcFunction =
+				new RecordCalcDelegate((report, date) => {
+					return (report[date, PiramidaRecords.Q_3AT_500_Priem.Key] - report[date, PiramidaRecords.Q_3AT_500_Otd.Key]);
+				});
+
+
+			Q_1T_110.CalcFunction =
+				new RecordCalcDelegate((report, date) => {
+					return (report[date, PiramidaRecords.Q_1T_110_Priem.Key] - report[date, PiramidaRecords.Q_1T_110_Otd.Key]);
+				});
+
+			Q_4T_220.CalcFunction =
+				new RecordCalcDelegate((report, date) => {
+					return (report[date, PiramidaRecords.Q_4T_220_Priem.Key] - report[date, PiramidaRecords.Q_4T_220_Otd.Key]);
+				});
+
 		}
 
 		public static void AddCalcRecords(Report report, bool visible, bool toChart, ResultTypeEnum oper) {
@@ -149,6 +201,15 @@ namespace VotGES.Piramida.Report
 			report.AddRecordType(new RecordTypeCalc(P_56AT_110, toChart, visible, oper));
 			report.AddRecordType(new RecordTypeCalc(P_56AT_220, toChart, visible, oper));
 			report.AddRecordType(new RecordTypeCalc(P_56AT_Nebalans, toChart, visible, oper));
+
+			report.AddRecordType(new RecordTypeCalc(Q_1T_110, toChart, visible, oper));
+			report.AddRecordType(new RecordTypeCalc(Q_2AT_220, toChart, visible, oper));
+			report.AddRecordType(new RecordTypeCalc(Q_2AT_500, toChart, visible, oper));
+			report.AddRecordType(new RecordTypeCalc(Q_3AT_220, toChart, visible, oper));
+			report.AddRecordType(new RecordTypeCalc(Q_3AT_500, toChart, visible, oper));
+			report.AddRecordType(new RecordTypeCalc(Q_4T_220, toChart, visible, oper));
+			report.AddRecordType(new RecordTypeCalc(Q_56AT_110, toChart, visible, oper));
+			report.AddRecordType(new RecordTypeCalc(Q_56AT_220, toChart, visible, oper));
 
 			report.AddRecordType(new RecordTypeCalc(P_T_Nebalans, toChart, visible, oper));
 		}
