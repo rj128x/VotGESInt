@@ -26,6 +26,18 @@ namespace MainSL.Views
 			InitializeComponent();
 			Context = new ReportBaseDomainContext();
 			SelectedValues = new List<string>();
+			SettingsControlCmp.Visibility = System.Windows.Visibility.Collapsed;
+			SettingsControlCmp.Settings.IsChildReport = true;
+			SettingsControl.Settings.HasCompareReport = false;
+			SettingsControl.Settings.CompareReport = SettingsControlCmp.Settings;
+			SettingsControl.Settings.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Settings_PropertyChanged);
+		}
+
+		void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
+			if (e.PropertyName == "HasCompareReport") {
+				SettingsControlCmp.Visibility = SettingsControl.Settings.HasCompareReport ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+				SettingsControl.Settings.ReportType = SettingsControl.Settings.ReportType;
+			}
 		}
 
 		// Выполняется, когда пользователь переходит на эту страницу.
@@ -83,7 +95,9 @@ namespace MainSL.Views
 		private void btnGetReport_Click(object sender, RoutedEventArgs e) {
 			RefreshSelectedValues();
 			ReportSettings.DateTimeStartEnd des=ReportSettings.DateTimeStartEnd.getBySettings(SettingsControl.Settings);
-			InvokeOperation currentOper=Context.GetFullReport(SelectedValues,des.DateStart,des.DateEnd,SettingsControl.Settings.ReportType, 
+			ReportSettings.DateTimeStartEnd desCmp=ReportSettings.DateTimeStartEnd.getBySettings(SettingsControlCmp.Settings);
+			InvokeOperation currentOper=Context.GetFullReport(SelectedValues,des.DateStart,des.DateEnd,SettingsControl.Settings.ReportType,
+				SettingsControl.Settings.HasCompareReport,desCmp.DateStart,desCmp.DateEnd,
 				oper => {
 				if (oper.IsCanceled) {
 					return;

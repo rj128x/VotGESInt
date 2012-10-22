@@ -42,6 +42,8 @@
 				<StackPanel>
 					<usr:ReportSettingsControl x:Name="SettingsControl" 
 														IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+					<usr:ReportSettingsControl x:Name="SettingsControlCmp" 
+														IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 					<Button Name="btnGetReport" Content="Получить отчет" Click="btnGetReport_Click"
 							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>					
 				</StackPanel>

@@ -7162,16 +7162,22 @@ namespace VotGES.Web.Services
         /// <param name="dateStart">Значение параметра "dateStart" для данного действия.</param>
         /// <param name="dateEnd">Значение параметра "dateEnd" для данного действия.</param>
         /// <param name="ReportType">Значение параметра "ReportType" для данного действия.</param>
+        /// <param name="hasCompare">Значение параметра "hasCompare" для данного действия.</param>
+        /// <param name="dateStartCmp">Значение параметра "dateStartCmp" для данного действия.</param>
+        /// <param name="dateEndCmp">Значение параметра "dateEndCmp" для данного действия.</param>
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ReportAnswer> GetFullReport(IEnumerable<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, Action<InvokeOperation<ReportAnswer>> callback, object userState)
+        public InvokeOperation<ReportAnswer> GetFullReport(IEnumerable<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, bool hasCompare, DateTime dateStartCmp, DateTime dateEndCmp, Action<InvokeOperation<ReportAnswer>> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("selectedData", selectedData);
             parameters.Add("dateStart", dateStart);
             parameters.Add("dateEnd", dateEnd);
             parameters.Add("ReportType", ReportType);
+            parameters.Add("hasCompare", hasCompare);
+            parameters.Add("dateStartCmp", dateStartCmp);
+            parameters.Add("dateEndCmp", dateEndCmp);
             this.ValidateMethod("GetFullReport", parameters);
             return ((InvokeOperation<ReportAnswer>)(this.InvokeOperation("GetFullReport", typeof(ReportAnswer), parameters, true, callback, userState)));
         }
@@ -7183,14 +7189,20 @@ namespace VotGES.Web.Services
         /// <param name="dateStart">Значение параметра "dateStart" для данного действия.</param>
         /// <param name="dateEnd">Значение параметра "dateEnd" для данного действия.</param>
         /// <param name="ReportType">Значение параметра "ReportType" для данного действия.</param>
+        /// <param name="hasCompare">Значение параметра "hasCompare" для данного действия.</param>
+        /// <param name="dateStartCmp">Значение параметра "dateStartCmp" для данного действия.</param>
+        /// <param name="dateEndCmp">Значение параметра "dateEndCmp" для данного действия.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ReportAnswer> GetFullReport(IEnumerable<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType)
+        public InvokeOperation<ReportAnswer> GetFullReport(IEnumerable<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, bool hasCompare, DateTime dateStartCmp, DateTime dateEndCmp)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("selectedData", selectedData);
             parameters.Add("dateStart", dateStart);
             parameters.Add("dateEnd", dateEnd);
             parameters.Add("ReportType", ReportType);
+            parameters.Add("hasCompare", hasCompare);
+            parameters.Add("dateStartCmp", dateStartCmp);
+            parameters.Add("dateEndCmp", dateEndCmp);
             this.ValidateMethod("GetFullReport", parameters);
             return ((InvokeOperation<ReportAnswer>)(this.InvokeOperation("GetFullReport", typeof(ReportAnswer), parameters, true, null, null)));
         }
@@ -7296,12 +7308,15 @@ namespace VotGES.Web.Services
             /// <param name="dateStart">Значение параметра "dateStart" для данного действия.</param>
             /// <param name="dateEnd">Значение параметра "dateEnd" для данного действия.</param>
             /// <param name="ReportType">Значение параметра "ReportType" для данного действия.</param>
+            /// <param name="hasCompare">Значение параметра "hasCompare" для данного действия.</param>
+            /// <param name="dateStartCmp">Значение параметра "dateStartCmp" для данного действия.</param>
+            /// <param name="dateEndCmp">Значение параметра "dateEndCmp" для данного действия.</param>
             /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
             /// <param name="asyncState">Необязательный объект состояния.</param>
             /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/ReportBaseDomainService/GetFullReportDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ReportBaseDomainService/GetFullReport", ReplyAction="http://tempuri.org/ReportBaseDomainService/GetFullReportResponse")]
-            IAsyncResult BeginGetFullReport(IEnumerable<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, AsyncCallback callback, object asyncState);
+            IAsyncResult BeginGetFullReport(IEnumerable<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, bool hasCompare, DateTime dateStartCmp, DateTime dateEndCmp, AsyncCallback callback, object asyncState);
             
             /// <summary>
             /// Завершает асинхронную операцию, начатую "BeginGetFullReport".

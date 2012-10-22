@@ -27,7 +27,7 @@ namespace MainSL.Views
 			settings.Date = DateTime.Now.Date.AddDays(-1);
 			pnlSettings.DataContext = settings;
 			context = new ReportBaseDomainContext();
-			
+			SettingsControl.InitOnlyDates();
 			SettingsControl.Settings.ReportType = ReportTypeEnum.day;
 			
 		}

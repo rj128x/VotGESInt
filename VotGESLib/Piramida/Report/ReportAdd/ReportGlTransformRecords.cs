@@ -102,6 +102,16 @@ namespace VotGES.Piramida.Report
 						report[date, ReportGlTransformRecords.P_4T_Nebalans.ID] +
 						report[date, ReportGlTransformRecords.P_56AT_Nebalans.ID];						
 				});
+			P_1T_110.CalcFunction =
+				new RecordCalcDelegate((report, date) => {
+					return (report[date, PiramidaRecords.P_1T_110_Priem.Key] - report[date, PiramidaRecords.P_1T_110_Otd.Key]);
+				});
+
+			P_4T_220.CalcFunction =
+				new RecordCalcDelegate((report, date) => {
+					return (report[date, PiramidaRecords.P_4T_220_Priem.Key] - report[date, PiramidaRecords.P_4T_220_Otd.Key]);
+				});
+
 
 			P_56AT_220.CalcFunction=
 				new RecordCalcDelegate((report, date) => {
@@ -133,16 +143,6 @@ namespace VotGES.Piramida.Report
 					return (report[date,PiramidaRecords.P_3AT_500_Priem.Key] - report[date,PiramidaRecords.P_3AT_500_Otd.Key]);
 				});
 
-
-			Q_1T_110.CalcFunction=
-				new RecordCalcDelegate((report, date) => {
-					return (report[date,PiramidaRecords.Q_1T_110_Priem.Key] - report[date,PiramidaRecords.Q_1T_110_Otd.Key]);
-				});
-
-			Q_4T_220.CalcFunction=
-				new RecordCalcDelegate((report, date) => {
-					return (report[date,PiramidaRecords.Q_4T_220_Priem.Key] - report[date,PiramidaRecords.Q_4T_220_Otd.Key]);
-				});
 
 			Q_56AT_220.CalcFunction =
 				new RecordCalcDelegate((report, date) => {

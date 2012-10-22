@@ -137,6 +137,9 @@ namespace VotGES.Piramida.Report
 						IsVisibleQuarter = false;
 						break;
 				}
+				if (HasCompareReport && CompareReport != null) {
+					CompareReport.ReportType = reportType;
+				}
 				NotifyChanged("ReportType");
 			}
 		}
@@ -218,6 +221,33 @@ namespace VotGES.Piramida.Report
 			}
 		}
 
+		private bool hasCompareReport;
+		public bool HasCompareReport {
+			get { return hasCompareReport; }
+			set {
+				hasCompareReport = value;
+				NotifyChanged("HasCompareReport");
+			}
+		}
+
+		private bool isChildReport;
+		public bool IsChildReport {
+			get { return isChildReport; }
+			set {
+				isChildReport = value;
+				NotifyChanged("IsChildReport");
+			}
+		}
+
+		private ReportSettings compareReport;
+		public ReportSettings CompareReport {
+			get { return compareReport; }
+			set { 
+				compareReport = value;
+				NotifyChanged("CompareReport");
+			}
+		}
+		
 		public void init(bool onlyDates = false) {
 			ReportTypeNames = new Dictionary<ReportTypeEnum, string>();
 			MonthNames = new Dictionary<int, string>();

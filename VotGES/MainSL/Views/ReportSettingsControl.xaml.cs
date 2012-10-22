@@ -30,6 +30,10 @@ namespace MainSL.Views
 			pnlSettings.DataContext = Settings;
 		}
 
+		public void InitOnlyDates() {
+			Settings = new ReportSettings(true);
+			pnlSettings.DataContext = Settings;
+		}
 		
 
 	}

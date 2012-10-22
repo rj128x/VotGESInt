@@ -31,14 +31,22 @@ namespace VotGES.Web.Services
 			}
 		}
 
-		public ReportAnswer GetFullReport(List<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType) {
+		public ReportAnswer GetFullReport(List<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, bool hasCompare, DateTime dateStartCmp, DateTime dateEndCmp) {
 			try {
 				Logger.Info(String.Format("Получение отчета {0} - {1} [{2}]",dateStart,dateEnd,ReportType));
 				FullReport report=new FullReport(dateStart, dateEnd, Report.GetInterval(ReportType));
 				report.InitNeedData(selectedData);
 				report.ReadData();
-				report.CreateAnswerData();
-				report.CreateChart();
+				
+				FullReport reportAdd=null;
+				if (hasCompare) {
+					TimeSpan diff=dateStartCmp - dateStart;					
+					reportAdd=new FullReport(dateStartCmp, dateEndCmp, Report.GetInterval(ReportType));
+					reportAdd.InitNeedData(selectedData);
+					reportAdd.ReadData();
+				}
+				report.CreateAnswerData(reportAdd:reportAdd);
+				report.CreateChart(reportAdd);
 				Logger.Info("Отчет сформирован: "+report.Answer.Data.Count());
 				return report.Answer;
 			} catch (Exception e) {

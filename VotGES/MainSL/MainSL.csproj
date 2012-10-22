@@ -156,9 +156,6 @@
     <Compile Include="Views\PrognozNBPage.xaml.cs">
       <DependentUpon>PrognozNBPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ReportSettingsOnlyDatesControl.xaml.cs">
-      <DependentUpon>ReportSettingsOnlyDatesControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CheckGraphVyrabRGEReportControl.xaml.cs">
       <DependentUpon>CheckGraphVyrabRGEReportControl.xaml</DependentUpon>
     </Compile>
@@ -228,10 +225,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PrognozNBPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ReportSettingsOnlyDatesControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

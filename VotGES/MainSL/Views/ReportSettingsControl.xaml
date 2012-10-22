@@ -8,9 +8,10 @@
 	<Grid x:Name="LayoutRoot" Background="White">
 		<Border Style="{StaticResource borderGray}">
 			<StackPanel Name="pnlSettings">
-				<TextBlock Text="Тип отчета" Style="{StaticResource Label}"/>
+				<TextBlock Text="Тип отчета" Style="{StaticResource Label}" Visibility="{Binding IsChildReport, Converter={StaticResource visibilityNotConverter}}"/>
 				<ComboBox ItemsSource="{Binding ReportTypeNames}" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedValue="{Binding ReportType, Mode=TwoWay}" 
-							 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+							 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"
+							 Visibility="{Binding IsChildReport, Converter={StaticResource visibilityNotConverter}}"/>
 				<sdk:Calendar SelectedDate="{Binding Date, Mode=TwoWay}" 
 								  Visibility="{Binding IsVisibleDate, Converter={StaticResource visibilityConverter}}"
 								  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
@@ -29,8 +30,11 @@
 						<TextBlock Text="Год: " Style="{StaticResource Label}"/>
 						<TextBox Text="{Binding Year, Mode=TwoWay}"
 								IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-					</StackPanel>
+					</StackPanel>					
 				</StackPanel>
+				<CheckBox Visibility="{Binding IsChildReport, Converter={StaticResource visibilityNotConverter}}"
+								 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"
+								 IsChecked="{Binding HasCompareReport, Mode=TwoWay}" Content="Сравнить с другим периодом"/>
 
 			</StackPanel>
 		</Border>

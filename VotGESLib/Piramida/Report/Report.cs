@@ -638,10 +638,15 @@ namespace VotGES.Piramida.Report
 		}
 
 
-		public virtual void CreateAnswerData(bool createResult = true) {
+		public virtual void CreateAnswerData(bool createResult = true,Report reportAdd=null) {
 			Answer.Data = new List<ReportAnswerRecord>();
 			Answer.Columns = new Dictionary<string, string>();
 			Answer.Formats = new Dictionary<string, string>();
+			TimeSpan diff=new TimeSpan(0);
+			if (reportAdd != null) {
+				diff = reportAdd.DateStart - this.DateStart;
+			}
+
 
 			if (createResult) {
 				ReportAnswerRecord recordResult=new ReportAnswerRecord();
@@ -650,6 +655,9 @@ namespace VotGES.Piramida.Report
 				foreach (RecordTypeBase recordType in RecordTypes.Values) {
 					if (recordType.Visible) {
 						recordResult.DataStr.Add(recordType.ID, ResultData[recordType.ID]);
+						if (reportAdd != null) {
+								recordResult.DataStr.Add(recordType.ID + "_cmp", reportAdd.ResultData[recordType.ID]);
+						}
 					}
 				}
 				Answer.Data.Add(recordResult);
@@ -660,6 +668,10 @@ namespace VotGES.Piramida.Report
 					if (!Answer.Columns.Keys.Contains(recordType.ID)) {
 						Answer.Columns.Add(recordType.ID, recordType.Title);
 						Answer.Formats.Add(recordType.ID, recordType.FormatDouble);
+						if (reportAdd != null) {
+							Answer.Columns.Add(recordType.ID + "_cmp", recordType.Title+" (ср)");
+							Answer.Formats.Add(recordType.ID + "_cmp", recordType.FormatDouble);
+						}
 					}
 				}
 			}
@@ -671,6 +683,11 @@ namespace VotGES.Piramida.Report
 				foreach (RecordTypeBase recordType in RecordTypes.Values) {
 					if (recordType.Visible) {
 						record.DataStr.Add(recordType.ID, Data[date][recordType.ID]);
+						if (reportAdd != null) {
+							try {
+								record.DataStr.Add(recordType.ID + "_cmp", reportAdd.Data[date.AddTicks(diff.Ticks)][recordType.ID]);
+							} catch { }
+						}
 					}
 				}
 				Answer.Data.Add(record);
@@ -678,10 +695,15 @@ namespace VotGES.Piramida.Report
 		}
 
 
-		public virtual void CreateChart() {
+		public virtual void CreateChart(Report reportAdd = null) {
 			Answer.Chart = new ChartAnswer();
 			Answer.Chart.Properties = new ChartProperties();
 			Answer.Chart.Data = new ChartData();
+			
+			TimeSpan diff=new TimeSpan(0);
+			if (reportAdd != null) {
+				diff = reportAdd.DateStart - this.DateStart;
+			}
 
 			ChartAxisProperties ax=new ChartAxisProperties();
 			ax.Auto = true;
@@ -723,6 +745,27 @@ namespace VotGES.Piramida.Report
 						data.Points.Add(new ChartDataPoint(dt, Data[date][recordType.ID]));
 					}
 					Answer.Chart.Data.addSerie(data);
+
+					if (reportAdd != null) {
+						props = new ChartSerieProperties();
+						props.Title = recordType.Title + " (ср)";
+						props.TagName = recordType.ID + "_cmp";
+						props.LineWidth = 1;
+						props.Color = ChartColor.GetColorStr(indexColor++);
+						props.SerieType = type;
+						props.YAxisIndex = 0;
+						Answer.Chart.Properties.addSerie(props);
+
+						data = new ChartDataSerie();
+						data.Name = recordType.ID + "_cmp";
+						foreach (DateTime date in Dates) {
+							DateTime dt=GetCorrectedDateForChart(date);
+							try {
+								data.Points.Add(new ChartDataPoint(dt, reportAdd.Data[date.AddTicks(diff.Ticks)][recordType.ID]));
+							} catch { }
+						}
+						Answer.Chart.Data.addSerie(data);
+					}
 				}
 			}
 		}
