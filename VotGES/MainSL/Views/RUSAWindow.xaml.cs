@@ -19,7 +19,7 @@ namespace MainSL.Views
 		public RUSAWindow() {
 			InitializeComponent();
 			context = new RUSADomainContext();
-			cntrlRUSA.init(context);
+			cntrlRUSA.init(context);			
 		}
 
 		private void OKButton_Click(object sender, RoutedEventArgs e) {

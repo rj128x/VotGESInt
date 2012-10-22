@@ -101,7 +101,9 @@ namespace VotGES.Web.Services
 			try {
 				List<PiramidaEnrty>list=PiramidaAccess.GetDataFromDB(DateTime.Now.AddHours(-4), DateTime.Now.AddHours(-2), 1, 2, 12, (new int[] { 276 }).ToList(), true, true, "P3000");
 				answer.Napor = list.Last().Value0;
-			} catch { }
+			} catch (Exception e) {
+				Logger.Error("Ошибка при получении напора" + e);
+			}
 			
 			return answer;
 		}
