@@ -17,7 +17,7 @@ namespace ClearDB
 	}
 	public class SutVed
 	{
-		public string[] monthNames={"янв","фев","мар","апр","май","июн","июл","авг","сен","окт","ноя","дек"};
+		public string[] monthNames={"янв","фев","мар","апр","май","июн","июл","авг","сент","окт","ноя","дек"};
 		public string FileName { get; set; }
 		public int Year { get; set; }
 		public XmlDocument Document { get; set; }
