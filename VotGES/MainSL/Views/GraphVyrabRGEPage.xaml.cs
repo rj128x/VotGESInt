@@ -49,7 +49,6 @@ namespace MainSL.Views
 		void rusaWindow_Closed(object sender, EventArgs e) {
 			settings.AutoRefresh = PrevAutoRefresh;
 		}
-
 				
 	
 		void timer_Tick(object sender, EventArgs e) {
