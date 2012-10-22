@@ -751,7 +751,7 @@ namespace VotGES.Piramida.Report
 						props.Title = recordType.Title + " (ср)";
 						props.TagName = recordType.ID + "_cmp";
 						props.LineWidth = 1;
-						props.Color = ChartColor.GetColorStr(indexColor++);
+						props.Color = ChartColor.GetColorStr(indexColor-1);
 						props.SerieType = type;
 						props.YAxisIndex = 0;
 						Answer.Chart.Properties.addSerie(props);
