@@ -31,41 +31,31 @@ namespace VotGES.Web.Services
 			}
 		}
 
-		public ReportAnswer GetFullReport(List<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, bool hasCompare, DateTime dateStartCmp, DateTime dateEndCmp) {
+		public ReportAnswer GetFullReport(List<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, 
+			List<string> TitleList, List<DateTime>DateStartList, List<DateTime>DateEndList) {
 			try {
 				Logger.Info(String.Format("Получение отчета {0} - {1} [{2}]",dateStart,dateEnd,ReportType));
 				FullReport report=new FullReport(dateStart, dateEnd, Report.GetInterval(ReportType));
-				report.InitNeedData(selectedData);
+				report.InitNeedData(selectedData);				
 				report.ReadData();
-				
-				FullReport reportAdd=null;
-				if (hasCompare) {
-					TimeSpan diff=dateStartCmp - dateStart;					
-					reportAdd=new FullReport(dateStartCmp, dateEndCmp, Report.GetInterval(ReportType));
-					reportAdd.InitNeedData(selectedData);
-					reportAdd.ReadData();
+
+				List<Report> reportAddList=null;
+				if (TitleList.Count>0) {
+					reportAddList = new List<Report>();
+					for (int index=0; index < TitleList.Count; index++) {
+						FullReport reportAdd = new FullReport(DateStartList[index], DateEndList[index], Report.GetInterval(ReportType));
+						reportAdd.AddReportTitle = TitleList[index];
+						reportAdd.InitNeedData(selectedData);						
+						reportAdd.ReadData();
+						reportAddList.Add(reportAdd);
+					}
 				}
-				report.CreateAnswerData(reportAdd:reportAdd);
-				report.CreateChart(reportAdd);
+				report.CreateAnswerData(reportAddList: reportAddList);
+				report.CreateChart(reportAddList);
 				Logger.Info("Отчет сформирован: "+report.Answer.Data.Count());
 				return report.Answer;
 			} catch (Exception e) {
 				Logger.Error("Ошибка при получении отчета " + e.ToString());
-				return null;
-			}
-		}
-
-		public ReportAnswer GetRezhimSKReport(DateTime date) {
-			try {
-				Logger.Info("Получение отчета режим СК "+date);
-				RezhimSKReport report=new RezhimSKReport(date.Date, date.Date.AddDays(1), IntervalReportEnum.minute);
-				report.ReadData();
-				report.CreateAnswerData();
-				report.CreateChart();
-				Logger.Info("Отчет Режим СК сформирован " + report.Answer.Data.Count());
-				return report.Answer;
-			} catch (Exception e) {
-				Logger.Error("Ошибка при получении режима СК " + e.ToString());
 				return null;
 			}
 		}

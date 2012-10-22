@@ -26,19 +26,30 @@ namespace MainSL.Views
 			InitializeComponent();
 			Context = new ReportBaseDomainContext();
 			SelectedValues = new List<string>();
-			SettingsControlCmp.Visibility = System.Windows.Visibility.Collapsed;
-			SettingsControlCmp.Settings.IsChildReport = true;
-			SettingsControl.Settings.HasCompareReport = false;
-			SettingsControl.Settings.CompareReport = SettingsControlCmp.Settings;
 			SettingsControl.Settings.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Settings_PropertyChanged);
 		}
 
 		void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
-			if (e.PropertyName == "HasCompareReport") {
-				SettingsControlCmp.Visibility = SettingsControl.Settings.HasCompareReport ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-				SettingsControl.Settings.ReportType = SettingsControl.Settings.ReportType;
+			if (e.PropertyName == "ChildReports") {				
+				ReportSettingsControl forRemove=null;
+				foreach (ReportSettingsControl cntrl in pnlAddReports.Children) {
+					if (!SettingsControl.Settings.ChildReports.Contains(cntrl.Settings)) {
+						forRemove=cntrl;
+						break;
+					}
+				}
+				pnlAddReports.Children.Remove(forRemove);
 			}
 		}
+
+		private void btnAddCompare_Click(object sender, RoutedEventArgs e) {
+			if (SettingsControl.Settings.ChildReports.Count < 3) {
+				ReportSettingsControl cntrl=new ReportSettingsControl();
+				pnlAddReports.Children.Add(cntrl);
+				SettingsControl.Settings.AddChildReport(cntrl.Settings);
+			}
+		}
+
 
 		// Выполняется, когда пользователь переходит на эту страницу.
 		protected override void OnNavigatedTo(NavigationEventArgs e) {
@@ -95,9 +106,20 @@ namespace MainSL.Views
 		private void btnGetReport_Click(object sender, RoutedEventArgs e) {
 			RefreshSelectedValues();
 			ReportSettings.DateTimeStartEnd des=ReportSettings.DateTimeStartEnd.getBySettings(SettingsControl.Settings);
-			ReportSettings.DateTimeStartEnd desCmp=ReportSettings.DateTimeStartEnd.getBySettings(SettingsControlCmp.Settings);
+			List<DateTime> dateStartList=new List<DateTime>();
+			List<DateTime> dateEndList=new List<DateTime>();
+			List<string> TitleList=new List<string>();
+			foreach (ReportSettings setting in SettingsControl.Settings.ChildReports) {
+				ReportSettings.DateTimeStartEnd desCmp=ReportSettings.DateTimeStartEnd.getBySettings(setting);
+				if (!TitleList.Contains(desCmp.Title)){
+					dateStartList.Add(des.DateStart);
+					dateEndList.Add(des.DateEnd);
+					TitleList.Add(des.Title);
+				}
+			}
+			
 			InvokeOperation currentOper=Context.GetFullReport(SelectedValues,des.DateStart,des.DateEnd,SettingsControl.Settings.ReportType,
-				SettingsControl.Settings.HasCompareReport,desCmp.DateStart,desCmp.DateEnd,
+				TitleList,dateStartList,dateEndList,
 				oper => {
 				if (oper.IsCanceled) {
 					return;
@@ -120,5 +142,11 @@ namespace MainSL.Views
 		private void btnGetChart_Click(object sender, RoutedEventArgs e) {
 
 		}
+
+		private void btnGetReport_Click_1(object sender, RoutedEventArgs e) {
+
+		}
+
+		
 	}
 }

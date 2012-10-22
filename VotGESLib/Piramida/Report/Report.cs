@@ -9,8 +9,11 @@ using VotGES.Chart;
 
 namespace VotGES.Piramida.Report
 {
-	public enum ReportTypeEnum { dayByMinutes, dayByHalfHours, dayByHours, monthByDays, monthByHalfHours, 
-		monthByHours, quarterByDays, yearByDays, yearByMonths, yearByQarters, day, month,quarter,year}
+	public enum ReportTypeEnum
+	{
+		dayByMinutes, dayByHalfHours, dayByHours, monthByDays, monthByHalfHours,
+		monthByHours, quarterByDays, yearByDays, yearByMonths, yearByQarters, day, month, quarter, year
+	}
 	public enum IntervalReportEnum { minute, halfHour, hour, day, month, quarter, year }
 	public enum ResultTypeEnum { min, max, avg, sum }
 	public enum DBOperEnum { min, max, avg, sum, eq }
@@ -126,6 +129,7 @@ namespace VotGES.Piramida.Report
 		public List<string> CurrentNeedRecords { get; set; }
 		public List<DateTime> Dates { get; set; }
 		public ReportAnswer Answer { get; set; }
+		public String AddReportTitle { get; set; }
 		protected SqlConnection connection;
 
 		public static IntervalReportEnum GetInterval(ReportTypeEnum ReportType) {
@@ -393,7 +397,7 @@ namespace VotGES.Piramida.Report
 			string objType=paramsArr[2];
 			string obj=paramsArr[3];
 
-			
+
 
 			connection = Interval != IntervalReportEnum.minute ? PiramidaAccess.getConnection("P3000") : PiramidaAccess.getConnection("PMin");
 			if (objType == "2" && (obj == "3" || obj == "30")) {
@@ -638,15 +642,10 @@ namespace VotGES.Piramida.Report
 		}
 
 
-		public virtual void CreateAnswerData(bool createResult = true,Report reportAdd=null) {
+		public virtual void CreateAnswerData(bool createResult = true, List<Report> reportAddList = null) {
 			Answer.Data = new List<ReportAnswerRecord>();
 			Answer.Columns = new Dictionary<string, string>();
 			Answer.Formats = new Dictionary<string, string>();
-			TimeSpan diff=new TimeSpan(0);
-			if (reportAdd != null) {
-				diff = reportAdd.DateStart - this.DateStart;
-			}
-
 
 			if (createResult) {
 				ReportAnswerRecord recordResult=new ReportAnswerRecord();
@@ -655,8 +654,10 @@ namespace VotGES.Piramida.Report
 				foreach (RecordTypeBase recordType in RecordTypes.Values) {
 					if (recordType.Visible) {
 						recordResult.DataStr.Add(recordType.ID, ResultData[recordType.ID]);
-						if (reportAdd != null) {
-								recordResult.DataStr.Add(recordType.ID + "_cmp", reportAdd.ResultData[recordType.ID]);
+						if (reportAddList != null) {
+							foreach (Report reportAdd in reportAddList) {
+								recordResult.DataStr.Add(recordType.ID + "_" + reportAdd.AddReportTitle, reportAdd.ResultData[recordType.ID]);
+							}
 						}
 					}
 				}
@@ -668,9 +669,11 @@ namespace VotGES.Piramida.Report
 					if (!Answer.Columns.Keys.Contains(recordType.ID)) {
 						Answer.Columns.Add(recordType.ID, recordType.Title);
 						Answer.Formats.Add(recordType.ID, recordType.FormatDouble);
-						if (reportAdd != null) {
-							Answer.Columns.Add(recordType.ID + "_cmp", recordType.Title+" (ср)");
-							Answer.Formats.Add(recordType.ID + "_cmp", recordType.FormatDouble);
+						if (reportAddList != null) {
+							foreach (Report reportAdd in reportAddList) {
+								Answer.Columns.Add(recordType.ID + "_" + reportAdd.AddReportTitle, recordType.Title + " " + reportAdd.AddReportTitle);
+								Answer.Formats.Add(recordType.ID + "_" + reportAdd.AddReportTitle, recordType.FormatDouble);
+							}
 						}
 					}
 				}
@@ -678,15 +681,21 @@ namespace VotGES.Piramida.Report
 
 			foreach (DateTime date in Dates) {
 				ReportAnswerRecord record=new ReportAnswerRecord();
-				record.Header = GetCorrectedDateForTable(date).ToString(getDateFormat());
+				record.Header = GetCorrectedDateForTable(date).ToString(getDateFormat(reportAddList != null));
 				record.DataStr = new Dictionary<string, double>();
 				foreach (RecordTypeBase recordType in RecordTypes.Values) {
 					if (recordType.Visible) {
 						record.DataStr.Add(recordType.ID, Data[date][recordType.ID]);
-						if (reportAdd != null) {
-							try {
-								record.DataStr.Add(recordType.ID + "_cmp", reportAdd.Data[date.AddTicks(diff.Ticks)][recordType.ID]);
-							} catch { }
+						if (reportAddList != null) {
+							foreach (Report reportAdd in reportAddList) {
+								try {
+									int diffY = reportAdd.DateStart.Year - DateStart.Year;
+									int diffM = reportAdd.DateStart.Month - DateStart.Month;
+									int diffD = reportAdd.DateStart.Day - DateStart.Day;
+									DateTime newDate=date.AddYears(diffY).AddMonths(diffM).AddDays(diffD);
+									record.DataStr.Add(recordType.ID + "_" + reportAdd.AddReportTitle, reportAdd.Data[newDate][recordType.ID]);
+								} catch { }
+							}
 						}
 					}
 				}
@@ -695,15 +704,10 @@ namespace VotGES.Piramida.Report
 		}
 
 
-		public virtual void CreateChart(Report reportAdd = null) {
+		public virtual void CreateChart(List<Report> reportAddList = null) {
 			Answer.Chart = new ChartAnswer();
 			Answer.Chart.Properties = new ChartProperties();
 			Answer.Chart.Data = new ChartData();
-			
-			TimeSpan diff=new TimeSpan(0);
-			if (reportAdd != null) {
-				diff = reportAdd.DateStart - this.DateStart;
-			}
 
 			ChartAxisProperties ax=new ChartAxisProperties();
 			ax.Auto = true;
@@ -723,7 +727,7 @@ namespace VotGES.Piramida.Report
 
 			Answer.Chart.Properties.XAxisType = XAxisTypeEnum.datetime;
 
-			Answer.Chart.Properties.XValueFormatString = getDateFormat();
+			Answer.Chart.Properties.XValueFormatString = getDateFormat(reportAddList != null);
 
 			Random r=new Random();
 			int indexColor=0;
@@ -746,44 +750,67 @@ namespace VotGES.Piramida.Report
 					}
 					Answer.Chart.Data.addSerie(data);
 
-					if (reportAdd != null) {
-						props = new ChartSerieProperties();
-						props.Title = recordType.Title + " (ср)";
-						props.TagName = recordType.ID + "_cmp";
-						props.LineWidth = 1;
-						props.Color = ChartColor.GetColorStr(indexColor++);
-						props.SerieType = type;
-						props.YAxisIndex = 0;
-						Answer.Chart.Properties.addSerie(props);
+					if (reportAddList != null) {
+						foreach (Report reportAdd in reportAddList) {
+							int diffY = reportAdd.DateStart.Year - DateStart.Year;
+							int diffM = reportAdd.DateStart.Month - DateStart.Month;
+							int diffD = reportAdd.DateStart.Day - DateStart.Day;
+							props = new ChartSerieProperties();
+							props.Title = recordType.Title + " " + reportAdd.AddReportTitle;
+							props.TagName = recordType.ID + "_" + reportAdd.AddReportTitle;
+							props.LineWidth = 1;
+							props.Color = ChartColor.GetColorStr(indexColor++);
+							props.SerieType = type;
+							props.YAxisIndex = 0;
+							Answer.Chart.Properties.addSerie(props);
 
-						data = new ChartDataSerie();
-						data.Name = recordType.ID + "_cmp";
-						foreach (DateTime date in Dates) {
-							DateTime dt=GetCorrectedDateForChart(date);
-							try {
-								data.Points.Add(new ChartDataPoint(dt, reportAdd.Data[date.AddTicks(diff.Ticks)][recordType.ID]));
-							} catch { }
+							data = new ChartDataSerie();
+							data.Name = recordType.ID + "_" + reportAdd.AddReportTitle;
+							foreach (DateTime date in Dates) {
+								DateTime dt=GetCorrectedDateForChart(date);
+								try {
+									DateTime newDate=date.AddYears(diffY).AddMonths(diffM).AddDays(diffD);
+									data.Points.Add(new ChartDataPoint(dt, reportAdd.Data[newDate][recordType.ID]));
+								} catch { }
+							}
+							Answer.Chart.Data.addSerie(data);
 						}
-						Answer.Chart.Data.addSerie(data);
 					}
 				}
 			}
 		}
 
-		protected String getDateFormat() {
-			switch (Interval) {
-				case IntervalReportEnum.minute:
-					return "HH:mm";
-				case IntervalReportEnum.halfHour:
-				case IntervalReportEnum.hour:
-					return "dd.MM HH:mm";
-				case IntervalReportEnum.day:
-					return "dd.MM";
-				case IntervalReportEnum.month:
-				case IntervalReportEnum.quarter:
-					return "MMMM yy";
-				case IntervalReportEnum.year:
-					return "yyyy";
+		protected String getDateFormat(bool hasCompare = false) {
+			if (!hasCompare) {
+				switch (Interval) {
+					case IntervalReportEnum.minute:
+						return "HH:mm";
+					case IntervalReportEnum.halfHour:
+					case IntervalReportEnum.hour:
+						return "dd.MM HH:mm";
+					case IntervalReportEnum.day:
+						return "dd.MM";
+					case IntervalReportEnum.month:
+					case IntervalReportEnum.quarter:
+						return "MMMM yy";
+					case IntervalReportEnum.year:
+						return "yyyy";
+				}
+			} else {
+				switch (Interval) {
+					case IntervalReportEnum.minute:
+						return "HH:mm";
+					case IntervalReportEnum.halfHour:
+					case IntervalReportEnum.hour:
+						return (DateStart.Day == 1 && DateEnd.Day == 1) ? "dd HH:mm" : "HH:mm";
+					case IntervalReportEnum.day:
+						return (DateStart.Month == 1 && DateEnd.Month == 1) ? "dd.MM" : "dd";
+					case IntervalReportEnum.month:
+					case IntervalReportEnum.quarter:
+						return "MMMM";
+					case IntervalReportEnum.year:
+						return "yyyy";
+				}
 			}
 			return "dd.MM.yy HH:mm";
 		}

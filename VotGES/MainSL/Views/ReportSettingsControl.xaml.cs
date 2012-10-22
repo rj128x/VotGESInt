@@ -34,6 +34,10 @@ namespace MainSL.Views
 			Settings = new ReportSettings(true);
 			pnlSettings.DataContext = Settings;
 		}
+
+		private void btnRemCompare_Click(object sender, RoutedEventArgs e) {
+			Settings.ParentReport.RemoveChildReport(this.Settings);
+		}
 		
 
 	}

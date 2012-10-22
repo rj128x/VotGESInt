@@ -30,11 +30,11 @@
 						<TextBlock Text="Год: " Style="{StaticResource Label}"/>
 						<TextBox Text="{Binding Year, Mode=TwoWay}"
 								IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-					</StackPanel>					
+					</StackPanel>							
 				</StackPanel>
-				<CheckBox Visibility="{Binding IsChildReport, Converter={StaticResource visibilityNotConverter}}"
-								 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"
-								 IsChecked="{Binding HasCompareReport, Mode=TwoWay}" Content="Сравнить с другим периодом"/>
+				<Button Name="btnRemCompare" Content="Удалить сравнение" Click="btnRemCompare_Click"
+							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"
+								Visibility="{Binding IsChildReport, Converter={StaticResource visibilityConverter}}"/>
 
 			</StackPanel>
 		</Border>

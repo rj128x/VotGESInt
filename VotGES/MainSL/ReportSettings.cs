@@ -20,11 +20,13 @@ namespace VotGES.Piramida.Report
 		{
 			public DateTime DateStart { get; set; }
 			public DateTime DateEnd { get; set; }
+			public String Title { get; set; }
 
 			public static DateTimeStartEnd getFullDay(DateTime date) {
 				DateTimeStartEnd result=new DateTimeStartEnd();
 				result.DateStart = date.Date;
 				result.DateEnd = date.Date.AddDays(1);
+				result.Title = date.ToString("dd.MM.yyyy");
 				return result;
 			}
 
@@ -32,6 +34,7 @@ namespace VotGES.Piramida.Report
 				DateTimeStartEnd result=new DateTimeStartEnd();				
 				result.DateStart = new DateTime(year, month, 1);				
 				result.DateEnd = result.DateStart.AddMonths(1);
+				result.Title = String.Format("{0}-{1}",month,year);
 				return result;
 			}
 
@@ -39,6 +42,7 @@ namespace VotGES.Piramida.Report
 				DateTimeStartEnd result=new DateTimeStartEnd();
 				result.DateStart = new DateTime(year, (quarter-1)*3+1, 1);
 				result.DateEnd = result.DateStart.AddMonths(3);
+				result.Title = String.Format("{0}кв. {1}", quarter, year);
 				return result;
 			}
 
@@ -46,6 +50,7 @@ namespace VotGES.Piramida.Report
 				DateTimeStartEnd result=new DateTimeStartEnd();
 				result.DateStart = new DateTime(year, 1, 1);
 				result.DateEnd = result.DateStart.AddYears(1);
+				result.Title = String.Format("{0}", year);
 				return result;
 			}
 
@@ -110,6 +115,7 @@ namespace VotGES.Piramida.Report
 						IsVisibleMonth = false;
 						IsVisibleQuarter = false;
 						IsVisibleYear = false;
+						
 						break;
 					case ReportTypeEnum.monthByDays:
 					case ReportTypeEnum.monthByHalfHours:
@@ -137,8 +143,10 @@ namespace VotGES.Piramida.Report
 						IsVisibleQuarter = false;
 						break;
 				}
-				if (HasCompareReport && CompareReport != null) {
-					CompareReport.ReportType = reportType;
+				if (HasCompareReport && ChildReports.Count>0) {
+					foreach (ReportSettings child in ChildReports) {
+						child.ReportType = reportType;
+					}
 				}
 				NotifyChanged("ReportType");
 			}
@@ -239,12 +247,37 @@ namespace VotGES.Piramida.Report
 			}
 		}
 
-		private ReportSettings compareReport;
-		public ReportSettings CompareReport {
-			get { return compareReport; }
+		private List<ReportSettings> childReports;
+		public List<ReportSettings> ChildReports {
+			get { return childReports; }
+			set { childReports = value; }
+		}
+
+		public void AddChildReport(ReportSettings child){
+			if (!ChildReports.Contains(child)) {
+				ChildReports.Add(child);
+				child.ReportType = ReportType;
+				child.ParentReport = this;
+				child.IsChildReport = true;
+				HasCompareReport = true;
+			}
+		}
+
+		public void RemoveChildReport(ReportSettings child) {
+			if (ChildReports.Contains(child)) {
+				ChildReports.Remove(child);
+				child.ParentReport = null;
+				child.IsChildReport = false;
+				HasCompareReport = ChildReports.Count>0;
+				NotifyChanged("ChildReports");
+			}
+		}
+
+		private ReportSettings parentReport;
+		public ReportSettings ParentReport {
+			get { return parentReport; }
 			set { 
-				compareReport = value;
-				NotifyChanged("CompareReport");
+				parentReport = value; 
 			}
 		}
 		
@@ -294,6 +327,8 @@ namespace VotGES.Piramida.Report
 			Month = DateTime.Now.Month;
 			Date = DateTime.Now.Date;
 			Quarter = 1;
+
+			ChildReports = new List<ReportSettings>();
 
 			ReportType = ReportTypeEnum.dayByHalfHours;
 		}
