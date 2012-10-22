@@ -36,7 +36,7 @@ namespace MainSL.Views
 			context = new GraphVyrabDomainContext();
 			pnlSettings.DataContext = CurrentAnswer;
 			settings = new SettingsGraphVyab();
-			settings.Second = 30;
+			settings.Second = 60;
 			settings.AutoRefresh = false;
 			pnlRefresh.DataContext = settings;
 			timer = new DispatcherTimer();
@@ -223,7 +223,7 @@ namespace MainSL.Views
 			get { return second; }
 			set {
 				second = value;
-				second = second < 0 ? 30 : second;
+				second = second < 0 ? 60 : second;
 				NotifyChanged("Second");
 			}
 		}
