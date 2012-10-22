@@ -25,7 +25,7 @@ namespace MainSL
 			
 
 			this.Startup += this.Application_Startup;
-			this.UnhandledException += this.Application_UnhandledException;
+			this.UnhandledException += this.Application_UnhandledException;			
 			WebContext webcontext = new WebContext();
 			webcontext.Authentication = new System.ServiceModel.DomainServices.Client.ApplicationServices.WindowsAuthentication();
 
@@ -62,5 +62,6 @@ namespace MainSL
 				errorWin.Show();
 			}
 		}
+		
 	}
 }

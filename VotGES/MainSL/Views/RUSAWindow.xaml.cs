@@ -16,6 +16,7 @@ namespace MainSL.Views
 	public partial class RUSAWindow : ChildWindow
 	{
 		RUSADomainContext context;
+		
 		public RUSAWindow() {
 			InitializeComponent();
 			context = new RUSADomainContext();

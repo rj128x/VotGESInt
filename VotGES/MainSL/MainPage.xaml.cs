@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using System.ServiceModel.DomainServices.Client.ApplicationServices;
 using MainSL.Logging;
 using System.Windows.Markup;
+using MainSL.Views;
 
 namespace MainSL
 {
@@ -46,5 +47,8 @@ namespace MainSL
 			ChildWindow errorWin = new ErrorWindow(e.Uri);
 			errorWin.Show();
 		}
+
+		
+
 	}
 }

@@ -184,7 +184,7 @@ namespace VotGES.PBR
 		}
 
 		public double getDiffProc(DateTime date) {
-			return getDiffProc(MinutesPBR[date], RealP[date]);
+			return getDiffProc(RealP[date], MinutesPBR[date]);
 		}
 
 		public static double getAvgHour(DateTime date, SortedList<DateTime, double> data) {

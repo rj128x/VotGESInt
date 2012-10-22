@@ -16,6 +16,7 @@ using VotGES.Chart;
 using VotGES.PBR;
 using System.Threading;
 using System.Windows.Threading;
+using MainSL.Logging;
 
 namespace MainSL.Views
 {
@@ -26,7 +27,8 @@ namespace MainSL.Views
 		public GraphVyrabDomainContext context;
 		public SettingsGraphVyab settings;
 		public RUSAWindow rusaWindow;
-
+		public bool PrevAutoRefresh { get; set; }
+		
 		public GraphVyrabRGEPage() {
 			InitializeComponent();
 			CurrentAnswer = new FullGraphVyrab();
@@ -35,14 +37,21 @@ namespace MainSL.Views
 			pnlSettings.DataContext = CurrentAnswer;
 			settings = new SettingsGraphVyab();
 			settings.Second = 30;
-			settings.AutoRefresh = true;
+			settings.AutoRefresh = false;
 			pnlRefresh.DataContext = settings;
 			timer = new DispatcherTimer();
 			timer.Tick += new EventHandler(timer_Tick);
 			timer.Interval = new TimeSpan(0, 0, 1);
 			rusaWindow = new RUSAWindow();
+			rusaWindow.Closed += new EventHandler(rusaWindow_Closed);
 		}
 
+		void rusaWindow_Closed(object sender, EventArgs e) {
+			settings.AutoRefresh = PrevAutoRefresh;
+		}
+
+				
+	
 		void timer_Tick(object sender, EventArgs e) {
 			if (!GlobalStatus.Current.IsBusy && settings.AutoRefresh) {
 				settings.Second--;
@@ -97,7 +106,7 @@ namespace MainSL.Views
 
 		private void refresh() {
 			if (GlobalStatus.Current.IsBusy)
-				return;
+				return;			
 			InvokeOperation currentOper=context.getFullGraphVyrab(
 				oper => {
 					if (oper.IsCanceled) {
@@ -147,6 +156,8 @@ namespace MainSL.Views
 		}
 
 		public void showRusa() {
+			PrevAutoRefresh = settings.AutoRefresh;
+			settings.AutoRefresh = false;			
 			try {
 				if (CurrentAnswer != null) {
 					rusaWindow.initNapor(CurrentAnswer.Napor);
