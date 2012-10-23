@@ -58,6 +58,9 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.P_GES));
 			record.addChild(GetFullReportRecord(PiramidaRecords.P_GTP1));
 			record.addChild(GetFullReportRecord(PiramidaRecords.P_GTP2));
+			record.addChild(GetFullReportRecord(PiramidaRecords.P_IKM_SN));
+			record.addChild(GetFullReportRecord(PiramidaRecords.P_IKM_Nebalans_GES));
+			record.addChild(GetFullReportRecord(PiramidaRecords.P_IKM_SP));
 
 			record = RootMain.addChild(GetFullReportRecord("Вода", "water"));
 			record.addChild(GetFullReportRecord(PiramidaRecords.Water_Napor));

@@ -11,6 +11,12 @@ namespace VotGES.Piramida
 		public static PiramidaRecord P_GTP1=new PiramidaRecord(2, 0, 2, "P ГТП1");
 		public static PiramidaRecord P_GTP2=new PiramidaRecord(2, 0, 3, "P ГТП2");
 
+		public static PiramidaRecord P_IKM_SN=new PiramidaRecord(2, 0, 14, "Расход на собственные нужды ГЭС");
+		public static PiramidaRecord P_IKM_Nebalans_GES=new PiramidaRecord(2, 0, 24, "Небаланс по ГЭС");		
+		public static PiramidaRecord P_IKM_SP=new PiramidaRecord(2, 0, 52, "Собственное потребление");
+
+
+
 		public static PiramidaRecord P_3AT_500_Priem=new PiramidaRecord(0, 8739, 1, "3АТ 500 кВ Прием (P)");
 		public static PiramidaRecord P_3AT_500_Otd=new PiramidaRecord(0, 8739, 2, "3АТ 500 кВ Отдача (P)");
 		public static PiramidaRecord Q_3AT_500_Priem=new PiramidaRecord(0, 8739, 3, "3АТ 500 кВ Прием (Q)");

@@ -32,6 +32,7 @@ namespace VotGES.Piramida.Report
 		public static RecordTypeCalc P_SN_GA=new RecordTypeCalc("P_SN_GA", "СН генераторов", null);
 		public static RecordTypeCalc P_Vozb=new RecordTypeCalc("P_Vozb", "Возбуждение", null);
 		public static RecordTypeCalc P_SK=new RecordTypeCalc("P_SK", "СК", null);
+		public static RecordTypeCalc P_SK_FULL=new RecordTypeCalc("P_SK_FULL", "СК", null);
 
 		static ReportGARecords() {
 			CreateGAP();
@@ -127,6 +128,20 @@ namespace VotGES.Piramida.Report
 						report[date, PiramidaRecords.P_GA9_Priem.Key] +
 						report[date, PiramidaRecords.P_GA10_Priem.Key];
 				});
+			P_SK_FULL.CalcFunction =
+				new RecordCalcDelegate((report, date) => {
+					return
+						report[date, PiramidaRecords.P_GA1_Priem.Key] +
+						report[date, PiramidaRecords.P_GA2_Priem.Key] +
+						report[date, PiramidaRecords.P_GA3_Priem.Key] +
+						report[date, PiramidaRecords.P_GA4_Priem.Key] +
+						report[date, PiramidaRecords.P_GA5_Priem.Key] +
+						report[date, PiramidaRecords.P_GA6_Priem.Key] +
+						report[date, PiramidaRecords.P_GA7_Priem.Key] +
+						report[date, PiramidaRecords.P_GA8_Priem.Key] +
+						report[date, PiramidaRecords.P_GA9_Priem.Key] +
+						report[date, PiramidaRecords.P_GA10_Priem.Key];
+				});
 		}
 
 		public static void CreateGAQ() {
@@ -194,6 +209,7 @@ namespace VotGES.Piramida.Report
 			report.AddRecordType(new RecordTypeCalc(P_GA10, toChart, visible, oper));
 
 			report.AddRecordType(new RecordTypeCalc(P_SK, toChart, visible, oper));
+			report.AddRecordType(new RecordTypeCalc(P_SK_FULL, toChart, visible, oper));
 			report.AddRecordType(new RecordTypeCalc(P_SN_GA, toChart, visible, oper));
 			report.AddRecordType(new RecordTypeCalc(P_Vozb, toChart, visible, oper));
 

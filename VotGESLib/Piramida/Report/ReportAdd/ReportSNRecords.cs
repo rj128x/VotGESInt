@@ -62,7 +62,7 @@ namespace VotGES.Piramida.Report
 
 			P_SN.CalcFunction=new RecordCalcDelegate((report, date) => {
 				return
-					report[date, ReportSNRecords.P_SN_10N.ID] +
+					/*report[date, ReportSNRecords.P_SN_10N.ID] +
 					report[date, ReportSNRecords.P_SN_1N.ID] +
 					report[date, ReportSNRecords.P_SN_2N.ID] +
 					report[date, ReportSNRecords.P_SN_36N.ID] +
@@ -71,7 +71,11 @@ namespace VotGES.Piramida.Report
 					report[date, ReportSNRecords.P_SN_8N.ID] +
 					report[date, ReportSNRecords.P_SN_9N.ID] +
 					report[date, ReportSNRecords.P_SN_Nasos.ID]+
-					report[date,PiramidaRecords.P_SN_TVI_Priem.Key];
+					report[date,PiramidaRecords.P_SN_TVI_Priem.Key];*/				
+					report[date, ReportGARecords.P_SN_GA.ID] +
+					report[date, PiramidaRecords.P_SN_7T_Priem.Key] +
+					report[date, PiramidaRecords.P_SN_8T_Priem.Key] +
+					report[date, ReportLinesRecords.P_KL6_Saldo.ID];
 			});
 
 			

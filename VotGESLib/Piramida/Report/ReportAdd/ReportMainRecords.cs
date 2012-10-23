@@ -19,9 +19,9 @@ namespace VotGES.Piramida.Report
 				return
 					report[date, ReportSNRecords.P_SN.ID] +
 					report[date, ReportGARecords.P_Vozb.ID] +
-					report[date, ReportGARecords.P_SN_GA.ID] +
 					report[date, ReportGlTransformRecords.P_T_Nebalans.ID] +
-					report[date, ReportLinesRecords.P_VL_Nebalans.ID];					
+					report[date, ReportLinesRecords.P_VL_Nebalans.ID] +
+					report[date, ReportGARecords.P_SK_FULL.ID];
 			});
 
 			P_Nebalans.CalcFunction=new RecordCalcDelegate((report, date) => {
@@ -43,7 +43,11 @@ namespace VotGES.Piramida.Report
 
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GES, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType:result, dbOper:oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GTP1, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType:result, dbOper:oper));
-			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GTP2, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType:result, dbOper:oper));			
+			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_GTP2, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType:result, dbOper:oper));
+
+			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_IKM_SN, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
+			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_IKM_Nebalans_GES, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
+			report.AddRecordType(new RecordTypeDB(PiramidaRecords.P_IKM_SP, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));			
 		}
 
 	}

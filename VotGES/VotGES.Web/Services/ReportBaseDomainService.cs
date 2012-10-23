@@ -43,6 +43,7 @@ namespace VotGES.Web.Services
 				if (TitleList.Count>0) {
 					reportAddList = new List<Report>();
 					for (int index=0; index < TitleList.Count; index++) {
+						Logger.Info(String.Format("Add {0} {1}-{2}", TitleList[index], DateStartList[index], DateEndList[index]));
 						FullReport reportAdd = new FullReport(DateStartList[index], DateEndList[index], Report.GetInterval(ReportType));
 						reportAdd.AddReportTitle = TitleList[index];
 						reportAdd.InitNeedData(selectedData);						

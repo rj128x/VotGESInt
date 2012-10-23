@@ -112,9 +112,9 @@ namespace MainSL.Views
 			foreach (ReportSettings setting in SettingsControl.Settings.ChildReports) {
 				ReportSettings.DateTimeStartEnd desCmp=ReportSettings.DateTimeStartEnd.getBySettings(setting);
 				if (!TitleList.Contains(desCmp.Title)){
-					dateStartList.Add(des.DateStart);
-					dateEndList.Add(des.DateEnd);
-					TitleList.Add(des.Title);
+					dateStartList.Add(desCmp.DateStart);
+					dateEndList.Add(desCmp.DateEnd);
+					TitleList.Add(desCmp.Title);
 				}
 			}
 			
