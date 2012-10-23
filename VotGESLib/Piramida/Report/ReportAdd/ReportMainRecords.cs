@@ -20,7 +20,8 @@ namespace VotGES.Piramida.Report
 					report[date, ReportSNRecords.P_SN.ID] +
 					report[date, ReportGARecords.P_Vozb.ID] +
 					report[date, ReportGlTransformRecords.P_T_Nebalans.ID] +
-					report[date, ReportLinesRecords.P_VL_Nebalans.ID] +
+					report[date, ReportLinesRecords.P_VL_Nebalans.ID]+
+					//report[date, ReportGARecords.P_SN_GA.ID] +
 					report[date, ReportGARecords.P_SK_FULL.ID];
 			});
 
