@@ -73,7 +73,7 @@ namespace VotGES.Piramida.Report
 		public RecordTypeCalc(string id, string title, RecordCalcDelegate calcFunction,
 			bool toChart = false, bool visible = false, ResultTypeEnum resultType = ResultTypeEnum.sum, string formatDouble = "#,0.##") {
 			ID = id;
-			Title = title;
+			Title = title+"*";
 			CalcFunction = calcFunction;
 			Visible = visible;
 			ToChart = toChart;
@@ -90,6 +90,7 @@ namespace VotGES.Piramida.Report
 			FormatDouble = formatDouble;
 			ResultType = resultType;
 		}
+
 	}
 
 	public class PiramidaReportResultRecord
@@ -394,7 +395,7 @@ namespace VotGES.Piramida.Report
 
 		protected void ReadDBData(string paramsKey, Dictionary<string, RecordTypeDB> records) {
 			string[]paramsArr=paramsKey.Split('-');
-			string dbOper=paramsArr[0];
+			DBOperEnum dbOper=(DBOperEnum)Enum.Parse(typeof(DBOperEnum), paramsArr[0]);
 			string parNumber=paramsArr[1];
 			string objType=paramsArr[2];
 			string obj=paramsArr[3];
@@ -423,23 +424,23 @@ namespace VotGES.Piramida.Report
 				command.Parameters.AddWithValue("@dateEnd", DateEnd);
 
 				string valueParams=String.Format(" (DATA_DATE{4}@dateStart and DATA_DATE<=@dateEnd and PARNUMBER={3} and OBJTYPE={1} and OBJECT={2} and ITEM in ({0})) ",
-					itemsStr, objType, obj, parNumber, dbOper == "eq" ? ">=" : ">");
+					itemsStr, objType, obj, parNumber, dbOper == DBOperEnum.eq ? ">=" : ">");
 
 				string commandText="";
-				string valueOper=dbOper != "eq" ? String.Format("{0}(Value0)", dbOper) : "Value0";
+				string valueOper=dbOper != DBOperEnum.eq ? String.Format("{0}(Value0)", dbOper) : "Value0";
 
 				if (objType == "2" && (obj == "3" || obj == "30")) {
 					switch (dbOper) {
-						case ("avg"):
+						case (DBOperEnum.avg):
 							valueOper = String.Format("{0}(Value0)", dbOper);
 							break;
-						case ("min"):
+						case (DBOperEnum.min):
 							valueOper = String.Format("{0}(ValueMin)", dbOper);
 							break;
-						case ("max"):
+						case (DBOperEnum.max):
 							valueOper = String.Format("{0}(ValueMax)", dbOper);
 							break;
-						case ("eq"):
+						case (DBOperEnum.eq):
 							valueOper = String.Format("ValueEq");
 							break;
 					}
@@ -461,7 +462,7 @@ namespace VotGES.Piramida.Report
 						commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
 							dateParam, valueOper, valueParams);
 
-						if (dbOper == "eq") {
+						if (dbOper == DBOperEnum.eq) {
 							commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} and datepart(second,DATA_DATE)=0",
 								dateParam, valueOper, valueParams);
 						}
@@ -474,7 +475,7 @@ namespace VotGES.Piramida.Report
 						commandText = String.Format("SELECT {0}, {1} from [dbo].DATA  WHERE {2} GROUP BY {0}",
 							dateParam, valueOper, valueParams, valueParams);
 
-						if (dbOper == "eq") {
+						if (dbOper == DBOperEnum.eq) {
 							commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} and (datepart(minute,DATA_DATE)=0 OR datepart(minute,DATA_DATE)=30) and datepart(second,DATA_DATE)=0",
 							dateParam, valueOper, valueParams);
 						}
@@ -487,7 +488,7 @@ namespace VotGES.Piramida.Report
 						commandText = String.Format("SELECT {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
 							dateParam, valueOper, valueParams, valueParams);
 
-						if (dbOper == "eq") {
+						if (dbOper == DBOperEnum.eq) {
 							commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} and datepart(minute,DATA_DATE)=0 and datepart(second,DATA_DATE)=0",
 							dateParam, valueOper, valueParams);
 						}
@@ -500,7 +501,7 @@ namespace VotGES.Piramida.Report
 						commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
 							dateParam, valueOper, valueParams, valueParams);
 
-						if (dbOper == "eq") {
+						if (dbOper == DBOperEnum.eq) {
 							commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} and datepart(hour,DATA_DATE)=0 and datepart(minute,DATA_DATE)=0 and datepart(second,DATA_DATE)=0",
 							dateParam, valueOper, valueParams);
 						}
@@ -513,7 +514,7 @@ namespace VotGES.Piramida.Report
 						commandText = String.Format("SELECT {0}, {1} from DATA d WHERE {2} GROUP BY {0}",
 							dateParam, valueOper, valueParams, valueParams);
 
-						if (dbOper == "eq") {
+						if (dbOper == DBOperEnum.eq) {
 							commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} and (datepart(month,DATA_DATE)=1 OR datepart(month,DATA_DATE)=4 OR datepart(month,DATA_DATE)=7 OR datepart(month,DATA_DATE)=10) and datepart(day,DATA_DATE)=1 and datepart(hour,DATA_DATE)=0 and datepart(minute,DATA_DATE)=0 and datepart(second,DATA_DATE)=0",
 							dateParam, valueOper, valueParams);
 						}
@@ -526,7 +527,7 @@ namespace VotGES.Piramida.Report
 						commandText = String.Format("SELECT {0}, {1} from DATA d WHERE {2} GROUP BY {0}",
 							dateParam, valueOper, valueParams, valueParams);
 
-						if (dbOper == "eq") {
+						if (dbOper == DBOperEnum.eq) {
 							commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} and datepart(day,DATA_DATE)=1 and datepart(hour,DATA_DATE)=0 and datepart(minute,DATA_DATE)=0 and datepart(second,DATA_DATE)=0",
 							dateParam, valueOper, valueParams);
 						}
@@ -539,7 +540,7 @@ namespace VotGES.Piramida.Report
 						commandText = String.Format("SELECT {0}, {1} from DATA  WHERE {2} GROUP BY {0}",
 							dateParam, valueOper, valueParams, valueParams);
 
-						if (dbOper == "eq") {
+						if (dbOper == DBOperEnum.eq) {
 							commandText = String.Format("SELECT  {0}, {1} from DATA  WHERE {2} and datepart(month,DATA_DATE)=1 and datepart(day,DATA_DATE)=1 and datepart(hour,DATA_DATE)=0 and datepart(minute,DATA_DATE)=0 and datepart(second,DATA_DATE)=0",
 							dateParam, valueOper, valueParams);
 						}
@@ -593,7 +594,9 @@ namespace VotGES.Piramida.Report
 							day = (int)reader[3];
 							hour = (int)reader[4];
 							val = (double)reader[5];
-							date = new DateTime(year, month, day, hour, 0, 0).AddHours(1); ;
+							date = new DateTime(year, month, day, hour, 0, 0);
+							if (dbOper != DBOperEnum.eq)
+								date = date.AddHours(1);
 							ok = true;
 							break;
 						case IntervalReportEnum.day:
@@ -601,27 +604,35 @@ namespace VotGES.Piramida.Report
 							month = (int)reader[2];
 							day = (int)reader[3];
 							val = (double)reader[4];
-							date = new DateTime(year, month, day, 0, 0, 0).AddDays(1);
+							date = new DateTime(year, month, day, 0, 0, 0);
+							if (dbOper != DBOperEnum.eq)
+								date = date.AddDays(1);
 							ok = true;
 							break;
 						case IntervalReportEnum.month:
 							year = (int)reader[1];
 							month = (int)reader[2];
 							val = (double)reader[3];
-							date = new DateTime(year, month, 1, 0, 0, 0).AddMonths(1);
+							date = new DateTime(year, month, 1, 0, 0, 0);
+							if (dbOper != DBOperEnum.eq)
+								date = date.AddMonths(1);
 							ok = true;
 							break;
 						case IntervalReportEnum.quarter:
 							year = (int)reader[1];
 							quarter = (int)reader[2];
 							val = (double)reader[3];
-							date = new DateTime(year, 3 * (quarter - 1) + 1, 1, 0, 0, 0).AddMonths(3);
+							date = new DateTime(year, 3 * (quarter - 1) + 1, 1, 0, 0, 0);
+							if (dbOper != DBOperEnum.eq)
+								date = date.AddMonths(3);
 							ok = true;
 							break;
 						case IntervalReportEnum.year:
 							year = (int)reader[1];
 							val = (double)reader[2];
-							date = new DateTime(year, 1, 1, 0, 0, 0).AddYears(1);
+							date = new DateTime(year, 1, 1, 0, 0, 0);
+							if (dbOper != DBOperEnum.eq)
+								date = date.AddYears(1);
 							ok = true;
 							break;
 

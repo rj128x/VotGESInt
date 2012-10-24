@@ -7,12 +7,14 @@ namespace VotGES.Piramida.Report
 {
 	public enum FullReportMembersType { min, max, avg, def,eq }
 	public class FullReport : Report
-	{		
+	{
+		public FullReportMembersType MBType { get; set; }
 		public FullReport(DateTime dateStart, DateTime dateEnd, IntervalReportEnum interval, FullReportMembersType mbType = FullReportMembersType.def) :
 			base(dateStart, dateEnd, interval)
 		{
 			int parNumber=12;
 			int scaleDiv=2;
+			MBType = mbType;
 			ResultTypeEnum result=ResultTypeEnum.sum;
 			DBOperEnum oper=DBOperEnum.sum;
 			if (interval == IntervalReportEnum.minute) {
@@ -73,10 +75,12 @@ namespace VotGES.Piramida.Report
 		}
 
 		public void InitNeedData(List<String> selected) {
-
 			foreach (String key in selected) {
-				RecordTypes[key].Visible = true;
-				RecordTypes[key].ToChart = true;
+				bool notAdd=(MBType == FullReportMembersType.max || MBType == FullReportMembersType.min) && RecordTypes[key] is RecordTypeCalc;
+				if (!notAdd) {
+					RecordTypes[key].Visible = true;
+					RecordTypes[key].ToChart = true;
+				}
 			}
 		}
 

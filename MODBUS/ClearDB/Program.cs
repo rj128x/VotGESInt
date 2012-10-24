@@ -43,6 +43,27 @@ namespace ClearDB
 			DateTime dateStart=getDate(ds, task == "copy4");
 			DateTime dateEnd=getDate(de, task == "copy4");
 
+			if ((new string[] { "copy4", "copy12"}).Contains(task)) {
+				List<int> pn4=(new int[]{4}).ToList();
+				List<int> pn12=(new int[]{12}).ToList();
+				List<int> pn=pn12;
+				string db="P3000";
+				switch (task){
+					case "copy4":
+						pn=pn4;
+						db="PMin";
+						break;
+					case "copy12":
+						pn=pn12;
+						db="P3000";
+						break;
+				}
+				DateTime dt=CopyData.getLastDate(dateStart, dateEnd, pn, db);
+				if (dt < dateStart) {
+					dateStart = dt;
+				}
+			}
+
 			DateTime date=dateStart.AddMinutes(0);
 			Logger.Info(task);
 

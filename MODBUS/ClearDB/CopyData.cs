@@ -13,6 +13,7 @@ namespace ClearDB
 	{
 		public static void WriteCopy(DateTime dateStart, DateTime dateEnd, List<int> parnumbers, string DBName) {			
 			Logger.Info(String.Format("{0} - {1}", dateStart, dateEnd));
+			
 			string sel=String.Format("SELECT * FROM DATA where parnumber in ({2}) and data_date>='{0}' and data_date<='{1}'", 
 				dateStart.ToString(DBClass.DateFormat), dateEnd.ToString(DBClass.DateFormat),String.Join(",",parnumbers));
 
@@ -74,6 +75,29 @@ namespace ClearDB
 				}
 			}
 			
+		}
+
+		public static  DateTime getLastDate(DateTime dateStart, DateTime dateEnd, List<int> parnumbers, string DBName) {
+			string selLast=String.Format("SELECT top 1 data_date FROM DATA where parnumber in ({1}) and data_date<='{0}' order by data_date desc",
+				dateEnd.ToString(DBClass.DateFormat), String.Join(",", parnumbers));
+			SqlConnection con=null;
+			try {
+				con = PiramidaAccess.getConnection(DBName);
+				con.Open();
+				SqlCommand command=con.CreateCommand();
+				command.CommandText = selLast;
+				SqlDataReader reader=command.ExecuteReader();				
+				
+				while (reader.Read()) {		
+					DateTime date=DateTime.Parse(reader[0].ToString());
+					return date;
+				}
+			} catch (Exception e) {
+				Logger.Info(e.ToString());
+			} finally {
+				try { con.Close(); } catch { };
+			}
+			return dateStart;
 		}
 
 	}
