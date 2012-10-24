@@ -405,7 +405,7 @@ namespace VotGES.Piramida.Report
 			if (objType == "2" && (obj == "3" || obj == "30")) {
 				connection = PiramidaAccess.getConnection("PSV");
 			}
-
+						
 			connection.Open();
 			SqlDataReader reader=null; SqlCommand command=null;
 			try {
@@ -418,6 +418,7 @@ namespace VotGES.Piramida.Report
 				string itemsStr=String.Join(",", items);
 
 				command = connection.CreateCommand();
+				command.CommandTimeout = 60;
 				command.Parameters.AddWithValue("@dateStart", DateStart);
 				command.Parameters.AddWithValue("@dateEnd", DateEnd);
 
@@ -724,7 +725,7 @@ namespace VotGES.Piramida.Report
 			Answer.Chart.Properties.addAxis(ax1);
 
 			ChartSerieType type=ChartSerieType.stepLine;
-			if (Interval == IntervalReportEnum.quarter || Interval == IntervalReportEnum.month) {
+			if (Interval == IntervalReportEnum.quarter || Interval == IntervalReportEnum.month || Interval == IntervalReportEnum.year) {
 				type = ChartSerieType.column;
 			}
 

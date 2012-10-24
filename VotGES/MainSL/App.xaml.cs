@@ -33,7 +33,7 @@ namespace MainSL
 			Logging.Logger.init(context);
 
 			this.ApplicationLifetimeObjects.Add(webcontext);
-
+			
 			WebContext.Current.Authentication.LoadUser(OnLoadUser_Completed, null);
 			InitializeComponent();			
 		}

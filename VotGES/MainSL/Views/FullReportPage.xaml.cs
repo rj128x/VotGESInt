@@ -13,6 +13,8 @@ using System.Windows.Navigation;
 using VotGES.Piramida.Report;
 using VotGES.Web.Services;
 using System.ServiceModel.DomainServices.Client;
+using System.Reflection;
+using System.ServiceModel;
 
 namespace MainSL.Views
 {
@@ -25,6 +27,8 @@ namespace MainSL.Views
 		public FullReportPage() {
 			InitializeComponent();
 			Context = new ReportBaseDomainContext();
+			/*WebDomainClient<ReportBaseDomainContext.IReportBaseDomainServiceContract> proxy = (WebDomainClient<ReportBaseDomainContext.IReportBaseDomainServiceContract>)Context.DomainClient;
+			proxy.ChannelFactory.Endpoint.Binding.SendTimeout = TimeSpan.FromMinutes(10);*/
 			SelectedValues = new List<string>();
 			SettingsControl.Settings.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Settings_PropertyChanged);
 		}
@@ -43,7 +47,7 @@ namespace MainSL.Views
 		}
 
 		private void btnAddCompare_Click(object sender, RoutedEventArgs e) {
-			if (SettingsControl.Settings.ChildReports.Count < 3) {
+			if (SettingsControl.Settings.ChildReports.Count < 10) {
 				ReportSettingsControl cntrl=new ReportSettingsControl();
 				pnlAddReports.Children.Add(cntrl);
 				SettingsControl.Settings.AddChildReport(cntrl.Settings);
@@ -123,6 +127,8 @@ namespace MainSL.Views
 			if (TitleList.Count > 0) {
 				des.Title = SettingsControl.Settings.MBType != FullReportMembersType.def ?
 					des.Title + "(" + SettingsControl.Settings.MBType.ToString() + ")" : des.Title;
+			} else {
+				des.Title = "";
 			}
 			
 			InvokeOperation currentOper=Context.GetFullReport(SelectedValues,des.Title,des.DateStart,des.DateEnd,
@@ -143,7 +149,7 @@ namespace MainSL.Views
 					GlobalStatus.Current.StopLoad();
 				}
 
-			}, null);
+			}, null);			
 			GlobalStatus.Current.StartLoad(currentOper);
 		}
 

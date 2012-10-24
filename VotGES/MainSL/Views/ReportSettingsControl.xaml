@@ -16,8 +16,8 @@
 					<TextBlock Text="Операция: " Style="{StaticResource Label}"/>
 					<ComboBox ItemsSource="{Binding MBTypeNames}" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedValue="{Binding MBType, Mode=TwoWay}" 
 							 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-				</StackPanel>
-				<sdk:Calendar SelectedDate="{Binding Date, Mode=TwoWay}" 
+				</StackPanel>				
+				<sdk:DatePicker SelectedDate="{Binding Date, Mode=TwoWay}" 
 								  Visibility="{Binding IsVisibleDate, Converter={StaticResource visibilityConverter}}"
 								  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 				<StackPanel Orientation="Horizontal">

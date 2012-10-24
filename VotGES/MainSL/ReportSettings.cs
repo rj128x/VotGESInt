@@ -57,7 +57,7 @@ namespace VotGES.Piramida.Report
 			public static DateTimeStartEnd getFullYears(int year,int yearEnd) {
 				DateTimeStartEnd result=new DateTimeStartEnd();
 				result.DateStart = new DateTime(year, 1, 1);
-				result.DateEnd = new DateTime(yearEnd, 1, 1); ;
+				result.DateEnd = new DateTime(yearEnd+1, 1, 1); ;
 				result.Title = String.Format("{0}-{1}", year,yearEnd);
 				return result;
 			}
@@ -396,7 +396,8 @@ namespace VotGES.Piramida.Report
 			MBTypeNames.Add(FullReportMembersType.max, "Максимум");
 			MBTypeNames.Add(FullReportMembersType.eq, "Точно");
 
-			Year = DateTime.Now.Year;
+			Year = DateTime.Now.Year; 
+			YearEnd = DateTime.Now.Year;
 			Month = DateTime.Now.Month;
 			Date = DateTime.Now.Date;
 			Quarter = 1;
