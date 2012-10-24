@@ -418,7 +418,7 @@ namespace VotGES.Piramida.Report
 				string itemsStr=String.Join(",", items);
 
 				command = connection.CreateCommand();
-				command.CommandTimeout = 60;
+				command.CommandTimeout = 360;
 				command.Parameters.AddWithValue("@dateStart", DateStart);
 				command.Parameters.AddWithValue("@dateEnd", DateEnd);
 
@@ -426,7 +426,7 @@ namespace VotGES.Piramida.Report
 					itemsStr, objType, obj, parNumber, dbOper == "eq" ? ">=" : ">");
 
 				string commandText="";
-				string valueOper=String.Format("{0}(Value0)", dbOper);
+				string valueOper=dbOper != "eq" ? String.Format("{0}(Value0)", dbOper) : "Value0";
 
 				if (objType == "2" && (obj == "3" || obj == "30")) {
 					switch (dbOper) {
@@ -446,6 +446,7 @@ namespace VotGES.Piramida.Report
 				}
 
 				string dt30="dateadd(minute,-30,DATA_DATE)";
+				//string dt30="DATA_DATE";
 				string dateParam=
 				String.Format(
 					"ITEM, datepart(year,{0}), datepart(month,{0}), datepart(day,{0}), datepart(hour,{0}), datepart(minute,{0})",

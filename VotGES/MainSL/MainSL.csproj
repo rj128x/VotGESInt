@@ -103,6 +103,7 @@
     <Compile Include="PBR\PBREditorWindow.xaml.cs">
       <DependentUpon>PBREditorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ReportDomainContext.cs" />
     <Compile Include="ReportSettings.cs" />
     <Compile Include="Views\ChartControl.xaml.cs">
       <DependentUpon>ChartControl.xaml</DependentUpon>
@@ -295,6 +296,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\votges.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
