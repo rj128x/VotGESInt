@@ -108,18 +108,26 @@ namespace MainSL.Views
 			ReportSettings.DateTimeStartEnd des=ReportSettings.DateTimeStartEnd.getBySettings(SettingsControl.Settings);
 			List<DateTime> dateStartList=new List<DateTime>();
 			List<DateTime> dateEndList=new List<DateTime>();
+			List<FullReportMembersType>mbTypeList=new List<FullReportMembersType>();
 			List<string> TitleList=new List<string>();
 			foreach (ReportSettings setting in SettingsControl.Settings.ChildReports) {
 				ReportSettings.DateTimeStartEnd desCmp=ReportSettings.DateTimeStartEnd.getBySettings(setting);
 				if (!TitleList.Contains(desCmp.Title)){
 					dateStartList.Add(desCmp.DateStart);
 					dateEndList.Add(desCmp.DateEnd);
-					TitleList.Add(desCmp.Title);
+					mbTypeList.Add(setting.MBType);
+					string title=setting.MBType != FullReportMembersType.def ? desCmp.Title + "(" + setting.MBType.ToString() + ")" : desCmp.Title;
+					TitleList.Add(title);
 				}
 			}
+			if (TitleList.Count > 0) {
+				des.Title = SettingsControl.Settings.MBType != FullReportMembersType.def ?
+					des.Title + "(" + SettingsControl.Settings.MBType.ToString() + ")" : des.Title;
+			}
 			
-			InvokeOperation currentOper=Context.GetFullReport(SelectedValues,des.DateStart,des.DateEnd,SettingsControl.Settings.ReportType,
-				TitleList,dateStartList,dateEndList,
+			InvokeOperation currentOper=Context.GetFullReport(SelectedValues,des.Title,des.DateStart,des.DateEnd,
+				SettingsControl.Settings.ReportType,SettingsControl.Settings.MBType,
+				TitleList,dateStartList,dateEndList,mbTypeList,
 				oper => {
 				if (oper.IsCanceled) {
 					return;

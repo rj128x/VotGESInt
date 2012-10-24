@@ -12,7 +12,7 @@ namespace VotGES.Piramida.Report
 	public enum ReportTypeEnum
 	{
 		dayByMinutes, dayByHalfHours, dayByHours, monthByDays, monthByHalfHours,
-		monthByHours, quarterByDays, yearByDays, yearByMonths, yearByQarters, day, month, quarter, year
+		monthByHours, quarterByDays, yearByDays, yearByMonths, yearByQarters,years, day, month, quarter, year
 	}
 	public enum IntervalReportEnum { minute, halfHour, hour, day, month, quarter, year }
 	public enum ResultTypeEnum { min, max, avg, sum }
@@ -154,6 +154,8 @@ namespace VotGES.Piramida.Report
 					return IntervalReportEnum.month;
 				case ReportTypeEnum.yearByQarters:
 					return IntervalReportEnum.quarter;
+				case ReportTypeEnum.years:
+					return IntervalReportEnum.year;
 			}
 			return IntervalReportEnum.halfHour;
 		}
@@ -667,7 +669,8 @@ namespace VotGES.Piramida.Report
 			foreach (RecordTypeBase recordType in RecordTypes.Values) {
 				if (recordType.Visible) {
 					if (!Answer.Columns.Keys.Contains(recordType.ID)) {
-						Answer.Columns.Add(recordType.ID, recordType.Title);
+						string title=reportAddList != null ? recordType.Title + " " + AddReportTitle : recordType.Title;
+						Answer.Columns.Add(recordType.ID, title);
 						Answer.Formats.Add(recordType.ID, recordType.FormatDouble);
 						if (reportAddList != null) {
 							foreach (Report reportAdd in reportAddList) {
@@ -734,7 +737,8 @@ namespace VotGES.Piramida.Report
 			foreach (RecordTypeBase recordType in RecordTypes.Values) {
 				if (recordType.ToChart) {
 					ChartSerieProperties props=new ChartSerieProperties();
-					props.Title = recordType.Title;
+					string title=reportAddList != null ? recordType.Title + " " + AddReportTitle : recordType.Title;
+					props.Title = title;
 					props.TagName = recordType.ID;
 					props.LineWidth = 2;
 					props.Color = ChartColor.GetColorStr(indexColor++);

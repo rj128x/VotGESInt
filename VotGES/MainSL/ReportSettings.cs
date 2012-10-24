@@ -54,6 +54,14 @@ namespace VotGES.Piramida.Report
 				return result;
 			}
 
+			public static DateTimeStartEnd getFullYears(int year,int yearEnd) {
+				DateTimeStartEnd result=new DateTimeStartEnd();
+				result.DateStart = new DateTime(year, 1, 1);
+				result.DateEnd = new DateTime(yearEnd, 1, 1); ;
+				result.Title = String.Format("{0}-{1}", year,yearEnd);
+				return result;
+			}
+
 			public static DateTimeStartEnd getBySettings(ReportSettings settings) {
 				switch (settings.reportType) {
 					case ReportTypeEnum.dayByHalfHours:
@@ -74,6 +82,8 @@ namespace VotGES.Piramida.Report
 					case ReportTypeEnum.yearByQarters:
 					case ReportTypeEnum.year:
 						return getFullYear(settings.Year);
+					case ReportTypeEnum.years:
+						return getFullYears(settings.Year, settings.YearEnd);
 				}
 				return null;
 			}
@@ -98,7 +108,12 @@ namespace VotGES.Piramida.Report
 			get { return quarterNames; }
 			set { quarterNames = value; }
 		}
-		
+
+		private Dictionary<FullReportMembersType,string>mbTypeNames;
+		public Dictionary<FullReportMembersType, string> MBTypeNames {
+			get { return mbTypeNames; }
+			set { mbTypeNames = value; }
+		}
 		
 
 		private ReportTypeEnum reportType;
@@ -115,7 +130,7 @@ namespace VotGES.Piramida.Report
 						IsVisibleMonth = false;
 						IsVisibleQuarter = false;
 						IsVisibleYear = false;
-						
+						IsVisibleYearEnd = false;						
 						break;
 					case ReportTypeEnum.monthByDays:
 					case ReportTypeEnum.monthByHalfHours:
@@ -123,6 +138,7 @@ namespace VotGES.Piramida.Report
 					case ReportTypeEnum.month:
 						IsVisibleDate = false;
 						IsVisibleYear = true;
+						IsVisibleYearEnd = false;
 						IsVisibleMonth = true;
 						IsVisibleQuarter = false;
 						break;
@@ -130,6 +146,7 @@ namespace VotGES.Piramida.Report
 					case ReportTypeEnum.quarter:
 						IsVisibleDate = false;
 						IsVisibleYear = true;
+						IsVisibleYearEnd = false;
 						IsVisibleMonth = false;
 						IsVisibleQuarter = true;
 						break;
@@ -139,6 +156,14 @@ namespace VotGES.Piramida.Report
 					case ReportTypeEnum.year:
 						IsVisibleDate = false;
 						IsVisibleYear = true;
+						IsVisibleYearEnd = false;
+						IsVisibleMonth = false;
+						IsVisibleQuarter = false;
+						break;
+					case ReportTypeEnum.years:
+						IsVisibleDate = false;
+						IsVisibleYear = true;
+						IsVisibleYearEnd = true;
 						IsVisibleMonth = false;
 						IsVisibleQuarter = false;
 						break;
@@ -152,6 +177,15 @@ namespace VotGES.Piramida.Report
 			}
 		}
 
+		private FullReportMembersType mbType;
+		public FullReportMembersType MBType {
+			get { return mbType; }
+			set {
+				mbType = value;
+				NotifyChanged("MBType");
+			}
+		}
+
 		private int year;
 		public int Year {
 			get { return year; }
@@ -161,6 +195,18 @@ namespace VotGES.Piramida.Report
 				year = year > DateTime.Now.Year ? DateTime.Now.Year : year;
 
 				NotifyChanged("Year");
+			}
+		}
+
+		private int yearEnd;
+		public int YearEnd {
+			get { return yearEnd; }
+			set {
+				yearEnd = value;
+				yearEnd = yearEnd < 1960 ? DateTime.Now.Year : yearEnd;
+				yearEnd = yearEnd > DateTime.Now.Year ? DateTime.Now.Year : yearEnd;
+
+				NotifyChanged("YearEnd");
 			}
 		}
 
@@ -190,6 +236,16 @@ namespace VotGES.Piramida.Report
 				Year = Date.Year;
 				Month = Date.Month;
 				NotifyChanged("Date");
+			}
+		}
+
+		private bool isFullReport;
+
+		public bool IsFullReport {
+			get { return isFullReport; }
+			set { 
+				isFullReport = value;
+				NotifyChanged("IsFullReport");
 			}
 		}
 
@@ -226,6 +282,15 @@ namespace VotGES.Piramida.Report
 			set { 
 				isVisibleYear = value;
 				NotifyChanged("IsVisibleYear");
+			}
+		}
+
+		private bool isVisibleYearEnd;
+		public bool IsVisibleYearEnd {
+			get { return isVisibleYearEnd; }
+			set {
+				isVisibleYearEnd = value;
+				NotifyChanged("IsVisibleYearEnd");
 			}
 		}
 
@@ -285,7 +350,8 @@ namespace VotGES.Piramida.Report
 			ReportTypeNames = new Dictionary<ReportTypeEnum, string>();
 			MonthNames = new Dictionary<int, string>();
 			QuarterNames = new Dictionary<int, string>();
-
+			MBTypeNames = new Dictionary<FullReportMembersType, string>();
+			IsFullReport = !onlyDates;
 			if (!onlyDates) {
 				ReportTypeNames.Add(ReportTypeEnum.dayByMinutes, "За сутки по минутам");
 				ReportTypeNames.Add(ReportTypeEnum.dayByHalfHours, "За сутки по 30 минут");
@@ -297,6 +363,7 @@ namespace VotGES.Piramida.Report
 				ReportTypeNames.Add(ReportTypeEnum.yearByDays, "За год по дням");
 				ReportTypeNames.Add(ReportTypeEnum.yearByMonths, "За год по месяцам");
 				ReportTypeNames.Add(ReportTypeEnum.yearByQarters, "За год по кварталам");
+				ReportTypeNames.Add(ReportTypeEnum.years, "По годам");
 			} else {
 				ReportTypeNames.Add(ReportTypeEnum.day, "За сутки");
 				ReportTypeNames.Add(ReportTypeEnum.month, "За месяц");
@@ -323,10 +390,17 @@ namespace VotGES.Piramida.Report
 			QuarterNames.Add(3, "3 Квартал");
 			QuarterNames.Add(4, "4 Квартал");
 
+			MBTypeNames.Add(FullReportMembersType.def, "По умолчанию");
+			MBTypeNames.Add(FullReportMembersType.avg, "Среднее");
+			MBTypeNames.Add(FullReportMembersType.min, "Минимум");
+			MBTypeNames.Add(FullReportMembersType.max, "Максимум");
+			MBTypeNames.Add(FullReportMembersType.eq, "Точно");
+
 			Year = DateTime.Now.Year;
 			Month = DateTime.Now.Month;
 			Date = DateTime.Now.Date;
 			Quarter = 1;
+			MBType = FullReportMembersType.def;
 
 			ChildReports = new List<ReportSettings>();
 

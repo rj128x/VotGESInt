@@ -31,11 +31,13 @@ namespace VotGES.Web.Services
 			}
 		}
 
-		public ReportAnswer GetFullReport(List<string> selectedData, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, 
-			List<string> TitleList, List<DateTime>DateStartList, List<DateTime>DateEndList) {
+		public ReportAnswer GetFullReport(List<string> selectedData, string Title, DateTime dateStart, DateTime dateEnd, 
+			ReportTypeEnum ReportType, FullReportMembersType mbType,
+			List<string> TitleList, List<DateTime>DateStartList, List<DateTime>DateEndList, List<FullReportMembersType>MBTypeList) {
 			try {
 				Logger.Info(String.Format("Получение отчета {0} - {1} [{2}]",dateStart,dateEnd,ReportType));
-				FullReport report=new FullReport(dateStart, dateEnd, Report.GetInterval(ReportType));
+				FullReport report=new FullReport(dateStart, dateEnd, Report.GetInterval(ReportType),mbType);
+				report.AddReportTitle = Title;
 				report.InitNeedData(selectedData);				
 				report.ReadData();
 
@@ -44,7 +46,7 @@ namespace VotGES.Web.Services
 					reportAddList = new List<Report>();
 					for (int index=0; index < TitleList.Count; index++) {
 						Logger.Info(String.Format("Add {0} {1}-{2}", TitleList[index], DateStartList[index], DateEndList[index]));
-						FullReport reportAdd = new FullReport(DateStartList[index], DateEndList[index], Report.GetInterval(ReportType));
+						FullReport reportAdd = new FullReport(DateStartList[index], DateEndList[index], Report.GetInterval(ReportType),MBTypeList[index]);
 						reportAdd.AddReportTitle = TitleList[index];
 						reportAdd.InitNeedData(selectedData);						
 						reportAdd.ReadData();

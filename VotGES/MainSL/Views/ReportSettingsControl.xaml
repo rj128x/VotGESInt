@@ -12,6 +12,11 @@
 				<ComboBox ItemsSource="{Binding ReportTypeNames}" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedValue="{Binding ReportType, Mode=TwoWay}" 
 							 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"
 							 Visibility="{Binding IsChildReport, Converter={StaticResource visibilityNotConverter}}"/>
+				<StackPanel Orientation="Horizontal" Visibility="{Binding IsFullReport, Converter={StaticResource visibilityConverter}}">
+					<TextBlock Text="Операция: " Style="{StaticResource Label}"/>
+					<ComboBox ItemsSource="{Binding MBTypeNames}" SelectedValuePath="Key" DisplayMemberPath="Value" SelectedValue="{Binding MBType, Mode=TwoWay}" 
+							 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+				</StackPanel>
 				<sdk:Calendar SelectedDate="{Binding Date, Mode=TwoWay}" 
 								  Visibility="{Binding IsVisibleDate, Converter={StaticResource visibilityConverter}}"
 								  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
@@ -30,7 +35,12 @@
 						<TextBlock Text="Год: " Style="{StaticResource Label}"/>
 						<TextBox Text="{Binding Year, Mode=TwoWay}"
 								IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-					</StackPanel>							
+					</StackPanel>
+					<StackPanel Visibility="{Binding IsVisibleYearEnd, Converter={StaticResource visibilityConverter}}" Orientation="Horizontal">
+						<TextBlock Text=" - " Style="{StaticResource Label}"/>
+						<TextBox Text="{Binding YearEnd, Mode=TwoWay}"
+								IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+					</StackPanel>
 				</StackPanel>
 				<Button Name="btnRemCompare" Content="Удалить сравнение" Click="btnRemCompare_Click"
 							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"
