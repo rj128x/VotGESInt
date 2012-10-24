@@ -9,20 +9,20 @@ using VotGES.Rashod;
 
 namespace ClearDB
 {
-	
-	
+
+
 	class Program
 	{
 
-		protected static DateTime getDate(string ds, bool minutes=false) {
+		protected static DateTime getDate(string ds, bool minutes = false) {
 			DateTime date;
 			bool ok=DateTime.TryParse(ds, out date);
 			if (!ok) {
 				int hh=0;
 				ok = Int32.TryParse(ds, out hh);
 				DateTime now=DateTime.Now;
-				date = new DateTime(now.Year, now.Month, now.Day, now.Hour,0,0);
-				date = !minutes?date.AddHours(-hh):date.AddMinutes(-hh).AddMinutes(DateTime.Now.Minute);
+				date = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
+				date = !minutes ? date.AddHours(-hh) : date.AddMinutes(-hh).AddMinutes(DateTime.Now.Minute);
 			}
 			return date;
 		}
@@ -32,7 +32,7 @@ namespace ClearDB
 			DBSettings.init();
 			Settings.init();
 			DBClass.DateFormat = Settings.single.DBDateFormat;
-			
+
 			string ds=args[0];
 			string de=args[1];
 			string task=args[2];
@@ -42,23 +42,45 @@ namespace ClearDB
 
 			DateTime dateStart=getDate(ds, task == "copy4");
 			DateTime dateEnd=getDate(de, task == "copy4");
+					
 
-			if ((new string[] { "copy4", "copy12"}).Contains(task)) {
-				List<int> pn4=(new int[]{4}).ToList();
-				List<int> pn12=(new int[]{12}).ToList();
+			if ((new string[] { "copy4", "copy12", "copy212" }).Contains(task)) {
+				Logger.Info("Find lastDate");
+				List<int> pn4=(new int[] { 4 }).ToList();
+				List<int> pn12=(new int[] { 12 }).ToList();
+				List<int> pn212=(new int[] { 212 }).ToList();
+				List<int> pn204=(new int[] { 204 }).ToList();
 				List<int> pn=pn12;
+				DateTime dts=dateStart;
+				int minutes=30;
 				string db="P3000";
-				switch (task){
+				switch (task) {
 					case "copy4":
-						pn=pn4;
-						db="PMin";
+						pn = pn4;
+						dts = dateStart.Date.AddDays(-1);
+						minutes = 1;
+						db = "PMin";
+						break;
+					case "copy204":
+						pn = pn204;
+						dts = dateStart.Date.AddDays(-1);
+						minutes = 1;
+						db = "PMin";
 						break;
 					case "copy12":
-						pn=pn12;
-						db="P3000";
+						pn = pn12;
+						dts = dateStart.Date.AddDays(-3);
+						minutes = 30;
+						db = "P3000";
+						break;
+					case "copy212":
+						pn = pn212;
+						dts = dateStart.Date.AddDays(-3);
+						db = "P3000";
+						minutes = 30;
 						break;
 				}
-				DateTime dt=CopyData.getLastDate(dateStart, dateEnd, pn, db);
+				DateTime dt=CopyData.getLastDate(dts, dateStart, pn, db, minutes);
 				if (dt < dateStart) {
 					dateStart = dt;
 				}
@@ -107,7 +129,11 @@ namespace ClearDB
 							break;
 						case "copy4":
 							hh = 1.0 / 6.0;
-							CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 4, 204 }).ToList(), "PMin");
+							CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 4 }).ToList(), "PMin");
+							break;
+						case "copy204":
+							hh = 1.0 / 6.0;
+							CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 204 }).ToList(), "PMin");
 							break;
 					}
 					date = date.AddHours(hh);
@@ -115,11 +141,11 @@ namespace ClearDB
 			}
 		}
 
-		
-
-		
 
 
-		
+
+
+
+
 	}
 }

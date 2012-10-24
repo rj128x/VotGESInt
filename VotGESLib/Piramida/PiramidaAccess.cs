@@ -113,7 +113,6 @@ namespace VotGES.Piramida
 
 		public static SqlConnection getConnection(string dbName) {
 			SqlConnection con=new SqlConnection(getConnectionString(DBSettings.single.DBInfoList[dbName]));			
-			
 			return con;
 		}
 
