@@ -58,25 +58,25 @@ namespace ClearDB
 				switch (task) {
 					case "copy4":
 						pn = pn4;
-						dts = dateStart.Date.AddDays(-1);
+						dts = dateStart.AddDays(-1);
 						minutes = 1;
 						db = "PMin";
 						break;
 					case "copy204":
 						pn = pn204;
-						dts = dateStart.Date.AddDays(-1);
+						dts = dateStart.AddDays(-1);
 						minutes = 1;
 						db = "PMin";
 						break;
 					case "copy12":
 						pn = pn12;
-						dts = dateStart.Date.AddDays(-3);
+						dts = dateStart.AddDays(-3);
 						minutes = 30;
 						db = "P3000";
 						break;
 					case "copy212":
 						pn = pn212;
-						dts = dateStart.Date.AddDays(-3);
+						dts = dateStart.AddDays(-3);
 						db = "P3000";
 						minutes = 30;
 						break;

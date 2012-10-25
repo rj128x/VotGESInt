@@ -8,6 +8,34 @@ using VotGES.XMLSer;
 
 namespace ModbusLib
 {
+	public class LastProcessedData
+	{
+		public static LastProcessedData Single { get; protected set; }
+		static LastProcessedData() {
+		}
+		protected static void init() {
+			Single = new LastProcessedData();
+			Single.LastProcessedHH = DateTime.MaxValue;
+			Single.LastProcessedMin = DateTime.MaxValue;
+		}
+		public DateTime LastProcessedMin { get; set; }
+		public DateTime LastProcessedHH { get; set; }
+		public static void Read() {
+			try {
+				Single = XMLSer<LastProcessedData>.fromXML("Data\\LastData.xml");
+			} catch {
+			}
+			if (Single == null) {
+				init();
+			}
+		}
+		public static void Write() {
+			try {
+				XMLSer<LastProcessedData>.toXML(Single, "Data\\LastData.xml");
+			} catch { }
+		}
+	}
+
 	public class MasterDBWriter
 	{
 		public int SleepTimeMin {get;protected set;}
@@ -54,7 +82,7 @@ namespace ModbusLib
 			}
 		}
 
-		public void Process(DateTime needDate, RWModeEnum mode, int depth) {
+		public DateTime Process(DateTime needDate, RWModeEnum mode, int depth,DateTime lastProcessed) {
 			DateTime DateEnd=needDate.AddMinutes(0);
 			DateTime DateStart=needDate.AddMinutes(0);
 
@@ -66,48 +94,54 @@ namespace ModbusLib
 				DateStart = DateEnd.AddMinutes(-depth * 1);
 			}
 
-			foreach (string id in InitArrays.Keys) {
-				processDate(id, DateStart, DateEnd, mode);
+			if (lastProcessed < DateStart) {
+				DateStart = lastProcessed;
 			}
-			
+			return processDate( DateStart, DateEnd, mode);			
 		}
 
-		public void Process(DateTime DateStart, DateTime DateEnd, RWModeEnum mode) {
+		public DateTime Process(DateTime DateStart, DateTime DateEnd, RWModeEnum mode) {
 			DateTime de=ModbusDataWriter.GetFileDate(DateEnd, mode, false);
 			DateTime now=ModbusDataWriter.GetFileDate(DateTime.Now, mode, true);
 			DateEnd = de > now ? now : de;
-			foreach (string id in InitArrays.Keys) {
-				processDate(id, DateStart, DateEnd, mode);
-			}
+			return processDate( DateStart, DateEnd, mode);
 		}
-
-		protected void processDate(string idInitArray, DateTime DateStart, DateTime DateEnd,RWModeEnum mode) {		
-			Logger.Info(String.Format("{0}: {1} - {2}   {3} -- {4}",DateTime.Now,idInitArray,mode,DateStart,DateEnd));
+		
+		protected DateTime processDate(DateTime DateStart, DateTime DateEnd,RWModeEnum mode) {		
+			Logger.Info(String.Format("{0}: {1}  {2} -- {3}",DateTime.Now,mode,DateStart,DateEnd));
 			DateTime date=DateStart.AddHours(0);
+			SortedList<string,DateTime> dtList=new SortedList<string, DateTime>();
 			while (date <= DateEnd) {
-				try {					
-					DataDBWriter writer=Writers[idInitArray];
-					List<String> fileNames=new List<string>();
-					fileNames.Add(ModbusDataWriter.GetFileName(Settings.single.DataPath,InitArrays[idInitArray], mode, date, false));
-					foreach (string path in Settings.single.AddDataPath) {
-						try {
-							fileNames.Add(ModbusDataWriter.GetFileName(path, InitArrays[idInitArray], mode, date, false));
-						} catch  {  }
+				foreach (string idInitArray in InitArrays.Keys) {
+					if (!dtList.ContainsKey(idInitArray)) {
+						dtList.Add(idInitArray, DateTime.MaxValue);
 					}
-					bool ready=writer.init(fileNames);
-					if (ready) {
-						Logger.Info(String.Format("=={0}", date));
-						writer.ReadAll();
-						writer.writeData(mode);
-						Logger.Info("====ok");
-					}
-				} catch (Exception e) {
-					Logger.Error("Ошибка при записи в базу");
-					Logger.Info(e.ToString());					
-				} finally {
-					date = mode==RWModeEnum.hh?date.AddMinutes(30):date.AddMinutes(1);
+
+					Logger.Info(String.Format("=={0} {1}", date, idInitArray));
+					try {
+						DataDBWriter writer=Writers[idInitArray];
+						List<String> fileNames=new List<string>();
+						fileNames.Add(ModbusDataWriter.GetFileName(Settings.single.DataPath, InitArrays[idInitArray], mode, date, false));
+						foreach (string path in Settings.single.AddDataPath) {
+							try {
+								fileNames.Add(ModbusDataWriter.GetFileName(path, InitArrays[idInitArray], mode, date, false));
+							} catch { }
+						}
+						bool ready=writer.init(fileNames);
+						if (ready) {
+							writer.ReadAll();
+							writer.writeData(mode);
+							dtList[idInitArray] = date;
+							Logger.Info("====ok");
+						}
+					} catch (Exception e) {
+						Logger.Error("Ошибка при записи в базу");
+						Logger.Info(e.ToString());
+					} 
 				}
+				date = mode == RWModeEnum.hh ? date.AddMinutes(30) : date.AddMinutes(1);
 			}
+			return dtList.Values.Min();
 		}
 
 
@@ -118,17 +152,19 @@ namespace ModbusLib
 		}
 
 		public void Run() {
-			Process(DateTime.Now, RWModeEnum.hh, DepthHH);
+			LastProcessedData.Read();
+			Process(DateTime.Now, RWModeEnum.hh, DepthHH, LastProcessedData.Single.LastProcessedHH);
 			while (true) {					
 				if (DepthMin >= 0) {
 					Logger.Info("====================MIN==================");
-					Process(DateTime.Now, RWModeEnum.min, DepthMin);
+					LastProcessedData.Single.LastProcessedMin = Process(DateTime.Now, RWModeEnum.min, DepthMin, LastProcessedData.Single.LastProcessedMin);
 				}
 				if (DateTime.Now.Minute % 30 < 5 && DateTime.Now.Minute % 30 >= 1 && LastHHDate.AddMinutes(20) < DateTime.Now) {
 					Logger.Info("====================HH===================");
-					Process(DateTime.Now, RWModeEnum.hh, DepthHH);
+					LastProcessedData.Single.LastProcessedHH = Process(DateTime.Now, RWModeEnum.hh, DepthHH, LastProcessedData.Single.LastProcessedHH);
 					LastHHDate = DateTime.Now;
 				}
+				LastProcessedData.Write();
 				Thread.Sleep(SleepTimeMin);			
 			}
 		}
