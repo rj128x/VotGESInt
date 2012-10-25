@@ -212,6 +212,12 @@ namespace MainSL.Views
 			} catch { }
 			showRusa();
 		}
+
+		private void btnPbr_Click(object sender, RoutedEventArgs e) {
+			string uri=String.Format("Reports/PBR?year={0}&month={1}&day={2}", 
+				CurrentAnswer.GTP.ActualDate.Year,CurrentAnswer.GTP.ActualDate.Month,CurrentAnswer.GTP.ActualDate.Day);
+			FloatWindow.OpenWindow(uri);
+		}
 		
 	}
 

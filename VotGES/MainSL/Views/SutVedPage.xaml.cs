@@ -41,35 +41,21 @@ namespace MainSL.Views
 			GlobalStatus.Current.StopLoad();
 		}
 
-		protected void OpenWindow(string url) {
-			string host=Application.Current.Host.Source.Host;
-			int port=Application.Current.Host.Source.Port;
-			Uri uri=new Uri(String.Format("http://{0}:{1}/{2}", host, port,url));
-			System.Windows.Browser.HtmlPopupWindowOptions options=new System.Windows.Browser.HtmlPopupWindowOptions();			
-			options.Resizeable=true;
-			options.Width=1100;
-			options.Height=600;
-			options.Menubar=true;
-			options.Directories=true;
-			options.Toolbar=true;
-			options.Status=true;			
-			System.Windows.Browser.HtmlPage.PopupWindow(uri, "", options);
-			
-		}
+		
 
 		private void btnGetReport_Click(object sender, RoutedEventArgs e) {			
 			string uri=String.Format("Reports/SutVed?year={0}&month={1}&day={2}",settings.Date.Year,settings.Date.Month,settings.Date.Day);
-			OpenWindow(uri);
+			FloatWindow.OpenWindow(uri);
 		}
 
 		private void btnGetPBR_Click(object sender, RoutedEventArgs e) {
 			string uri=String.Format("Reports/PBR?year={0}&month={1}&day={2}", settings.Date.Year, settings.Date.Month, settings.Date.Day);
-			OpenWindow(uri);
+			FloatWindow.OpenWindow(uri);
 		}
 
 		private void btnPrikaz20_Click(object sender, RoutedEventArgs e) {
 			string uri=String.Format("Reports/Prikaz20?year={0}&month={1}&day={2}", settings.Date.Year, settings.Date.Month, settings.Date.Day);
-			OpenWindow(uri);
+			FloatWindow.OpenWindow(uri);
 		}
 
 		private void btnGetPuskStop_Click(object sender, RoutedEventArgs e) {
@@ -77,8 +63,8 @@ namespace MainSL.Views
 			string uri=String.Format("Reports/PuskStop?year1={0}&month1={1}&day1={2}&year2={3}&month2={4}&day2={5}", 
 				des.DateStart.Year,des.DateStart.Month,des.DateStart.Day,
 				des.DateEnd.Year,des.DateEnd.Month,des.DateEnd.Day);
-			
-			OpenWindow(uri);
+
+			FloatWindow.OpenWindow(uri);
 		}
 
 		private void btnGetPuskStopFull_Click(object sender, RoutedEventArgs e) {
@@ -87,7 +73,7 @@ namespace MainSL.Views
 				des.DateStart.Year, des.DateStart.Month, des.DateStart.Day,
 				des.DateEnd.Year, des.DateEnd.Month, des.DateEnd.Day);
 
-			OpenWindow(uri);
+			FloatWindow.OpenWindow(uri);
 		}
 
 

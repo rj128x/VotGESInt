@@ -45,6 +45,9 @@
 			</sdk:TabControl>
 			<TextBlock Name="txtActualDate" Text="График нагрузки" FontSize="18" FontStyle="Italic" FontWeight="ExtraBold"
 						  HorizontalAlignment="Center" VerticalAlignment="Top"/>
+			<Button Name="btnPbr" Content="ПБР" Click="btnPbr_Click" Width="80"
+									  HorizontalAlignment="Right" VerticalAlignment="Top" 
+									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
 
 			<Grid x:Name="pnlSettings" Grid.Column="1">
 				<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
