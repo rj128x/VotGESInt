@@ -42,9 +42,10 @@ namespace ClearDB
 
 			DateTime dateStart=getDate(ds, task == "copy4");
 			DateTime dateEnd=getDate(de, task == "copy4");
-					
 
-			if ((new string[] { "copy4", "copy12", "copy212" }).Contains(task)) {
+			Logger.Info("======================================================================================");
+			Logger.Info(task);
+			if ((new string[] { "copy4", "copy12", "copy212","copy204" }).Contains(task)) {
 				Logger.Info("Find lastDate");
 				List<int> pn4=(new int[] { 4 }).ToList();
 				List<int> pn12=(new int[] { 12 }).ToList();
@@ -86,8 +87,7 @@ namespace ClearDB
 				}
 			}
 
-			DateTime date=dateStart.AddMinutes(0);
-			Logger.Info(task);
+			DateTime date=dateStart.AddMinutes(0);						
 
 			if (task == "sutVed") {
 				SutVed.ProcessFolder(Settings.single.SutVedPath, Settings.single.SutVedPathTo);

@@ -90,10 +90,11 @@ namespace ClearDB
 
 				while (reader.Read()) {
 					DateTime date=DateTime.Parse(reader[0].ToString());
+					Logger.Info("===" + date.ToString());
 					return date;
 				}
 			} catch (Exception e) {
-				Logger.Info(e.ToString());
+				Logger.Info("Last Date not Found");
 			} finally {
 				try { con.Close(); } catch { };
 			}
@@ -120,14 +121,15 @@ namespace ClearDB
 					int cnt=Int32.Parse(reader[1].ToString());
 					if (prevDate > DateTime.MinValue) {
 						if (prevDate.AddMinutes(minutes) < date || cnt < prevCnt) {
-							return prevDate;
+							Logger.Info("===" + prevDate.ToString());
+							return prevDate;							
 						}
 					}
 					prevDate = date;
 					prevCnt = cnt;
 				}
 			} catch (Exception e) {
-				Logger.Info(e.ToString());
+				Logger.Info("Last Date not Found");
 			} finally {
 				try { con.Close(); } catch { };
 			}
