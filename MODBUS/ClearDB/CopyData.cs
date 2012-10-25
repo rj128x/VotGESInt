@@ -102,7 +102,7 @@ namespace ClearDB
 
 
 		public static DateTime getLastDate(DateTime dateStart, DateTime dateEnd, List<int> parnumbers, string DBName, int minutes = 1) {
-			string selLast=String.Format("SELECT distinct(data_date),COUNT(VALUE0) FROM DATA where parnumber in ({2}) and data_date>='{0}' and data_date<='{1}' groupby COUNT(VALUE0) order by data_date",
+			string selLast=String.Format("SELECT distinct(data_date),COUNT(VALUE0) FROM DATA where parnumber in ({2}) and data_date>='{0}' and data_date<='{1}' group by data_date order by data_date",
 				dateStart.ToString(DBClass.DateFormat), dateEnd.ToString(DBClass.DateFormat), String.Join(",", parnumbers));
 			SqlConnection con=null;
 			try {
@@ -131,7 +131,7 @@ namespace ClearDB
 			} finally {
 				try { con.Close(); } catch { };
 			}
-			return dateStart;
+			return DateTime.MaxValue;
 		}
 
 	}
