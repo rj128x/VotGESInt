@@ -27,6 +27,10 @@ namespace MainSL.Views
 			this.DialogResult = true;
 		}
 
+		protected override void OnOpened() {
+			this.cntrlRUSA.clear();
+		}
+
 		public void initGTP1() {
 			this.cntrlRUSA.CurrentData.GaAvail[0].Avail = true;
 			this.cntrlRUSA.CurrentData.GaAvail[1].Avail = true;

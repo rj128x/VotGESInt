@@ -83,6 +83,29 @@ namespace MainSL.Views
 			GlobalStatus.Current.StopLoad();
 		}
 
+		public void process() {
+			gridDiff.Visibility = System.Windows.Visibility.Visible;
+			gridEq.Visibility = System.Windows.Visibility.Visible;
+			foreach (FullResultRUSARecord record in CurrentData.FullResultList) {
+				gridControls[record.CountGA].DataContext = record.Data;
+				items[record.CountGA].Visibility = System.Windows.Visibility.Visible;
+			}
+		}
+
+		public void clear() {
+			gridDiff.Visibility=System.Windows.Visibility.Collapsed;
+			gridEq.Visibility = System.Windows.Visibility.Collapsed;
+			for (int count=1; count <= 10; count++) {
+				items[count].Visibility = System.Windows.Visibility.Collapsed;
+				gridControls[count].DataContext = null;
+			}
+			try {
+				CurrentData.DiffResult.Clear();
+				CurrentData.EqResult.Clear();
+				CurrentData.FullResultList.Clear();				
+			} catch { }
+		}
+
 		private void btnCalcRUSA_Click(object sender, RoutedEventArgs e) {
 			InvokeOperation currentOper=context.processRUSAData(CurrentData, oper => {
 				if (oper.IsCanceled) {
@@ -90,15 +113,9 @@ namespace MainSL.Views
 				}
 				try {
 					GlobalStatus.Current.StartProcess();
-					CurrentData = oper.Value;
-					for (int count=1;count<=10;count++){
-						items[count].Visibility = System.Windows.Visibility.Collapsed;
-						gridControls[count].DataContext = null;
-					}
-					foreach (FullResultRUSARecord record in CurrentData.FullResultList) {
-						gridControls[record.CountGA].DataContext = record.Data;
-						items[record.CountGA].Visibility = System.Windows.Visibility.Visible;						
-					}
+					clear();
+					CurrentData = oper.Value;					
+					process();
 				} catch (Exception ex) {
 					Logging.Logger.info(ex.ToString());
 					GlobalStatus.Current.ErrorLoad("Ошибка");
