@@ -30,9 +30,13 @@ namespace ClearDB
 		public void ReadData() {
 			this.Year = getFileNameYear(FileName);
 			Data = new List<SutVedRecord>();
-			TextReader Reader = new StreamReader(File.Open(FileName, FileMode.Open, FileAccess.Read, FileShare.Read));
+			File.Copy(FileName, "temp", true);
+			TextReader Reader = new StreamReader(File.Open("temp", FileMode.Open, FileAccess.Read, FileShare.Read));
+
+			//TextReader Reader = new StreamReader(File.Open(FileName, FileMode.Open, FileAccess.Read, FileShare.Read));
 			string content=Reader.ReadToEnd();
 			Reader.Close();
+			File.Delete("temp");
 			content=content.Replace("ss:","");
 			content=content.Replace("x:","");
 			content=content.Replace("xmlns=","xxx=");
