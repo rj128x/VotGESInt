@@ -195,6 +195,7 @@ namespace MainSL
 				double y=data[firstDate];
 				double y2=data[firstDate.AddMinutes(30)];
 				double y1=y2-2*y;
+				y1 = y1 < 0 ? -y1 : y1;
 				data.Remove(firstDate);
 				data.Add(firstDate.AddMinutes(-30), y1);
 			}
