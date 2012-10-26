@@ -22,7 +22,7 @@ namespace VotGES.PrognozNB
 			DateEnd = DateStart.AddDays(daysCount);
 		}
 
-		public void startPrognoz() {
+		public void startPrognoz(bool correct) {
 			prognoz = new PrognozNB();
 
 			prognoz.FirstData = readFirstData(DatePrognozStart);
@@ -49,7 +49,7 @@ namespace VotGES.PrognozNB
 					}
 				}
 			}
-			prognoz.calcPrognoz();
+			prognoz.calcPrognoz(correct);
 		}
 
 		public override ChartAnswer getChart() {

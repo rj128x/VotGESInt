@@ -25,7 +25,7 @@ namespace VotGES.Web.Services
 	public class PrognozNBService : DomainService
 	{
 		
-		public ChartAnswer checkPrognozNB(DateTime date,int countDays, bool isQFakt,int hourStart, int minStart) {
+		public ChartAnswer checkPrognozNB(DateTime date,int countDays, bool isQFakt,bool correctByPrev,int hourStart, int minStart) {
 			WebLogger.Info(String.Format("Получение прогноза (факт) {0} - {1}", date, countDays));
 			try {
 				if (date.AddHours(-2).Date >= DateTime.Now.Date)
@@ -33,7 +33,7 @@ namespace VotGES.Web.Services
 				
 				CheckPrognozNB prognoz=new CheckPrognozNB(date.Date,countDays,isQFakt,hourStart,minStart);
 				//PrognozNBByPBR prognoz=new PrognozNBByPBR(date.Date, 1, date.Date.AddHours(8).AddMinutes(15),null);
-				prognoz.startPrognoz();				
+				prognoz.startPrognoz(correctByPrev);				
 				return prognoz.getChart();
 			} catch (Exception e) {
 				WebLogger.Error(e.ToString());
@@ -41,14 +41,14 @@ namespace VotGES.Web.Services
 			}
 		}
 
-		public PrognozNBByPBRAnswer getPrognoz( int countDays, SortedList<DateTime,double> pbr) {
+		public PrognozNBByPBRAnswer getPrognoz( int countDays,bool correctByPrev, SortedList<DateTime,double> pbr) {
 			WebLogger.Info(String.Format("Получение прогноза (прогноз) {0} [{1}]", countDays, pbr == null ? "" : String.Join(" ", pbr)));
 			try {
 				DateTime date= DateTime.Now.AddHours(-2);
 				//DateTime date=new DateTime(2010, 03, 15);
 				//date = date.AddHours(13).AddMinutes(35);
 				PrognozNBByPBR prognoz=new PrognozNBByPBR(date.Date,countDays,date,pbr);
-				prognoz.startPrognoz();
+				prognoz.startPrognoz(correctByPrev);
 				return prognoz.PrognozAnswer;
 			} catch (Exception e) {
 				WebLogger.Error(e.ToString());

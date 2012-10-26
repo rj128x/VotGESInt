@@ -50,7 +50,20 @@ namespace MainSL.Views
 				}
 			}
 
+			private bool correctByPrev;
+			public bool CorrectByPrev {
+				get { return correctByPrev; }
+				set { 
+					correctByPrev = value;
+					NotifyChanged("CorrectByPrev");
+				}
+			}
+
 			public Dictionary<DateTime, double> PrevData { get; set; }
+
+			public Settings() {
+				CorrectByPrev = true;
+			}
 		}
 
 
@@ -95,7 +108,7 @@ namespace MainSL.Views
 
 		protected void loadPrognoz(bool useUserPBR) {
 			settings.UserPBR.convertToHalfHoursPBR();
-			InvokeOperation currentOper=context.getPrognoz(settings.CountDays, useUserPBR ? settings.UserPBR.Data : null, oper => {
+			InvokeOperation currentOper=context.getPrognoz(settings.CountDays,settings.CorrectByPrev, useUserPBR ? settings.UserPBR.Data : null, oper => {
 				if (oper.IsCanceled) {
 					return;
 				}

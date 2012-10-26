@@ -6990,17 +6990,19 @@ namespace VotGES.Web.Services
         /// <param name="date">Значение параметра "date" для данного действия.</param>
         /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
         /// <param name="isQFakt">Значение параметра "isQFakt" для данного действия.</param>
+        /// <param name="correctByPrev">Значение параметра "correctByPrev" для данного действия.</param>
         /// <param name="hourStart">Значение параметра "hourStart" для данного действия.</param>
         /// <param name="minStart">Значение параметра "minStart" для данного действия.</param>
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays, bool isQFakt, int hourStart, int minStart, Action<InvokeOperation<ChartAnswer>> callback, object userState)
+        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays, bool isQFakt, bool correctByPrev, int hourStart, int minStart, Action<InvokeOperation<ChartAnswer>> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("date", date);
             parameters.Add("countDays", countDays);
             parameters.Add("isQFakt", isQFakt);
+            parameters.Add("correctByPrev", correctByPrev);
             parameters.Add("hourStart", hourStart);
             parameters.Add("minStart", minStart);
             this.ValidateMethod("checkPrognozNB", parameters);
@@ -7013,15 +7015,17 @@ namespace VotGES.Web.Services
         /// <param name="date">Значение параметра "date" для данного действия.</param>
         /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
         /// <param name="isQFakt">Значение параметра "isQFakt" для данного действия.</param>
+        /// <param name="correctByPrev">Значение параметра "correctByPrev" для данного действия.</param>
         /// <param name="hourStart">Значение параметра "hourStart" для данного действия.</param>
         /// <param name="minStart">Значение параметра "minStart" для данного действия.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays, bool isQFakt, int hourStart, int minStart)
+        public InvokeOperation<ChartAnswer> checkPrognozNB(DateTime date, int countDays, bool isQFakt, bool correctByPrev, int hourStart, int minStart)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("date", date);
             parameters.Add("countDays", countDays);
             parameters.Add("isQFakt", isQFakt);
+            parameters.Add("correctByPrev", correctByPrev);
             parameters.Add("hourStart", hourStart);
             parameters.Add("minStart", minStart);
             this.ValidateMethod("checkPrognozNB", parameters);
@@ -7032,14 +7036,16 @@ namespace VotGES.Web.Services
         /// Асинхронно вызывает метод "getPrognoz" службы DomainService.
         /// </summary>
         /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+        /// <param name="correctByPrev">Значение параметра "correctByPrev" для данного действия.</param>
         /// <param name="pbr">Значение параметра "pbr" для данного действия.</param>
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<PrognozNBByPBRAnswer> getPrognoz(int countDays, Dictionary<DateTime, double> pbr, Action<InvokeOperation<PrognozNBByPBRAnswer>> callback, object userState)
+        public InvokeOperation<PrognozNBByPBRAnswer> getPrognoz(int countDays, bool correctByPrev, Dictionary<DateTime, double> pbr, Action<InvokeOperation<PrognozNBByPBRAnswer>> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("countDays", countDays);
+            parameters.Add("correctByPrev", correctByPrev);
             parameters.Add("pbr", pbr);
             this.ValidateMethod("getPrognoz", parameters);
             return ((InvokeOperation<PrognozNBByPBRAnswer>)(this.InvokeOperation("getPrognoz", typeof(PrognozNBByPBRAnswer), parameters, true, callback, userState)));
@@ -7049,12 +7055,14 @@ namespace VotGES.Web.Services
         /// Асинхронно вызывает метод "getPrognoz" службы DomainService.
         /// </summary>
         /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+        /// <param name="correctByPrev">Значение параметра "correctByPrev" для данного действия.</param>
         /// <param name="pbr">Значение параметра "pbr" для данного действия.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<PrognozNBByPBRAnswer> getPrognoz(int countDays, Dictionary<DateTime, double> pbr)
+        public InvokeOperation<PrognozNBByPBRAnswer> getPrognoz(int countDays, bool correctByPrev, Dictionary<DateTime, double> pbr)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("countDays", countDays);
+            parameters.Add("correctByPrev", correctByPrev);
             parameters.Add("pbr", pbr);
             this.ValidateMethod("getPrognoz", parameters);
             return ((InvokeOperation<PrognozNBByPBRAnswer>)(this.InvokeOperation("getPrognoz", typeof(PrognozNBByPBRAnswer), parameters, true, null, null)));
@@ -7082,6 +7090,7 @@ namespace VotGES.Web.Services
             /// <param name="date">Значение параметра "date" для данного действия.</param>
             /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
             /// <param name="isQFakt">Значение параметра "isQFakt" для данного действия.</param>
+            /// <param name="correctByPrev">Значение параметра "correctByPrev" для данного действия.</param>
             /// <param name="hourStart">Значение параметра "hourStart" для данного действия.</param>
             /// <param name="minStart">Значение параметра "minStart" для данного действия.</param>
             /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
@@ -7089,7 +7098,7 @@ namespace VotGES.Web.Services
             /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/PrognozNBService/checkPrognozNBDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/PrognozNBService/checkPrognozNB", ReplyAction="http://tempuri.org/PrognozNBService/checkPrognozNBResponse")]
-            IAsyncResult BegincheckPrognozNB(DateTime date, int countDays, bool isQFakt, int hourStart, int minStart, AsyncCallback callback, object asyncState);
+            IAsyncResult BegincheckPrognozNB(DateTime date, int countDays, bool isQFakt, bool correctByPrev, int hourStart, int minStart, AsyncCallback callback, object asyncState);
             
             /// <summary>
             /// Завершает асинхронную операцию, начатую "BegincheckPrognozNB".
@@ -7102,13 +7111,14 @@ namespace VotGES.Web.Services
             /// Асинхронно вызывает операцию "getPrognoz".
             /// </summary>
             /// <param name="countDays">Значение параметра "countDays" для данного действия.</param>
+            /// <param name="correctByPrev">Значение параметра "correctByPrev" для данного действия.</param>
             /// <param name="pbr">Значение параметра "pbr" для данного действия.</param>
             /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
             /// <param name="asyncState">Необязательный объект состояния.</param>
             /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/PrognozNBService/getPrognozDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/PrognozNBService/getPrognoz", ReplyAction="http://tempuri.org/PrognozNBService/getPrognozResponse")]
-            IAsyncResult BegingetPrognoz(int countDays, Dictionary<DateTime, double> pbr, AsyncCallback callback, object asyncState);
+            IAsyncResult BegingetPrognoz(int countDays, bool correctByPrev, Dictionary<DateTime, double> pbr, AsyncCallback callback, object asyncState);
             
             /// <summary>
             /// Завершает асинхронную операцию, начатую "BegingetPrognoz".

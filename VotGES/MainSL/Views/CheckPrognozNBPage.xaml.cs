@@ -67,6 +67,19 @@ namespace MainSL.Views
 					NotifyChanged("MinStart");
 				}
 			}
+
+			private bool correctByPrev;
+			public bool CorrectByPrev {
+				get { return correctByPrev; }
+				set {
+					correctByPrev = value;
+					NotifyChanged("CorrectByPrev");
+				}
+			}
+
+			public Settings() {
+				CorrectByPrev = true;
+			}
 		}
 
 		public Settings settings;
@@ -91,7 +104,7 @@ namespace MainSL.Views
 		}
 
 		private void btnGetPrognoz_Click(object sender, RoutedEventArgs e) {
-			InvokeOperation currentOper=context.checkPrognozNB(settings.Date, settings.CountDays, settings.IsQFakt, settings.HourStart, settings.MinStart, 
+			InvokeOperation currentOper=context.checkPrognozNB(settings.Date, settings.CountDays, settings.IsQFakt,settings.CorrectByPrev, settings.HourStart, settings.MinStart, 
 				oper => {
 					if (oper.IsCanceled) {
 						return;

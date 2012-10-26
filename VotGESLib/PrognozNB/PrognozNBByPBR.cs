@@ -223,7 +223,7 @@ namespace VotGES.PrognozNB
 			PrognozAnswer = answer;
 		}
 
-		public void startPrognoz() {
+		public void startPrognoz(bool correct) {
 			prognoz = new PrognozNB();
 
 			prognoz.FirstData = readFirstData(DatePrognozStart);
@@ -247,7 +247,7 @@ namespace VotGES.PrognozNB
 				prev = de.Value;
 				isFirst = false;
 			}
-			prognoz.calcPrognoz();
+			prognoz.calcPrognoz(correct);
 			processAnswer();
 			
 

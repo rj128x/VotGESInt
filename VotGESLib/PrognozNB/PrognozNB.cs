@@ -81,16 +81,22 @@ namespace VotGES.PrognozNB
 			nnet = NNET.NNET.getNNET(NNET.NNETMODEL.vges_nb);
 		}
 
-		public void calcPrognoz() {
-			if (PArr.Count % 24 != 0) {
-				int addCnt=24 - PArr.Count % 24;
+		public void calcPrognoz(bool correct) {
+			if (correct) {
+				calcPrognozWithCorrect();
+			} else {
+				calcPrognozWithoutCorrect();
+			}
+		}
+
+		protected void calcPrognozWithCorrect() {
+			if (PArr.Count % 23 != 0) {
+				int addCnt=23 - PArr.Count % 23;
 				for (int i=0; i < addCnt; i++) {
 					DateTime last=PArr.Last().Key;
 					PArr.Add(last.AddMinutes(30), PArr[last]);
 				}
 			}
-
-
 			
 			SortedList<int,double>prevDataRashodArray=new SortedList<int, double>();
 			SortedList<int,double>prevDataNBArray=new SortedList<int, double>();
@@ -131,6 +137,128 @@ namespace VotGES.PrognozNB
 				DateTime Key=pArr.Keys[indexPoint];
 				dataForPrognoz.Add(Key, pArr[Key]);
 				naporsForPrognoz.Add(Key, napors[Key]);
+				if (dataForPrognoz.Count == 23) {
+					SortedList<int,double> outputVector=new SortedList<int, double>();
+					for (int step=0; step <= 3; step++) {
+						SortedList<int, double> inputVector=new SortedList<int, double>();
+						inputVector[0] = DatePrognozStart.Year;
+						inputVector[1] = DatePrognozStart.DayOfYear;
+						inputVector[2] = T;
+
+						inputVector[3] = prevDataVBArray[0];
+						inputVector[4] = prevDataVBArray[1];
+						inputVector[5] = prevDataVBArray[2];
+						inputVector[6] = prevDataVBArray[3];
+
+						inputVector[7] = prevDataRashodArray[0];
+						inputVector[8] = prevDataRashodArray[1];
+						inputVector[9] = prevDataRashodArray[2];
+						inputVector[10] = prevDataRashodArray[3];
+
+						inputVector[11] = prevDataRashodArray[4];
+
+						for (int i=0; i < 23; i++) {
+							double rashod=0;
+							if (!IsQFakt) {
+								rashod = RashodTable.getStationRashod(pArr[dataForPrognoz.Keys[i]], naporsForPrognoz[dataForPrognoz.Keys[i]], RashodCalcMode.avg)*k;
+							} else {
+								rashod = rashods[dataForPrognoz.Keys[i]];
+							}
+
+							rashods[dataForPrognoz.Keys[i]] = rashod;
+							inputVector[i + 12] = rashod;
+						}
+
+						inputVector[35] = prevDataNBArray[0];
+						inputVector[36] = prevDataNBArray[1];
+						inputVector[37] = prevDataNBArray[2];
+						inputVector[38] = prevDataNBArray[3];
+
+						outputVector = nnet.calc(inputVector);
+
+						double correct=outputVector[0]/prevDataNBArray[4];
+
+						for (int i=1; i < outputVector.Count; i++) {
+							prognoz[dataForPrognoz.Keys[i-1]] = outputVector[i]/correct;
+						}
+
+						for (int i=0; i < 23; i++) {
+							naporsForPrognoz[dataForPrognoz.Keys[i]] = prevDataVBArray[4] - prognoz[dataForPrognoz.Keys[i]];
+							napors[dataForPrognoz.Keys[i]] = naporsForPrognoz[dataForPrognoz.Keys[i]];
+						}
+					}
+
+					for (int i=0; i <= 4; i++) {
+						prevDataNBArray[i] = prognoz[dataForPrognoz.Keys[18 + i]];
+						prevDataRashodArray[i] = rashods[dataForPrognoz.Keys[18 + i]];
+					}
+
+					dataForPrognoz.Clear();
+				}
+			}
+
+
+			while (prognoz.Last().Key > DatePrognozEnd) {
+				prognoz.Remove(prognoz.Last().Key);
+			}
+			while (rashods.Last().Key > DatePrognozEnd) {
+				rashods.Remove(rashods.Last().Key);
+			}
+			while (napors.Last().Key > DatePrognozEnd) {
+				napors.Remove(napors.Last().Key);
+			}
+		}
+
+
+
+		public void calcPrognozWithoutCorrect() {
+			if (PArr.Count % 24 != 0) {
+				int addCnt=24 - PArr.Count % 24;
+				for (int i=0; i < addCnt; i++) {
+					DateTime last=PArr.Last().Key;
+					PArr.Add(last.AddMinutes(30), PArr[last]);
+				}
+			}
+			
+			SortedList<int,double>prevDataRashodArray=new SortedList<int, double>();
+			SortedList<int,double>prevDataNBArray=new SortedList<int, double>();
+			SortedList<int,double>prevDataVBArray=new SortedList<int, double>();
+			prognoz = new SortedList<DateTime, double>();
+
+			int index=0;
+			double k=0;
+			foreach (DateTime date in FirstData.Keys) {
+				prevDataRashodArray.Add(index, FirstData[date].Q);
+				prevDataNBArray.Add(index, FirstData[date].NB);
+				prevDataVBArray.Add(index, FirstData[date].VB);
+				k = FirstData[date].Q / RashodTable.getStationRashod(FirstData[date].P, FirstData[date].VB - FirstData[date].NB, RashodCalcMode.avg);
+				index++;
+			}
+
+
+			napors = new SortedList<DateTime, double>();
+			rashods = new SortedList<DateTime, double>();
+
+
+			double napor=prevDataVBArray.Last().Value - prevDataNBArray.Last().Value;
+			foreach (KeyValuePair<DateTime,double>de in pArr) {
+				napors.Add(de.Key, napor);
+			}
+
+			foreach (KeyValuePair<DateTime,double> de in PArr) {
+				double rashod=IsQFakt ? de.Value : RashodTable.getStationRashod(de.Value, napors[de.Key], RashodCalcMode.avg) * k;
+				rashods.Add(de.Key, rashod);
+				prognoz.Add(de.Key, 0);
+			}
+			//prognoz.Add(rashods.First().Key.AddMinutes(-30), prevDataNBArray[4]);
+
+			double currentNapor=napors.First().Value;
+			SortedList<DateTime,double> dataForPrognoz=new SortedList<DateTime, double>();
+			SortedList<DateTime,double> naporsForPrognoz=new SortedList<DateTime, double>();
+			for (int indexPoint=0; indexPoint < pArr.Keys.Count; indexPoint++) {
+				DateTime Key=pArr.Keys[indexPoint];
+				dataForPrognoz.Add(Key, pArr[Key]);
+				naporsForPrognoz.Add(Key, napors[Key]);
 				if (dataForPrognoz.Count == 24) {
 					SortedList<int,double> outputVector=new SortedList<int, double>();
 					for (int step=0; step <= 3; step++) {
@@ -152,7 +280,7 @@ namespace VotGES.PrognozNB
 						for (int i=0; i < 24; i++) {
 							double rashod=0;
 							if (!IsQFakt) {
-								rashod = RashodTable.getStationRashod(pArr[dataForPrognoz.Keys[i]], naporsForPrognoz[dataForPrognoz.Keys[i]], RashodCalcMode.avg)*k;
+								rashod = RashodTable.getStationRashod(pArr[dataForPrognoz.Keys[i]], naporsForPrognoz[dataForPrognoz.Keys[i]], RashodCalcMode.avg) * k;
 							} else {
 								rashod = rashods[dataForPrognoz.Keys[i]];
 							}
@@ -198,6 +326,11 @@ namespace VotGES.PrognozNB
 				napors.Remove(napors.Last().Key);
 			}
 		}
+
+
+
+
+
 
 		public void AddChartData(ChartData data) {
 			ChartDataSerie prognozNBSerie=new ChartDataSerie();

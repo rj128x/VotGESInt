@@ -31,8 +31,10 @@
 				<TextBox Name="txtMinStart" Width="30" TextAlignment="Right" Text="{Binding MinStart, Mode=TwoWay, StringFormat='00'}" 								
 							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 			</StackPanel>
-			<CheckBox Name="chbIsQFakt" IsChecked="{Binding IsQFakt, Mode=TwoWay}" Content="По фактическому расходу" Style="{StaticResource LabelChb}"
+			<CheckBox Name="chbCorrect" IsChecked="{Binding CorrectByPrev, Mode=TwoWay}" Content="Корректировать прогноз" Style="{StaticResource LabelChb}"
 						 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+			<CheckBox Name="chbIsQFakt" IsChecked="{Binding IsQFakt, Mode=TwoWay}" Content="По фактическому расходу" Style="{StaticResource LabelChb}"
+						 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>			
 			<Button Name="btnGetPrognoz" Click="btnGetPrognoz_Click" Content="Получить прогноз" 
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 		</StackPanel>

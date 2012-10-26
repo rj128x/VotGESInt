@@ -22,6 +22,8 @@
 							IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 					<TextBlock Text=" дней вперед" Style="{StaticResource Label}"/>
 				</StackPanel>
+				<CheckBox Name="chbCorrect" IsChecked="{Binding CorrectByPrev, Mode=TwoWay}" Content="Корректировать прогноз" Style="{StaticResource LabelChb}"
+						 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 				<Button Name="btnGetPrognoz" Click="btnGetPrognoz_Click" Content="Задать ПБР"
 					  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 				<Button Name="btnClearPBR" Click="btnClearPBR_Click" Content="ПБР с сервера"
