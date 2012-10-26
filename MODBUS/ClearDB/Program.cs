@@ -132,7 +132,7 @@ namespace ClearDB
 							CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 4 }).ToList(), "PMin");
 							break;
 						case "copy204":
-							hh = 1.0 / 6.0;
+							hh = 4;
 							CopyData.WriteCopy(date, date.AddHours(hh), (new int[] { 204 }).ToList(), "PMin");
 							break;
 					}
