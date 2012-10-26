@@ -90,6 +90,7 @@ namespace VotGES.PrognozNB
 		}
 
 		protected void calcPrognozWithCorrect() {
+			PArr.Add(FirstData.Last().Key, FirstData.Last().Value.P);
 			if (PArr.Count % 23 != 0) {
 				int addCnt=23 - PArr.Count % 23;
 				for (int i=0; i < addCnt; i++) {
@@ -178,8 +179,8 @@ namespace VotGES.PrognozNB
 
 						double correct=outputVector[0]/prevDataNBArray[4];
 
-						for (int i=1; i < outputVector.Count; i++) {
-							prognoz[dataForPrognoz.Keys[i-1]] = outputVector[i]/correct;
+						for (int i=0; i < outputVector.Count-1; i++) {
+							prognoz[dataForPrognoz.Keys[i]] = outputVector[i+1] / correct;
 						}
 
 						for (int i=0; i < 23; i++) {
@@ -197,6 +198,9 @@ namespace VotGES.PrognozNB
 				}
 			}
 
+			/*prognoz.Remove(prognoz.First().Key);
+			rashods.Remove(rashods.First().Key);
+			napors.Remove(napors.First().Key);*/
 
 			while (prognoz.Last().Key > DatePrognozEnd) {
 				prognoz.Remove(prognoz.Last().Key);
