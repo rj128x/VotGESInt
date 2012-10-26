@@ -90,7 +90,7 @@ namespace VotGES.PrognozNB
 		}
 
 		protected void calcPrognozWithCorrect() {
-			PArr.Add(FirstData.Last().Key, FirstData.Last().Value.P);
+			//PArr.Add(FirstData.Last().Key, FirstData.Last().Value.P);
 			if (PArr.Count % 23 != 0) {
 				int addCnt=23 - PArr.Count % 23;
 				for (int i=0; i < addCnt; i++) {
@@ -123,13 +123,13 @@ namespace VotGES.PrognozNB
 			foreach (KeyValuePair<DateTime,double>de in pArr) {
 				napors.Add(de.Key, napor);
 			}
-		
+
 			foreach (KeyValuePair<DateTime,double> de in PArr) {
 				double rashod=IsQFakt ? de.Value : RashodTable.getStationRashod(de.Value, napors[de.Key], RashodCalcMode.avg) * k;
 				rashods.Add(de.Key, rashod);
 				prognoz.Add(de.Key, 0);
 			}
-			//prognoz.Add(rashods.First().Key.AddMinutes(-30), prevDataNBArray[4]);
+			//prognoz.Add(prognoz.First().Key.AddMinutes(-30), prevDataNBArray[4]);
 
 			double currentNapor=napors.First().Value;
 			SortedList<DateTime,double> dataForPrognoz=new SortedList<DateTime, double>();
@@ -178,6 +178,7 @@ namespace VotGES.PrognozNB
 						outputVector = nnet.calc(inputVector);
 
 						double correct=outputVector[0]/prevDataNBArray[4];
+						//prognoz[dataForPrognoz.Keys[0].AddMinutes(-30)] = outputVector[0] / correct;
 
 						for (int i=0; i < outputVector.Count-1; i++) {
 							prognoz[dataForPrognoz.Keys[i]] = outputVector[i+1] / correct;
