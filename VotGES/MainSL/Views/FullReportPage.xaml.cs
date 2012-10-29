@@ -132,7 +132,7 @@ namespace MainSL.Views
 			}
 			
 			InvokeOperation currentOper=Context.GetFullReport(SelectedValues,des.Title,des.DateStart,des.DateEnd,
-				SettingsControl.Settings.ReportType,SettingsControl.Settings.MBType,
+				SettingsControl.Settings.ReportType, SettingsControl.Settings.MBType, SettingsControl.Settings.IsChart, SettingsControl.Settings.IsTable,
 				TitleList,dateStartList,dateEndList,mbTypeList,
 				oper => {
 				if (oper.IsCanceled) {

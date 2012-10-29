@@ -77,6 +77,8 @@ namespace VotGES.Piramida.Report
 					case ReportTypeEnum.quarterByDays:
 					case ReportTypeEnum.quarter:
 						return getFullQuarter(settings.Year, settings.Quarter);
+					case ReportTypeEnum.yearByHalfHours:
+					case ReportTypeEnum.yearByHours:
 					case ReportTypeEnum.yearByDays:
 					case ReportTypeEnum.yearByMonths:
 					case ReportTypeEnum.yearByQarters:
@@ -150,6 +152,8 @@ namespace VotGES.Piramida.Report
 						IsVisibleMonth = false;
 						IsVisibleQuarter = true;
 						break;
+					case ReportTypeEnum.yearByHalfHours:
+					case ReportTypeEnum.yearByHours:
 					case ReportTypeEnum.yearByDays:
 					case ReportTypeEnum.yearByMonths:
 					case ReportTypeEnum.yearByQarters:
@@ -312,6 +316,24 @@ namespace VotGES.Piramida.Report
 			}
 		}
 
+		private bool isChart;
+		public bool IsChart {
+			get { return isChart; }
+			set { 
+				isChart = value;
+				NotifyChanged("IsChart");
+			}
+		}
+
+		private bool isTable;
+		public bool IsTable {
+			get { return isTable; }
+			set {
+				isTable = value;
+				NotifyChanged("IsTable");
+			}
+		}
+
 		private List<ReportSettings> childReports;
 		public List<ReportSettings> ChildReports {
 			get { return childReports; }
@@ -360,6 +382,8 @@ namespace VotGES.Piramida.Report
 				ReportTypeNames.Add(ReportTypeEnum.monthByHours, "За месяц по часам");
 				ReportTypeNames.Add(ReportTypeEnum.monthByDays, "За месяц по дням");
 				ReportTypeNames.Add(ReportTypeEnum.quarterByDays, "За квартал по дням");
+				ReportTypeNames.Add(ReportTypeEnum.yearByHalfHours, "За год по 30 минут");
+				ReportTypeNames.Add(ReportTypeEnum.yearByHours, "За год по часам");
 				ReportTypeNames.Add(ReportTypeEnum.yearByDays, "За год по дням");
 				ReportTypeNames.Add(ReportTypeEnum.yearByMonths, "За год по месяцам");
 				ReportTypeNames.Add(ReportTypeEnum.yearByQarters, "За год по кварталам");
@@ -402,6 +426,8 @@ namespace VotGES.Piramida.Report
 			Date = DateTime.Now.Date;
 			Quarter = 1;
 			MBType = FullReportMembersType.def;
+			IsChart = true;
+			IsTable = true;
 
 			ChildReports = new List<ReportSettings>();
 

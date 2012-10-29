@@ -40,7 +40,14 @@
 						<TextBlock Text=" - " Style="{StaticResource Label}"/>
 						<TextBox Text="{Binding YearEnd, Mode=TwoWay}"
 								IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
-					</StackPanel>
+					</StackPanel>				
+					
+				</StackPanel>
+				<StackPanel Visibility="{Binding IsChildReport, Converter={StaticResource visibilityNotConverter}}" Orientation="Horizontal">
+					<CheckBox Content="График" IsChecked="{Binding IsChart, Mode=TwoWay}"
+									 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+					<CheckBox Content="Таблица" IsChecked="{Binding IsTable, Mode=TwoWay}"
+									 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 				</StackPanel>
 				<Button Name="btnRemCompare" Content="Удалить сравнение" Click="btnRemCompare_Click"
 							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"

@@ -12,7 +12,7 @@ namespace VotGES.Piramida.Report
 	public enum ReportTypeEnum
 	{
 		dayByMinutes, dayByHalfHours, dayByHours, monthByDays, monthByHalfHours,
-		monthByHours, quarterByDays, yearByDays, yearByMonths, yearByQarters,years, day, month, quarter, year
+		monthByHours, quarterByDays,yearByHalfHours, yearByHours, yearByDays, yearByMonths, yearByQarters,years, day, month, quarter, year
 	}
 	public enum IntervalReportEnum { minute, halfHour, hour, day, month, quarter, year }
 	public enum ResultTypeEnum { min, max, avg, sum }
@@ -149,6 +149,10 @@ namespace VotGES.Piramida.Report
 					return IntervalReportEnum.hour;
 				case ReportTypeEnum.quarterByDays:
 					return IntervalReportEnum.day;
+				case ReportTypeEnum.yearByHalfHours:
+					return IntervalReportEnum.halfHour;
+				case ReportTypeEnum.yearByHours:
+					return IntervalReportEnum.hour;
 				case ReportTypeEnum.yearByDays:
 					return IntervalReportEnum.day;
 				case ReportTypeEnum.yearByMonths:

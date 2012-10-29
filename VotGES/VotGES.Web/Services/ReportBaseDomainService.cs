@@ -32,10 +32,10 @@ namespace VotGES.Web.Services
 		}
 
 		public ReportAnswer GetFullReport(List<string> selectedData, string Title, DateTime dateStart, DateTime dateEnd, 
-			ReportTypeEnum ReportType, FullReportMembersType mbType,
+			ReportTypeEnum ReportType, FullReportMembersType mbType, bool isChart, bool isTable,
 			List<string> TitleList, List<DateTime>DateStartList, List<DateTime>DateEndList, List<FullReportMembersType>MBTypeList) {
 			try {
-				Logger.Info(String.Format("Получение отчета {0} - {1} [{2}]",dateStart,dateEnd,ReportType));
+				Logger.Info(String.Format("Получение отчета {0} - {1} [{2}] chart: {3} table: {4}",dateStart,dateEnd,ReportType,isChart,isTable));
 				FullReport report=new FullReport(dateStart, dateEnd, Report.GetInterval(ReportType),mbType);
 				report.AddReportTitle = Title;
 				report.InitNeedData(selectedData);				
@@ -53,9 +53,13 @@ namespace VotGES.Web.Services
 						reportAddList.Add(reportAdd);
 					}
 				}
-				report.CreateAnswerData(reportAddList: reportAddList);
-				report.CreateChart(reportAddList);
-				Logger.Info("Отчет сформирован: "+report.Answer.Data.Count());
+				if (isTable) {
+					report.CreateAnswerData(reportAddList: reportAddList);
+				}
+				if (isChart) {
+					report.CreateChart(reportAddList);
+				}
+				Logger.Info("Отчет сформирован: ");
 				return report.Answer;
 			} catch (Exception e) {
 				Logger.Error("Ошибка при получении отчета " + e.ToString());
