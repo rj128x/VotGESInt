@@ -116,6 +116,7 @@ namespace VotGES.Piramida.Report
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.GSV25, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.GSV26, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
 			report.AddRecordType(new RecordTypeDB(PiramidaRecords.GSV27, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
+			report.AddRecordType(new RecordTypeDB(PiramidaRecords.GSV28, parNumber, visible: visible, toChart: toChart, divParam: scaleDiv, multParam: scaleMult, resultType: result, dbOper: oper));
 		}
 
 	}

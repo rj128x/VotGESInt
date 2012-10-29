@@ -202,6 +202,22 @@ namespace VotGES.PBR
 			rge3.InitData();
 			rge4.InitData();
 
+			CheckGraphVyrabRGETableRow rowFull=new CheckGraphVyrabRGETableRow();
+			rowFull.Title = "Итог";
+			CheckGraphVyrabRGETableRow rowMin=new CheckGraphVyrabRGETableRow();
+			rowMin.Title = "Итог -";
+			CheckGraphVyrabRGETableRow rowPl=new CheckGraphVyrabRGETableRow();
+			rowPl.Title = "Итог +";
+
+			answer.TableH.Add(rowFull);
+			answer.TableH.Add(rowMin);
+			answer.TableH.Add(rowPl);
+
+			answer.TableHH.Add(rowFull);
+			answer.TableHH.Add(rowMin);
+			answer.TableHH.Add(rowPl);
+
+
 			foreach (DateTime dt in rge1.HalfHoursPBR.Keys) {
 				CheckGraphVyrabRGETableRow row=new CheckGraphVyrabRGETableRow();
 
@@ -225,9 +241,51 @@ namespace VotGES.PBR
 				row.RGE4Plan = rge4.HalfHoursPBR[dt];
 				row.RGE4Diff = rge4.HalfHoursP[dt] - rge4.HalfHoursPBR[dt];
 				row.RGE4DiffProc = PBRData.getDiffProc(rge4.HalfHoursP[dt], rge4.HalfHoursPBR[dt]);
-				
+
+				rowMin.RGE1Fakt += row.RGE1Fakt / 2; rowPl.RGE1Fakt += row.RGE1Fakt / 2; rowFull.RGE1Fakt += row.RGE1Fakt / 2;
+				rowMin.RGE1Plan += row.RGE1Plan / 2; rowPl.RGE1Plan += row.RGE1Plan / 2; rowFull.RGE1Plan += row.RGE1Plan / 2;
+				rowMin.RGE1Diff += row.RGE1Diff < 0 ? row.RGE1Diff / 2 : 0;
+				rowPl.RGE1Diff += row.RGE1Diff > 0 ? row.RGE1Diff / 2 : 0;
+				rowFull.RGE1Diff += row.RGE1Diff / 2;
+
+				rowMin.RGE2Fakt += row.RGE2Fakt / 2; rowPl.RGE2Fakt += row.RGE2Fakt / 2; rowFull.RGE2Fakt += row.RGE2Fakt / 2;
+				rowMin.RGE2Plan += row.RGE2Plan / 2; rowPl.RGE2Plan += row.RGE2Plan / 2; rowFull.RGE2Plan += row.RGE2Plan / 2;
+				rowMin.RGE2Diff += row.RGE2Diff < 0 ? row.RGE2Diff / 2 : 0;
+				rowPl.RGE2Diff += row.RGE2Diff > 0 ? row.RGE2Diff / 2 : 0;
+				rowFull.RGE2Diff += row.RGE2Diff / 2;
+
+				rowMin.RGE3Fakt += row.RGE3Fakt / 2; rowPl.RGE3Fakt += row.RGE3Fakt / 2; rowFull.RGE3Fakt += row.RGE3Fakt / 2;
+				rowMin.RGE3Plan += row.RGE3Plan / 2; rowPl.RGE3Plan += row.RGE3Plan / 2; rowFull.RGE3Plan += row.RGE3Plan / 2;
+				rowMin.RGE3Diff += row.RGE3Diff < 0 ? row.RGE3Diff / 2 : 0;
+				rowPl.RGE3Diff += row.RGE3Diff > 0 ? row.RGE3Diff / 2 : 0;
+				rowFull.RGE3Diff += row.RGE3Diff / 2;
+
+				rowMin.RGE4Fakt += row.RGE4Fakt / 2; rowPl.RGE4Fakt += row.RGE4Fakt / 2; rowFull.RGE4Fakt += row.RGE4Fakt / 2;
+				rowMin.RGE4Plan += row.RGE4Plan / 2; rowPl.RGE4Plan += row.RGE4Plan / 2; rowFull.RGE4Plan += row.RGE4Plan / 2;
+				rowMin.RGE4Diff += row.RGE4Diff < 0 ? row.RGE4Diff / 2 : 0;
+				rowPl.RGE4Diff += row.RGE4Diff > 0 ? row.RGE4Diff / 2 : 0;
+				rowFull.RGE4Diff += row.RGE4Diff / 2;
+
+
 				answer.TableHH.Add(row);
 			}
+
+			rowMin.RGE1DiffProc = PBRData.getDiffProcDiff(rowMin.RGE1Diff, rowMin.RGE1Plan);
+			rowPl.RGE1DiffProc = PBRData.getDiffProcDiff(rowPl.RGE1Diff, rowPl.RGE1Plan);
+			rowFull.RGE1DiffProc = PBRData.getDiffProc(rowFull.RGE1Fakt, rowFull.RGE1Plan);
+
+			rowMin.RGE2DiffProc = PBRData.getDiffProcDiff(rowMin.RGE2Diff, rowMin.RGE2Plan);
+			rowPl.RGE2DiffProc = PBRData.getDiffProcDiff(rowPl.RGE2Diff, rowPl.RGE2Plan);
+			rowFull.RGE2DiffProc = PBRData.getDiffProc(rowFull.RGE2Fakt, rowFull.RGE2Plan);
+
+			rowMin.RGE3DiffProc = PBRData.getDiffProcDiff(rowMin.RGE3Diff, rowMin.RGE3Plan);
+			rowPl.RGE3DiffProc = PBRData.getDiffProcDiff(rowPl.RGE3Diff, rowPl.RGE3Plan);
+			rowFull.RGE3DiffProc = PBRData.getDiffProc(rowFull.RGE3Fakt, rowFull.RGE3Plan);
+
+			rowMin.RGE4DiffProc = PBRData.getDiffProcDiff(rowMin.RGE4Diff, rowMin.RGE4Plan);
+			rowPl.RGE4DiffProc = PBRData.getDiffProcDiff(rowPl.RGE4Diff, rowPl.RGE4Plan);
+			rowFull.RGE4DiffProc = PBRData.getDiffProc(rowFull.RGE4Fakt, rowFull.RGE4Plan);
+
 
 			foreach (DateTime dt in rge1.HoursPBR.Keys) {
 				CheckGraphVyrabRGETableRow row=new CheckGraphVyrabRGETableRow();

@@ -116,6 +116,7 @@ namespace VotGES.Piramida.Report
 			record.addChild(GetFullReportRecord(PiramidaRecords.GSV25));
 			record.addChild(GetFullReportRecord(PiramidaRecords.GSV26));
 			record.addChild(GetFullReportRecord(PiramidaRecords.GSV27));
+			record.addChild(GetFullReportRecord(PiramidaRecords.GSV28));
 
 			record = RootMain.addChild(GetFullReportRecord("Генераторы", "generators"));
 			childRecord = record.addChild(GetFullReportRecord(ReportGARecords.P_GA1));

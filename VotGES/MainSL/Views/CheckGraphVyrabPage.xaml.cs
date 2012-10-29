@@ -28,7 +28,15 @@ namespace MainSL.Views
 			settings = new SettingsBase();
 			settings.Date = DateTime.Now.Date.AddHours(-24);
 			pnlSettings.DataContext = settings;
-			context = new GraphVyrabDomainContext();			
+			context = new GraphVyrabDomainContext();
+
+			tabHHReport.Visibility = System.Windows.Visibility.Collapsed;
+			tabHReport.Visibility = System.Windows.Visibility.Collapsed;
+			tabHHRGEReport.Visibility = System.Windows.Visibility.Collapsed;
+			tabHRGEReport.Visibility = System.Windows.Visibility.Collapsed;
+			tabChart.Visibility = System.Windows.Visibility.Collapsed;
+			tabChartRGE.Visibility = System.Windows.Visibility.Collapsed;
+			tabChart.Visibility = System.Windows.Visibility.Collapsed;
 		}
 
 
@@ -60,6 +68,7 @@ namespace MainSL.Views
 						tabHRGEReport.Visibility = System.Windows.Visibility.Collapsed;
 						tabChartRGE.Visibility = System.Windows.Visibility.Collapsed;
 						tabChart.Visibility = System.Windows.Visibility.Visible;
+						tabChart.IsSelected = true;
 					} catch (Exception ex) {
 						Logging.Logger.info(ex.ToString());
 						GlobalStatus.Current.ErrorLoad("Ошибка");
@@ -89,7 +98,7 @@ namespace MainSL.Views
 						tabHRGEReport.Visibility = System.Windows.Visibility.Collapsed;
 						tabChartRGE.Visibility = System.Windows.Visibility.Collapsed;
 						tabChart.Visibility = System.Windows.Visibility.Visible;
-						
+						tabChart.IsSelected = true;
 						cntrlHHReport.grdReport.ItemsSource = currentAnswer.TableHH;
 						cntrlHReport.grdReport.ItemsSource = currentAnswer.TableH;
 					} catch (Exception ex) {
@@ -123,6 +132,7 @@ namespace MainSL.Views
 						tabChart.Visibility = System.Windows.Visibility.Collapsed;
 						tabChartRGE.Visibility = System.Windows.Visibility.Visible;
 						tabChart.Visibility = System.Windows.Visibility.Collapsed;
+						tabChartRGE.IsSelected = true;
 					} catch (Exception ex) {
 						Logging.Logger.info(ex.ToString());
 						GlobalStatus.Current.ErrorLoad("Ошибка");
@@ -154,6 +164,7 @@ namespace MainSL.Views
 						tabChart.Visibility = System.Windows.Visibility.Collapsed;
 						tabChartRGE.Visibility = System.Windows.Visibility.Visible;
 						tabChart.Visibility = System.Windows.Visibility.Collapsed;
+						tabChartRGE.IsSelected = true;
 
 						cntrlHHRGEReport.grdReport.ItemsSource = oper.Value.TableHH;
 						cntrlHRGEReport.grdReport.ItemsSource = oper.Value.TableH;

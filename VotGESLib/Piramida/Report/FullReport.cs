@@ -14,6 +14,9 @@ namespace VotGES.Piramida.Report
 		{
 			int parNumber=12;
 			int scaleDiv=2;
+			if (mbType != FullReportMembersType.def) {
+				scaleDiv = 1;
+			}
 			MBType = mbType;
 			ResultTypeEnum result=ResultTypeEnum.sum;
 			DBOperEnum oper=DBOperEnum.sum;

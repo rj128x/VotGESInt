@@ -50,9 +50,9 @@
 				<StackPanel>
 					<sdk:Calendar Name="clnDate" SelectedDate="{Binding Date, Mode=TwoWay}"
 									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
-					<Button Name="btnMin" Content="По минутам" Click="btnMin_Click"
+					<Button Name="btnMin" Content="По минутам ГТП" Click="btnMin_Click"
 							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
-					<Button Name="btnHH" Content="По получасовкам" Click="btnHH_Click"
+					<Button Name="btnHH" Content="По получасовкам ГТП" Click="btnHH_Click"
 							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
 					
 					<Button Name="btnMinRGE" Content="По минутам РГЕ" Click="btnMinRGE_Click"

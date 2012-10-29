@@ -161,6 +161,22 @@ namespace VotGES.PBR
 			gtp2.InitData();
 			ges.InitData();
 
+
+			CheckGraphVyrabTableRow rowFull=new CheckGraphVyrabTableRow();
+			rowFull.Title = "Итог";
+			CheckGraphVyrabTableRow rowMin=new CheckGraphVyrabTableRow();
+			rowMin.Title = "Итог -";
+			CheckGraphVyrabTableRow rowPl=new CheckGraphVyrabTableRow();
+			rowPl.Title = "Итог +";
+
+			answer.TableH.Add(rowFull);
+			answer.TableH.Add(rowMin);
+			answer.TableH.Add(rowPl);
+
+			answer.TableHH.Add(rowFull);
+			answer.TableHH.Add(rowMin);
+			answer.TableHH.Add(rowPl);
+
 			foreach (DateTime dt in ges.HalfHoursPBR.Keys) {
 				CheckGraphVyrabTableRow row=new CheckGraphVyrabTableRow();
 
@@ -169,6 +185,7 @@ namespace VotGES.PBR
 				row.GESPlan = ges.HalfHoursPBR[dt];
 				row.GESDiff = ges.HalfHoursP[dt] - ges.HalfHoursPBR[dt];
 				row.GESDiffProc = PBRData.getDiffProc(ges.HalfHoursP[dt], ges.HalfHoursPBR[dt]);
+			
 
 				row.GTP1Fakt = gtp1.HalfHoursP[dt];
 				row.GTP1Plan = gtp1.HalfHoursPBR[dt];
@@ -180,8 +197,38 @@ namespace VotGES.PBR
 				row.GTP2Diff = gtp2.HalfHoursP[dt] - gtp2.HalfHoursPBR[dt];
 				row.GTP2DiffProc = PBRData.getDiffProc(gtp2.HalfHoursP[dt], gtp2.HalfHoursPBR[dt]);
 
+				rowMin.GESFakt += row.GESFakt / 2; rowPl.GESFakt += row.GESFakt / 2;	rowFull.GESFakt += row.GESFakt / 2;
+				rowMin.GESPlan += row.GESPlan / 2; rowPl.GESPlan += row.GESPlan / 2; rowFull.GESPlan += row.GESPlan / 2;
+				rowMin.GESDiff += row.GESDiff < 0 ? row.GESDiff/2 : 0;
+				rowPl.GESDiff += row.GESDiff > 0 ? row.GESDiff/2 : 0;
+				rowFull.GESDiff += row.GESDiff/2;
+
+				rowMin.GTP1Fakt += row.GTP1Fakt / 2; rowPl.GTP1Fakt += row.GTP1Fakt / 2; rowFull.GTP1Fakt += row.GTP1Fakt / 2;
+				rowMin.GTP1Plan += row.GTP1Plan / 2; rowPl.GTP1Plan += row.GTP1Plan / 2; rowFull.GTP1Plan += row.GTP1Plan / 2;
+				rowMin.GTP1Diff += row.GTP1Diff < 0 ? row.GTP1Diff / 2 : 0;
+				rowPl.GTP1Diff += row.GTP1Diff > 0 ? row.GTP1Diff / 2 : 0;
+				rowFull.GTP1Diff += row.GTP1Diff / 2;
+
+				rowMin.GTP2Fakt += row.GTP2Fakt / 2; rowPl.GTP2Fakt += row.GTP2Fakt / 2; rowFull.GTP2Fakt += row.GTP2Fakt / 2;
+				rowMin.GTP2Plan += row.GTP2Plan / 2; rowPl.GTP2Plan += row.GTP2Plan / 2; rowFull.GTP2Plan += row.GTP2Plan / 2;
+				rowMin.GTP2Diff += row.GTP2Diff < 0 ? row.GTP2Diff / 2 : 0;
+				rowPl.GTP2Diff += row.GTP2Diff > 0 ? row.GTP2Diff / 2 : 0;
+				rowFull.GTP2Diff += row.GTP2Diff / 2;
+
 				answer.TableHH.Add(row);
 			}
+
+			rowMin.GESDiffProc = PBRData.getDiffProcDiff(rowMin.GESDiff, rowMin.GESPlan);
+			rowPl.GESDiffProc = PBRData.getDiffProcDiff(rowPl.GESDiff, rowPl.GESPlan);
+			rowFull.GESDiffProc = PBRData.getDiffProc(rowFull.GESFakt, rowFull.GESPlan);
+
+			rowMin.GTP1DiffProc = PBRData.getDiffProcDiff(rowMin.GTP1Diff, rowMin.GTP1Plan);
+			rowPl.GTP1DiffProc = PBRData.getDiffProcDiff( rowPl.GTP1Diff, rowPl.GTP1Plan);
+			rowFull.GTP1DiffProc = PBRData.getDiffProc(rowFull.GTP1Fakt, rowFull.GTP1Plan);
+
+			rowMin.GTP2DiffProc = PBRData.getDiffProcDiff(rowMin.GTP2Diff, rowMin.GTP2Plan);
+			rowPl.GTP2DiffProc = PBRData.getDiffProcDiff(rowPl.GTP2Diff, rowPl.GTP2Plan);
+			rowFull.GTP2DiffProc = PBRData.getDiffProc(rowFull.GTP2Fakt, rowFull.GTP2Plan);
 
 
 			foreach (DateTime dt in ges.HoursPBR.Keys) {
@@ -189,17 +236,17 @@ namespace VotGES.PBR
 				row.Title = dt.ToString("dd.MM.yy HH:mm");
 				row.GESFakt = ges.HoursP[dt];
 				row.GESPlan = ges.HoursPBR[dt];
-				row.GESDiff = ges.HoursPBR[dt] - ges.HoursP[dt];
+				row.GESDiff = ges.HoursP[dt] - ges.HoursPBR[dt];
 				row.GESDiffProc = PBRData.getDiffProc(ges.HoursP[dt], ges.HoursPBR[dt]);
 
 				row.GTP1Fakt = gtp1.HoursP[dt];
 				row.GTP1Plan = gtp1.HoursPBR[dt];
-				row.GTP1Diff = gtp1.HoursPBR[dt] - gtp1.HoursP[dt];
+				row.GTP1Diff = gtp1.HoursP[dt] - gtp1.HoursPBR[dt];
 				row.GTP1DiffProc = PBRData.getDiffProc(gtp1.HoursP[dt], gtp1.HoursPBR[dt]);
 
 				row.GTP2Fakt = gtp2.HoursP[dt];
 				row.GTP2Plan = gtp2.HoursPBR[dt];
-				row.GTP2Diff = gtp2.HoursPBR[dt] - gtp2.HoursP[dt];
+				row.GTP2Diff = gtp2.HoursP[dt] - gtp2.HoursPBR[dt];
 				row.GTP2DiffProc = PBRData.getDiffProc(gtp2.HoursP[dt], gtp2.HoursPBR[dt]);
 
 				answer.TableH.Add(row);

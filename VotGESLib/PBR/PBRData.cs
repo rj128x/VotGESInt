@@ -183,6 +183,17 @@ namespace VotGES.PBR
 			}
 		}
 
+		public static double getDiffProcDiff(double diff, double plan) {
+			if (plan > 0) {
+				return (diff) / plan * 100;
+			} else {
+				if (diff == 0)
+					return 0;
+				else
+					return 100;
+			}
+		}
+
 		public double getDiffProc(DateTime date) {
 			return getDiffProc(RealP[date], MinutesPBR[date]);
 		}

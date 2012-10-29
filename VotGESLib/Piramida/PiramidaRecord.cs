@@ -12,12 +12,16 @@ namespace VotGES.Piramida
 		public int Item { get; protected set; }
 		public string Title { get; protected set; }
 		public string Key { get; protected set; }
-		public PiramidaRecord(int objType, int obj, int item, string title){
+		public PiramidaRecord(int objType, int obj, int item, string title,string addId=""){
 			ObjType = objType;
 			Obj = obj;
 			Item = item;
 			Title = title;
-			Key = String.Format("{0}-{1}-{2}", ObjType, Obj, Item);			
+
+			Key = String.Format("{0}-{1}-{2}", ObjType, Obj, Item);
+			if (!String.IsNullOrEmpty(addId)) {
+				Key += "-" + addId;
+			}
 		}
 		
 	}

@@ -323,6 +323,7 @@ namespace VotGES.Piramida
 		public static PiramidaRecord GSV25=new PiramidaRecord(2, 7, 25, "Верхний бьеф КамГЭС");
 		public static PiramidaRecord GSV26=new PiramidaRecord(2, 7, 26, "Нижний бьеф КамГЭС");
 		public static PiramidaRecord GSV27=new PiramidaRecord(2, 7, 27, "Приток КамГЭС");
+		public static PiramidaRecord GSV28=new PiramidaRecord(2, 1, 373, "Температура","sut");
 
 		public static PiramidaRecord MB_I_SHSV_220=new PiramidaRecord(2, 3, 0, "Ток ШСВ 220");
 		public static PiramidaRecord MB_I_SHSV_110=new PiramidaRecord(2, 3, 2, "Ток ШСВ 110");
@@ -533,6 +534,7 @@ namespace VotGES.Piramida
 
 		public static void addRecord(string key, int objType, int obj, int item, string title) {
 		}
+
 	}
 }
 
