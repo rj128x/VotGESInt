@@ -312,6 +312,7 @@ namespace VotGES.Piramida.Report
 			get { return isChildReport; }
 			set {
 				isChildReport = value;
+				ShowChartTable = !IsChildReport;
 				NotifyChanged("IsChildReport");
 			}
 		}
@@ -331,6 +332,15 @@ namespace VotGES.Piramida.Report
 			set {
 				isTable = value;
 				NotifyChanged("IsTable");
+			}
+		}
+
+		private bool showChartTable;
+		public bool ShowChartTable {
+			get { return showChartTable; }
+			set {
+				showChartTable = value;
+				NotifyChanged("ShowChartTable");
 			}
 		}
 
@@ -388,11 +398,13 @@ namespace VotGES.Piramida.Report
 				ReportTypeNames.Add(ReportTypeEnum.yearByMonths, "За год по месяцам");
 				ReportTypeNames.Add(ReportTypeEnum.yearByQarters, "За год по кварталам");
 				ReportTypeNames.Add(ReportTypeEnum.years, "По годам");
+				ShowChartTable = true;
 			} else {
 				ReportTypeNames.Add(ReportTypeEnum.day, "За сутки");
 				ReportTypeNames.Add(ReportTypeEnum.month, "За месяц");
 				ReportTypeNames.Add(ReportTypeEnum.quarter, "За квартал");
 				ReportTypeNames.Add(ReportTypeEnum.year, "За год");
+				ShowChartTable = false;
 			}
 
 

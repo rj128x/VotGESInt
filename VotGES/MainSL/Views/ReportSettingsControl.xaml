@@ -43,7 +43,7 @@
 					</StackPanel>				
 					
 				</StackPanel>
-				<StackPanel Visibility="{Binding IsChildReport, Converter={StaticResource visibilityNotConverter}}" Orientation="Horizontal">
+				<StackPanel Visibility="{Binding ShowChartTable, Converter={StaticResource visibilityConverter}}" Orientation="Horizontal">
 					<CheckBox Content="График" IsChecked="{Binding IsChart, Mode=TwoWay}"
 									 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 					<CheckBox Content="Таблица" IsChecked="{Binding IsTable, Mode=TwoWay}"
