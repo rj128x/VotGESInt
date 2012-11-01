@@ -31,15 +31,15 @@ namespace MainSL.Views
 			InitializeComponent();
 			Context = new ReportBaseDomainContext();
 			SelectedValues = new List<string>();
-			SettingsControl.Settings.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Settings_PropertyChanged);			
+			SettingsControl.Settings.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Settings_PropertyChanged);
 		}
 
 		void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
-			if (e.PropertyName == "ChildReports") {				
+			if (e.PropertyName == "ChildReports") {
 				ReportSettingsControl forRemove=null;
 				foreach (ReportSettingsControl cntrl in pnlAddReports.Children) {
 					if (!SettingsControl.Settings.ChildReports.Contains(cntrl.Settings)) {
-						forRemove=cntrl;
+						forRemove = cntrl;
 						break;
 					}
 				}
@@ -60,7 +60,7 @@ namespace MainSL.Views
 		protected override void OnNavigatedTo(NavigationEventArgs e) {
 			if (Root == null) {
 				loadRoot();
-			}			
+			}
 		}
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e) {
@@ -78,7 +78,7 @@ namespace MainSL.Views
 					TreeMainRecords.ItemsSource = Root.RootMain.Children;
 					TreeLinesRecords.ItemsSource = Root.RootLines.Children;
 					TreeSNRecords.ItemsSource = Root.RootSN.Children;
-					
+
 				} catch (Exception ex) {
 					Logging.Logger.info(ex.ToString());
 					GlobalStatus.Current.ErrorLoad("Ошибка при получении дерева");
@@ -97,7 +97,7 @@ namespace MainSL.Views
 			createSelectedList(Root.RootSN);
 		}
 
-		protected void createSelectedList(FullReportRecord record) {			
+		protected void createSelectedList(FullReportRecord record) {
 			foreach (FullReportRecord child in record.Children) {
 				if (child.Selected) {
 					SelectedValues.Add(child.Key);
@@ -112,7 +112,7 @@ namespace MainSL.Views
 			Guid reportGUID=Guid.NewGuid();
 			if (SettingsControl.Settings.IsExcel) {
 				ExcelUri = String.Format("Reports/FullReport?guid={0}", reportGUID);
-				FloatWindow.OpenWindow(ExcelUri,20,20);
+				FloatWindow.OpenWindow(ExcelUri, 20, 20);
 			}
 
 
@@ -124,7 +124,7 @@ namespace MainSL.Views
 			List<string> TitleList=new List<string>();
 			foreach (ReportSettings setting in SettingsControl.Settings.ChildReports) {
 				ReportSettings.DateTimeStartEnd desCmp=ReportSettings.DateTimeStartEnd.getBySettings(setting);
-				if (!TitleList.Contains(desCmp.Title)){
+				if (!TitleList.Contains(desCmp.Title)) {
 					dateStartList.Add(desCmp.DateStart);
 					dateEndList.Add(desCmp.DateEnd);
 					mbTypeList.Add(setting.MBType);
@@ -138,39 +138,37 @@ namespace MainSL.Views
 			} else {
 				des.Title = "";
 			}
-			
-			Action<InvokeOperation<ReportAnswer>> callback=Callback;
 
-			InvokeOperation currentOper=Context.GetFullReport(SelectedValues,des.Title,des.DateStart,des.DateEnd,
+
+			InvokeOperation currentOper=Context.GetFullReport(SelectedValues, des.Title, des.DateStart, des.DateEnd,
 				SettingsControl.Settings.ReportType, SettingsControl.Settings.MBType,
-				SettingsControl.Settings.IsChart, SettingsControl.Settings.IsTable, SettingsControl.Settings.IsExcel,reportGUID,
-				TitleList,dateStartList,dateEndList,mbTypeList,
-				callback, null);			
+				SettingsControl.Settings.IsChart, SettingsControl.Settings.IsTable, SettingsControl.Settings.IsExcel, reportGUID,
+				TitleList, dateStartList, dateEndList, mbTypeList,
+				oper => {
+					if (oper.IsCanceled) {
+						return;
+					}
+					try {
+						GlobalStatus.Current.StartProcess();
+						if (SettingsControl.Settings.IsExcel) {
+							ExcelUri = String.Format("Reports/FullReport?guid={0}", oper.Value.ReportID);
+							FloatWindow.OpenWindow(ExcelUri);
+						} else {
+							ResultControl.Create(oper.Value);
+							tabResult.IsSelected = true;
+						}
+					} catch (Exception ex) {
+						Logging.Logger.info(ex.ToString());
+						GlobalStatus.Current.ErrorLoad("Ошибка при получении данных");
+					} finally {
+						GlobalStatus.Current.StopLoad();
+
+					}
+				}, null);
 			GlobalStatus.Current.StartLoad(currentOper);
 		}
 
 
-		protected void Callback(InvokeOperation<ReportAnswer> oper){
-			if (oper.IsCanceled) {
-				return;
-			}
-			try {
-				GlobalStatus.Current.StartProcess();
-				if (SettingsControl.Settings.IsExcel) {
-					ExcelUri = String.Format("Reports/FullReport?guid={0}", oper.Value.ReportID);
-					FloatWindow.OpenWindow(ExcelUri);
-				} else {
-					ResultControl.Create(oper.Value);
-					tabResult.IsSelected = true;
-				}
-			} catch (Exception ex) {
-				Logging.Logger.info(ex.ToString());
-				GlobalStatus.Current.ErrorLoad("Ошибка при получении данных");
-			} finally {
-				GlobalStatus.Current.StopLoad();
-				
-			}
-		}
 
 		private void btnGetChart_Click(object sender, RoutedEventArgs e) {
 
@@ -180,6 +178,6 @@ namespace MainSL.Views
 
 		}
 
-		
+
 	}
 }
