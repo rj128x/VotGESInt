@@ -335,6 +335,16 @@ namespace VotGES.Piramida.Report
 			}
 		}
 
+		private bool isExcel;
+		public bool IsExcel {
+			get { return isExcel; }
+			set {
+				isExcel = value;
+				NotifyChanged("IsExcel");
+	
+			}
+		}
+
 		private bool showChartTable;
 		public bool ShowChartTable {
 			get { return showChartTable; }

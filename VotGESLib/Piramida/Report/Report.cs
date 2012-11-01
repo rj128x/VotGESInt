@@ -112,6 +112,27 @@ namespace VotGES.Piramida.Report
 		public List<ReportAnswerRecord> Data { get; set; }
 		public Dictionary<string, string> Columns { get; set; }
 		public Dictionary<string, string> Formats { get; set; }
+		public Guid ReportID { get; set; }
+		public ReportAnswer() {
+			Guid guid=Guid.NewGuid();
+			ReportID = guid;
+		}
+	}
+
+	public class Reports
+	{
+		public static Dictionary<Guid,ReportAnswer> CreatedReports;
+		static Reports() {
+			CreatedReports = new Dictionary<Guid, ReportAnswer>();
+		}
+
+		public static void addReport(ReportAnswer Report) {
+			CreatedReports.Add(Report.ReportID, Report);
+		}
+
+		public static void removeReport(Guid id) {
+			CreatedReports.Remove(id);
+		}
 	}
 
 

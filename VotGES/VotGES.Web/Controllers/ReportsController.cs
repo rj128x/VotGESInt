@@ -12,6 +12,7 @@ using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
 using System.Text;
+using System.Threading;
 
 namespace VotGES.Web.Controllers
 {
@@ -81,6 +82,21 @@ namespace VotGES.Web.Controllers
 			puskStop.ReadData();
 
 			return View("PuskStopFull", puskStop);
+		}
+
+		[AcceptVerbs(HttpVerbs.Get)]
+		public ActionResult FullReport(string guid) {
+			ReportAnswer report=null;
+			Guid ID=Guid.Parse(guid);
+			while (report==null) {
+				if (Reports.CreatedReports.ContainsKey(ID)) {					
+					report = Reports.CreatedReports[ID];
+					Reports.removeReport(ID);
+				} else {
+					Thread.Sleep(TimeSpan.FromSeconds(2));
+				}
+			}
+			return View("FullReport", report);
 		}
 
 	}

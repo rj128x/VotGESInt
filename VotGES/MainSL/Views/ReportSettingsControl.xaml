@@ -48,6 +48,8 @@
 									 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 					<CheckBox Content="Таблица" IsChecked="{Binding IsTable, Mode=TwoWay}"
 									 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
+					<CheckBox Content="В Excel" IsChecked="{Binding IsExcel, Mode=TwoWay}"
+									 IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"/>
 				</StackPanel>
 				<Button Name="btnRemCompare" Content="Удалить сравнение" Click="btnRemCompare_Click"
 							  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter}}"

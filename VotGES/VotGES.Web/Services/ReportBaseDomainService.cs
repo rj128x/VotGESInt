@@ -32,7 +32,7 @@ namespace VotGES.Web.Services
 		}
 
 		public ReportAnswer GetFullReport(List<string> selectedData, string Title, DateTime dateStart, DateTime dateEnd, 
-			ReportTypeEnum ReportType, FullReportMembersType mbType, bool isChart, bool isTable,
+			ReportTypeEnum ReportType, FullReportMembersType mbType, bool isChart, bool isTable,bool isExcel,Guid reportID,
 			List<string> TitleList, List<DateTime>DateStartList, List<DateTime>DateEndList, List<FullReportMembersType>MBTypeList) {
 			try {
 				Logger.Info(String.Format("Получение отчета {0} - {1} [{2}] chart: {3} table: {4}",dateStart,dateEnd,ReportType,isChart,isTable));
@@ -60,6 +60,13 @@ namespace VotGES.Web.Services
 					report.CreateChart(reportAddList);
 				}
 				Logger.Info("Отчет сформирован: ");
+				if (isExcel) {
+					report.Answer.ReportID = reportID;
+					Reports.addReport(report.Answer);
+					ReportAnswer answer=new ReportAnswer();
+					answer.ReportID = reportID;
+					return answer;
+				}				
 				return report.Answer;
 			} catch (Exception e) {
 				Logger.Error("Ошибка при получении отчета " + e.ToString());

@@ -138,6 +138,7 @@
     <Content Include="Views\Reports\SutVed.aspx" />
     <Content Include="Views\Reports\SutVed2.aspx" />
     <Content Include="Views\Reports\PuskStopFull.aspx" />
+    <Content Include="Views\Reports\FullReport.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

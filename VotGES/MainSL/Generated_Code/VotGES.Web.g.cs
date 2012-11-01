@@ -3596,6 +3596,8 @@ namespace VotGES.Piramida.Report
         
         private Dictionary<string, string> _formats;
         
+        private Guid _reportID;
+        
         #region Определение методов расширяемости
 
         /// <summary>
@@ -3611,6 +3613,8 @@ namespace VotGES.Piramida.Report
         partial void OnDataChanged();
         partial void OnFormatsChanging(Dictionary<string, string> value);
         partial void OnFormatsChanged();
+        partial void OnReportIDChanging(Guid value);
+        partial void OnReportIDChanged();
 
         #endregion
         
@@ -3717,6 +3721,30 @@ namespace VotGES.Piramida.Report
                     this._formats = value;
                     this.RaiseDataMemberChanged("Formats");
                     this.OnFormatsChanged();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Возвращает или задает значение параметра "ReportID".
+        /// </summary>
+        [DataMember()]
+        public Guid ReportID
+        {
+            get
+            {
+                return this._reportID;
+            }
+            set
+            {
+                if ((this._reportID != value))
+                {
+                    this.OnReportIDChanging(value);
+                    this.RaiseDataMemberChanging("ReportID");
+                    this.ValidateProperty("ReportID", value);
+                    this._reportID = value;
+                    this.RaiseDataMemberChanged("ReportID");
+                    this.OnReportIDChanged();
                 }
             }
         }
@@ -7196,6 +7224,8 @@ namespace VotGES.Web.Services
         /// <param name="mbType">Значение параметра "mbType" для данного действия.</param>
         /// <param name="isChart">Значение параметра "isChart" для данного действия.</param>
         /// <param name="isTable">Значение параметра "isTable" для данного действия.</param>
+        /// <param name="isExcel">Значение параметра "isExcel" для данного действия.</param>
+        /// <param name="reportID">Значение параметра "reportID" для данного действия.</param>
         /// <param name="TitleList">Значение параметра "TitleList" для данного действия.</param>
         /// <param name="DateStartList">Значение параметра "DateStartList" для данного действия.</param>
         /// <param name="DateEndList">Значение параметра "DateEndList" для данного действия.</param>
@@ -7203,7 +7233,23 @@ namespace VotGES.Web.Services
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ReportAnswer> GetFullReport(IEnumerable<string> selectedData, string Title, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, FullReportMembersType mbType, bool isChart, bool isTable, IEnumerable<string> TitleList, IEnumerable<DateTime> DateStartList, IEnumerable<DateTime> DateEndList, IEnumerable<FullReportMembersType> MBTypeList, Action<InvokeOperation<ReportAnswer>> callback, object userState)
+        public InvokeOperation<ReportAnswer> GetFullReport(
+                    IEnumerable<string> selectedData, 
+                    string Title, 
+                    DateTime dateStart, 
+                    DateTime dateEnd, 
+                    ReportTypeEnum ReportType, 
+                    FullReportMembersType mbType, 
+                    bool isChart, 
+                    bool isTable, 
+                    bool isExcel, 
+                    Guid reportID, 
+                    IEnumerable<string> TitleList, 
+                    IEnumerable<DateTime> DateStartList, 
+                    IEnumerable<DateTime> DateEndList, 
+                    IEnumerable<FullReportMembersType> MBTypeList, 
+                    Action<InvokeOperation<ReportAnswer>> callback, 
+                    object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("selectedData", selectedData);
@@ -7214,6 +7260,8 @@ namespace VotGES.Web.Services
             parameters.Add("mbType", mbType);
             parameters.Add("isChart", isChart);
             parameters.Add("isTable", isTable);
+            parameters.Add("isExcel", isExcel);
+            parameters.Add("reportID", reportID);
             parameters.Add("TitleList", TitleList);
             parameters.Add("DateStartList", DateStartList);
             parameters.Add("DateEndList", DateEndList);
@@ -7233,12 +7281,14 @@ namespace VotGES.Web.Services
         /// <param name="mbType">Значение параметра "mbType" для данного действия.</param>
         /// <param name="isChart">Значение параметра "isChart" для данного действия.</param>
         /// <param name="isTable">Значение параметра "isTable" для данного действия.</param>
+        /// <param name="isExcel">Значение параметра "isExcel" для данного действия.</param>
+        /// <param name="reportID">Значение параметра "reportID" для данного действия.</param>
         /// <param name="TitleList">Значение параметра "TitleList" для данного действия.</param>
         /// <param name="DateStartList">Значение параметра "DateStartList" для данного действия.</param>
         /// <param name="DateEndList">Значение параметра "DateEndList" для данного действия.</param>
         /// <param name="MBTypeList">Значение параметра "MBTypeList" для данного действия.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<ReportAnswer> GetFullReport(IEnumerable<string> selectedData, string Title, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, FullReportMembersType mbType, bool isChart, bool isTable, IEnumerable<string> TitleList, IEnumerable<DateTime> DateStartList, IEnumerable<DateTime> DateEndList, IEnumerable<FullReportMembersType> MBTypeList)
+        public InvokeOperation<ReportAnswer> GetFullReport(IEnumerable<string> selectedData, string Title, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, FullReportMembersType mbType, bool isChart, bool isTable, bool isExcel, Guid reportID, IEnumerable<string> TitleList, IEnumerable<DateTime> DateStartList, IEnumerable<DateTime> DateEndList, IEnumerable<FullReportMembersType> MBTypeList)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("selectedData", selectedData);
@@ -7249,6 +7299,8 @@ namespace VotGES.Web.Services
             parameters.Add("mbType", mbType);
             parameters.Add("isChart", isChart);
             parameters.Add("isTable", isTable);
+            parameters.Add("isExcel", isExcel);
+            parameters.Add("reportID", reportID);
             parameters.Add("TitleList", TitleList);
             parameters.Add("DateStartList", DateStartList);
             parameters.Add("DateEndList", DateEndList);
@@ -7334,6 +7386,8 @@ namespace VotGES.Web.Services
             /// <param name="mbType">Значение параметра "mbType" для данного действия.</param>
             /// <param name="isChart">Значение параметра "isChart" для данного действия.</param>
             /// <param name="isTable">Значение параметра "isTable" для данного действия.</param>
+            /// <param name="isExcel">Значение параметра "isExcel" для данного действия.</param>
+            /// <param name="reportID">Значение параметра "reportID" для данного действия.</param>
             /// <param name="TitleList">Значение параметра "TitleList" для данного действия.</param>
             /// <param name="DateStartList">Значение параметра "DateStartList" для данного действия.</param>
             /// <param name="DateEndList">Значение параметра "DateEndList" для данного действия.</param>
@@ -7343,7 +7397,23 @@ namespace VotGES.Web.Services
             /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/ReportBaseDomainService/GetFullReportDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ReportBaseDomainService/GetFullReport", ReplyAction="http://tempuri.org/ReportBaseDomainService/GetFullReportResponse")]
-            IAsyncResult BeginGetFullReport(IEnumerable<string> selectedData, string Title, DateTime dateStart, DateTime dateEnd, ReportTypeEnum ReportType, FullReportMembersType mbType, bool isChart, bool isTable, IEnumerable<string> TitleList, IEnumerable<DateTime> DateStartList, IEnumerable<DateTime> DateEndList, IEnumerable<FullReportMembersType> MBTypeList, AsyncCallback callback, object asyncState);
+            IAsyncResult BeginGetFullReport(
+                        IEnumerable<string> selectedData, 
+                        string Title, 
+                        DateTime dateStart, 
+                        DateTime dateEnd, 
+                        ReportTypeEnum ReportType, 
+                        FullReportMembersType mbType, 
+                        bool isChart, 
+                        bool isTable, 
+                        bool isExcel, 
+                        Guid reportID, 
+                        IEnumerable<string> TitleList, 
+                        IEnumerable<DateTime> DateStartList, 
+                        IEnumerable<DateTime> DateEndList, 
+                        IEnumerable<FullReportMembersType> MBTypeList, 
+                        AsyncCallback callback, 
+                        object asyncState);
             
             /// <summary>
             /// Завершает асинхронную операцию, начатую "BeginGetFullReport".

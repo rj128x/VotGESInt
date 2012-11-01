@@ -18,8 +18,11 @@ using System.ServiceModel;
 
 namespace MainSL.Views
 {
+
 	public partial class FullReportPage : Page
 	{
+		string ExcelUri;
+
 		FullReportRoot Root { get; set; }
 		ReportBaseDomainContext Context { get; set; }
 		List<String> SelectedValues { get; set; }
@@ -27,10 +30,8 @@ namespace MainSL.Views
 		public FullReportPage() {
 			InitializeComponent();
 			Context = new ReportBaseDomainContext();
-			/*WebDomainClient<ReportBaseDomainContext.IReportBaseDomainServiceContract> proxy = (WebDomainClient<ReportBaseDomainContext.IReportBaseDomainServiceContract>)Context.DomainClient;
-			proxy.ChannelFactory.Endpoint.Binding.SendTimeout = TimeSpan.FromMinutes(10);*/
 			SelectedValues = new List<string>();
-			SettingsControl.Settings.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Settings_PropertyChanged);
+			SettingsControl.Settings.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(Settings_PropertyChanged);			
 		}
 
 		void Settings_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e) {
@@ -108,6 +109,13 @@ namespace MainSL.Views
 		}
 
 		private void btnGetReport_Click(object sender, RoutedEventArgs e) {
+			Guid reportGUID=Guid.NewGuid();
+			if (SettingsControl.Settings.IsExcel) {
+				ExcelUri = String.Format("Reports/FullReport?guid={0}", reportGUID);
+				FloatWindow.OpenWindow(ExcelUri,20,20);
+			}
+
+
 			RefreshSelectedValues();
 			ReportSettings.DateTimeStartEnd des=ReportSettings.DateTimeStartEnd.getBySettings(SettingsControl.Settings);
 			List<DateTime> dateStartList=new List<DateTime>();
@@ -131,26 +139,37 @@ namespace MainSL.Views
 				des.Title = "";
 			}
 			
+			Action<InvokeOperation<ReportAnswer>> callback=Callback;
+
 			InvokeOperation currentOper=Context.GetFullReport(SelectedValues,des.Title,des.DateStart,des.DateEnd,
-				SettingsControl.Settings.ReportType, SettingsControl.Settings.MBType, SettingsControl.Settings.IsChart, SettingsControl.Settings.IsTable,
+				SettingsControl.Settings.ReportType, SettingsControl.Settings.MBType,
+				SettingsControl.Settings.IsChart, SettingsControl.Settings.IsTable, SettingsControl.Settings.IsExcel,reportGUID,
 				TitleList,dateStartList,dateEndList,mbTypeList,
-				oper => {
-				if (oper.IsCanceled) {
-					return;
-				}
-				try {
-					GlobalStatus.Current.StartProcess();
+				callback, null);			
+			GlobalStatus.Current.StartLoad(currentOper);
+		}
+
+
+		protected void Callback(InvokeOperation<ReportAnswer> oper){
+			if (oper.IsCanceled) {
+				return;
+			}
+			try {
+				GlobalStatus.Current.StartProcess();
+				if (SettingsControl.Settings.IsExcel) {
+					ExcelUri = String.Format("Reports/FullReport?guid={0}", oper.Value.ReportID);
+					FloatWindow.OpenWindow(ExcelUri);
+				} else {
 					ResultControl.Create(oper.Value);
 					tabResult.IsSelected = true;
-				} catch (Exception ex) {
-					Logging.Logger.info(ex.ToString());
-					GlobalStatus.Current.ErrorLoad("Ошибка при получении данных");
-				} finally {
-					GlobalStatus.Current.StopLoad();
 				}
-
-			}, null);			
-			GlobalStatus.Current.StartLoad(currentOper);
+			} catch (Exception ex) {
+				Logging.Logger.info(ex.ToString());
+				GlobalStatus.Current.ErrorLoad("Ошибка при получении данных");
+			} finally {
+				GlobalStatus.Current.StopLoad();
+				
+			}
 		}
 
 		private void btnGetChart_Click(object sender, RoutedEventArgs e) {
