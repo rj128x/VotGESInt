@@ -33,7 +33,7 @@
 				<Border>
 					<StackPanel>
 						<TextBlock Text="С начала суток" Style="{StaticResource Label}" HorizontalAlignment="Center" FontSize="12" FontWeight="Bold"/>
-						<TextBlock Text="Выработка (МВт):" Style="{StaticResource Label}"/>
+						<TextBlock Text="Выработка (МВт*ч):" Style="{StaticResource Label}"/>
 						<TextBlock Text="{Binding VyrabFakt, StringFormat='#,#0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>
 						<TextBlock Text="Расход (куб.м/с):" Style="{StaticResource Label}"/>
 						<TextBlock Text="{Binding QFakt, StringFormat='#,#0'}" Style="{StaticResource Value}" HorizontalAlignment="Center"/>

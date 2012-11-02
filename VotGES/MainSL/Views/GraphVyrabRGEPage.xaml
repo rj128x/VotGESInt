@@ -6,7 +6,7 @@
            mc:Ignorable="d"
            xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
 			  xmlns:usr="clr-namespace:MainSL.Views" 
-           d:DesignWidth="640" d:DesignHeight="480"
+           d:DesignWidth="640" d:DesignHeight="500" MinHeight="500"
            Title="График нагрузки">
 	<Grid x:Name="LayoutRoot">
 		<Grid>
@@ -50,265 +50,280 @@
 									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
 
 			<Grid x:Name="pnlSettings" Grid.Column="1">
-				<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
-					<TextBlock Text="Мгновенные значения" Style="{StaticResource Label}" FontSize="12" HorizontalAlignment="Right"/>
-					<TextBlock Text="ГТП, ГЭС" Style="{StaticResource Label}" FontSize="12"/>
-					<sdk:DataGrid ItemsSource="{Binding GTP.TableCurrent}"
-						AutoGenerateColumns="False" >
-						<sdk:DataGrid.Columns>
-							<sdk:DataGridTemplateColumn Header="Параметр" ClipboardContentBinding="{Binding Title}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГТП-1" ClipboardContentBinding="{Binding GTP1}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding GTP1, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГТП-2" ClipboardContentBinding="{Binding GTP2}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding GTP2, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГЭС" ClipboardContentBinding="{Binding GES}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding GES, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-						</sdk:DataGrid.Columns>
-					</sdk:DataGrid>
-
-					<TextBlock Text="РГЕ" Style="{StaticResource Label}" FontSize="12"/>
-					<sdk:DataGrid ItemsSource="{Binding RGE.TableCurrent}"
-						AutoGenerateColumns="False" >
-						<sdk:DataGrid.Columns>
-							<sdk:DataGridTemplateColumn Header="Параметр" ClipboardContentBinding="{Binding Title}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="РГЕ-1" ClipboardContentBinding="{Binding RGE1}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding RGE1, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="РГЕ-2" ClipboardContentBinding="{Binding RGE2}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding RGE2, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="РГЕ-3" ClipboardContentBinding="{Binding RGE3}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding RGE3, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="РГЕ-4" ClipboardContentBinding="{Binding RGE4}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding RGE4, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-						</sdk:DataGrid.Columns>
-					</sdk:DataGrid>
-
-
-					<TextBlock Text="Значения за текущий час" Style="{StaticResource Label}" FontSize="12" HorizontalAlignment="Right"/>
-					<TextBlock Text="ГТП, ГЭС" Style="{StaticResource Label}" FontSize="12"/>
-					<sdk:DataGrid ItemsSource="{Binding GTP.TableHour}"
-						AutoGenerateColumns="False" >
-						<sdk:DataGrid.Columns>
-							<sdk:DataGridTemplateColumn Header="Параметр" ClipboardContentBinding="{Binding Title}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГТП-1" ClipboardContentBinding="{Binding GTP1}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding GTP1, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГТП-2" ClipboardContentBinding="{Binding GTP2}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding GTP2, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="ГЭС" ClipboardContentBinding="{Binding GES}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding GES, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-						</sdk:DataGrid.Columns>
-					</sdk:DataGrid>
-
-					<TextBlock Text="РГЕ" Style="{StaticResource Label}" FontSize="12"/>
-					<sdk:DataGrid ItemsSource="{Binding RGE.TableHour}"
-						AutoGenerateColumns="False" >
-						<sdk:DataGrid.Columns>
-							<sdk:DataGridTemplateColumn Header="Параметр" ClipboardContentBinding="{Binding Title}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="РГЕ-1" ClipboardContentBinding="{Binding RGE1}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding RGE1, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="РГЕ-2" ClipboardContentBinding="{Binding RGE2}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding RGE2, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="РГЕ-3" ClipboardContentBinding="{Binding RGE3}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding RGE3, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-							<sdk:DataGridTemplateColumn Header="РГЕ-4" ClipboardContentBinding="{Binding RGE4}">
-								<sdk:DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<TextBlock Text="{Binding RGE4, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
-									</DataTemplate>
-								</sdk:DataGridTemplateColumn.CellTemplate>
-							</sdk:DataGridTemplateColumn>
-						</sdk:DataGrid.Columns>
-					</sdk:DataGrid>
-
-					<Border Style="{StaticResource borderGray}" Margin="0,10,0,0">
-						<StackPanel>
-							<TextBlock Text="ВЫРАБОТКА" Style="{StaticResource Label}" HorizontalAlignment="Center"/>
-							<TextBlock Text="План (МВт*ч):" Style="{StaticResource Label}"/>
-							<TextBlock Text="{Binding GTP.VyrabPlan, StringFormat='#,#0'}" Style="{StaticResource Value}"/>
-							<TextBlock Text="Факт (МВт*ч):" Style="{StaticResource Label}"/>
-							<TextBlock Text="{Binding GTP.VyrabFakt, StringFormat='#,#0'}" Style="{StaticResource Value}"/>
-							<TextBlock Text="Отклонение:" Style="{StaticResource Label}"/>
-							<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-								<TextBlock Text="{Binding GTP.VyrabDiff, StringFormat='#,#0'}" Style="{StaticResource Value}"/>
-								<TextBlock Text="МВт*ч " Style="{StaticResource Label}"/>
-								<TextBlock Text="{Binding GTP.VyrabDiffProc, StringFormat='#,#0.##'}" Style="{StaticResource Value}"/>
-								<TextBlock Text="%" Style="{StaticResource Label}"/>
-							</StackPanel>
+				<ScrollViewer >
+					<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+							<TextBlock Text="Мгновенные значения " Style="{StaticResource Label}" FontSize="12" />
+							<Button Name="btnCurrent" Content="..." Click="btnCurrent_Click"/>
 						</StackPanel>
-					</Border>
-					<Border Style="{StaticResource borderGray}" Margin="0,10,0,0" Name="pnlRefresh">
-						<StackPanel>
-							<CheckBox Content="Обновлять автоматически" Style="{StaticResource LabelChb}" HorizontalAlignment="Right"
+						<Border Style="{StaticResource borderGray}" Margin="0,0,0,0" Name="brdCurrent">
+							<StackPanel>
+							<TextBlock Text="ГТП, ГЭС" Style="{StaticResource Label}" FontSize="12" />
+							<sdk:DataGrid ItemsSource="{Binding GTP.TableCurrent}" AutoGenerateColumns="False" >
+								<sdk:DataGrid.Columns>
+									<sdk:DataGridTemplateColumn Header="Параметр" ClipboardContentBinding="{Binding Title}">
+										<sdk:DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
+											</DataTemplate>
+										</sdk:DataGridTemplateColumn.CellTemplate>
+									</sdk:DataGridTemplateColumn>
+									<sdk:DataGridTemplateColumn Header="ГТП-1" ClipboardContentBinding="{Binding GTP1}">
+										<sdk:DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding GTP1, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+											</DataTemplate>
+										</sdk:DataGridTemplateColumn.CellTemplate>
+									</sdk:DataGridTemplateColumn>
+									<sdk:DataGridTemplateColumn Header="ГТП-2" ClipboardContentBinding="{Binding GTP2}">
+										<sdk:DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding GTP2, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+											</DataTemplate>
+										</sdk:DataGridTemplateColumn.CellTemplate>
+									</sdk:DataGridTemplateColumn>
+									<sdk:DataGridTemplateColumn Header="ГЭС" ClipboardContentBinding="{Binding GES}">
+										<sdk:DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding GES, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+											</DataTemplate>
+										</sdk:DataGridTemplateColumn.CellTemplate>
+									</sdk:DataGridTemplateColumn>
+								</sdk:DataGrid.Columns>
+							</sdk:DataGrid>
+
+							<TextBlock Text="РГЕ" Style="{StaticResource Label}" FontSize="12"/>
+							<sdk:DataGrid ItemsSource="{Binding RGE.TableCurrent}"
+						AutoGenerateColumns="False" >
+								<sdk:DataGrid.Columns>
+									<sdk:DataGridTemplateColumn Header="Параметр" ClipboardContentBinding="{Binding Title}">
+										<sdk:DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
+											</DataTemplate>
+										</sdk:DataGridTemplateColumn.CellTemplate>
+									</sdk:DataGridTemplateColumn>
+									<sdk:DataGridTemplateColumn Header="РГЕ-1" ClipboardContentBinding="{Binding RGE1}">
+										<sdk:DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding RGE1, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+											</DataTemplate>
+										</sdk:DataGridTemplateColumn.CellTemplate>
+									</sdk:DataGridTemplateColumn>
+									<sdk:DataGridTemplateColumn Header="РГЕ-2" ClipboardContentBinding="{Binding RGE2}">
+										<sdk:DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding RGE2, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+											</DataTemplate>
+										</sdk:DataGridTemplateColumn.CellTemplate>
+									</sdk:DataGridTemplateColumn>
+									<sdk:DataGridTemplateColumn Header="РГЕ-3" ClipboardContentBinding="{Binding RGE3}">
+										<sdk:DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding RGE3, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+											</DataTemplate>
+										</sdk:DataGridTemplateColumn.CellTemplate>
+									</sdk:DataGridTemplateColumn>
+									<sdk:DataGridTemplateColumn Header="РГЕ-4" ClipboardContentBinding="{Binding RGE4}">
+										<sdk:DataGridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<TextBlock Text="{Binding RGE4, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+											</DataTemplate>
+										</sdk:DataGridTemplateColumn.CellTemplate>
+									</sdk:DataGridTemplateColumn>
+								</sdk:DataGrid.Columns>
+							</sdk:DataGrid>
+							</StackPanel>
+						</Border>
+
+
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+							<TextBlock Text="Значения за текущий час " Style="{StaticResource Label}" FontSize="12" />
+							<Button Name="btnHour" Content="..." Click="btnHour_Click"/>
+						</StackPanel>
+						<Border Style="{StaticResource borderGray}" Margin="0,0,0,0" Name="brdHour" Visibility="Collapsed">
+							<StackPanel>
+								<TextBlock Text="ГТП, ГЭС" Style="{StaticResource Label}" FontSize="12"/>
+								<sdk:DataGrid ItemsSource="{Binding GTP.TableHour}"
+						AutoGenerateColumns="False" >
+									<sdk:DataGrid.Columns>
+										<sdk:DataGridTemplateColumn Header="Параметр" ClipboardContentBinding="{Binding Title}">
+											<sdk:DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
+												</DataTemplate>
+											</sdk:DataGridTemplateColumn.CellTemplate>
+										</sdk:DataGridTemplateColumn>
+										<sdk:DataGridTemplateColumn Header="ГТП-1" ClipboardContentBinding="{Binding GTP1}">
+											<sdk:DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding GTP1, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+												</DataTemplate>
+											</sdk:DataGridTemplateColumn.CellTemplate>
+										</sdk:DataGridTemplateColumn>
+										<sdk:DataGridTemplateColumn Header="ГТП-2" ClipboardContentBinding="{Binding GTP2}">
+											<sdk:DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding GTP2, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+												</DataTemplate>
+											</sdk:DataGridTemplateColumn.CellTemplate>
+										</sdk:DataGridTemplateColumn>
+										<sdk:DataGridTemplateColumn Header="ГЭС" ClipboardContentBinding="{Binding GES}">
+											<sdk:DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding GES, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+												</DataTemplate>
+											</sdk:DataGridTemplateColumn.CellTemplate>
+										</sdk:DataGridTemplateColumn>
+									</sdk:DataGrid.Columns>
+								</sdk:DataGrid>
+
+								<TextBlock Text="РГЕ" Style="{StaticResource Label}" FontSize="12"/>
+								<sdk:DataGrid ItemsSource="{Binding RGE.TableHour}"
+						AutoGenerateColumns="False" >
+									<sdk:DataGrid.Columns>
+										<sdk:DataGridTemplateColumn Header="Параметр" ClipboardContentBinding="{Binding Title}">
+											<sdk:DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding Title}" FontWeight="Bold" HorizontalAlignment="Right"/>
+												</DataTemplate>
+											</sdk:DataGridTemplateColumn.CellTemplate>
+										</sdk:DataGridTemplateColumn>
+										<sdk:DataGridTemplateColumn Header="РГЕ-1" ClipboardContentBinding="{Binding RGE1}">
+											<sdk:DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding RGE1, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+												</DataTemplate>
+											</sdk:DataGridTemplateColumn.CellTemplate>
+										</sdk:DataGridTemplateColumn>
+										<sdk:DataGridTemplateColumn Header="РГЕ-2" ClipboardContentBinding="{Binding RGE2}">
+											<sdk:DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding RGE2, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+												</DataTemplate>
+											</sdk:DataGridTemplateColumn.CellTemplate>
+										</sdk:DataGridTemplateColumn>
+										<sdk:DataGridTemplateColumn Header="РГЕ-3" ClipboardContentBinding="{Binding RGE3}">
+											<sdk:DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding RGE3, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+												</DataTemplate>
+											</sdk:DataGridTemplateColumn.CellTemplate>
+										</sdk:DataGridTemplateColumn>
+										<sdk:DataGridTemplateColumn Header="РГЕ-4" ClipboardContentBinding="{Binding RGE4}">
+											<sdk:DataGridTemplateColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding RGE4, StringFormat='#,#0.##'}" HorizontalAlignment="Right"/>
+												</DataTemplate>
+											</sdk:DataGridTemplateColumn.CellTemplate>
+										</sdk:DataGridTemplateColumn>
+									</sdk:DataGrid.Columns>
+								</sdk:DataGrid>
+							</StackPanel>
+						</Border>
+
+						<Border Style="{StaticResource borderGray}" Margin="0,10,0,0">
+							<StackPanel>
+								<TextBlock Text="ВЫРАБОТКА" Style="{StaticResource Label}" HorizontalAlignment="Center"/>
+								<TextBlock Text="План (МВт*ч):" Style="{StaticResource Label}"/>
+								<TextBlock Text="{Binding GTP.VyrabPlan, StringFormat='#,#0'}" Style="{StaticResource Value}"/>
+								<TextBlock Text="Факт (МВт*ч):" Style="{StaticResource Label}"/>
+								<TextBlock Text="{Binding GTP.VyrabFakt, StringFormat='#,#0'}" Style="{StaticResource Value}"/>
+								<TextBlock Text="Отклонение:" Style="{StaticResource Label}"/>
+								<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+									<TextBlock Text="{Binding GTP.VyrabDiff, StringFormat='#,#0'}" Style="{StaticResource Value}"/>
+									<TextBlock Text="МВт*ч " Style="{StaticResource Label}"/>
+									<TextBlock Text="{Binding GTP.VyrabDiffProc, StringFormat='#,#0.##'}" Style="{StaticResource Value}"/>
+									<TextBlock Text="%" Style="{StaticResource Label}"/>
+								</StackPanel>
+							</StackPanel>
+						</Border>
+						<Border Style="{StaticResource borderGray}" Margin="0,10,0,0" Name="pnlRefresh">
+							<StackPanel>
+								<CheckBox Content="Обновлять автоматически" Style="{StaticResource LabelChb}" HorizontalAlignment="Right"
 										 IsChecked="{Binding AutoRefresh, Mode=TwoWay}" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
-							<StackPanel Orientation="Horizontal" Visibility="{Binding AutoRefresh, Converter={StaticResource visibilityConverter}}">
-								<TextBlock Text="Обновление через " Style="{StaticResource Label}"/>
-								<TextBlock Text="{Binding Second}" Style="{StaticResource Value}"/>
-								<TextBlock Text=" секунд" Style="{StaticResource Label}"/>
-							</StackPanel>
-							<Button Name="btnRefresh" Content="Обновить сейчас" Click="btnRefresh_Click" 
+								<StackPanel Orientation="Horizontal" Visibility="{Binding AutoRefresh, Converter={StaticResource visibilityConverter}}">
+									<TextBlock Text="Обновление через " Style="{StaticResource Label}"/>
+									<TextBlock Text="{Binding Second}" Style="{StaticResource Value}"/>
+									<TextBlock Text=" секунд" Style="{StaticResource Label}"/>
+								</StackPanel>
+								<Button Name="btnRefresh" Content="Обновить сейчас" Click="btnRefresh_Click" 
 									  HorizontalAlignment="Stretch" VerticalAlignment="Top" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
-						</StackPanel>
-					</Border>
-					<Border Style="{StaticResource borderGray}" Margin="0,10,0,0" Name="pnlStopTime">
-						<StackPanel>
-							<TextBlock Text="Простой генераторов (ДД:ЧЧ:ММ)" Style="{StaticResource Label}"/>
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-								</Grid.ColumnDefinitions>
-								<Grid.RowDefinitions>
-									<RowDefinition/>
-									<RowDefinition/>
-									<RowDefinition/>
-									<RowDefinition/>
-									<RowDefinition/>
-									<RowDefinition/>
-								</Grid.RowDefinitions>
-								<TextBlock Text="ГА-1" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="0"/>
-								<TextBlock Text="ГА-2" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="1"/>
-								<TextBlock Text="ГА-3" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="0"/>
-								<TextBlock Text="ГА-4" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="1"/>
-								<TextBlock Text="ГА-5" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="2"/>
-								<TextBlock Text="ГА-6" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="3"/>
-								<TextBlock Text="ГА-7" Style="{StaticResource Caption}" Grid.Row="4" Grid.Column="0"/>
-								<TextBlock Text="ГА-8" Style="{StaticResource Caption}" Grid.Row="4" Grid.Column="1"/>
-								<TextBlock Text="ГА-9" Style="{StaticResource Caption}" Grid.Row="4" Grid.Column="2"/>
-								<TextBlock Text="ГА-10" Style="{StaticResource Caption}" Grid.Row="4" Grid.Column="3"/>
-
-								<TextBlock Name="txtSropGA1" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="0"/>
-								<TextBlock Name="txtSropGA2" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="1"/>
-								<TextBlock Name="txtSropGA3" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="0"/>
-								<TextBlock Name="txtSropGA4" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="1"/>
-								<TextBlock Name="txtSropGA5" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="2"/>
-								<TextBlock Name="txtSropGA6" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="3"/>
-								<TextBlock Name="txtSropGA7" Style="{StaticResource Caption}" Grid.Row="5" Grid.Column="0"/>
-								<TextBlock Name="txtSropGA8" Style="{StaticResource Caption}" Grid.Row="5" Grid.Column="1"/>
-								<TextBlock Name="txtSropGA9" Style="{StaticResource Caption}" Grid.Row="5" Grid.Column="2"/>
-								<TextBlock Name="txtSropGA10" Style="{StaticResource Caption}" Grid.Row="5" Grid.Column="3"/>
-
-							</Grid>
-						</StackPanel>
-					</Border>
-
-					<Border Style="{StaticResource borderGray}" Margin="0,10,0,0" Name="pnlRUSA">
-						<StackPanel>
-							<TextBlock Text="Оптимальный расход" Style="{StaticResource Label}"/>
-							<StackPanel Orientation="Horizontal">
-								<Button Name="btnGTP1" Content="ГТП-1" Click="btnGTP1_Click" Width="80"
-									  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
-									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
-								<Button Name="btnGTP2" Content="ГТП-2" Click="btnGTP2_Click" Width="80"
-									  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
-									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
-								<Button Name="btnGES" Content="ГЭС" Click="btnGES_Click" Width="80"
-									  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
-									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
 							</StackPanel>
-							<StackPanel Orientation="Horizontal">
-								<Button Name="btnRGE2" Content="ГГ 3-4" Click="btnRGE2_Click" Width="80"
-									  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
-									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
-								<Button Name="btnRGE3" Content="ГГ 5-6" Click="btnRGE3_Click" Width="80"
-									  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
-									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
-								<Button Name="btnRGE4" Content="ГГ 7-10" Click="btnRGE4_Click" Width="80"
-									  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
-									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
+						</Border>
+						<Border Style="{StaticResource borderGray}" Margin="0,10,0,0" Name="pnlStopTime">
+							<StackPanel>
+								<TextBlock Text="Простой генераторов (ДД:ЧЧ:ММ)" Style="{StaticResource Label}"/>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition/>
+										<ColumnDefinition/>
+										<ColumnDefinition/>
+										<ColumnDefinition/>
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+										<RowDefinition/>
+									</Grid.RowDefinitions>
+									<TextBlock Text="ГА-1" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="0"/>
+									<TextBlock Text="ГА-2" Style="{StaticResource Caption}" Grid.Row="0" Grid.Column="1"/>
+									<TextBlock Text="ГА-3" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="0"/>
+									<TextBlock Text="ГА-4" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="1"/>
+									<TextBlock Text="ГА-5" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="2"/>
+									<TextBlock Text="ГА-6" Style="{StaticResource Caption}" Grid.Row="2" Grid.Column="3"/>
+									<TextBlock Text="ГА-7" Style="{StaticResource Caption}" Grid.Row="4" Grid.Column="0"/>
+									<TextBlock Text="ГА-8" Style="{StaticResource Caption}" Grid.Row="4" Grid.Column="1"/>
+									<TextBlock Text="ГА-9" Style="{StaticResource Caption}" Grid.Row="4" Grid.Column="2"/>
+									<TextBlock Text="ГА-10" Style="{StaticResource Caption}" Grid.Row="4" Grid.Column="3"/>
+
+									<TextBlock Name="txtSropGA1" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="0"/>
+									<TextBlock Name="txtSropGA2" Style="{StaticResource Caption}" Grid.Row="1" Grid.Column="1"/>
+									<TextBlock Name="txtSropGA3" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="0"/>
+									<TextBlock Name="txtSropGA4" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="1"/>
+									<TextBlock Name="txtSropGA5" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="2"/>
+									<TextBlock Name="txtSropGA6" Style="{StaticResource Caption}" Grid.Row="3" Grid.Column="3"/>
+									<TextBlock Name="txtSropGA7" Style="{StaticResource Caption}" Grid.Row="5" Grid.Column="0"/>
+									<TextBlock Name="txtSropGA8" Style="{StaticResource Caption}" Grid.Row="5" Grid.Column="1"/>
+									<TextBlock Name="txtSropGA9" Style="{StaticResource Caption}" Grid.Row="5" Grid.Column="2"/>
+									<TextBlock Name="txtSropGA10" Style="{StaticResource Caption}" Grid.Row="5" Grid.Column="3"/>
+
+								</Grid>
 							</StackPanel>
-						</StackPanel>
-					</Border>
-				</StackPanel>
+						</Border>
+
+						<Border Style="{StaticResource borderGray}" Margin="0,10,0,0" Name="pnlRUSA">
+							<StackPanel>
+								<TextBlock Text="Оптимальный расход" Style="{StaticResource Label}"/>
+								<StackPanel Orientation="Horizontal">
+									<Button Name="btnGTP1" Content="ГТП-1" Click="btnGTP1_Click" Width="80"
+									  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
+									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
+									<Button Name="btnGTP2" Content="ГТП-2" Click="btnGTP2_Click" Width="80"
+									  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
+									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
+									<Button Name="btnGES" Content="ГЭС" Click="btnGES_Click" Width="80"
+									  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
+									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
+								</StackPanel>
+								<StackPanel Orientation="Horizontal">
+									<Button Name="btnRGE2" Content="ГГ 3-4" Click="btnRGE2_Click" Width="80"
+									  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
+									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
+									<Button Name="btnRGE3" Content="ГГ 5-6" Click="btnRGE3_Click" Width="80"
+									  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
+									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
+									<Button Name="btnRGE4" Content="ГГ 7-10" Click="btnRGE4_Click" Width="80"
+									  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
+									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }" />
+								</StackPanel>
+							</StackPanel>
+						</Border>
+					</StackPanel>
+				</ScrollViewer>
 			</Grid>
 
 		</Grid>

@@ -218,6 +218,22 @@ namespace MainSL.Views
 				CurrentAnswer.GTP.ActualDate.Year,CurrentAnswer.GTP.ActualDate.Month,CurrentAnswer.GTP.ActualDate.Day);
 			FloatWindow.OpenWindow(uri);
 		}
+
+		private void btnCurrent_Click(object sender, RoutedEventArgs e) {
+			if (brdCurrent.Visibility == System.Windows.Visibility.Collapsed) {
+				brdCurrent.Visibility = System.Windows.Visibility.Visible;
+			} else {
+				brdCurrent.Visibility = System.Windows.Visibility.Collapsed;
+			}
+		}
+
+		private void btnHour_Click(object sender, RoutedEventArgs e) {
+			if (brdHour.Visibility == System.Windows.Visibility.Collapsed) {
+				brdHour.Visibility = System.Windows.Visibility.Visible;
+			} else {
+				brdHour.Visibility = System.Windows.Visibility.Collapsed;
+			}
+		}
 		
 	}
 
