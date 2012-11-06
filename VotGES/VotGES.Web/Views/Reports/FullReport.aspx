@@ -85,7 +85,7 @@
 			<tr>
 				<th>&nbsp;<%=record.Header %></th>
 				<%foreach (string id in Model.Columns.Keys){ %>
-					<td><%=record.DataStr[id].ToString(Model.Formats[id])%></td>
+					<td><%=record.DataStr.ContainsKey(id)?record.DataStr[id].ToString(Model.Formats[id]):"-"%></td>
 				<%} %>
 			</tr>
 		<%} %>	
