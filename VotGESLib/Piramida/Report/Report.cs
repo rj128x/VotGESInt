@@ -147,8 +147,8 @@ namespace VotGES.Piramida.Report
 		protected SortedList<DateTime, Dictionary<string, double>> Data { get; set; }
 		public Dictionary<string, double> ResultData { get; set; }
 		public SortedList<ResultTypeEnum, Dictionary<string, double>> ResultDataFull { get; set; }
-		public List<string> NeedRecords { get; set; }
-		public List<string> CurrentNeedRecords { get; set; }
+		protected List<string> NeedRecords { get; set; }
+		protected List<string> CurrentNeedRecords { get; set; }
 		public List<DateTime> Dates { get; set; }
 		public ReportAnswer Answer { get; set; }
 		public String AddReportTitle { get; set; }
