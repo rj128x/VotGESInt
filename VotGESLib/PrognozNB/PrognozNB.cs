@@ -402,8 +402,9 @@ namespace VotGES.PrognozNB
 			ChartAxisProperties tAx=new ChartAxisProperties();
 			tAx.Auto = true;
 			tAx.Index = 5;
-			tAx.MinHeight = 3;
+			tAx.MinHeight = 20;
 			tAx.ProcessAuto = true;
+			tAx.Interval = 1;
 
 
 			ChartSerieProperties pSerie=new ChartSerieProperties();

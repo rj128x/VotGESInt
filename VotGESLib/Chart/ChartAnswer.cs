@@ -26,7 +26,7 @@ namespace VotGES.Chart
 						}
 					}
 					if (!double.IsNaN(max) && !double.IsNaN(min)) {
-						double height=max - min;
+						double height=Math.Abs(max - min);
 						if (ax.MinHeight > height) {
 							ax.Auto = false;
 							ax.Min = min - ax.Interval;
