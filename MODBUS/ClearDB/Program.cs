@@ -99,6 +99,10 @@ namespace ClearDB
 							hh = 24;
 							ClearDB.Clear(date, date.AddHours(hh), "P3000");
 							break;
+						case "dupl":
+							hh = 10;
+							ClearDB.FindDupl(date, date.AddHours(hh), "P3000");
+							break;
 						case "clearMin":
 							hh = 24;
 							ClearDB.Clear(date, date.AddHours(hh), "PMin");
