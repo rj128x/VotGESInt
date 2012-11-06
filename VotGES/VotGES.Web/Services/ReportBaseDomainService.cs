@@ -38,7 +38,12 @@ namespace VotGES.Web.Services
 				Logger.Info(String.Format("Получение отчета {0} - {1} [{2}] chart: {3} table: {4}",dateStart,dateEnd,ReportType,isChart,isTable));
 				FullReport report=new FullReport(dateStart, dateEnd, Report.GetInterval(ReportType),mbType);
 				report.AddReportTitle = Title;
-				report.InitNeedData(selectedData);				
+				report.InitNeedData(selectedData);
+				foreach (string need in selectedData) {
+					try {
+						Logger.Info("---" + report.RecordTypes[need].Title);
+					} catch { }
+				}
 				report.ReadData();
 
 				List<Report> reportAddList=null;

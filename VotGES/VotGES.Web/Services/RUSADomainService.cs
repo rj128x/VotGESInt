@@ -50,7 +50,7 @@ using VotGES.Rashod;
 			return PuskStopReportFull.TimeStopGA();
 		}
 
-		public ChartAnswer getChart(RashodHarsData data, RHChartType type) {
+		public ChartAnswer getChart(RashodHarsData data, RHChartType type) {			
 			switch (type) {
 				case RHChartType.GA_QotP:
 					return RashodHars.GetGA_QotP(data.GANumber, false, data.Napor);
