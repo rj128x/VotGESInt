@@ -23,9 +23,9 @@ namespace ClearDB
 			run(com3, "53500 4");*/
 		}
 
-		public static void FindDupl(DateTime dateStart, DateTime dateEnd, string DBName,bool del=false) {
+		public static void FindDupl(DateTime dateStart, DateTime dateEnd, string DBName,bool del=true) {
 			Logger.Info(String.Format("{0} - {1}", dateStart, dateEnd));
-			String com=String.Format("SELECT  DATA_DATE,OBJECT,OBJTYPE,ITEM,PARNUMBER,SEASON,COUNT(VALUE0) FROM DATA WHERE DATA_DATE>='{0}' AND DATA_DATE<='{1}' GROUP BY DATA_DATE,OBJECT,OBJTYPE,ITEM,PARNUMBER,SEASON HAVING COUNT(VALUE0)>1 ",
+			String com=String.Format("SELECT  DATA_DATE,OBJECT,OBJTYPE,ITEM,PARNUMBER,MIN(SEASON),COUNT(VALUE0) FROM DATA WHERE DATA_DATE>='{0}' AND DATA_DATE<='{1}' GROUP BY DATA_DATE,OBJECT,OBJTYPE,ITEM,PARNUMBER HAVING COUNT(VALUE0)>1 ",
 					dateStart.ToString("yyyy-MM-dd HH:mm:ss"), dateEnd.ToString("yyyy-MM-dd HH:mm:ss"));
 			SqlConnection con=null;
 			List<string> deletes=new List<string>();
@@ -44,7 +44,7 @@ namespace ClearDB
 						DateTime date=DateTime.Parse(reader[0].ToString());
 						if (date.Month != 10) {
 							com=String.Format("DELETE FROM DATA WHERE data_date='{0}' and object={1} and objtype={2} and item={3} and parnumber={4} and season={5}",
-								date.ToString("yyyy-MM-dd HH:mm:ss"), reader[1], reader[2], reader[3], reader[4], reader[7]);
+								date.ToString("yyyy-MM-dd HH:mm:ss"), reader[1], reader[2], reader[3], reader[4], reader[5]);
 							deletes.Add(com);
 							
 						}
@@ -89,7 +89,7 @@ namespace ClearDB
 
 				SqlCommand command=con.CreateCommand();
 				command.CommandType = System.Data.CommandType.Text;
-				string com=String.Format("UPDATE DATA SET SEASON={0} WHERE data_date>='{1}' and data_date<='{2}'",
+				string com=String.Format("UPDATE DATA SET SEASON={0} WHERE data_date>='{1}' and data_date<='{2}' and season<4000",
 						DBSettings.getSeason(dateStart), dateStart.ToString("yyyy-MM-dd HH:mm:ss"), dateEnd.ToString("yyyy-MM-dd HH:mm:ss"));
 				command.CommandText = com;
 				command.CommandTimeout = 60;
