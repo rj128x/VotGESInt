@@ -25,7 +25,7 @@ namespace ClearDB
 
 		public static void FindDupl(DateTime dateStart, DateTime dateEnd, string DBName) {
 			Logger.Info(String.Format("{0} - {1}", dateStart, dateEnd));
-			String com=String.Format("SELECT  DATA_DATE,OBJECT,OBJTYPE,ITEM,PARNUMBER,SEASON,COUNT(VALUE0) FROM DATA WHERE DATA_DATE>='{0}' AND DATA_DATE<='{1}' GROUP BY DATA_DATE,OBJECT,OBJTYPE,ITEM,PARNUMBER,SEASON HAVING COUNT(VALUE0)>1 ",
+			String com=String.Format("SELECT  DATA_DATE,OBJECT,OBJTYPE,ITEM,PARNUMBER,COUNT(VALUE0) FROM DATA WHERE DATA_DATE>='{0}' AND DATA_DATE<='{1}' GROUP BY DATA_DATE,OBJECT,OBJTYPE,ITEM,PARNUMBER HAVING COUNT(VALUE0)>1 ",
 					dateStart.ToString("yyyy-MM-dd HH:mm:ss"), dateEnd.ToString("yyyy-MM-dd HH:mm:ss"));
 			SqlConnection con=null;
 			try {
@@ -38,7 +38,7 @@ namespace ClearDB
 				command.CommandTimeout = 60;
 				SqlDataReader reader=command.ExecuteReader();
 				while (reader.Read()) {
-					Logger.Info(String.Format("{0} - {1} - {2} - {3} - {4} - {5} - {6}",reader[0],reader[1],reader[2],reader[3],reader[4],reader[5],reader[6]));
+					Logger.Info(String.Format("{0} - {1} - {2} - {3} - {4} - {5}",reader[0],reader[1],reader[2],reader[3],reader[4],reader[5]));
 				}
 
 				Logger.Info("--finish");
