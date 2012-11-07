@@ -211,7 +211,7 @@ namespace ModbusLib
 				if (init.WriteToDBHH || init.WriteToDBMin || init.WriteToDBDiff) {
 					if (init.WriteToDBMin && mode == RWModeEnum.min) {
 						string insert=String.Format(frmt, init.ParNumberMin, init.Obj, init.Item, rec.AvgMin,0, rec.Min, rec.Max, rec.Eq, init.ObjType,
-							Date.AddMinutes(1).ToString(df), DateTime.Now.ToString(df), 0);
+							Date.AddMinutes(1).ToString(df), DateTime.Now.ToString(df), DBSettings.getSeason(Date.AddMinutes(1)));
 						string delete=String.Format(frmDel, init.ParNumberMin, init.Obj, init.ObjType, init.Item, Date.AddMinutes(1).ToString(df));
 						//string delete=String.Format(frmDelAll, init.ParNumberMin, init.Obj, init.ObjType, init.Item, Date.ToString(df), Date.AddMinutes(1).ToString(df));
 						if (!inserts.ContainsKey(init.DBNameMin)) {
@@ -227,7 +227,7 @@ namespace ModbusLib
 
 					if (init.WriteToDBHH && mode == RWModeEnum.hh) {
 						string insert=String.Format(frmt, init.ParNumberHH, init.Obj, init.Item, rec.Avg,0, rec.Min, rec.Max, rec.Eq, init.ObjType,
-							Date.AddMinutes(30).ToString(df), DateTime.Now.ToString(df), 0);
+							Date.AddMinutes(30).ToString(df), DateTime.Now.ToString(df), DBSettings.getSeason(Date.AddMinutes(30)));
 						string delete=String.Format(frmDel, init.ParNumberHH, init.Obj, init.ObjType, init.Item, Date.AddMinutes(30).ToString(df));
 						//string delete=String.Format(frmDelAll, init.ParNumberHH, init.Obj, init.ObjType, init.Item, Date.ToString(df), Date.AddMinutes(30).ToString(df));
 						if (!inserts.ContainsKey(init.DBNameHH)) {
@@ -284,7 +284,7 @@ namespace ModbusLib
 						foreach (KeyValuePair<DateTime,double>diff in rec.DiffVals) {
 							timeChange = (diff.Key.Ticks - prevDate.Ticks) / (10000000.0*60.0);
 							string insert=String.Format(frmt, init.ParNumberDiff, init.Obj, init.Item, diff.Value, timeChange, diff.Value, diff.Value, diff.Value, init.ObjType,
-								diff.Key.ToString(df), DateTime.Now.ToString(df), 0);
+								diff.Key.ToString(df), DateTime.Now.ToString(df), DBSettings.getSeason(diff.Key));
 
 							if (!inserts.ContainsKey(init.DBNameDiff)) {
 								inserts.Add(init.DBNameDiff, new List<string>());								

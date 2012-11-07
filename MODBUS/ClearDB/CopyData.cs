@@ -31,7 +31,7 @@ namespace ClearDB
 					DateTime date=DateTime.Parse(reader["data_date"].ToString());
 					string dt=date.ToString(DBClass.DateFormat);
 					string ins=String.Format(DBClass.InsertInfoFormat, reader["parnumber"], reader["object"], reader["item"], reader["value0"], reader["objType"],
-							dt, DateTime.Now.ToString(DBClass.DateFormat), 0);
+							dt, DateTime.Now.ToString(DBClass.DateFormat), DBSettings.getSeason(date));
 					string del=String.Format("(object={0} and objtype={1} and parnumber={2} and item={3})",
 						reader["object"], reader["objType"], reader["parnumber"], reader["item"]);
 					if (!insertsStrings.Contains(ins)) {

@@ -23,11 +23,12 @@ namespace ClearDB
 			run(com3, "53500 4");*/
 		}
 
-		public static void FindDupl(DateTime dateStart, DateTime dateEnd, string DBName) {
-			Logger.Info(String.Format("{0} - {1}", dateStart, dateEnd));
-			String com=String.Format("SELECT  DATA_DATE,OBJECT,OBJTYPE,ITEM,PARNUMBER,COUNT(VALUE0),MAX(VALUE0) FROM DATA WHERE DATA_DATE>='{0}' AND DATA_DATE<='{1}' GROUP BY DATA_DATE,OBJECT,OBJTYPE,ITEM,PARNUMBER HAVING COUNT(VALUE0)>1 ",
+		public static void FindDupl(DateTime dateStart, DateTime dateEnd, string DBName,bool del=true) {
+			//Logger.Info(String.Format("{0} - {1}", dateStart, dateEnd));
+			String com=String.Format("SELECT  DATA_DATE,OBJECT,OBJTYPE,ITEM,PARNUMBER,COUNT(VALUE0),MIN(VALUE0),MAX(VALUE0),MAX(SEASON) FROM DATA WHERE DATA_DATE>='{0}' AND DATA_DATE<='{1}' GROUP BY DATA_DATE,OBJECT,OBJTYPE,ITEM,PARNUMBER HAVING COUNT(VALUE0)>1 ",
 					dateStart.ToString("yyyy-MM-dd HH:mm:ss"), dateEnd.ToString("yyyy-MM-dd HH:mm:ss"));
 			SqlConnection con=null;
+			List<string> deletes=new List<string>();
 			try {
 				con = PiramidaAccess.getConnection(DBName);
 				con.Open();
@@ -38,8 +39,61 @@ namespace ClearDB
 				command.CommandTimeout = 60;
 				SqlDataReader reader=command.ExecuteReader();
 				while (reader.Read()) {
-					Logger.Info(String.Format("{0} - {1} - {2} - {3} - {4} - {5} - {6}", reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6]));
+					Logger.Info(String.Format("{0} - {1} - {2} - {3} - {4} - {5} - {6} - {7}", reader[0], reader[1], reader[2], reader[3], reader[4], reader[5], reader[6], reader[7]));
+					if (del) {
+						DateTime date=DateTime.Parse(reader[0].ToString());
+						if (date.Month != 10) {
+							com=String.Format("DELETE FROM DATA WHERE data_date='{0}' and object={1} and objtype={2} and item={3} and parnumber={4} and season={5}",
+								date.ToString("yyyy-MM-dd HH:mm:ss"), reader[1], reader[2], reader[3], reader[4], reader[7]);
+							deletes.Add(com);
+							
+						}
+					}
 				}
+				reader.Close();
+				foreach (string c in deletes) {
+					SqlCommand command1 = con.CreateCommand();
+					command1.CommandType = System.Data.CommandType.Text;
+					command1.CommandText = c;
+					command1.CommandTimeout = 60;
+					command1.ExecuteNonQuery();
+				}
+
+				//Logger.Info("--finish");
+			} catch (Exception e) {
+				Logger.Info(e.Message);
+			} finally {
+				try { con.Close(); } catch { }
+			}
+		}
+
+		public static void RefreshSeason(DateTime dateStart, DateTime dateEnd, string DBName) {
+			Logger.Info(String.Format("{0} - {1}", dateStart, dateEnd));
+			int season1=DBSettings.getSeason(dateStart);
+			int season2=DBSettings.getSeason(dateEnd);
+			if (season1 != season2) {
+				DateTime dt=dateStart.AddHours(0);
+				while (DBSettings.getSeason(dt)==season1) {
+					dt = dt.AddMinutes(30);
+				}
+				dt = dt.AddMinutes(-30);
+				RefreshSeason(dateStart, dt,DBName);
+				RefreshSeason(dt.AddMinutes(30), dateEnd, DBName);
+				return;
+			}
+			SqlConnection con=null;
+			List<string> deletes=new List<string>();
+			try {
+				con = PiramidaAccess.getConnection(DBName);
+				con.Open();
+
+				SqlCommand command=con.CreateCommand();
+				command.CommandType = System.Data.CommandType.Text;
+				string com=String.Format("UPDATE DATA SET SEASON={0} WHERE data_date>='{1}' and data_date<='{2}' and season=0",
+						DBSettings.getSeason(dateStart), dateStart.ToString("yyyy-MM-dd HH:mm:ss"), dateEnd.ToString("yyyy-MM-dd HH:mm:ss"));
+				command.CommandText = com;
+				command.CommandTimeout = 60;
+				command.ExecuteNonQuery();
 
 				Logger.Info("--finish");
 			} catch (Exception e) {
@@ -48,6 +102,8 @@ namespace ClearDB
 				try { con.Close(); } catch { }
 			}
 		}
+
+
 
 		public static void run(string com, string name = "", string DBName="P3000") {
 			SqlConnection con=null;

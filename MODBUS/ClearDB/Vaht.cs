@@ -40,7 +40,7 @@ namespace ClearDB
 			foreach (DateTime date in data.Keys) {
 				foreach (int item in data[date].Keys) {
 					insertsStrings.Add(String.Format(DBClass.InsertInfoFormat, 312, 0, item, data[date][item], 2,
-						date.ToString(DBClass.DateFormat), DateTime.Now.ToString(DBClass.DateFormat), 0));
+						date.ToString(DBClass.DateFormat), DateTime.Now.ToString(DBClass.DateFormat), DBSettings.getSeason(date)));
 				}
 				dates.Add(String.Format("'{0}'", date.ToString(DBClass.DateFormat)));
 			}

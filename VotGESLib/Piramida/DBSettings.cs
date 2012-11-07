@@ -42,5 +42,16 @@ namespace VotGES.Piramida
 				settings.DBInfoList.Add(dbInfo.ID, dbInfo);
 			}
 		}
+
+		public static int getSeason(DateTime date) {
+			int summer=date.IsDaylightSavingTime() ? 1 : 0;
+			int season=date.Year * 2;
+			if (date.IsDaylightSavingTime()) {
+				season++;
+			} else if (date.Month>6) {
+				season += 2;
+			}
+			return season;
+		}
 	}
 }

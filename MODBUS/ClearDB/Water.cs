@@ -86,9 +86,9 @@ namespace ClearDB
 				}
 				DataRec.calc();
 				dates.Add(String.Format("'{0}'", DataRec.Date.ToString(DBClass.DateFormat)));
-				string ins1=String.Format(DBClass.InsertInfoFormat, 12, 10, 1, DataRec.Q_OPT_GES, 2, DataRec.Date.ToString(DBClass.DateFormat), DateTime.Now.ToString(DBClass.DateFormat), 0);
-				string ins2=String.Format(DBClass.InsertInfoFormat, 12, 10, 2, DataRec.Q_OPT_GTP1, 2, DataRec.Date.ToString(DBClass.DateFormat), DateTime.Now.ToString(DBClass.DateFormat), 0);
-				string ins3=String.Format(DBClass.InsertInfoFormat, 12, 10, 3, DataRec.Q_OPT_GTP2, 2, DataRec.Date.ToString(DBClass.DateFormat), DateTime.Now.ToString(DBClass.DateFormat), 0);
+				string ins1=String.Format(DBClass.InsertInfoFormat, 12, 10, 1, DataRec.Q_OPT_GES, 2, DataRec.Date.ToString(DBClass.DateFormat), DateTime.Now.ToString(DBClass.DateFormat), DBSettings.getSeason(DataRec.Date));
+				string ins2=String.Format(DBClass.InsertInfoFormat, 12, 10, 2, DataRec.Q_OPT_GTP1, 2, DataRec.Date.ToString(DBClass.DateFormat), DateTime.Now.ToString(DBClass.DateFormat), DBSettings.getSeason(DataRec.Date));
+				string ins3=String.Format(DBClass.InsertInfoFormat, 12, 10, 3, DataRec.Q_OPT_GTP2, 2, DataRec.Date.ToString(DBClass.DateFormat), DateTime.Now.ToString(DBClass.DateFormat), DBSettings.getSeason(DataRec.Date));
 				insertsStrings.Add(ins1);
 				insertsStrings.Add(ins2);
 				insertsStrings.Add(ins3);
@@ -241,7 +241,7 @@ namespace ClearDB
 				}
 
 				foreach (KeyValuePair<int,double>de in rec.Value) {
-					string ins1=String.Format(DBClass.InsertInfoFormat, 12, 1, de.Key, de.Value, 2, rec.Key.ToString(DBClass.DateFormat), rec.Key.ToString(DBClass.DateFormat), 0);
+					string ins1=String.Format(DBClass.InsertInfoFormat, 12, 1, de.Key, de.Value, 2, rec.Key.ToString(DBClass.DateFormat), rec.Key.ToString(DBClass.DateFormat), DBSettings.getSeason(rec.Key));
 					insertsStrings.Add(ins1);
 				}
 

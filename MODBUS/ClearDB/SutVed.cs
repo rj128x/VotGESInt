@@ -219,7 +219,7 @@ namespace ClearDB
 			foreach (SutVedRecord record in Data) {
 				foreach (KeyValuePair<int,double> de in record.Data) {
 					insertsStrings.Add(String.Format(DBClass.InsertInfoFormat, 26, 7, de.Key, de.Value, 2,
-						record.Date.AddDays(1).ToString(DBClass.DateFormat), DateTime.Now.ToString(DBClass.DateFormat), 0));
+						record.Date.AddDays(1).ToString(DBClass.DateFormat), DateTime.Now.ToString(DBClass.DateFormat), DBSettings.getSeason(record.Date.AddDays(1))));
 				}
 				dates.Add(String.Format("'{0}'", record.Date.AddDays(1).ToString(DBClass.DateFormat)));
 			}

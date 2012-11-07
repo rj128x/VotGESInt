@@ -23,7 +23,7 @@ namespace ClearDB
 			List<string> dates=new List<string>();
 			foreach (DateTime date in report.Dates) {
 				insertsStrings.Add(String.Format(DBClass.InsertInfoFormat,26,1,373,report[date,PiramidaRecords.Water_Temp.Key],2,
-					date.ToString(DBClass.DateFormat), DateTime.Now.ToString(DBClass.DateFormat), 0));
+					date.ToString(DBClass.DateFormat), DateTime.Now.ToString(DBClass.DateFormat), DBSettings.getSeason(date)));
 				dates.Add(String.Format("'{0}'",date.ToString(DBClass.DateFormat)));
 			}
 			List<string>ins=new List<string>();
