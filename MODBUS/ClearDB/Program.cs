@@ -98,23 +98,7 @@ namespace ClearDB
 						case "clear3000":
 							hh = 24;
 							ClearDB.Clear(date, date.AddHours(hh), "P3000");
-							break;
-						case "dupl":
-							hh = 10;
-							ClearDB.FindDupl(date, date.AddHours(hh), "P3000");
-							break;
-						case "season3000":
-							hh = 100;
-							ClearDB.RefreshSeason(date, date.AddHours(hh), "P3000");
-							break;
-						case "seasonSV":
-							hh = 10;
-							ClearDB.RefreshSeason(date, date.AddHours(hh), "PSV");
-							break;
-						case "seasonMin":
-							hh = 10;
-							ClearDB.RefreshSeason(date, date.AddHours(hh), "PMin");
-							break;
+							break;						
 						case "clearMin":
 							hh = 24;
 							ClearDB.Clear(date, date.AddHours(hh), "PMin");
