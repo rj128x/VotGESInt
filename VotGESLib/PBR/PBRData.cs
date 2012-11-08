@@ -6,7 +6,7 @@ using VotGES.Piramida;
 
 namespace VotGES.PBR
 {
-	public enum GTPEnum { gtp1 = 2, gtp2 = 3, ges = 1, rge4 = 1046, rge2 = 1703, rge3 = 1704 }
+	public enum GTPEnum { gtp1 = 2, gtp2 = 3, ges = 1, rge4 = 1046, rge2 = 1703, rge3 = 1704, rge1=1045 }
 	public class PBRData
 	{
 		public DateTime DateStart { get; protected set; }

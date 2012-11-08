@@ -96,7 +96,7 @@ namespace VotGES.Web.Services
 		public FullGraphVyrab getFullGraphVyrab() {
 			FullGraphVyrab answer=new FullGraphVyrab();
 			answer.GTP = getGraphVyrab();
-			answer.RGE = getGraphVyrabRGE();			
+			answer.RGE = getGraphVyrabRGE();
 			answer.TimeStopGA = PuskStopReportFull.TimeStopGA();
 			try {
 				List<PiramidaEnrty>list=PiramidaAccess.GetDataFromDB(DateTime.Now.AddHours(-4), DateTime.Now.AddHours(-2), 1, 2, 12, (new int[] { 276 }).ToList(), true, true, "P3000");

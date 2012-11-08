@@ -77,29 +77,40 @@ namespace MainSL.Views
 		}
 
 		private void processGTP() {
-			if (tabChart.IsSelected) {
-				chartControl.Create(CurrentAnswer.GTP.Chart);
-				chartControl.Visibility = System.Windows.Visibility.Visible;
-			} else {
-				chartControl.Visibility = System.Windows.Visibility.Collapsed;
+			try {
+				if (tabChart.IsSelected) {
+					chartControl.Create(CurrentAnswer.GTP.Chart);
+					chartControl.Visibility = System.Windows.Visibility.Visible;
+				} else {
+					chartControl.Visibility = System.Windows.Visibility.Collapsed;
+				}
+			} catch (Exception e) {
+				//Logger.info("Ошибка при создании графика ГТП");
+				//Logger.info(e.ToString());
 			}
 		}
 
 		private void processRGE() {
-			if (tabChartRGE.IsSelected) {
-				chartControlRGE1.Create(CurrentAnswer.RGE.ChartRGE1);
-				chartControlRGE2.Create(CurrentAnswer.RGE.ChartRGE2);
-				chartControlRGE3.Create(CurrentAnswer.RGE.ChartRGE3);
-				chartControlRGE4.Create(CurrentAnswer.RGE.ChartRGE4);
-				chartControlRGE1.Visibility = System.Windows.Visibility.Visible;
-				chartControlRGE2.Visibility = System.Windows.Visibility.Visible;
-				chartControlRGE3.Visibility = System.Windows.Visibility.Visible;
-				chartControlRGE4.Visibility = System.Windows.Visibility.Visible;
-			} else {
-				chartControlRGE1.Visibility = System.Windows.Visibility.Collapsed;
-				chartControlRGE2.Visibility = System.Windows.Visibility.Collapsed;
-				chartControlRGE3.Visibility = System.Windows.Visibility.Collapsed;
-				chartControlRGE4.Visibility = System.Windows.Visibility.Collapsed;
+			try {
+				if (tabChartRGE.IsSelected) {
+
+					chartControlRGE1.Create(CurrentAnswer.RGE.ChartRGE1);
+					chartControlRGE2.Create(CurrentAnswer.RGE.ChartRGE2);
+					chartControlRGE3.Create(CurrentAnswer.RGE.ChartRGE3);
+					chartControlRGE4.Create(CurrentAnswer.RGE.ChartRGE4);
+					chartControlRGE1.Visibility = System.Windows.Visibility.Visible;
+					chartControlRGE2.Visibility = System.Windows.Visibility.Visible;
+					chartControlRGE3.Visibility = System.Windows.Visibility.Visible;
+					chartControlRGE4.Visibility = System.Windows.Visibility.Visible;
+				} else {
+					chartControlRGE1.Visibility = System.Windows.Visibility.Collapsed;
+					chartControlRGE2.Visibility = System.Windows.Visibility.Collapsed;
+					chartControlRGE3.Visibility = System.Windows.Visibility.Collapsed;
+					chartControlRGE4.Visibility = System.Windows.Visibility.Collapsed;
+				}
+			} catch (Exception e) {
+				//Logger.info("Ошибка при создании графика РГЕ");
+				//Logger.info(e.ToString());
 			}
 		}
 
@@ -113,27 +124,31 @@ namespace MainSL.Views
 					}
 					GlobalStatus.Current.StartProcess();
 					try {
-						txtActualDate.Text = "График нагрузки на " + oper.Value.GTP.ActualDate.ToString("HH:mm") + " (мск)";
+						try {
+							txtActualDate.Text = "График нагрузки на " + oper.Value.GTP.ActualDate.ToString("HH:mm") + " (мск)";
+						} catch { }
 						pnlSettings.DataContext = oper.Value;
 						CurrentAnswer = oper.Value;
-						try {
-							processGTP();
-						} catch { }
-						try {
-							processRGE();
-						} catch { }
+						
+						processGTP();
+						processRGE();
 
-						Dictionary<int,string> stopTime=oper.Value.TimeStopGA;
-						txtSropGA1.Text = stopTime[1];
-						txtSropGA2.Text = stopTime[2];
-						txtSropGA3.Text = stopTime[3];
-						txtSropGA4.Text = stopTime[4];
-						txtSropGA5.Text = stopTime[5];
-						txtSropGA6.Text = stopTime[6];
-						txtSropGA7.Text = stopTime[7];
-						txtSropGA8.Text = stopTime[8];
-						txtSropGA9.Text = stopTime[9];
-						txtSropGA10.Text = stopTime[10];
+						try {
+							Dictionary<int,string> stopTime=oper.Value.TimeStopGA;
+							txtSropGA1.Text = stopTime[1];
+							txtSropGA2.Text = stopTime[2];
+							txtSropGA3.Text = stopTime[3];
+							txtSropGA4.Text = stopTime[4];
+							txtSropGA5.Text = stopTime[5];
+							txtSropGA6.Text = stopTime[6];
+							txtSropGA7.Text = stopTime[7];
+							txtSropGA8.Text = stopTime[8];
+							txtSropGA9.Text = stopTime[9];
+							txtSropGA10.Text = stopTime[10];
+						} catch (Exception e) {
+							Logger.info("Ошибка при обработке пусков-остановов");
+							Logger.info(e.ToString());
+						}
 
 					} catch (Exception ex) {
 						Logging.Logger.info(ex.ToString());

@@ -96,7 +96,7 @@ namespace VotGES.PBR
 			GraphVyrabRGEAnswer answer=new GraphVyrabRGEAnswer();
 
 
-			PBRData rge1=new PBRData(dateStart, dateEnd, date, GTPEnum.gtp1);
+			PBRData rge1=new PBRData(dateStart, dateEnd, date, GTPEnum.rge1);
 			PBRData rge2=new PBRData(dateStart, dateEnd, date, GTPEnum.rge2);
 			PBRData rge3=new PBRData(dateStart, dateEnd, date, GTPEnum.rge3);
 			PBRData rge4=new PBRData(dateStart, dateEnd, date, GTPEnum.rge4);
@@ -150,16 +150,16 @@ namespace VotGES.PBR
 
 
 			answer.ChartRGE1.Data.addSerie(getDataSerie("Fakt", rge1.RealP, -1));
-			answer.ChartRGE1.Data.addSerie(getDataSerie("Plan", rge1.SteppedPBR, -1));
+			answer.ChartRGE1.Data.addSerie(getDataSerie("Plan", rge1.SteppedPBR, 0));
 
 			answer.ChartRGE2.Data.addSerie(getDataSerie("Fakt", rge2.RealP, -1));
-			answer.ChartRGE2.Data.addSerie(getDataSerie("Plan", rge2.SteppedPBR, -1));
+			answer.ChartRGE2.Data.addSerie(getDataSerie("Plan", rge2.SteppedPBR, 0));
 
 			answer.ChartRGE3.Data.addSerie(getDataSerie("Fakt", rge3.RealP, -1));
-			answer.ChartRGE3.Data.addSerie(getDataSerie("Plan", rge3.SteppedPBR, -1));
+			answer.ChartRGE3.Data.addSerie(getDataSerie("Plan", rge3.SteppedPBR, 0));
 
 			answer.ChartRGE4.Data.addSerie(getDataSerie("Fakt", rge4.RealP, -1));
-			answer.ChartRGE4.Data.addSerie(getDataSerie("Plan", rge4.SteppedPBR, -1));
+			answer.ChartRGE4.Data.addSerie(getDataSerie("Plan", rge4.SteppedPBR, 0));
 
 			answer.ChartRGE1.processAxes();
 			answer.ChartRGE2.processAxes();
@@ -176,7 +176,7 @@ namespace VotGES.PBR
 			CheckGraphVyrabRGEAnswer answer=new CheckGraphVyrabRGEAnswer();
 
 
-			PBRDataHH rge1=new PBRDataHH(dateStart, dateEnd, GTPEnum.gtp1);
+			PBRDataHH rge1=new PBRDataHH(dateStart, dateEnd, GTPEnum.rge1);
 			PBRDataHH rge2=new PBRDataHH(dateStart, dateEnd, GTPEnum.rge2);
 			PBRDataHH rge3=new PBRDataHH(dateStart, dateEnd, GTPEnum.rge3);
 			PBRDataHH rge4=new PBRDataHH(dateStart, dateEnd, GTPEnum.rge4);
