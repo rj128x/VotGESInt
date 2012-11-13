@@ -36,6 +36,7 @@ namespace MainSL.Views
 			context = new GraphVyrabDomainContext();
 			pnlSettings.DataContext = CurrentAnswer;
 			settings = new SettingsGraphVyab();
+			chbIsSteppedPBR.IsChecked = true;
 			settings.Second = 60;
 			settings.AutoRefresh = false;
 			pnlRefresh.DataContext = settings;
@@ -117,7 +118,7 @@ namespace MainSL.Views
 		private void refresh() {
 			if (GlobalStatus.Current.IsBusy)
 				return;			
-			InvokeOperation currentOper=context.getFullGraphVyrab(
+			InvokeOperation currentOper=context.getFullGraphVyrab(chbIsSteppedPBR.IsChecked.Value,
 				oper => {
 					if (oper.IsCanceled) {
 						return;

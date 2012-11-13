@@ -240,6 +240,8 @@
 						</Border>
 						<Border Style="{StaticResource borderGray}" Margin="0,10,0,0" Name="pnlRefresh">
 							<StackPanel>
+								<CheckBox Content="График ступенями" Style="{StaticResource LabelChb}" HorizontalAlignment="Left"
+										 Name="chbIsSteppedPBR" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
 								<CheckBox Content="Обновлять автоматически" Style="{StaticResource LabelChb}" HorizontalAlignment="Right"
 										 IsChecked="{Binding AutoRefresh, Mode=TwoWay}" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
 								<StackPanel Orientation="Horizontal" Visibility="{Binding AutoRefresh, Converter={StaticResource visibilityConverter}}">

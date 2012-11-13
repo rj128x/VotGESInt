@@ -8,18 +8,18 @@ namespace VotGES.PBR
 {
 	public class GraphVyrabRGETableRow
 	{
-		public double RGE1{ get; set; }
-		public double RGE2{ get; set; }
-		public double RGE3{ get; set; }
-		public double RGE4{ get; set; }
+		public double RGE1 { get; set; }
+		public double RGE2 { get; set; }
+		public double RGE3 { get; set; }
+		public double RGE4 { get; set; }
 		public string Title { get; set; }
 		public string Format { get; set; }
 
 		public GraphVyrabRGETableRow(String title, double rge1, double rge2, double rge3, double rge4) {
-			RGE1=rge1;
-			RGE2=rge2;
-			RGE3=rge3;
-			RGE4=rge4;
+			RGE1 = rge1;
+			RGE2 = rge2;
+			RGE3 = rge3;
+			RGE4 = rge4;
 			Title = title;
 		}
 
@@ -29,7 +29,7 @@ namespace VotGES.PBR
 	}
 
 	public class GraphVyrabRGEAnswer
-	{		
+	{
 		public ChartAnswer ChartRGE1 { get; set; }
 		public ChartAnswer ChartRGE2 { get; set; }
 		public ChartAnswer ChartRGE3 { get; set; }
@@ -88,7 +88,7 @@ namespace VotGES.PBR
 
 	public class GraphVyrabRGE
 	{
-		public static GraphVyrabRGEAnswer getAnswer(DateTime date, bool calcTables = true) {
+		public static GraphVyrabRGEAnswer getAnswer(DateTime date, bool calcTables = true, bool steppedPBR=true) {
 			DateTime dateStart=date.Date;
 			DateTime dateEnd=date.Date.AddHours(24);
 			date = calcTables ? date : dateEnd;
@@ -100,21 +100,25 @@ namespace VotGES.PBR
 			PBRData rge2=new PBRData(dateStart, dateEnd, date, GTPEnum.rge2);
 			PBRData rge3=new PBRData(dateStart, dateEnd, date, GTPEnum.rge3);
 			PBRData rge4=new PBRData(dateStart, dateEnd, date, GTPEnum.rge4);
-					
+			rge1.IsSteppedPBR = steppedPBR;
+			rge2.IsSteppedPBR = steppedPBR;
+			rge3.IsSteppedPBR = steppedPBR;
+			rge4.IsSteppedPBR = steppedPBR;
+
 			answer.ChartRGE1 = new ChartAnswer();
-			answer.ChartRGE1.Properties = getChartProperties(220);
+			answer.ChartRGE1.Properties = getChartProperties(220, steppedPBR);
 			answer.ChartRGE1.Data = new ChartData();
 
 			answer.ChartRGE2 = new ChartAnswer();
-			answer.ChartRGE2.Properties = getChartProperties(200);
+			answer.ChartRGE2.Properties = getChartProperties(200, steppedPBR);
 			answer.ChartRGE2.Data = new ChartData();
 
 			answer.ChartRGE3 = new ChartAnswer();
-			answer.ChartRGE3.Properties = getChartProperties(200);
+			answer.ChartRGE3.Properties = getChartProperties(200, steppedPBR);
 			answer.ChartRGE3.Data = new ChartData();
 
 			answer.ChartRGE4 = new ChartAnswer();
-			answer.ChartRGE4.Properties = getChartProperties(400);
+			answer.ChartRGE4.Properties = getChartProperties(400, steppedPBR);
 			answer.ChartRGE4.Data = new ChartData();
 
 
@@ -143,23 +147,23 @@ namespace VotGES.PBR
 				answer.TableHour.Add(new GraphVyrabRGETableRow("P план", Math.Round(rge1Hour["plan"]), Math.Round(rge2Hour["plan"]), Math.Round(rge3Hour["plan"]), Math.Round(rge4Hour["plan"])));
 				answer.TableHour.Add(new GraphVyrabRGETableRow("P факт", Math.Round(rge1Hour["fakt"]), Math.Round(rge2Hour["fakt"]), Math.Round(rge3Hour["fakt"]), Math.Round(rge4Hour["fakt"])));
 				answer.TableHour.Add(new GraphVyrabRGETableRow("P откл", rge1Hour["diff"], rge2Hour["diff"], rge3Hour["diff"], rge4Hour["diff"]));
-				answer.TableHour.Add(new GraphVyrabRGETableRow("P откл %", rge1Hour["diffProc"],rge2Hour["diffProc"], rge3Hour["diffProc"], rge4Hour["diffProc"]));
+				answer.TableHour.Add(new GraphVyrabRGETableRow("P откл %", rge1Hour["diffProc"], rge2Hour["diffProc"], rge3Hour["diffProc"], rge4Hour["diffProc"]));
 				answer.TableHour.Add(new GraphVyrabRGETableRow("P рек", Math.Round(rge1Hour["recP"]), Math.Round(rge2Hour["recP"]), Math.Round(rge3Hour["recP"]), Math.Round(rge4Hour["recP"])));
-		
+
 			}
 
 
 			answer.ChartRGE1.Data.addSerie(getDataSerie("Fakt", rge1.RealP, -1));
-			answer.ChartRGE1.Data.addSerie(getDataSerie("Plan", rge1.SteppedPBR, 0));
+			answer.ChartRGE1.Data.addSerie(getDataSerie("Plan", steppedPBR ? rge1.SteppedPBR : rge1.RealPBR, 0));
 
 			answer.ChartRGE2.Data.addSerie(getDataSerie("Fakt", rge2.RealP, -1));
-			answer.ChartRGE2.Data.addSerie(getDataSerie("Plan", rge2.SteppedPBR, 0));
+			answer.ChartRGE2.Data.addSerie(getDataSerie("Plan", steppedPBR ? rge2.SteppedPBR : rge2.RealPBR, 0));
 
 			answer.ChartRGE3.Data.addSerie(getDataSerie("Fakt", rge3.RealP, -1));
-			answer.ChartRGE3.Data.addSerie(getDataSerie("Plan", rge3.SteppedPBR, 0));
+			answer.ChartRGE3.Data.addSerie(getDataSerie("Plan", steppedPBR ? rge3.SteppedPBR : rge3.RealPBR, 0));
 
 			answer.ChartRGE4.Data.addSerie(getDataSerie("Fakt", rge4.RealP, -1));
-			answer.ChartRGE4.Data.addSerie(getDataSerie("Plan", rge4.SteppedPBR, 0));
+			answer.ChartRGE4.Data.addSerie(getDataSerie("Plan", steppedPBR ? rge4.SteppedPBR : rge4.RealPBR, 0));
 
 			answer.ChartRGE1.processAxes();
 			answer.ChartRGE2.processAxes();
@@ -180,21 +184,21 @@ namespace VotGES.PBR
 			PBRDataHH rge2=new PBRDataHH(dateStart, dateEnd, GTPEnum.rge2);
 			PBRDataHH rge3=new PBRDataHH(dateStart, dateEnd, GTPEnum.rge3);
 			PBRDataHH rge4=new PBRDataHH(dateStart, dateEnd, GTPEnum.rge4);
-			
+
 			answer.ChartRGE1 = new ChartAnswer();
-			answer.ChartRGE1.Properties = getChartProperties(220);
+			answer.ChartRGE1.Properties = getChartProperties(220,true);
 			answer.ChartRGE1.Data = new ChartData();
 
 			answer.ChartRGE2 = new ChartAnswer();
-			answer.ChartRGE2.Properties = getChartProperties(200);
+			answer.ChartRGE2.Properties = getChartProperties(200,true);
 			answer.ChartRGE2.Data = new ChartData();
 
 			answer.ChartRGE3 = new ChartAnswer();
-			answer.ChartRGE3.Properties = getChartProperties(200);
+			answer.ChartRGE3.Properties = getChartProperties(200,true);
 			answer.ChartRGE3.Data = new ChartData();
 
 			answer.ChartRGE4 = new ChartAnswer();
-			answer.ChartRGE4.Properties = getChartProperties(400);
+			answer.ChartRGE4.Properties = getChartProperties(400,true);
 			answer.ChartRGE4.Data = new ChartData();
 
 			rge1.InitData();
@@ -349,7 +353,7 @@ namespace VotGES.PBR
 			return serie;
 		}
 
-		public static ChartProperties getChartProperties(int max) {
+		public static ChartProperties getChartProperties(int max, bool steppedPBR) {
 			ChartProperties props=new ChartProperties();
 			props.XAxisType = XAxisTypeEnum.datetime;
 			props.XValueFormatString = "dd.MM HH:mm";
@@ -384,14 +388,14 @@ namespace VotGES.PBR
 			PlanSerie.Title = "План";
 			PlanSerie.TagName = "Plan";
 			PlanSerie.LineWidth = 1;
-			PlanSerie.SerieType = ChartSerieType.stepLine;
+			PlanSerie.SerieType = steppedPBR ? ChartSerieType.stepLine : ChartSerieType.line;
 			PlanSerie.YAxisIndex = 0;
 			PlanSerie.Enabled = true;
 
 			props.addSerie(FaktSerie);
 			props.addSerie(PlanSerie);
-			
-			
+
+
 
 			return props;
 		}

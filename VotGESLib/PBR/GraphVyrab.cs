@@ -80,7 +80,7 @@ namespace VotGES.PBR
 
 	public class GraphVyrab
 	{
-		public static GraphVyrabAnswer getAnswer(DateTime date, bool calcTables = true) {
+		public static GraphVyrabAnswer getAnswer(DateTime date, bool calcTables = true, bool steppedPBR=true) {
 			DateTime dateStart=date.Date;
 			DateTime dateEnd=date.Date.AddHours(24);
 			date = calcTables ? date : dateEnd;
@@ -91,9 +91,12 @@ namespace VotGES.PBR
 			PBRData ges=new PBRData(dateStart, dateEnd, date, GTPEnum.ges);
 			PBRData gtp1=new PBRData(dateStart, dateEnd, date, GTPEnum.gtp1);
 			PBRData gtp2=new PBRData(dateStart, dateEnd, date, GTPEnum.gtp2);
+			ges.IsSteppedPBR = steppedPBR;
+			gtp1.IsSteppedPBR = steppedPBR;
+			gtp2.IsSteppedPBR = steppedPBR;
 		
 			answer.Chart = new ChartAnswer();
-			answer.Chart.Properties = getChartProperties();
+			answer.Chart.Properties = getChartProperties(steppedPBR);
 			answer.Chart.Data = new ChartData();
 
 			gtp1.InitData();
@@ -132,9 +135,11 @@ namespace VotGES.PBR
 			answer.Chart.Data.addSerie(getDataSerie("gtp1Fakt", gtp1.RealP, -1));
 			answer.Chart.Data.addSerie(getDataSerie("gtp2Fakt", gtp2.RealP, -1));
 			answer.Chart.Data.addSerie(getDataSerie("gesFakt", ges.RealP, -1));
-			answer.Chart.Data.addSerie(getDataSerie("gtp1Plan", gtp1.SteppedPBR, 0));
-			answer.Chart.Data.addSerie(getDataSerie("gtp2Plan", gtp2.SteppedPBR, 0));
-			answer.Chart.Data.addSerie(getDataSerie("gesPlan", ges.SteppedPBR, 0));
+
+			
+			answer.Chart.Data.addSerie(getDataSerie("gtp1Plan", steppedPBR?gtp1.SteppedPBR:gtp1.RealPBR, 0));
+			answer.Chart.Data.addSerie(getDataSerie("gtp2Plan", steppedPBR?gtp2.SteppedPBR:gtp2.RealPBR, 0));
+			answer.Chart.Data.addSerie(getDataSerie("gesPlan", steppedPBR?ges.SteppedPBR:ges.RealPBR, 0));
 
 			answer.Chart.Data.addSerie(getDataSerie("vyrabPlan", ges.IntegratedPBR, -1));
 			answer.Chart.Data.addSerie(getDataSerie("vyrabFakt", ges.IntegratedP, -1));
@@ -154,7 +159,7 @@ namespace VotGES.PBR
 			PBRDataHH gtp2=new PBRDataHH(dateStart, dateEnd, GTPEnum.gtp2);
 
 			answer.Chart = new ChartAnswer();
-			answer.Chart.Properties = getChartProperties();
+			answer.Chart.Properties = getChartProperties(true);
 			answer.Chart.Data = new ChartData();
 
 			gtp1.InitData();
@@ -278,7 +283,7 @@ namespace VotGES.PBR
 			return serie;
 		}
 
-		public static ChartProperties getChartProperties() {
+		public static ChartProperties getChartProperties(bool steppedPBR) {
 			ChartProperties props=new ChartProperties();
 			props.XAxisType = XAxisTypeEnum.datetime;
 			props.XValueFormatString = "dd.MM HH:mm";
@@ -328,8 +333,8 @@ namespace VotGES.PBR
 			gtp1PlanSerie.Color = "0-255-0";
 			gtp1PlanSerie.Title = "ГТП-1 план";
 			gtp1PlanSerie.TagName = "gtp1Plan";
-			gtp1PlanSerie.LineWidth = 1;
-			gtp1PlanSerie.SerieType = ChartSerieType.stepLine;
+			gtp1PlanSerie.LineWidth = 1;			
+			gtp1PlanSerie.SerieType = steppedPBR?ChartSerieType.stepLine:ChartSerieType.line;			
 			gtp1PlanSerie.YAxisIndex = 0;
 			gtp1PlanSerie.Enabled = true;
 
@@ -338,7 +343,7 @@ namespace VotGES.PBR
 			gtp2PlanSerie.Title = "ГТП-2 план";
 			gtp2PlanSerie.TagName = "gtp2Plan";
 			gtp2PlanSerie.LineWidth = 1;
-			gtp2PlanSerie.SerieType = ChartSerieType.stepLine;
+			gtp2PlanSerie.SerieType = steppedPBR ? ChartSerieType.stepLine : ChartSerieType.line;
 			gtp2PlanSerie.YAxisIndex = 0;
 			gtp2PlanSerie.Enabled = true;
 
@@ -347,7 +352,7 @@ namespace VotGES.PBR
 			gesPlanSerie.Title = "ГЭС план";
 			gesPlanSerie.TagName = "gesPlan";
 			gesPlanSerie.LineWidth = 1;
-			gesPlanSerie.SerieType = ChartSerieType.stepLine;
+			gesPlanSerie.SerieType = steppedPBR ? ChartSerieType.stepLine : ChartSerieType.line;
 			gesPlanSerie.YAxisIndex = 0;
 			gesPlanSerie.Enabled = false;
 

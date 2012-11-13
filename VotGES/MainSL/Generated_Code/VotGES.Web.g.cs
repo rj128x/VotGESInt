@@ -6443,45 +6443,57 @@ namespace VotGES.Web.Services
         /// <summary>
         /// Асинхронно вызывает метод "getFullGraphVyrab" службы DomainService.
         /// </summary>
+        /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<FullGraphVyrab> getFullGraphVyrab(Action<InvokeOperation<FullGraphVyrab>> callback, object userState)
+        public InvokeOperation<FullGraphVyrab> getFullGraphVyrab(bool steppedPBR, Action<InvokeOperation<FullGraphVyrab>> callback, object userState)
         {
-            this.ValidateMethod("getFullGraphVyrab", null);
-            return ((InvokeOperation<FullGraphVyrab>)(this.InvokeOperation("getFullGraphVyrab", typeof(FullGraphVyrab), null, true, callback, userState)));
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("steppedPBR", steppedPBR);
+            this.ValidateMethod("getFullGraphVyrab", parameters);
+            return ((InvokeOperation<FullGraphVyrab>)(this.InvokeOperation("getFullGraphVyrab", typeof(FullGraphVyrab), parameters, true, callback, userState)));
         }
         
         /// <summary>
         /// Асинхронно вызывает метод "getFullGraphVyrab" службы DomainService.
         /// </summary>
+        /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<FullGraphVyrab> getFullGraphVyrab()
+        public InvokeOperation<FullGraphVyrab> getFullGraphVyrab(bool steppedPBR)
         {
-            this.ValidateMethod("getFullGraphVyrab", null);
-            return ((InvokeOperation<FullGraphVyrab>)(this.InvokeOperation("getFullGraphVyrab", typeof(FullGraphVyrab), null, true, null, null)));
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("steppedPBR", steppedPBR);
+            this.ValidateMethod("getFullGraphVyrab", parameters);
+            return ((InvokeOperation<FullGraphVyrab>)(this.InvokeOperation("getFullGraphVyrab", typeof(FullGraphVyrab), parameters, true, null, null)));
         }
         
         /// <summary>
         /// Асинхронно вызывает метод "getGraphVyrab" службы DomainService.
         /// </summary>
+        /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<GraphVyrabAnswer> getGraphVyrab(Action<InvokeOperation<GraphVyrabAnswer>> callback, object userState)
+        public InvokeOperation<GraphVyrabAnswer> getGraphVyrab(bool steppedPBR, Action<InvokeOperation<GraphVyrabAnswer>> callback, object userState)
         {
-            this.ValidateMethod("getGraphVyrab", null);
-            return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrab", typeof(GraphVyrabAnswer), null, true, callback, userState)));
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("steppedPBR", steppedPBR);
+            this.ValidateMethod("getGraphVyrab", parameters);
+            return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrab", typeof(GraphVyrabAnswer), parameters, true, callback, userState)));
         }
         
         /// <summary>
         /// Асинхронно вызывает метод "getGraphVyrab" службы DomainService.
         /// </summary>
+        /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<GraphVyrabAnswer> getGraphVyrab()
+        public InvokeOperation<GraphVyrabAnswer> getGraphVyrab(bool steppedPBR)
         {
-            this.ValidateMethod("getGraphVyrab", null);
-            return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrab", typeof(GraphVyrabAnswer), null, true, null, null)));
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("steppedPBR", steppedPBR);
+            this.ValidateMethod("getGraphVyrab", parameters);
+            return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrab", typeof(GraphVyrabAnswer), parameters, true, null, null)));
         }
         
         /// <summary>
@@ -6516,13 +6528,15 @@ namespace VotGES.Web.Services
         /// Асинхронно вызывает метод "getGraphVyrabMin" службы DomainService.
         /// </summary>
         /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<GraphVyrabAnswer> getGraphVyrabMin(DateTime date, Action<InvokeOperation<GraphVyrabAnswer>> callback, object userState)
+        public InvokeOperation<GraphVyrabAnswer> getGraphVyrabMin(DateTime date, bool steppedPBR, Action<InvokeOperation<GraphVyrabAnswer>> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("date", date);
+            parameters.Add("steppedPBR", steppedPBR);
             this.ValidateMethod("getGraphVyrabMin", parameters);
             return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrabMin", typeof(GraphVyrabAnswer), parameters, true, callback, userState)));
         }
@@ -6531,11 +6545,13 @@ namespace VotGES.Web.Services
         /// Асинхронно вызывает метод "getGraphVyrabMin" службы DomainService.
         /// </summary>
         /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<GraphVyrabAnswer> getGraphVyrabMin(DateTime date)
+        public InvokeOperation<GraphVyrabAnswer> getGraphVyrabMin(DateTime date, bool steppedPBR)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("date", date);
+            parameters.Add("steppedPBR", steppedPBR);
             this.ValidateMethod("getGraphVyrabMin", parameters);
             return ((InvokeOperation<GraphVyrabAnswer>)(this.InvokeOperation("getGraphVyrabMin", typeof(GraphVyrabAnswer), parameters, true, null, null)));
         }
@@ -6543,23 +6559,29 @@ namespace VotGES.Web.Services
         /// <summary>
         /// Асинхронно вызывает метод "getGraphVyrabRGE" службы DomainService.
         /// </summary>
+        /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<GraphVyrabRGEAnswer> getGraphVyrabRGE(Action<InvokeOperation<GraphVyrabRGEAnswer>> callback, object userState)
+        public InvokeOperation<GraphVyrabRGEAnswer> getGraphVyrabRGE(bool steppedPBR, Action<InvokeOperation<GraphVyrabRGEAnswer>> callback, object userState)
         {
-            this.ValidateMethod("getGraphVyrabRGE", null);
-            return ((InvokeOperation<GraphVyrabRGEAnswer>)(this.InvokeOperation("getGraphVyrabRGE", typeof(GraphVyrabRGEAnswer), null, true, callback, userState)));
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("steppedPBR", steppedPBR);
+            this.ValidateMethod("getGraphVyrabRGE", parameters);
+            return ((InvokeOperation<GraphVyrabRGEAnswer>)(this.InvokeOperation("getGraphVyrabRGE", typeof(GraphVyrabRGEAnswer), parameters, true, callback, userState)));
         }
         
         /// <summary>
         /// Асинхронно вызывает метод "getGraphVyrabRGE" службы DomainService.
         /// </summary>
+        /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<GraphVyrabRGEAnswer> getGraphVyrabRGE()
+        public InvokeOperation<GraphVyrabRGEAnswer> getGraphVyrabRGE(bool steppedPBR)
         {
-            this.ValidateMethod("getGraphVyrabRGE", null);
-            return ((InvokeOperation<GraphVyrabRGEAnswer>)(this.InvokeOperation("getGraphVyrabRGE", typeof(GraphVyrabRGEAnswer), null, true, null, null)));
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("steppedPBR", steppedPBR);
+            this.ValidateMethod("getGraphVyrabRGE", parameters);
+            return ((InvokeOperation<GraphVyrabRGEAnswer>)(this.InvokeOperation("getGraphVyrabRGE", typeof(GraphVyrabRGEAnswer), parameters, true, null, null)));
         }
         
         /// <summary>
@@ -6594,13 +6616,15 @@ namespace VotGES.Web.Services
         /// Асинхронно вызывает метод "getGraphVyrabRGEMin" службы DomainService.
         /// </summary>
         /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
         /// <param name="callback">Функция обратного вызова вызывается после завершения операции.</param>
         /// <param name="userState">Параметр для передачи в функцию обратного вызова. Может быть равен <c>null</c>.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<GraphVyrabRGEAnswer> getGraphVyrabRGEMin(DateTime date, Action<InvokeOperation<GraphVyrabRGEAnswer>> callback, object userState)
+        public InvokeOperation<GraphVyrabRGEAnswer> getGraphVyrabRGEMin(DateTime date, bool steppedPBR, Action<InvokeOperation<GraphVyrabRGEAnswer>> callback, object userState)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("date", date);
+            parameters.Add("steppedPBR", steppedPBR);
             this.ValidateMethod("getGraphVyrabRGEMin", parameters);
             return ((InvokeOperation<GraphVyrabRGEAnswer>)(this.InvokeOperation("getGraphVyrabRGEMin", typeof(GraphVyrabRGEAnswer), parameters, true, callback, userState)));
         }
@@ -6609,11 +6633,13 @@ namespace VotGES.Web.Services
         /// Асинхронно вызывает метод "getGraphVyrabRGEMin" службы DomainService.
         /// </summary>
         /// <param name="date">Значение параметра "date" для данного действия.</param>
+        /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
         /// <returns>Экземпляр операции, который может быть использован для управления асинхронным запросом.</returns>
-        public InvokeOperation<GraphVyrabRGEAnswer> getGraphVyrabRGEMin(DateTime date)
+        public InvokeOperation<GraphVyrabRGEAnswer> getGraphVyrabRGEMin(DateTime date, bool steppedPBR)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("date", date);
+            parameters.Add("steppedPBR", steppedPBR);
             this.ValidateMethod("getGraphVyrabRGEMin", parameters);
             return ((InvokeOperation<GraphVyrabRGEAnswer>)(this.InvokeOperation("getGraphVyrabRGEMin", typeof(GraphVyrabRGEAnswer), parameters, true, null, null)));
         }
@@ -6637,12 +6663,13 @@ namespace VotGES.Web.Services
             /// <summary>
             /// Асинхронно вызывает операцию "getFullGraphVyrab".
             /// </summary>
+            /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
             /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
             /// <param name="asyncState">Необязательный объект состояния.</param>
             /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getFullGraphVyrabDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getFullGraphVyrab", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getFullGraphVyrabResponse")]
-            IAsyncResult BegingetFullGraphVyrab(AsyncCallback callback, object asyncState);
+            IAsyncResult BegingetFullGraphVyrab(bool steppedPBR, AsyncCallback callback, object asyncState);
             
             /// <summary>
             /// Завершает асинхронную операцию, начатую "BegingetFullGraphVyrab".
@@ -6654,12 +6681,13 @@ namespace VotGES.Web.Services
             /// <summary>
             /// Асинхронно вызывает операцию "getGraphVyrab".
             /// </summary>
+            /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
             /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
             /// <param name="asyncState">Необязательный объект состояния.</param>
             /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrab", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabResponse")]
-            IAsyncResult BegingetGraphVyrab(AsyncCallback callback, object asyncState);
+            IAsyncResult BegingetGraphVyrab(bool steppedPBR, AsyncCallback callback, object asyncState);
             
             /// <summary>
             /// Завершает асинхронную операцию, начатую "BegingetGraphVyrab".
@@ -6690,12 +6718,13 @@ namespace VotGES.Web.Services
             /// Асинхронно вызывает операцию "getGraphVyrabMin".
             /// </summary>
             /// <param name="date">Значение параметра "date" для данного действия.</param>
+            /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
             /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
             /// <param name="asyncState">Необязательный объект состояния.</param>
             /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabMinDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabMin", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabMinResponse")]
-            IAsyncResult BegingetGraphVyrabMin(DateTime date, AsyncCallback callback, object asyncState);
+            IAsyncResult BegingetGraphVyrabMin(DateTime date, bool steppedPBR, AsyncCallback callback, object asyncState);
             
             /// <summary>
             /// Завершает асинхронную операцию, начатую "BegingetGraphVyrabMin".
@@ -6707,12 +6736,13 @@ namespace VotGES.Web.Services
             /// <summary>
             /// Асинхронно вызывает операцию "getGraphVyrabRGE".
             /// </summary>
+            /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
             /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
             /// <param name="asyncState">Необязательный объект состояния.</param>
             /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGEDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGE", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGEResponse")]
-            IAsyncResult BegingetGraphVyrabRGE(AsyncCallback callback, object asyncState);
+            IAsyncResult BegingetGraphVyrabRGE(bool steppedPBR, AsyncCallback callback, object asyncState);
             
             /// <summary>
             /// Завершает асинхронную операцию, начатую "BegingetGraphVyrabRGE".
@@ -6743,12 +6773,13 @@ namespace VotGES.Web.Services
             /// Асинхронно вызывает операцию "getGraphVyrabRGEMin".
             /// </summary>
             /// <param name="date">Значение параметра "date" для данного действия.</param>
+            /// <param name="steppedPBR">Значение параметра "steppedPBR" для данного действия.</param>
             /// <param name="callback">Функция обратного вызова вызывается после завершения.</param>
             /// <param name="asyncState">Необязательный объект состояния.</param>
             /// <returns>Интерфейс IAsyncResult, который может быть использован для отслеживания запроса.</returns>
             [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGEMinDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
             [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGEMin", ReplyAction="http://tempuri.org/GraphVyrabDomainService/getGraphVyrabRGEMinResponse")]
-            IAsyncResult BegingetGraphVyrabRGEMin(DateTime date, AsyncCallback callback, object asyncState);
+            IAsyncResult BegingetGraphVyrabRGEMin(DateTime date, bool steppedPBR, AsyncCallback callback, object asyncState);
             
             /// <summary>
             /// Завершает асинхронную операцию, начатую "BegingetGraphVyrabRGEMin".

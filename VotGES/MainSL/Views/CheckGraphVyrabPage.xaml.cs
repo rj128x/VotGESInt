@@ -28,6 +28,7 @@ namespace MainSL.Views
 			settings = new SettingsBase();
 			settings.Date = DateTime.Now.Date.AddHours(-24);
 			pnlSettings.DataContext = settings;
+			chbIsSteppedPBR.IsChecked = true;
 			context = new GraphVyrabDomainContext();
 
 			tabHHReport.Visibility = System.Windows.Visibility.Collapsed;
@@ -52,7 +53,7 @@ namespace MainSL.Views
 
 
 		private void btnMin_Click(object sender, RoutedEventArgs e) {
-			InvokeOperation currentOper=context.getGraphVyrabMin(settings.Date,
+			InvokeOperation currentOper=context.getGraphVyrabMin(settings.Date,chbIsSteppedPBR.IsChecked.Value,
 				oper => {
 					if (oper.IsCanceled) {
 						return;
@@ -112,7 +113,7 @@ namespace MainSL.Views
 		}
 
 		private void btnMinRGE_Click(object sender, RoutedEventArgs e) {
-			InvokeOperation currentOper=context.getGraphVyrabRGEMin(settings.Date,
+			InvokeOperation currentOper=context.getGraphVyrabRGEMin(settings.Date,chbIsSteppedPBR.IsChecked.Value,
 				oper => {
 					if (oper.IsCanceled) {
 						return;

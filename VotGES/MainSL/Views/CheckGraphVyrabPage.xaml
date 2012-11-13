@@ -48,6 +48,8 @@
 			
 			<Grid Name="pnlSettings" Grid.Column="1">
 				<StackPanel>
+					<CheckBox Content="График ступенями" Style="{StaticResource LabelChb}" HorizontalAlignment="Left"
+										 Name="chbIsSteppedPBR" IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
 					<sdk:Calendar Name="clnDate" SelectedDate="{Binding Date, Mode=TwoWay}"
 									  IsEnabled="{Binding IsBusy, Source={StaticResource globalStatus}, Converter={StaticResource logicNotConverter} }"/>
 					<Button Name="btnMin" Content="По минутам ГТП" Click="btnMin_Click"

@@ -23,6 +23,7 @@ namespace VotGES.PBR
 
 		public SortedList<DateTime, double> IntegratedP { get; protected set; }
 		public SortedList<DateTime, double> IntegratedPBR { get; protected set; }
+		public bool IsSteppedPBR { get; set; }
 
 
 
@@ -154,6 +155,36 @@ namespace VotGES.PBR
 			}
 		}
 
+		protected static double getDiffMin(DateTime start, DateTime end) {
+			double res=0;
+			res = (end.Ticks - start.Ticks) / (10000000.0 * 60.0);
+			res = res > 0 ? res : 0;
+			return res;
+		}
+
+		public void createMinutesPBRNotStair() {
+			DateTime date=DateStart;
+			double val=0;
+			while (date < DateEnd) {
+				DateTime prevDate=RealPBR.Last(de => de.Key <= date).Key;
+				DateTime nextDate=RealPBR.First(de => de.Key >= date).Key;
+				double prevVal=RealPBR[prevDate];
+				double nextVal=RealPBR[nextDate];
+				if (prevDate == date) {
+					val = prevVal;
+				} else if (nextDate == date) {
+					val = nextVal;
+				} else {
+					double diff=getDiffMin(prevDate, nextDate);
+					double diffDT=getDiffMin(prevDate, date);
+					val = prevVal + (nextVal-prevVal) / diff * diffDT;
+				}
+
+				MinutesPBR.Add(date.AddMinutes(1), val);
+				date = date.AddMinutes(1);
+			}
+		}
+
 		public void createIntegratedValues() {
 			double sum=0;
 			foreach (KeyValuePair<DateTime,double> de in MinutesPBR) {
@@ -247,7 +278,12 @@ namespace VotGES.PBR
 			readData(readFakt);
 			checkData();
 			createSteppedPBR();
-			createMinutesPBR();
+			if (IsSteppedPBR) {
+				createMinutesPBR();
+			} else {
+				createMinutesPBRNotStair();
+			}
+			
 			createIntegratedValues();
 			DateTime dt=SteppedPBR.Keys.First();
 			foreach (DateTime date in SteppedPBR.Keys) {
