@@ -29,7 +29,7 @@ namespace VotGES.Web.Services
 	{
 		public GraphVyrabAnswer getGraphVyrab(bool steppedPBR = true) {
 			try {
-				Logger.Info("Получение графика нагрузки");
+				Logger.Info("Получение графика нагрузки stairs:"+steppedPBR);
 				DateTime date=DateTime.Now.AddHours(-2);
 				return GraphVyrab.getAnswer(date, true,steppedPBR);
 			} catch (Exception e) {
@@ -40,7 +40,7 @@ namespace VotGES.Web.Services
 
 		public GraphVyrabAnswer getGraphVyrabMin(DateTime date,bool steppedPBR=true) {
 			try {
-				Logger.Info("Получение факта нагрузки по минутам"+date.ToString());
+				Logger.Info("Получение факта нагрузки по минутам "+date.ToString());
 				date = date.Date;
 				return GraphVyrab.getAnswer(date, false,steppedPBR);
 			} catch (Exception e) {
@@ -51,7 +51,7 @@ namespace VotGES.Web.Services
 
 		public CheckGraphVyrabAnswer getGraphVyrabHH(DateTime date) {
 			try {
-				Logger.Info("Получение факта нагрузки по получасовкам" + date.ToString());
+				Logger.Info("Получение факта нагрузки по получасовкам " + date.ToString());
 				date = date.Date;
 				return GraphVyrab.getAnswerHH(date);
 			} catch (Exception e) {
@@ -62,7 +62,7 @@ namespace VotGES.Web.Services
 
 		public GraphVyrabRGEAnswer getGraphVyrabRGE(bool steppedPBR = true) {
 			try {
-				Logger.Info("Получение графика нагрузки РГЕ");
+				Logger.Info("Получение графика нагрузки РГЕ stairs:" + steppedPBR);
 				DateTime date=DateTime.Now.AddHours(-2);
 				return GraphVyrabRGE.getAnswer(date, true,steppedPBR);
 			} catch (Exception e) {
@@ -73,7 +73,7 @@ namespace VotGES.Web.Services
 
 		public GraphVyrabRGEAnswer getGraphVyrabRGEMin(DateTime date,bool steppedPBR=true) {
 			try {
-				Logger.Info("Получение факта нагрузки по минутам РГЕ" + date.ToString());
+				Logger.Info("Получение факта нагрузки по минутам РГЕ " + date.ToString());
 				date = date.Date;
 				return GraphVyrabRGE.getAnswer(date, false,steppedPBR);
 			} catch (Exception e) {
@@ -84,7 +84,7 @@ namespace VotGES.Web.Services
 
 		public CheckGraphVyrabRGEAnswer getGraphVyrabRGEHH(DateTime date) {
 			try {
-				Logger.Info("Получение факта нагрузки по получасовкам РГЕ" + date.ToString());
+				Logger.Info("Получение факта нагрузки по получасовкам РГЕ " + date.ToString());
 				date = date.Date;
 				return GraphVyrabRGE.getAnswerHH(date);
 			} catch (Exception e) {
