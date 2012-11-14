@@ -29,7 +29,6 @@ namespace VotGES.Web.Services
 	{
 		public GraphVyrabAnswer getGraphVyrab(bool steppedPBR = true) {
 			try {
-				Logger.Info("Получение графика нагрузки stairs:"+steppedPBR);
 				DateTime date=DateTime.Now.AddHours(-2);
 				return GraphVyrab.getAnswer(date, true,steppedPBR);
 			} catch (Exception e) {
@@ -62,7 +61,6 @@ namespace VotGES.Web.Services
 
 		public GraphVyrabRGEAnswer getGraphVyrabRGE(bool steppedPBR = true) {
 			try {
-				Logger.Info("Получение графика нагрузки РГЕ stairs:" + steppedPBR);
 				DateTime date=DateTime.Now.AddHours(-2);
 				return GraphVyrabRGE.getAnswer(date, true,steppedPBR);
 			} catch (Exception e) {
@@ -94,6 +92,7 @@ namespace VotGES.Web.Services
 		}
 
 		public FullGraphVyrab getFullGraphVyrab(bool steppedPBR=true) {
+			Logger.Info("Получение графика нагрузки stairs:" + steppedPBR);
 			FullGraphVyrab answer=new FullGraphVyrab();
 			answer.GTP = getGraphVyrab(steppedPBR);
 			answer.RGE = getGraphVyrabRGE(steppedPBR);
