@@ -171,7 +171,7 @@ namespace ModbusLib
 				int index=0;
 				foreach (string valStr in valsArr) {
 					if (!isFirst) {
-						double val=0;
+						double val=Double.NaN;
 						try {
 							val = Convert.ToDouble(valStr);
 						} catch (Exception) {
