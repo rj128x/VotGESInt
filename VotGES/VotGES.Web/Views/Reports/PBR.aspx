@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<VotGES.PBR.PBRFull>" ContentType="application/vnd.ms-excel;"%>
+﻿<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<VotGES.PBR.PBRFull>" ContentType="application/vnd.ms-excel; charset=utf-8"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -73,7 +73,7 @@
 	 </style>
 </head>
 <body>
-	<h1>ПБР на <%=Model.Date.ToString("dd.MM.yyyy") %></h1>
+	<h1><%=Model.Date.ToString("dd.MM.yyyy") %></h1>
 	<table class='cifr'>
 		<tr>
 			<th rowspan='3'>Время</th>
